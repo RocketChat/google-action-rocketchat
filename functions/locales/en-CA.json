@@ -1,0 +1,56 @@
+{
+    "ERRORS": {
+        "v1": "Sorry, I can't understand the command. Please say again.",
+        "v2": "Sorry, I didn't get that. Could you say it again?."
+    },
+    "HELP": {
+        "MESSAGE": "This is the Google Action for rocket chat. Refer sample utterances file on GitHub."
+    },
+    "GOODBYE": {
+        "MESSAGE": "Thanks for using Rocket Chat."
+    },
+    "WELCOME": {
+        "SUCCESS": "Welcome To Rocket Chat Google Action. What Would you like to do today?",
+        "ERROR": "To start using this action, please link your account to authenticate."
+    },
+    "POST_MESSAGE": {
+        "SUCCESS": "I've sent your message.",
+        "ERROR": "Sorry, I couldn't send your message right now."
+    },
+    "CREATE_CHANNEL": {
+        "SUCCESS": "I've created your channel %s .",
+        "ERROR": "Sorry, I couldn't create the channel %s right now.",
+        "ERROR_DUPLICATE_NAME": "Sorry, the channel %s already exists. Please try again with different channel name.",
+        "ERROR_INVALID_NAME": "Sorry, %s is not a valid channel name. Please try again with a single word name for the channel."
+    },
+    "DELETE_CHANNEL": {
+        "SUCCESS": "I've deleted the channel %s.",
+        "ERROR": "Sorry, I couldn't delete the channel %s right now.",
+        "ERROR_NOT_FOUND": "Sorry, the channel %s does not exist. Please try again with different channel name."
+    },
+    "GET_LAST_MESSAGE_FROM_CHANNEL": {
+        "SUCCESS": "%s says, %s.",
+        "ERROR": "Sorry, I couldn't find the channel %s right now.",
+        "ERROR_NOT_FOUND": "Sorry, the channel %s does not exist. Please try again with different channel name."
+    },
+    "MAKE_MODERATOR": {
+        "SUCCESS": "%s is now the moderator of %s.",
+        "ERROR": "Sorry, I couldn't assign a moderator right now.",
+        "ERROR_NOT_FOUND": "Sorry, I couldn't assign a moderator to %s right now."
+    },
+    "ADD_ALL_TO_CHANNEL": {
+        "SUCCESS": "Added All Users To %s.",
+        "ERROR": "Sorry, I am unable to add all users to the channel right now.",
+        "ERROR_NOT_FOUND": "Sorry, I am unable to add all users to channel %s right now."
+    },
+    "ADD_OWNER": {
+        "SUCCESS": "%s is now the owner of %s.",
+        "ERROR": "Sorry, I couldn't assign a owner to the channel right now.",
+        "ERROR_NOT_FOUND": "Sorry, I couldn't assign a owner to channel %s right now."
+    },
+    "ARCHIVE_CHANNEL": {
+        "SUCCESS": "%s is now archived.",
+        "ERROR": "Sorry, I couldn't archive this channel right now.",
+        "ERROR_NOT_FOUND": "Sorry, I couldn't archive channel %s right now."
+    }
+  }

@@ -1,0 +1,25 @@
+{
+  "name": "google-action-rocketchat",
+  "description": "Innovating Communication Through VUI",
+  "version": "0.0.1",
+  "private": true,
+  "license": "Apache Version 2.0",
+  "author": "Prajval Raval",
+  "engines": {
+    "node": "8"
+  },
+  "scripts": {
+    "start": "firebase serve --only functions",
+    "deploy": "firebase deploy --only functions"
+  },
+  "dependencies": {
+    "actions-on-google": "^2.7.0",
+    "axios": "^0.18.0",
+    "firebase-admin": "^7.2.0",
+    "firebase-functions": "^2.2.1",
+    "i18n": "^0.8.3",
+    "moment": "^2.18.1",
+    "remove-whitespace": "^1.1.0",
+    "moji-translate": "^1.0.8"
+  }
+}

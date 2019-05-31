@@ -1,0 +1,56 @@
+{
+    "ERRORS": {
+        "v1": "Désolé, je ne comprends pas la commande. Répétez s'il vous pait.",
+        "v2": "Désolé, je n'ai pas compris ça. Pourriez-vous le répéter?"
+    },
+    "HELP": {
+        "MESSAGE": "Ceci est l'action de Google pour le chat de fusée. Référez-vous à l'exemple de fichier d'énoncés sur GitHub."
+    },
+    "GOODBYE": {
+        "MESSAGE": "Merci d'utiliser Rocket Chat."
+    },
+    "WELCOME": {
+        "SUCCESS": "Bienvenue sur Rocket Chat Google Action. Que voudrais tu faire aujourd'hui?",
+        "ERROR": "Pour commencer à utiliser cette action, veuillez associer votre compte pour vous authentifier."
+    },
+    "POST_MESSAGE": {
+        "SUCCESS": "J'ai envoyé votre message.",
+        "ERROR": "Désolé, je n'ai pas pu envoyer votre message maintenant."
+    },
+    "CREATE_CHANNEL": {
+        "SUCCESS": "J'ai créé votre chaîne %s.",
+        "ERROR": "Désolé, je n'ai pas pu créer le canal %s pour le moment.",
+        "ERROR_DUPLICATE_NAME": "Désolé, le canal %s existe déjà. Veuillez réessayer avec un nom de chaîne différent.",
+        "ERROR_INVALID_NAME": "Désolé, %s n'est pas un nom de chaîne valide. Veuillez réessayer avec un seul mot pour la chaîne."
+    },
+    "DELETE_CHANNEL": {
+        "SUCCESS": "J'ai supprimé le canal %s.",
+        "ERROR": "Désolé, je n'ai pas pu supprimer le canal %s pour le moment.",
+        "ERROR_NOT_FOUND": "Désolé, le canal %s n'existe pas. Veuillez réessayer avec un nom de chaîne différent."
+    },
+    "GET_LAST_MESSAGE_FROM_CHANNEL": {
+        "SUCCESS": "%s dit, %s.",
+        "ERROR": "Désolé, je n'ai pas trouvé le canal %s pour le moment.",
+        "ERROR_NOT_FOUND": "Désolé, le canal %s n'existe pas. Veuillez réessayer avec un nom de chaîne différent."
+    },
+    "MAKE_MODERATOR": {
+        "SUCCESS": "%s est maintenant le modérateur de %s.",
+        "ERROR": "Désolé, je n'ai pas pu assigner de modérateur pour le moment.",
+        "ERROR_NOT_FOUND": "Désolé, je ne pouvais pas affecter de modérateur à %s pour le moment."
+    },
+    "ADD_ALL_TO_CHANNEL": {
+        "SUCCESS": "Ajouté tous les utilisateurs à %s.",
+        "ERROR": "Désolé, je ne peux pas ajouter tous les utilisateurs à la chaîne pour le moment.",
+        "ERROR_NOT_FOUND": "Désolé, je ne peux pas ajouter tous les utilisateurs à la chaîne %s pour le moment."
+    },
+    "ADD_OWNER": {
+        "SUCCESS": "%s est maintenant le propriétaire de %s.",
+        "ERROR": "Désolé, je n'ai pas pu affecter un propriétaire à la chaîne pour le moment.",
+        "ERROR_NOT_FOUND": "Désolé, je n'ai pas pu affecter un propriétaire à la chaîne %s pour le moment."
+    },
+    "ARCHIVE_CHANNEL": {
+        "SUCCESS": "%s est maintenant archivé.",
+        "ERROR": "Désolé, je n'ai pas pu archiver cette chaîne pour le moment.",
+        "ERROR_NOT_FOUND": "Désolé, je ne pouvais pas archiver le canal %s pour le moment."
+    }
+  }
