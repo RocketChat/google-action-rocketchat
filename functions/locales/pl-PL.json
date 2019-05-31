@@ -1,0 +1,56 @@
+{
+    "ERRORS": {
+        "v1": "Przepraszam, nie mogę zrozumieć polecenia. Proszę powtórz",
+        "v2": "Przepraszam, nie zrozumiałem. Czy możesz to powtórzyć?"
+    },
+    "HELP": {
+        "MESSAGE": "To jest akcja Google na czat rakietowy. Zobacz przykładowy plik wypowiedzi na GitHub"
+    },
+    "GOODBYE": {
+        "MESSAGE": "Dziękujemy za skorzystanie z usługi Rocket Chat."
+    },
+    "WELCOME": {
+        "SUCCESS": "Witamy w Rocket Chat Google Action. Co chciałbyś dzisiaj robić?",
+        "ERROR": "Aby rozpocząć korzystanie z tej akcji, połącz swoje konto, aby uwierzytelnić."
+    },
+    "POST_MESSAGE": {
+        "SUCCESS": "Wysłałem twoją wiadomość.",
+        "ERROR": "Przepraszamy, nie mogłem teraz wysłać twojej wiadomości."
+    },
+    "CREATE_CHANNEL": {
+        "SUCCESS": "Stworzyłem twój kanał %s.",
+        "ERROR": "Niestety, nie mogę teraz utworzyć kanału %s",
+        "ERROR_DUPLICATE_NAME": "Przepraszamy, kanał %s już istnieje. Spróbuj ponownie z inną nazwą kanału.",
+        "ERROR_INVALID_NAME": "Przepraszamy, %s nie jest prawidłową nazwą kanału. Spróbuj ponownie, używając pojedynczego słowa dla kanału."
+    },
+    "DELETE_CHANNEL": {
+        "SUCCESS": "Usunąłem kanał %s",
+        "ERROR": "Niestety, nie mogę teraz usunąć kanału %s",
+        "ERROR_NOT_FOUND": "Przepraszamy, kanał %s nie istnieje. Spróbuj ponownie z inną nazwą kanału"
+    },
+    "GET_LAST_MESSAGE_FROM_CHANNEL": {
+        "SUCCESS": "%s mówi,%s",
+        "ERROR": "Niestety, nie mogę teraz znaleźć kanału %s",
+        "ERROR_NOT_FOUND": "Przepraszamy, kanał %s nie istnieje. Spróbuj ponownie z inną nazwą kanału"
+    },
+    "MAKE_MODERATOR": {
+        "SUCCESS": "%s jest teraz moderatorem %s",
+        "ERROR": "Przepraszamy, nie mogę teraz przypisać moderatora",
+        "ERROR_NOT_FOUND": "Przepraszamy, nie mogę teraz przypisać moderatora do %s"
+    },
+    "ADD_ALL_TO_CHANNEL": {
+        "SUCCESS": "Dodano wszystkich użytkowników do %s",
+        "ERROR": "Niestety, nie mogę teraz dodać wszystkich użytkowników do kanału",
+        "ERROR_NOT_FOUND": "Niestety, nie mogę teraz dodać wszystkich użytkowników do kanału %s"
+    },
+    "ADD_OWNER": {
+        "SUCCESS": "%s jest teraz właścicielem %s",
+        "ERROR": "Niestety, nie mogę teraz przypisać właściciela do kanału",
+        "ERROR_NOT_FOUND": "Niestety, nie mogę teraz przypisać właściciela do kanału %s"
+    },
+    "ARCHIVE_CHANNEL": {
+        "SUCCESS": "%s jest teraz zarchiwizowany",
+        "ERROR": "Przepraszamy, nie mogłem teraz zarchiwizować tego kanału",
+        "ERROR_NOT_FOUND": "Niestety, nie mogę teraz zarchiwizować kanału %s"
+    }
+  }

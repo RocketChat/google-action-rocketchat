@@ -1,0 +1,56 @@
+{
+    "ERRORS": {
+        "v1": "Maaf, saya tidak bisa mengerti perintahnya. Tolong katakan lagi.",
+        "v2": "Maaf, saya tidak mengerti. Bisakah Anda mengatakannya lagi?"
+    },
+    "HELP": {
+        "MESSAGE": "Ini adalah Google Action untuk obrolan roket. Merujuk file contoh ucapan di GitHub."
+    },
+    "GOODBYE": {
+        "MESSAGE": "Terima kasih telah menggunakan Obrolan Rocket."
+    },
+    "WELCOME": {
+        "SUCCESS": "Selamat Datang Di Rocket Chat Aksi Google. Apa yang akan kamu lakukan hari ini?",
+        "ERROR": "Untuk mulai menggunakan tindakan ini, tautkan akun Anda untuk mengautentikasi."
+    },
+    "POST_MESSAGE": {
+        "SUCCESS": "Saya sudah mengirim pesan Anda.",
+        "ERROR": "Maaf, saya tidak dapat mengirim pesan Anda sekarang."
+    },
+    "CREATE_CHANNEL": {
+        "SUCCESS": "Saya telah membuat saluran Anda %s",
+        "ERROR": "Maaf, saya tidak dapat membuat saluran %s sekarang.",
+        "ERROR_DUPLICATE_NAME": "Maaf, saluran %s sudah ada. Harap coba lagi dengan nama saluran yang berbeda.",
+        "ERROR_INVALID_NAME": "Maaf, %s bukan nama saluran yang valid. Harap coba lagi dengan satu kata kata untuk saluran tersebut."
+    },
+    "DELETE_CHANNEL": {
+        "SUCCESS": "Saya telah menghapus saluran %s",
+        "ERROR": "Maaf, saya tidak dapat menghapus saluran %s sekarang.",
+        "ERROR_NOT_FOUND": "Maaf, saluran %s tidak ada. Harap coba lagi dengan nama saluran yang berbeda."
+    },
+    "GET_LAST_MESSAGE_FROM_CHANNEL": {
+        "SUCCESS": "%s mengatakan, %s",
+        "ERROR": "Maaf, saya tidak dapat menemukan saluran %s sekarang.",
+        "ERROR_NOT_FOUND": "Maaf, saluran %s tidak ada. Harap coba lagi dengan nama saluran yang berbeda."
+    },
+    "MAKE_MODERATOR": {
+        "SUCCESS": "%s sekarang merupakan moderator dari %s",
+        "ERROR": "Maaf, saya tidak dapat menetapkan moderator sekarang.",
+        "ERROR_NOT_FOUND": "Maaf, saya tidak dapat menetapkan moderator ke %s sekarang."
+    },
+    "ADD_ALL_TO_CHANNEL": {
+        "SUCCESS": "Menambahkan Semua Pengguna Ke %s",
+        "ERROR": "Maaf, saya tidak dapat menambahkan semua pengguna ke saluran sekarang.",
+        "ERROR_NOT_FOUND": "Maaf, saya tidak dapat menambahkan semua pengguna ke saluran %s sekarang."
+    },
+    "ADD_OWNER": {
+        "SUCCESS": "%s sekarang adalah pemilik %s",
+        "ERROR": "Maaf, saya tidak dapat menetapkan pemilik ke saluran sekarang.",
+        "ERROR_NOT_FOUND": "Maaf, saya tidak dapat menetapkan pemilik ke saluran %s sekarang."
+    },
+    "ARCHIVE_CHANNEL": {
+        "SUCCESS": "%s sekarang sudah diarsipkan.",
+        "ERROR": "Maaf, saya tidak dapat mengarsipkan saluran ini sekarang.",
+        "ERROR_NOT_FOUND": "Maaf, saya tidak dapat mengarsipkan saluran %s sekarang."
+    }
+  }

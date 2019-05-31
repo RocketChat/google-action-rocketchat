@@ -1,0 +1,121 @@
+{
+    "ERRORS": {
+        "v1": "Desculpe, não consigo entender o comando. Por favor, repita.",
+        "v2": "Desculpe, eu não entendi. Você poderia dizer isso de novo?"
+    },
+    "HELP": {
+        "MESSAGE": "Esta é a ação do Google para o bate-papo com foguetes. Consulte o arquivo de declarações de amostra no GitHub."
+    },
+    "GOODBYE": {
+        "MESSAGE": "Obrigado por usar o Rocket Chat."
+    },
+    "WELCOME": {
+        "SUCCESS": "Bem-vindo ao Rocket Chat Google Action. O que você gostaria de fazer hoje?",
+        "ERROR": "Para começar a usar essa ação, vincule sua conta para autenticar."
+    },
+    "POST_MESSAGE": {
+        "SUCCESS": "Eu enviei sua mensagem.",
+        "ERROR": "Desculpe, não consegui enviar sua mensagem agora."
+    },
+    "CREATE_CHANNEL": {
+        "SUCCESS": "Eu criei seu canal %s.",
+        "ERROR": "Desculpe, não consegui criar o canal %s agora.",
+        "ERROR_DUPLICATE_NAME": "Desculpe, o canal %s já existe. Por favor, tente novamente com o nome do canal diferente.",
+        "ERROR_INVALID_NAME": "Desculpe, %s não é um nome de canal válido. Por favor, tente novamente com um único nome de palavra para o canal."
+    },
+    "DELETE_CHANNEL": {
+        "SUCCESS": "Eu deletei o canal %s.",
+        "ERROR": "Desculpe, não foi possível excluir o canal %s agora.",
+        "ERROR_NOT_FOUND": "Desculpe, o canal %s não existe. Por favor, tente novamente com o nome do canal diferente."
+    },
+    "GET_LAST_MESSAGE_FROM_CHANNEL": {
+        "SUCCESS": " %s diz %s.",
+        "ERROR": "Desculpe, não encontrei o canal %s agora.",
+        "ERROR_NOT_FOUND": "Desculpe, o canal %s não existe. Por favor, tente novamente com o nome do canal diferente."
+    },
+    "MAKE_MODERATOR": {
+        "SUCCESS": " %s é agora o moderador de %s.",
+        "ERROR": "Desculpe, não consegui atribuir um moderador agora.",
+        "ERROR_NOT_FOUND": "Não foi possível atribuir um moderador a %s agora."
+    },
+    "ADD_ALL_TO_CHANNEL": {
+        "SUCCESS": "Adicionou todos os usuários a %s.",
+        "ERROR": "Desculpe, não é possível adicionar todos os usuários ao canal no momento.",
+        "ERROR_NOT_FOUND": "Desculpe, não é possível adicionar todos os usuários ao canal %s agora."
+    },
+    "ADD_OWNER": {
+        "SUCCESS": " %s agora é o proprietário de %s.",
+        "ERROR": "Desculpe, não consegui atribuir um proprietário ao canal agora.",
+        "ERROR_NOT_FOUND": "Desculpe, não consegui atribuir um proprietário ao canal %s agora."
+    },
+    "ARCHIVE_CHANNEL": {
+        "SUCCESS": " %s agora está arquivado.",
+        "ERROR": "Desculpe, não consegui arquivar este canal agora.",
+        "ERROR_NOT_FOUND": "Desculpe, não foi possível arquivar o canal %s agora."
+    },
+    "GET_UNREAD_MESSAGES_FROM_CHANNEL":{
+        "NO_MESSAGE" : "Você não tem nenhuma mensagem não lida.",
+        "MESSAGE" : "<speak> Você tem %s mensagens não lidas <break time=\"1\" /> <p> %s </p> </speak>",
+        "ERROR": "Desculpe, não consegui receber suas mensagens não lidas agora",
+        "ERROR_NOT_FOUND": "Desculpe, o canal %s não existe. Por favor, tente novamente com o nome do canal diferente."
+    },
+    "INVITE_USER_TO_CHANNEL":{
+        "SUCCESS": "%s é convidado para o canal %s",
+        "ERROR": "Desculpe, não pude convidar o usuário %s para o canal %s agora",
+        "ERROR_NOT_FOUND": "Desculpe, não encontrei o canal %s agora"
+    },
+    "LEAVE_CHANNEl":{
+        "SUCCESS": "Você saiu do canal %s.",
+        "ERROR": "Desculpe, você não pode deixar o canal %s agora. Talvez você seja o único proprietário do canal. Primeiro, defina alguém como proprietário do canal"
+    },
+    "KICK_USER_FROM_CHANNEL":{
+        "SUCCESS": "%s agora é kickado do canal %s ",
+        "ERROR": "Desculpe, eu não pude chutar o usuário %s do canal %s agora",
+        "ERROR_NOT_FOUND": "Desculpe, não encontrei o canal %s agora"
+    },
+    "ADD_LEADER": {
+        "SUCCESS": "%s agora é o líder de %s.",
+        "ERROR": "Desculpe, não consegui designar um líder para o canal agora.",
+        "ERROR_NOT_FOUND": "Desculpe, não consegui atribuir um líder ao canal %s agora."
+    },
+    "RENAME_ROOM": {
+        "SUCCESS": "%s agora é renomeado para %s.",
+        "ERROR": "Desculpe, não consegui renomear este canal agora.",
+        "ERROR_NOT_FOUND": "Desculpe, não foi possível renomear o canal %s agora."
+    },
+    "UNARCHIVE_CHANNEL": {
+        "SUCCESS": "%s agora está desarquivado.",
+        "ERROR": "Desculpe, não consegui desarquivar este canal agora.",
+        "ERROR_NOT_FOUND": "Desculpe, não consegui desarquivar o canal %s agora."
+    },
+    "CHANNEL_TOPIC": {
+        "SUCCESS": "%s tópico alterado para %s",
+        "ERROR": "Desculpe, não consegui alterar o tópico deste canal agora.",
+        "ERROR_NOT_FOUND": "Desculpe, não consegui alterar o tópico do canal %s agora."
+    },
+    "CHANNEL_DESCRIPTION": {
+        "SUCCESS": "A descrição de %s agora é alterada para %s",
+        "ERROR": "Desculpe, não foi possível alterar a descrição deste canal agora.",
+        "ERROR_NOT_FOUND": "Desculpe, não foi possível alterar a descrição do canal %s agora."
+    },
+    "CHANNEL_ANNOUNCEMENT": {
+        "SUCCESS": "A anúncio de %s agora é alterada para %s",
+        "ERROR": "Desculpe, não foi possível alterar a anúncio deste canal agora.",
+        "ERROR_NOT_FOUND": "Desculpe, não foi possível alterar a anúncio do canal %s agora."
+    },
+    "REMOVE_LEADER": {
+        "SUCCESS": "%s não é mais o líder de %s.",
+        "ERROR": "Desculpe, não consegui remover o líder deste canal agora.",
+        "ERROR_NOT_FOUND": "Desculpe, não consegui remover o líder do canal %s agora."
+    },
+    "REMOVE_MODERATOR": {
+        "SUCCESS": "%s não é mais o moderador de %s.",
+        "ERROR": "Desculpe, não consegui remover o moderador deste canal agora.",
+        "ERROR_NOT_FOUND": "Desculpe, não consegui remover o moderador do canal %s agora."
+    },
+    "REMOVE_OWNER": {
+        "SUCCESS": "%s não é mais o proprietário de %s.",
+        "ERROR": "Desculpe, não consegui remover o proprietário deste canal agora.",
+        "ERROR_NOT_FOUND": "Desculpe, não consegui remover o proprietário do canal %s agora."
+    }
+  }

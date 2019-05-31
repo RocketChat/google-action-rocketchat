@@ -1,0 +1,56 @@
+{
+    "ERRORS": {
+        "v1": "Sorry, ik begrijp de opdracht niet. Kun je dat herhalen.",
+        "v2": "Sorry, ik heb dat niet begrepen. Zou je het nog een keer kunnen zeggen?"
+    },
+    "HELP": {
+        "MESSAGE": "Dit is de Google Action voor raketchat. Verwijs sample uitingenbestand op GitHub."
+    },
+    "GOODBYE": {
+        "MESSAGE": "Bedankt voor het gebruik van Rocket Chat."
+    },
+    "WELCOME": {
+        "SUCCESS": "Welkom bij Rocket Chat Google Action. Wat zou je vandaag willen doen?",
+        "ERROR": "Als u deze actie wilt gaan gebruiken, koppelt u uw account om te verifiëren."
+    },
+    "POST_MESSAGE": {
+        "SUCCESS": "Ik heb je bericht verzonden.",
+        "ERROR": "Sorry, ik kon je bericht momenteel niet verzenden."
+    },
+    "CREATE_CHANNEL": {
+        "SUCCESS": "Ik heb je kanaal %s gemaakt.",
+        "ERROR": "Sorry, ik kon het kanaal %s nu niet maken.",
+        "ERROR_DUPLICATE_NAME": "Sorry, het kanaal %s bestaat al. Probeer het opnieuw met de naam van het andere kanaal.",
+        "ERROR_INVALID_NAME": "Sorry, %s is geen geldige kanaalnaam. Probeer het opnieuw met een enkele woordnaam voor het kanaal."
+    },
+    "DELETE_CHANNEL": {
+        "SUCCESS": "Ik heb het kanaal %s verwijderd.",
+        "ERROR": "Sorry, ik kon de kanaal %s nu niet verwijderen.",
+        "ERROR_NOT_FOUND": "Sorry, het kanaal %s bestaat niet. Probeer het opnieuw met de naam van het andere kanaal."
+    },
+    "GET_LAST_MESSAGE_FROM_CHANNEL": {
+        "SUCCESS": "%s zegt, %s",
+        "ERROR": "Sorry, ik kon het kanaal %s nu niet vinden.",
+        "ERROR_NOT_FOUND": "Sorry, het kanaal %s bestaat niet. Probeer het opnieuw met de naam van het andere kanaal."
+    },
+    "MAKE_MODERATOR": {
+        "SUCCESS": "%s is nu de moderator van %s",
+        "ERROR": "Sorry, ik kan momenteel geen moderator toewijzen",
+        "ERROR_NOT_FOUND": "Sorry, ik kon momenteel geen moderator toewijzen aan %s"
+    },
+    "ADD_ALL_TO_CHANNEL": {
+        "SUCCESS": "Alle gebruikers toegevoegd aan %s",
+        "ERROR": "Sorry, ik kan momenteel niet alle gebruikers aan het kanaal toevoegen",
+        "ERROR_NOT_FOUND": "Sorry, ik kan momenteel niet alle gebruikers aan kanaal %s toevoegen"
+    },
+    "ADD_OWNER": {
+        "SUCCESS": "%s is nu de eigenaar van %s",
+        "ERROR": "Sorry, ik kan momenteel geen eigenaar toewijzen aan het kanaal",
+        "ERROR_NOT_FOUND": "Sorry, ik kon op dit moment geen eigenaar toewijzen om %s te kanaliseren"
+    },
+    "ARCHIVE_CHANNEL": {
+        "SUCCESS": "%s is nu gearchiveerd",
+        "ERROR": "Sorry, ik kan dit kanaal nu niet archiveren",
+        "ERROR_NOT_FOUND": "Sorry, ik kon kanaal %s nu niet archiveren"
+    }
+  }

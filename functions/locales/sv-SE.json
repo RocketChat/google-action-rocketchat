@@ -1,0 +1,56 @@
+{
+    "ERRORS": {
+        "v1": "Tyvärr, jag kan inte förstå kommandot. Vänligen säg igen.",
+        "v2": "Tyvärr, jag förstod inte det. Kan du säga det igen ?"
+    },
+    "HELP": {
+        "MESSAGE": "Det här är Google Action för raketchatt. Hämta exempelutdragsfilen på GitHub."
+    },
+    "GOODBYE": {
+        "MESSAGE": "Tack för att du använde Rocket Chat."
+    },
+    "WELCOME": {
+        "SUCCESS": "Välkommen till Rocket Chat Google Action. Vad vill du göra idag?",
+        "ERROR": "För att börja använda den här åtgärden, länka ditt konto för att autentisera."
+    },
+    "POST_MESSAGE": {
+        "SUCCESS": "Jag har skickat ditt meddelande.",
+        "ERROR": "Tyvärr, jag kunde inte skicka ditt meddelande just nu."
+    },
+    "CREATE_CHANNEL": {
+        "SUCCESS": "Jag har skapat din kanal %s",
+        "ERROR": "Tyvärr kunde jag inte skapa kanalen %s just nu",
+        "ERROR_DUPLICATE_NAME": "Tyvärr, kanalen %s finns redan. Vänligen försök igen med olika kanalnamn",
+        "ERROR_INVALID_NAME": "Tyvärr, %s är inte ett giltigt kanalnamn. Försök igen med ett enda ordnamn för kanalen."
+    },
+    "DELETE_CHANNEL": {
+        "SUCCESS": "Jag har raderat kanalen %s",
+        "ERROR": "Tyvärr kunde jag inte radera kanalen %s just nu",
+        "ERROR_NOT_FOUND": "Tyvärr, kanalen %s existerar inte. Vänligen försök igen med olika kanalnamn."
+    },
+    "GET_LAST_MESSAGE_FROM_CHANNEL": {
+        "SUCCESS": "%s säger, %s",
+        "ERROR": "Tyvärr kunde jag inte hitta kanalen %s just nu.",
+        "ERROR_NOT_FOUND": "Tyvärr, kanalen %s existerar inte. Vänligen försök igen med olika kanalnamn."
+    },
+    "MAKE_MODERATOR": {
+        "SUCCESS": "%s är nu moderatorn av %s",
+        "ERROR": "Tyvärr kunde jag inte tilldela en moderator just nu.",
+        "ERROR_NOT_FOUND": "Tyvärr kunde jag inte tilldela en moderator till %s just nu."
+    },
+    "ADD_ALL_TO_CHANNEL": {
+        "SUCCESS": "Lades till alla användare till %s",
+        "ERROR": "Tyvärr kan jag inte lägga till alla användare i kanalen just nu.",
+        "ERROR_NOT_FOUND": "Tyvärr, jag kan inte lägga till alla användare för att kanalisera %s just nu."
+    },
+    "ADD_OWNER": {
+        "SUCCESS": "%s är nu ägare till %s",
+        "ERROR": "Tyvärr kunde jag inte tilldela en ägare till kanalen just nu",
+        "ERROR_NOT_FOUND": "Tyvärr kunde jag inte tilldela en ägare att kanalisera %s just nu."
+    },
+    "ARCHIVE_CHANNEL": {
+        "SUCCESS": "%s är nu arkiverad.",
+        "ERROR": "Tyvärr kunde jag inte arkivera den här kanalen just nu.",
+        "ERROR_NOT_FOUND": "Tyvärr kunde jag inte arkivera kanal %s just nu."
+    }
+  }

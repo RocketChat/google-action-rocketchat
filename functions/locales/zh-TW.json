@@ -1,0 +1,56 @@
+{
+    "ERRORS": {
+        "v1": "对不起，我无法理解命令。请再说一遍。",
+        "v2": "对不起，我没理解。你能再说一次吗？"
+    },
+    "HELP": {
+        "MESSAGE": "这是用于火箭聊天的Google Action。请参阅GitHub上的示例话语文件。"
+    },
+    "GOODBYE": {
+        "MESSAGE": "感谢您使用Rocket Chat。"
+    },
+    "WELCOME": {
+        "SUCCESS": "欢迎来到火箭聊天谷歌行动。今天你想做什么？",
+        "ERROR": "要开始使用此操作，请关联您的帐户以进行身份​​验证。"
+    },
+    "POST_MESSAGE": {
+        "SUCCESS": "我发了你的信息。",
+        "ERROR": "对不起，我现在无法发送您的消息。"
+    },
+    "CREATE_CHANNEL": {
+        "SUCCESS": "我创建了你的频道％s。",
+        "ERROR": "抱歉，我现在无法创建频道％s。",
+        "ERROR_DUPLICATE_NAME": "抱歉，频道％s已存在。请使用不同的频道名称重试。",
+        "ERROR_INVALID_NAME": "抱歉，％s不是有效的频道名称。请使用单个字词名称再次尝试该频道"
+    },
+    "DELETE_CHANNEL": {
+        "SUCCESS": "我删除了频道％s",
+        "ERROR": "抱歉，我现在无法删除频道％s",
+        "ERROR_NOT_FOUND": "抱歉，频道％s不存在。请使用不同的频道名称重试"
+    },
+    "GET_LAST_MESSAGE_FROM_CHANNEL": {
+        "SUCCESS": "％s说，％s",
+        "ERROR": "对不起，我现在找不到频道％s",
+        "ERROR_NOT_FOUND": "抱歉，频道％s不存在。请使用不同的频道名称重试"
+    },
+    "MAKE_MODERATOR": {
+        "SUCCESS": "％s现在是％s的主持人",
+        "ERROR": "对不起，我现在无法指派主持人",
+        "ERROR_NOT_FOUND": "抱歉，我现在无法将主持人分配到％s"
+    },
+    "ADD_ALL_TO_CHANNEL": {
+        "SUCCESS": "将所有用户添加到％s",
+        "ERROR": "抱歉，我现在无法将所有用户添加到频道",
+        "ERROR_NOT_FOUND": "抱歉，我现在无法将所有用户添加到频道％s"
+    },
+    "ADD_OWNER": {
+        "SUCCESS": "％s现在是％s的所有者",
+        "ERROR": "抱歉，我现在无法将所有者分配给频道",
+        "ERROR_NOT_FOUND": "抱歉，我现在无法将所有者分配给频道％s"
+    },
+    "ARCHIVE_CHANNEL": {
+        "SUCCESS": "％s现已存档",
+        "ERROR": "抱歉，我现在无法归档此频道",
+        "ERROR_NOT_FOUND": "抱歉，我现在无法归档频道％s"
+    }
+  }

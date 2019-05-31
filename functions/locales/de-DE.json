@@ -1,0 +1,56 @@
+{
+    "ERRORS": {
+        "v1": "Entschuldigung, ich kann den Befehl nicht verstehen. Bitte noch einmal sagen.",
+        "v2": "Entschuldigung, das habe ich nicht verstanden. Könnten Sie es noch einmal sagen?"
+    },
+    "HELP": {
+        "MESSAGE": "Dies ist die Google Action für Raketenchat. Siehe Beispiel-Äußerungsdatei auf GitHub."
+    },
+    "GOODBYE": {
+        "MESSAGE": "Vielen Dank, dass Sie Rocket Chat verwenden."
+    },
+    "WELCOME": {
+        "SUCCESS": "Willkommen bei Rocket Chat Google Action. Was möchtest du heute machen?",
+        "ERROR": "Um diese Aktion zu starten, verknüpfen Sie Ihr Konto zur Authentifizierung."
+    },
+    "POST_MESSAGE": {
+        "SUCCESS": "Ich habe deine Nachricht gesendet.",
+        "ERROR": "Entschuldigung, ich konnte Ihre Nachricht jetzt nicht senden."
+    },
+    "CREATE_CHANNEL": {
+        "SUCCESS": "Ich habe Ihren Kanal %s erstellt.",
+        "ERROR": "Der Kanal %s konnte momentan nicht erstellt werden.",
+        "ERROR_DUPLICATE_NAME": "Entschuldigung, der Channel %s existiert bereits. Bitte versuchen Sie es erneut mit einem anderen Kanalnamen.",
+        "ERROR_INVALID_NAME": "Entschuldigung, %s ist kein gültiger Kanalname. Bitte versuchen Sie es erneut mit einem einzelnen Wortnamen für den Kanal."
+    },
+    "DELETE_CHANNEL": {
+        "SUCCESS": "Ich habe den Kanal %s gelöscht.",
+        "ERROR": "Leider konnte ich den Kanal %s momentan nicht löschen.",
+        "ERROR_NOT_FOUND": "Der Kanal %s ist leider nicht vorhanden. Bitte versuchen Sie es erneut mit einem anderen Kanalnamen."
+    },
+    "GET_LAST_MESSAGE_FROM_CHANNEL": {
+        "SUCCESS": "%s sagt, %s.",
+        "ERROR": "Leider konnte ich den Kanal %s momentan nicht finden.",
+        "ERROR_NOT_FOUND": "Der Kanal %s ist leider nicht vorhanden. Bitte versuchen Sie es erneut mit einem anderen Kanalnamen."
+    },
+    "MAKE_MODERATOR": {
+        "SUCCESS": "%s ist jetzt der Moderator von %s.",
+        "ERROR": "Leider konnte ich momentan keinen Moderator zuweisen.",
+        "ERROR_NOT_FOUND": "Leider konnte ich %s momentan keinen Moderator zuweisen."
+    },
+    "ADD_ALL_TO_CHANNEL": {
+        "SUCCESS": "Alle Benutzer zu %s hinzugefügt.",
+        "ERROR": "Leider kann ich momentan nicht alle Nutzer zum Kanal hinzufügen.",
+        "ERROR_NOT_FOUND": "Leider kann ich momentan nicht alle Benutzer zu Channel %s hinzufügen."
+    },
+    "ADD_OWNER": {
+        "SUCCESS": "%s ist jetzt der Besitzer von %s.",
+        "ERROR": "Es tut mir leid, ich konnte dem Channel momentan keinen Besitzer zuordnen.",
+        "ERROR_NOT_FOUND": "Leider konnte ich Channel %s momentan keinen Eigentümer zuordnen."
+    },
+    "ARCHIVE_CHANNEL": {
+        "SUCCESS": "%s ist jetzt archiviert.",
+        "ERROR": "Leider konnte ich diesen Kanal momentan nicht archivieren.",
+        "ERROR_NOT_FOUND": "Entschuldigung, ich konnte den Kanal %s momentan nicht archivieren."
+    }
+  }

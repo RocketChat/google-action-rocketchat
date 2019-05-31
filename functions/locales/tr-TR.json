@@ -1,0 +1,56 @@
+{
+    "ERRORS": {
+        "v1": "Üzgünüm, komutu anlayamıyorum. Lütfen tekrar söyleyin.",
+        "v2": "Üzgünüm, anlamadım. Tekrar söyler misin?"
+    },
+    "HELP": {
+        "MESSAGE": "Bu roket sohbeti için Google Eylemidir. GitHub'daki örnek ifadeler dosyasına bakın."
+    },
+    "GOODBYE": {
+        "MESSAGE": "Roket Sohbeti kullandığınız için teşekkür ederiz."
+    },
+    "WELCOME": {
+        "SUCCESS": "Roket Sohbet Google Eylemine Hoşgeldiniz. Bugün ne yapmak istersin?",
+        "ERROR": "Bu işlemi kullanmaya başlamak için lütfen hesabınızı doğrulamak üzere bağlayın."
+    },
+    "POST_MESSAGE": {
+        "SUCCESS": "Mesajını gönderdim.",
+        "ERROR": "Üzgünüz, mesajınızı şu anda gönderemedim."
+    },
+    "CREATE_CHANNEL": {
+        "SUCCESS": "%s kanalını oluşturdum",
+        "ERROR": "Maalesef, şu anda %s kanalını oluşturamadım.",
+        "ERROR_DUPLICATE_NAME": "Maalesef, %s kanalı zaten var. Lütfen farklı kanal adıyla tekrar deneyin.",
+        "ERROR_INVALID_NAME": "Maalesef, %s geçerli bir kanal adı değil. Lütfen kanal için tek bir kelime adıyla tekrar deneyin."
+    },
+    "DELETE_CHANNEL": {
+        "SUCCESS": "%s kanalını sildim.",
+        "ERROR": "Maalesef, şu anda %s kanalını silemedim",
+        "ERROR_NOT_FOUND": "Üzgünüz,%s kanalı mevcut değil. Lütfen farklı kanal adıyla tekrar deneyin."
+    },
+    "GET_LAST_MESSAGE_FROM_CHANNEL": {
+        "SUCCESS": "%s diyor,%s",
+        "ERROR": "Üzgünüz, şu anda %s kanalını bulamadım.",
+        "ERROR_NOT_FOUND": "Üzgünüz, %s kanalı mevcut değil. Lütfen farklı kanal adıyla tekrar deneyin."
+    },
+    "MAKE_MODERATOR": {
+        "SUCCESS": "%s şimdi %s 'nin yöneticisidir",
+        "ERROR": "Maalesef şu anda bir moderatör atayamadım.",
+        "ERROR_NOT_FOUND": "Maalesef, şu anda %s öğesine moderatör atayamadım."
+    },
+    "ADD_ALL_TO_CHANNEL": {
+        "SUCCESS": "Tüm Kullanıcılara %s Eklendi.",
+        "ERROR": "Üzgünüz, şu anda tüm kullanıcıları kanala ekleyemiyorum.",
+        "ERROR_NOT_FOUND": "Maalesef, şu anda %s kanalına tüm kullanıcıları ekleyemiyorum."
+    },
+    "ADD_OWNER": {
+        "SUCCESS": "%s şimdi %s sahibi.",
+        "ERROR": "Üzgünüz, şu anda kanala bir sahip atamadım.",
+        "ERROR_NOT_FOUND": "Maalesef, şu anda %s kanalına bir sahip atamadım."
+    },
+    "ARCHIVE_CHANNEL": {
+        "SUCCESS": "%s şimdi arşivlendi.",
+        "ERROR": "Maalesef şu anda bu kanalı arşivleyemedim.",
+        "ERROR_NOT_FOUND": "Maalesef, şu anda %s kanalını arşivleyemedim."
+    }
+  }
