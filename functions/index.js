@@ -40,7 +40,27 @@ app.intent('Default Welcome Intent', (conv) => {
 
 app.intent('Create Channel Intent', async (conv, params) => {
 
+    var locale = conv.user.locale;
+
+    if (locale === 'hi-IN'){
+
     var accessToken = conv.user.access.token;
+
+    var channelNameRaw = params.channelname;
+    var channelNameData = await helperFunctions.hinditranslate(channelNameRaw);
+    var channelNameLwr = channelNameData.toLowerCase();
+    var channelName = helperFunctions.replaceWhitespacesFunc(channelNameLwr);
+    
+    const headers = await helperFunctions.login(accessToken);
+    const speechText = await helperFunctions.createChannel(channelName,headers);
+  
+    conv.ask(speechText);
+
+    }
+    else{
+
+    var accessToken = conv.user.access.token;
+
     var channelNameRaw = params.channelname;
     var channelNameData = channelNameRaw.toLowerCase();
     var channelName = helperFunctions.replaceWhitespacesFunc(channelNameData);
@@ -50,11 +70,33 @@ app.intent('Create Channel Intent', async (conv, params) => {
   
     conv.ask(speechText);
 
+    }
+
 });
 
 app.intent('Delete Channel Intent', async (conv, params) => {
 
+  var locale = conv.user.locale;
+
+    if (locale === 'hi-IN'){
+
     var accessToken = conv.user.access.token;
+
+    var channelNameRaw = params.channelname;
+    var channelNameData = await helperFunctions.hinditranslate(channelNameRaw);
+    var channelNameLwr = channelNameData.toLowerCase();
+    var channelName = helperFunctions.replaceWhitespacesFunc(channelNameLwr);
+    
+    const headers = await helperFunctions.login(accessToken);
+    const speechText = await helperFunctions.deleteChannel(channelName,headers);
+  
+    conv.ask(speechText);
+
+    }
+    else{
+
+    var accessToken = conv.user.access.token;
+
     var channelNameRaw = params.channelname;
     var channelNameData = channelNameRaw.toLowerCase();
     var channelName = helperFunctions.replaceWhitespacesFunc(channelNameData);
@@ -63,13 +105,38 @@ app.intent('Delete Channel Intent', async (conv, params) => {
     const speechText = await helperFunctions.deleteChannel(channelName,headers);
   
     conv.ask(speechText);
+    
+  }
 
 });
 
 app.intent('Post Message Intent', async (conv, params) => {
 
+  var locale = conv.user.locale;
+
+    if (locale === 'hi-IN'){
+
     var accessToken = conv.user.access.token;
+
     var message = params.message;
+
+    var channelNameRaw = params.channelname;
+    var channelNameData = await helperFunctions.hinditranslate(channelNameRaw);
+    var channelNameLwr = channelNameData.toLowerCase();
+    var channelName = helperFunctions.replaceWhitespacesFunc(channelNameLwr);
+    
+    const headers = await helperFunctions.login(accessToken);
+    const speechText = await helperFunctions.postMessage(channelName,message,headers);
+  
+    conv.ask(speechText);
+
+    }
+    else{
+
+    var accessToken = conv.user.access.token;
+
+    var message = params.message;
+
     var channelNameRaw = params.channelname;
     var channelNameData = channelNameRaw.toLowerCase();
     var channelName = helperFunctions.replaceWhitespacesFunc(channelNameData);
@@ -79,365 +146,935 @@ app.intent('Post Message Intent', async (conv, params) => {
 
     conv.ask(speechText);
 
+  }
+
 });
 
 app.intent('Channel Last Message Intent', async (conv, params) => {
 
-  var accessToken = conv.user.access.token;
-  var channelNameRaw = params.channelname;
-  var channelNameData = channelNameRaw.toLowerCase();
-  var channelName = helperFunctions.replaceWhitespacesFunc(channelNameData);
+  var locale = conv.user.locale;
 
-  const headers = await helperFunctions.login(accessToken);
-  const speechText = await helperFunctions.channelLastMessage(channelName,headers);
+    if (locale === 'hi-IN'){
 
-  conv.ask(speechText);
+    var accessToken = conv.user.access.token;
+
+    var channelNameRaw = params.channelname;
+    var channelNameData = await helperFunctions.hinditranslate(channelNameRaw);
+    var channelNameLwr = channelNameData.toLowerCase();
+    var channelName = helperFunctions.replaceWhitespacesFunc(channelNameLwr);
+    
+    const headers = await helperFunctions.login(accessToken);
+    const speechText = await helperFunctions.channelLastMessage(channelName,headers);
+  
+    conv.ask(speechText);
+
+    }
+    else{
+
+    var accessToken = conv.user.access.token;
+
+    var channelNameRaw = params.channelname;
+    var channelNameData = channelNameRaw.toLowerCase();
+    var channelName = helperFunctions.replaceWhitespacesFunc(channelNameData);
+
+    const headers = await helperFunctions.login(accessToken);
+    const speechText = await helperFunctions.channelLastMessage(channelName,headers);
+
+    conv.ask(speechText);
+
+}
 
 });
 
 app.intent('Make Moderator Intent', async (conv, params) => {
 
-  var accessToken = conv.user.access.token;
-  var userNameRaw = params.username;
-  var userNameData = userNameRaw.toLowerCase();
-  var userName = helperFunctions.replaceWhitespacesDots(userNameData);
-  var channelNameRaw = params.channelname;
-  var channelNameData = channelNameRaw.toLowerCase();
-  var channelName = helperFunctions.replaceWhitespacesFunc(channelNameData);
-  
-  const headers = await helperFunctions.login(accessToken);
-  const userid = await helperFunctions.getUserId(userName, headers);
-  const roomid = await helperFunctions.getRoomId(channelName, headers);
-  const speechText = await helperFunctions.makeModerator(userName,channelName,userid,roomid,headers);
+  var locale = conv.user.locale;
 
-  conv.ask(speechText);
+    if (locale === 'hi-IN'){
+
+    var accessToken = conv.user.access.token;
+
+    var userNameRaw = params.username;
+    var userNameData = await helperFunctions.hinditranslate(userNameRaw);
+    var userNameLwr = userNameData.toLowerCase();
+    var userName = helperFunctions.replaceWhitespacesDots(userNameLwr);
+
+    var channelNameRaw = params.channelname;
+    var channelNameData = await helperFunctions.hinditranslate(channelNameRaw);
+    var channelNameLwr = channelNameData.toLowerCase();
+    var channelName = helperFunctions.replaceWhitespacesFunc(channelNameLwr);
+    
+    const headers = await helperFunctions.login(accessToken);
+    const userid = await helperFunctions.getUserId(userName, headers);
+    const roomid = await helperFunctions.getRoomId(channelName, headers);
+    const speechText = await helperFunctions.makeModerator(userName,channelName,userid,roomid,headers);
+  
+    conv.ask(speechText);
+
+    }
+    else{
+
+    var accessToken = conv.user.access.token;
+
+    var userNameRaw = params.username;
+    var userNameData = userNameRaw.toLowerCase();
+    var userName = helperFunctions.replaceWhitespacesDots(userNameData);
+
+    var channelNameRaw = params.channelname;
+    var channelNameData = channelNameRaw.toLowerCase();
+    var channelName = helperFunctions.replaceWhitespacesFunc(channelNameData);
+    
+    const headers = await helperFunctions.login(accessToken);
+    const userid = await helperFunctions.getUserId(userName, headers);
+    const roomid = await helperFunctions.getRoomId(channelName, headers);
+    const speechText = await helperFunctions.makeModerator(userName,channelName,userid,roomid,headers);
+
+    conv.ask(speechText);
+
+}
   
 });
 
 app.intent('Add Channel Owner Intent', async (conv, params) => {
 
-  var accessToken = conv.user.access.token;
-  var userNameRaw = params.username;
-  var userNameData = userNameRaw.toLowerCase();
-  var userName = helperFunctions.replaceWhitespacesDots(userNameData);
-  var channelNameRaw = params.channelname;
-  var channelNameData = channelNameRaw.toLowerCase();
-  var channelName = helperFunctions.replaceWhitespacesFunc(channelNameData);
-  
-  const headers = await helperFunctions.login(accessToken);
-  const userid = await helperFunctions.getUserId(userName, headers);
-  const roomid = await helperFunctions.getRoomId(channelName, headers);
-  const speechText = await helperFunctions.addOwner(userName,channelName,userid,roomid,headers);
+  var locale = conv.user.locale;
 
-  conv.ask(speechText);
+    if (locale === 'hi-IN'){
+
+      var accessToken = conv.user.access.token;
+
+      var userNameRaw = params.username;
+      var userNameData = await helperFunctions.hinditranslate(userNameRaw);
+      var userNameLwr = userNameData.toLowerCase();
+      var userName = helperFunctions.replaceWhitespacesDots(userNameLwr);
+  
+      var channelNameRaw = params.channelname;
+      var channelNameData = await helperFunctions.hinditranslate(channelNameRaw);
+      var channelNameLwr = channelNameData.toLowerCase();
+      var channelName = helperFunctions.replaceWhitespacesFunc(channelNameLwr);
+      
+      const headers = await helperFunctions.login(accessToken);
+      const userid = await helperFunctions.getUserId(userName, headers);
+      const roomid = await helperFunctions.getRoomId(channelName, headers);
+      const speechText = await helperFunctions.addOwner(userName,channelName,userid,roomid,headers);
+    
+      conv.ask(speechText);
+
+    }
+    else{
+
+    var accessToken = conv.user.access.token;
+
+    var userNameRaw = params.username;
+    var userNameData = userNameRaw.toLowerCase();
+    var userName = helperFunctions.replaceWhitespacesDots(userNameData);
+    
+    var channelNameRaw = params.channelname;
+    var channelNameData = channelNameRaw.toLowerCase();
+    var channelName = helperFunctions.replaceWhitespacesFunc(channelNameData);
+    
+    const headers = await helperFunctions.login(accessToken);
+    const userid = await helperFunctions.getUserId(userName, headers);
+    const roomid = await helperFunctions.getRoomId(channelName, headers);
+    const speechText = await helperFunctions.addOwner(userName,channelName,userid,roomid,headers);
+
+    conv.ask(speechText);
+
+}
 
 });
 
 app.intent('Add All To Channel Intent', async (conv, params) => {
 
-  var accessToken = conv.user.access.token;
-  var channelNameRaw = params.channelname;
-  var channelNameData = channelNameRaw.toLowerCase();
-  var channelName = helperFunctions.replaceWhitespacesFunc(channelNameData);
-  
-  const headers = await helperFunctions.login(accessToken);
-  const roomid = await helperFunctions.getRoomId(channelName, headers);
-  const speechText = await helperFunctions.addAll(channelName,roomid,headers);
+  var locale = conv.user.locale;
 
-  conv.ask(speechText);
+    if (locale === 'hi-IN'){
+
+    var accessToken = conv.user.access.token;
+
+    var channelNameRaw = params.channelname;
+    var channelNameData = await helperFunctions.hinditranslate(channelNameRaw);
+    var channelNameLwr = channelNameData.toLowerCase();
+    var channelName = helperFunctions.replaceWhitespacesFunc(channelNameLwr);
+    
+    const headers = await helperFunctions.login(accessToken);
+    const roomid = await helperFunctions.getRoomId(channelName, headers);
+    const speechText = await helperFunctions.addAll(channelName,roomid,headers);
+  
+    conv.ask(speechText);
+
+    }
+    else{
+
+    var accessToken = conv.user.access.token;
+
+    var channelNameRaw = params.channelname;
+    var channelNameData = channelNameRaw.toLowerCase();
+    var channelName = helperFunctions.replaceWhitespacesFunc(channelNameData);
+    
+    const headers = await helperFunctions.login(accessToken);
+    const roomid = await helperFunctions.getRoomId(channelName, headers);
+    const speechText = await helperFunctions.addAll(channelName,roomid,headers);
+
+    conv.ask(speechText);
+
+}
+
 });
 
 app.intent('Archive Channel Intent', async (conv, params) => {
 
-  var accessToken = conv.user.access.token;
-  var channelNameRaw = params.channelname;
-  var channelNameData = channelNameRaw.toLowerCase();
-  var channelName = helperFunctions.replaceWhitespacesFunc(channelNameData);
-  
-  const headers = await helperFunctions.login(accessToken);
-  const roomid = await helperFunctions.getRoomId(channelName, headers);
-  const speechText = await helperFunctions.archiveChannel(channelName,roomid,headers);
+  var locale = conv.user.locale;
 
-  conv.ask(speechText);
+    if (locale === 'hi-IN'){
+
+    var accessToken = conv.user.access.token;
+
+    var channelNameRaw = params.channelname;
+    var channelNameData = await helperFunctions.hinditranslate(channelNameRaw);
+    var channelNameLwr = channelNameData.toLowerCase();
+    var channelName = helperFunctions.replaceWhitespacesFunc(channelNameLwr);
+    
+    const headers = await helperFunctions.login(accessToken);
+    const speechText = await helperFunctions.archiveChannel(channelName,roomid,headers);
+  
+    conv.ask(speechText);
+
+    }
+    else{
+
+    var accessToken = conv.user.access.token;
+
+    var channelNameRaw = params.channelname;
+    var channelNameData = channelNameRaw.toLowerCase();
+    var channelName = helperFunctions.replaceWhitespacesFunc(channelNameData);
+    
+    const headers = await helperFunctions.login(accessToken);
+    const roomid = await helperFunctions.getRoomId(channelName, headers);
+    const speechText = await helperFunctions.archiveChannel(channelName,roomid,headers);
+
+    conv.ask(speechText);
+
+}
 
 });
 
 app.intent('Unread Messages Intent', async (conv, params) => {
 
-  var accessToken = conv.user.access.token;
-  var channelNameRaw = params.channelname;
-  var channelNameData = channelNameRaw.toLowerCase();
-  var channelName = helperFunctions.replaceWhitespacesFunc(channelNameData);
-  
-  const headers = await helperFunctions.login(accessToken);
-  const unreadCount = await helperFunctions.getUnreadCounter(channelName, headers);
-  const speechText = await helperFunctions.channelUnreadMessages(channelName, unreadCount, headers);
+  var locale = conv.user.locale;
 
-  conv.ask(speechText);
+    if (locale === 'hi-IN'){
+
+    var accessToken = conv.user.access.token;
+
+    var channelNameRaw = params.channelname;
+    var channelNameData = await helperFunctions.hinditranslate(channelNameRaw);
+    var channelNameLwr = channelNameData.toLowerCase();
+    var channelName = helperFunctions.replaceWhitespacesFunc(channelNameLwr);
+    
+    const headers = await helperFunctions.login(accessToken);
+    const speechText = await helperFunctions.channelUnreadMessages(channelName, unreadCount, headers);
+  
+    conv.ask(speechText);
+
+    }
+    else{
+
+    var accessToken = conv.user.access.token;
+
+    var channelNameRaw = params.channelname;
+    var channelNameData = channelNameRaw.toLowerCase();
+    var channelName = helperFunctions.replaceWhitespacesFunc(channelNameData);
+    
+    const headers = await helperFunctions.login(accessToken);
+    const unreadCount = await helperFunctions.getUnreadCounter(channelName, headers);
+    const speechText = await helperFunctions.channelUnreadMessages(channelName, unreadCount, headers);
+
+    conv.ask(speechText);
+
+}
 
 });
 
 app.intent('Post Emoji Message Intent', async (conv, params) => {
 
-  var accessToken = conv.user.access.token;
-  var messageData = params.message;
-  const emojiData = params.emoji;
-  const emoji = helperFunctions.emojiTranslateFunc(emojiData);
-  var channelNameRaw = params.channelname;
-  var channelNameData = channelNameRaw.toLowerCase();
-  var channelName = helperFunctions.replaceWhitespacesFunc(channelNameData);
-  const message = messageData + emoji;
+  var locale = conv.user.locale;
 
+    if (locale === 'hi-IN'){
 
-  const headers = await helperFunctions.login(accessToken);
-  const speechText = await helperFunctions.postMessage(channelName,message,headers);
+    var accessToken = conv.user.access.token;
 
-  conv.ask(speechText);
+    var channelNameRaw = params.channelname;
+    var channelNameData = await helperFunctions.hinditranslate(channelNameRaw);
+    var channelNameLwr = channelNameData.toLowerCase();
+    var channelName = helperFunctions.replaceWhitespacesFunc(channelNameLwr);
+
+    var messageData = params.message;
+    const emojiRaw = params.emoji;
+    var emojiData = await helperFunctions.hinditranslate(emojiRaw);
+    const emoji = helperFunctions.emojiTranslateFunc(emojiData);
+    const message = messageData + emoji;
+    
+    const headers = await helperFunctions.login(accessToken);
+    const speechText = await helperFunctions.postMessage(channelName,message,headers);
+  
+    conv.ask(speechText);
+
+    }
+    else{
+
+    var accessToken = conv.user.access.token;
+
+    var channelNameRaw = params.channelname;
+    var channelNameData = channelNameRaw.toLowerCase();
+    var channelName = helperFunctions.replaceWhitespacesFunc(channelNameData);
+
+    var messageData = params.message;
+    const emojiData = params.emoji;
+    const emoji = helperFunctions.emojiTranslateFunc(emojiData);
+    const message = messageData + emoji;
+
+    const headers = await helperFunctions.login(accessToken);
+    const speechText = await helperFunctions.postMessage(channelName,message,headers);
+
+    conv.ask(speechText);
+
+}
 
 });
 
 app.intent('Invite User Intent', async (conv, params) => {
 
-  var accessToken = conv.user.access.token;
-  var userNameRaw = params.username;
-  var userNameData = userNameRaw.toLowerCase();
-  var userName = helperFunctions.replaceWhitespacesDots(userNameData);
-  var channelNameRaw = params.channelname;
-  var channelNameData = channelNameRaw.toLowerCase();
-  var channelName = helperFunctions.replaceWhitespacesFunc(channelNameData);
-  
-  const headers = await helperFunctions.login(accessToken);
-  const userid = await helperFunctions.getUserId(userName, headers);
-  const roomid = await helperFunctions.getRoomId(channelName, headers);
-  const speechText = await helperFunctions.inviteUser(userName,channelName,userid,roomid,headers);
+  var locale = conv.user.locale;
 
-  conv.ask(speechText);
+    if (locale === 'hi-IN'){
+
+    var accessToken = conv.user.access.token;
+
+    var userNameRaw = params.username;
+    var userNameData = await helperFunctions.hinditranslate(userNameRaw);
+    var userNameLwr = userNameData.toLowerCase();
+    var userName = helperFunctions.replaceWhitespacesDots(userNameLwr);
+
+    var channelNameRaw = params.channelname;
+    var channelNameData = await helperFunctions.hinditranslate(channelNameRaw);
+    var channelNameLwr = channelNameData.toLowerCase();
+    var channelName = helperFunctions.replaceWhitespacesFunc(channelNameLwr);
+    
+    const headers = await helperFunctions.login(accessToken);
+    const userid = await helperFunctions.getUserId(userName, headers);
+    const roomid = await helperFunctions.getRoomId(channelName, headers);
+    const speechText = await helperFunctions.inviteUser(userName,channelName,userid,roomid,headers);
+  
+    conv.ask(speechText);
+
+    }
+    else{
+
+    var accessToken = conv.user.access.token;
+
+    var userNameRaw = params.username;
+    var userNameData = userNameRaw.toLowerCase();
+    var userName = helperFunctions.replaceWhitespacesDots(userNameData);
+
+    var channelNameRaw = params.channelname;
+    var channelNameData = channelNameRaw.toLowerCase();
+    var channelName = helperFunctions.replaceWhitespacesFunc(channelNameData);
+    
+    const headers = await helperFunctions.login(accessToken);
+    const userid = await helperFunctions.getUserId(userName, headers);
+    const roomid = await helperFunctions.getRoomId(channelName, headers);
+    const speechText = await helperFunctions.inviteUser(userName,channelName,userid,roomid,headers);
+
+    conv.ask(speechText);
+
+}
 
 });
 
 app.intent('Leave Channel Intent', async (conv, params) => {
 
-  var accessToken = conv.user.access.token;
-  var channelNameRaw = params.channelname;
-  var channelNameData = channelNameRaw.toLowerCase();
-  var channelName = helperFunctions.replaceWhitespacesFunc(channelNameData);
-  
-  const headers = await helperFunctions.login(accessToken);
-  const roomid = await helperFunctions.getRoomId(channelName, headers);
-  const speechText = await helperFunctions.leaveChannel(channelName,roomid,headers);
+  var locale = conv.user.locale;
 
-  conv.ask(speechText);
+    if (locale === 'hi-IN'){
+
+    var accessToken = conv.user.access.token;
+
+    var channelNameRaw = params.channelname;
+    var channelNameData = await helperFunctions.hinditranslate(channelNameRaw);
+    var channelNameLwr = channelNameData.toLowerCase();
+    var channelName = helperFunctions.replaceWhitespacesFunc(channelNameLwr);
+    
+    const headers = await helperFunctions.login(accessToken);
+    const roomid = await helperFunctions.getRoomId(channelName, headers);
+    const speechText = await helperFunctions.leaveChannel(channelName,roomid,headers);
+  
+    conv.ask(speechText);
+
+    }
+    else{
+
+    var accessToken = conv.user.access.token;
+    
+    var channelNameRaw = params.channelname;
+    var channelNameData = channelNameRaw.toLowerCase();
+    var channelName = helperFunctions.replaceWhitespacesFunc(channelNameData);
+    
+    const headers = await helperFunctions.login(accessToken);
+    const roomid = await helperFunctions.getRoomId(channelName, headers);
+    const speechText = await helperFunctions.leaveChannel(channelName,roomid,headers);
+
+    conv.ask(speechText);
+
+}
 
 });
 
 app.intent('Kick User Intent', async (conv, params) => {
 
-  var accessToken = conv.user.access.token;
-  var userNameRaw = params.username;
-  var userNameData = userNameRaw.toLowerCase();
-  var userName = helperFunctions.replaceWhitespacesDots(userNameData);
-  var channelNameRaw = params.channelname;
-  var channelNameData = channelNameRaw.toLowerCase();
-  var channelName = helperFunctions.replaceWhitespacesFunc(channelNameData);
-  
-  const headers = await helperFunctions.login(accessToken);
-  const userid = await helperFunctions.getUserId(userName, headers);
-  const roomid = await helperFunctions.getRoomId(channelName, headers);
-  const speechText = await helperFunctions.kickUser(userName,channelName,userid,roomid,headers);
+  var locale = conv.user.locale;
 
-  conv.ask(speechText);
+    if (locale === 'hi-IN'){
+
+    var accessToken = conv.user.access.token;
+
+    var userNameRaw = params.username;
+    var userNameData = await helperFunctions.hinditranslate(userNameRaw);
+    var userNameLwr = userNameData.toLowerCase();
+    var userName = helperFunctions.replaceWhitespacesDots(userNameLwr);
+
+    var channelNameRaw = params.channelname;
+    var channelNameData = await helperFunctions.hinditranslate(channelNameRaw);
+    var channelNameLwr = channelNameData.toLowerCase();
+    var channelName = helperFunctions.replaceWhitespacesFunc(channelNameLwr);
+    
+    const headers = await helperFunctions.login(accessToken);
+    const userid = await helperFunctions.getUserId(userName, headers);
+    const roomid = await helperFunctions.getRoomId(channelName, headers);
+    const speechText = await helperFunctions.kickUser(userName,channelName,userid,roomid,headers);
+  
+    conv.ask(speechText);
+
+    }
+    else{
+
+    var accessToken = conv.user.access.token;
+
+    var userNameRaw = params.username;
+    var userNameData = userNameRaw.toLowerCase();
+    var userName = helperFunctions.replaceWhitespacesDots(userNameData);
+
+    var channelNameRaw = params.channelname;
+    var channelNameData = channelNameRaw.toLowerCase();
+    var channelName = helperFunctions.replaceWhitespacesFunc(channelNameData);
+    
+    const headers = await helperFunctions.login(accessToken);
+    const userid = await helperFunctions.getUserId(userName, headers);
+    const roomid = await helperFunctions.getRoomId(channelName, headers);
+    const speechText = await helperFunctions.kickUser(userName,channelName,userid,roomid,headers);
+
+    conv.ask(speechText);
+
+}
 
 });
 
 app.intent('Add Channel Leader Intent', async (conv, params) => {
 
-  var accessToken = conv.user.access.token;
-  var userNameRaw = params.username;
-  var userNameData = userNameRaw.toLowerCase();
-  var userName = helperFunctions.replaceWhitespacesDots(userNameData);
-  var channelNameRaw = params.channelname;
-  var channelNameData = channelNameRaw.toLowerCase();
-  var channelName = helperFunctions.replaceWhitespacesFunc(channelNameData);
-  
-  const headers = await helperFunctions.login(accessToken);
-  const userid = await helperFunctions.getUserId(userName, headers);
-  const roomid = await helperFunctions.getRoomId(channelName, headers);
-  const speechText = await helperFunctions.addLeader(userName,channelName,userid,roomid,headers);
+  var locale = conv.user.locale;
 
-  conv.ask(speechText);
+    if (locale === 'hi-IN'){
+
+    var accessToken = conv.user.access.token;
+
+    var userNameRaw = params.username;
+    var userNameData = await helperFunctions.hinditranslate(userNameRaw);
+    var userNameLwr = userNameData.toLowerCase();
+    var userName = helperFunctions.replaceWhitespacesDots(userNameLwr);
+
+    var channelNameRaw = params.channelname;
+    var channelNameData = await helperFunctions.hinditranslate(channelNameRaw);
+    var channelNameLwr = channelNameData.toLowerCase();
+    var channelName = helperFunctions.replaceWhitespacesFunc(channelNameLwr);
+    
+    const headers = await helperFunctions.login(accessToken);
+    const userid = await helperFunctions.getUserId(userName, headers);
+    const roomid = await helperFunctions.getRoomId(channelName, headers);
+    const speechText = await helperFunctions.addLeader(userName,channelName,userid,roomid,headers);
+  
+    conv.ask(speechText);
+
+    }
+    else{
+
+    var accessToken = conv.user.access.token;
+
+    var userNameRaw = params.username;
+    var userNameData = userNameRaw.toLowerCase();
+    var userName = helperFunctions.replaceWhitespacesDots(userNameData);
+
+    var channelNameRaw = params.channelname;
+    var channelNameData = channelNameRaw.toLowerCase();
+    var channelName = helperFunctions.replaceWhitespacesFunc(channelNameData);
+    
+    const headers = await helperFunctions.login(accessToken);
+    const userid = await helperFunctions.getUserId(userName, headers);
+    const roomid = await helperFunctions.getRoomId(channelName, headers);
+    const speechText = await helperFunctions.addLeader(userName,channelName,userid,roomid,headers);
+
+    conv.ask(speechText);
+
+}
 
 });
 
 app.intent('Rename Channel Intent', async (conv, params) => {
 
-  var accessToken = conv.user.access.token;
-  var channelNameRaw = params.channelname;
-  var channelNameData = channelNameRaw.toLowerCase();
-  var channelName = helperFunctions.replaceWhitespacesFunc(channelNameData);
-  var newNameRaw = params.newname;
-  var newNameData = newNameRaw.toLowerCase();
-  var newName = helperFunctions.replaceWhitespacesFunc(newNameData);
-  
-  const headers = await helperFunctions.login(accessToken);
-  const roomid = await helperFunctions.getRoomId(channelName, headers);
-  const speechText = await helperFunctions.channelRename(channelName,roomid,newName,headers);
+  var locale = conv.user.locale;
 
-  conv.ask(speechText);
+    if (locale === 'hi-IN'){
+
+    var accessToken = conv.user.access.token;
+
+    var channelNameRaw = params.channelname;
+    var channelNameData = await helperFunctions.hinditranslate(channelNameRaw);
+    var channelNameLwr = channelNameData.toLowerCase();
+    var channelName = helperFunctions.replaceWhitespacesFunc(channelNameLwr);
+
+    var newNameRaw = params.newname;
+    var newNameData = await helperFunctions.hinditranslate(newNameRaw);
+    var newNameLwr = newNameData.toLowerCase();
+    var newName = helperFunctions.replaceWhitespacesFunc(newNameLwr);
+    
+    const headers = await helperFunctions.login(accessToken);
+    const roomid = await helperFunctions.getRoomId(channelName, headers);
+    const speechText = await helperFunctions.channelRename(channelName,roomid,newName,headers);
+
+    conv.ask(speechText);
+
+    }
+    else{
+
+    var accessToken = conv.user.access.token;
+
+    var channelNameRaw = params.channelname;
+    var channelNameData = channelNameRaw.toLowerCase();
+    var channelName = helperFunctions.replaceWhitespacesFunc(channelNameData);
+
+    var newNameRaw = params.newname;
+    var newNameData = newNameRaw.toLowerCase();
+    var newName = helperFunctions.replaceWhitespacesFunc(newNameData);
+    
+    const headers = await helperFunctions.login(accessToken);
+    const roomid = await helperFunctions.getRoomId(channelName, headers);
+    const speechText = await helperFunctions.channelRename(channelName,roomid,newName,headers);
+
+    conv.ask(speechText);
+
+}
 
 });
 
 app.intent('Unarchive Channel Intent', async (conv, params) => {
 
-  var accessToken = conv.user.access.token;
-  var channelNameRaw = params.channelname;
-  var channelNameData = channelNameRaw.toLowerCase();
-  var channelName = helperFunctions.replaceWhitespacesFunc(channelNameData);
-  
-  const headers = await helperFunctions.login(accessToken);
-  const roomid = await helperFunctions.getRoomId(channelName, headers);
-  const speechText = await helperFunctions.unarchiveChannel(channelName,roomid,headers);
+  var locale = conv.user.locale;
 
-  conv.ask(speechText);
+    if (locale === 'hi-IN'){
+
+    var accessToken = conv.user.access.token;
+
+    var channelNameRaw = params.channelname;
+    var channelNameData = await helperFunctions.hinditranslate(channelNameRaw);
+    var channelNameLwr = channelNameData.toLowerCase();
+    var channelName = helperFunctions.replaceWhitespacesFunc(channelNameLwr);
+    
+    const headers = await helperFunctions.login(accessToken);
+    const roomid = await helperFunctions.getRoomId(channelName, headers);
+    const speechText = await helperFunctions.unarchiveChannel(channelName,roomid,headers);
+  
+    conv.ask(speechText);
+
+    }
+    else{
+
+    var accessToken = conv.user.access.token;
+
+    var channelNameRaw = params.channelname;
+    var channelNameData = channelNameRaw.toLowerCase();
+    var channelName = helperFunctions.replaceWhitespacesFunc(channelNameData);
+    
+    const headers = await helperFunctions.login(accessToken);
+    const roomid = await helperFunctions.getRoomId(channelName, headers);
+    const speechText = await helperFunctions.unarchiveChannel(channelName,roomid,headers);
+
+    conv.ask(speechText);
+
+  }
 
 });
 
 app.intent('Channel Topic Intent', async (conv, params) => {
 
-  var accessToken = conv.user.access.token;
-  var channelNameRaw = params.channelname;
-  var channelNameData = channelNameRaw.toLowerCase();
-  var channelName = helperFunctions.replaceWhitespacesFunc(channelNameData);
-  var topic = params.topic;
-  
-  const headers = await helperFunctions.login(accessToken);
-  const roomid = await helperFunctions.getRoomId(channelName, headers);
-  const speechText = await helperFunctions.channelTopic(channelName,roomid,topic,headers);
+  var locale = conv.user.locale;
 
-  conv.ask(speechText);
+    if (locale === 'hi-IN'){
+
+    var accessToken = conv.user.access.token;
+
+    var channelNameRaw = params.channelname;
+    var channelNameData = await helperFunctions.hinditranslate(channelNameRaw);
+    var channelNameLwr = channelNameData.toLowerCase();
+    var channelName = helperFunctions.replaceWhitespacesFunc(channelNameLwr);
+
+    var topic = params.topic;
+    
+    const headers = await helperFunctions.login(accessToken);
+    const roomid = await helperFunctions.getRoomId(channelName, headers);
+    const speechText = await helperFunctions.channelTopic(channelName,roomid,topic,headers);
+  
+    conv.ask(speechText);
+
+    }
+    else{
+
+    var accessToken = conv.user.access.token;
+
+    var channelNameRaw = params.channelname;
+    var channelNameData = channelNameRaw.toLowerCase();
+    var channelName = helperFunctions.replaceWhitespacesFunc(channelNameData);
+    
+    var topic = params.topic;
+    
+    const headers = await helperFunctions.login(accessToken);
+    const roomid = await helperFunctions.getRoomId(channelName, headers);
+    const speechText = await helperFunctions.channelTopic(channelName,roomid,topic,headers);
+
+    conv.ask(speechText);
+
+    }
 
 });
 
 app.intent('Channel Description Intent', async (conv, params) => {
 
-  var accessToken = conv.user.access.token;
-  var channelNameRaw = params.channelname;
-  var channelNameData = channelNameRaw.toLowerCase();
-  var channelName = helperFunctions.replaceWhitespacesFunc(channelNameData);
-  var description = params.description;
-  
-  const headers = await helperFunctions.login(accessToken);
-  const roomid = await helperFunctions.getRoomId(channelName, headers);
-  const speechText = await helperFunctions.channelDescription(channelName,roomid,description,headers);
+  var locale = conv.user.locale;
 
-  conv.ask(speechText);
+    if (locale === 'hi-IN'){
+
+    var accessToken = conv.user.access.token;
+
+    var channelNameRaw = params.channelname;
+    var channelNameData = await helperFunctions.hinditranslate(channelNameRaw);
+    var channelNameLwr = channelNameData.toLowerCase();
+    var channelName = helperFunctions.replaceWhitespacesFunc(channelNameLwr);
+    
+    var description = params.description;
+  
+    const headers = await helperFunctions.login(accessToken);
+    const roomid = await helperFunctions.getRoomId(channelName, headers);
+    const speechText = await helperFunctions.channelDescription(channelName,roomid,description,headers);
+  
+    conv.ask(speechText);
+
+    }
+    else{
+
+    var accessToken = conv.user.access.token;
+
+    var channelNameRaw = params.channelname;
+    var channelNameData = channelNameRaw.toLowerCase();
+    var channelName = helperFunctions.replaceWhitespacesFunc(channelNameData);
+
+    var description = params.description;
+    
+    const headers = await helperFunctions.login(accessToken);
+    const roomid = await helperFunctions.getRoomId(channelName, headers);
+    const speechText = await helperFunctions.channelDescription(channelName,roomid,description,headers);
+
+    conv.ask(speechText);
+
+}
 
 });
 
 app.intent('Channel Announcement Intent', async (conv, params) => {
 
-  var accessToken = conv.user.access.token;
-  var channelNameRaw = params.channelname;
-  var channelNameData = channelNameRaw.toLowerCase();
-  var channelName = helperFunctions.replaceWhitespacesFunc(channelNameData);
-  var announcement = params.announcement;
-  
-  const headers = await helperFunctions.login(accessToken);
-  const roomid = await helperFunctions.getRoomId(channelName, headers);
-  const speechText = await helperFunctions.channelAnnouncement(channelName,roomid,announcement,headers);
+  var locale = conv.user.locale;
 
-  conv.ask(speechText);
+    if (locale === 'hi-IN'){
+
+    var accessToken = conv.user.access.token;
+
+    var channelNameRaw = params.channelname;
+    var channelNameData = await helperFunctions.hinditranslate(channelNameRaw);
+    var channelNameLwr = channelNameData.toLowerCase();
+    var channelName = helperFunctions.replaceWhitespacesFunc(channelNameLwr);
+
+    var announcement = params.announcement;
+    
+    const headers = await helperFunctions.login(accessToken);
+    const roomid = await helperFunctions.getRoomId(channelName, headers);
+    const speechText = await helperFunctions.channelAnnouncement(channelName,roomid,announcement,headers);
+  
+    conv.ask(speechText);
+
+    }
+    else{
+
+    var accessToken = conv.user.access.token;
+
+    var channelNameRaw = params.channelname;
+    var channelNameData = channelNameRaw.toLowerCase();
+    var channelName = helperFunctions.replaceWhitespacesFunc(channelNameData);
+
+    var announcement = params.announcement;
+    
+    const headers = await helperFunctions.login(accessToken);
+    const roomid = await helperFunctions.getRoomId(channelName, headers);
+    const speechText = await helperFunctions.channelAnnouncement(channelName,roomid,announcement,headers);
+
+    conv.ask(speechText);
+
+}
 
 });
 
 app.intent('Remove Channel Leader Intent', async (conv, params) => {
 
-  var accessToken = conv.user.access.token;
-  var userNameRaw = params.username;
-  var userNameData = userNameRaw.toLowerCase();
-  var userName = helperFunctions.replaceWhitespacesDots(userNameData);
-  var channelNameRaw = params.channelname;
-  var channelNameData = channelNameRaw.toLowerCase();
-  var channelName = helperFunctions.replaceWhitespacesFunc(channelNameData);
-  
-  const headers = await helperFunctions.login(accessToken);
-  const userid = await helperFunctions.getUserId(userName, headers);
-  const roomid = await helperFunctions.getRoomId(channelName, headers);
-  const speechText = await helperFunctions.removeLeader(userName,channelName,userid,roomid,headers);
+  var locale = conv.user.locale;
 
-  conv.ask(speechText);
+    if (locale === 'hi-IN'){
+
+    var accessToken = conv.user.access.token;
+
+    var userNameRaw = params.username;
+    var userNameData = await helperFunctions.hinditranslate(userNameRaw);
+    var userNameLwr = userNameData.toLowerCase();
+    var userName = helperFunctions.replaceWhitespacesDots(userNameLwr);
+
+    var channelNameRaw = params.channelname;
+    var channelNameData = await helperFunctions.hinditranslate(channelNameRaw);
+    var channelNameLwr = channelNameData.toLowerCase();
+    var channelName = helperFunctions.replaceWhitespacesFunc(channelNameLwr);
+    
+    const headers = await helperFunctions.login(accessToken);
+    const userid = await helperFunctions.getUserId(userName, headers);
+    const roomid = await helperFunctions.getRoomId(channelName, headers);
+    const speechText = await helperFunctions.removeLeader(userName,channelName,userid,roomid,headers);
+  
+    conv.ask(speechText);
+
+    }
+    else{
+
+    var accessToken = conv.user.access.token;
+
+    var userNameRaw = params.username;
+    var userNameData = userNameRaw.toLowerCase();
+    var userName = helperFunctions.replaceWhitespacesDots(userNameData);
+
+    var channelNameRaw = params.channelname;
+    var channelNameData = channelNameRaw.toLowerCase();
+    var channelName = helperFunctions.replaceWhitespacesFunc(channelNameData);
+    
+    const headers = await helperFunctions.login(accessToken);
+    const userid = await helperFunctions.getUserId(userName, headers);
+    const roomid = await helperFunctions.getRoomId(channelName, headers);
+    const speechText = await helperFunctions.removeLeader(userName,channelName,userid,roomid,headers);
+
+    conv.ask(speechText);
+
+}
 
 });
 
 app.intent('Remove Channel Moderator Intent', async (conv, params) => {
 
-  var accessToken = conv.user.access.token;
-  var userNameRaw = params.username;
-  var userNameData = userNameRaw.toLowerCase();
-  var userName = helperFunctions.replaceWhitespacesDots(userNameData);
-  var channelNameRaw = params.channelname;
-  var channelNameData = channelNameRaw.toLowerCase();
-  var channelName = helperFunctions.replaceWhitespacesFunc(channelNameData);
-  
-  const headers = await helperFunctions.login(accessToken);
-  const userid = await helperFunctions.getUserId(userName, headers);
-  const roomid = await helperFunctions.getRoomId(channelName, headers);
-  const speechText = await helperFunctions.removeModerator(userName,channelName,userid,roomid,headers);
+  var locale = conv.user.locale;
 
-  conv.ask(speechText);
+    if (locale === 'hi-IN'){
+
+    var accessToken = conv.user.access.token;
+
+    var userNameRaw = params.username;
+    var userNameData = await helperFunctions.hinditranslate(userNameRaw);
+    var userNameLwr = userNameData.toLowerCase();
+    var userName = helperFunctions.replaceWhitespacesDots(userNameLwr);
+
+    var channelNameRaw = params.channelname;
+    var channelNameData = await helperFunctions.hinditranslate(channelNameRaw);
+    var channelNameLwr = channelNameData.toLowerCase();
+    var channelName = helperFunctions.replaceWhitespacesFunc(channelNameLwr);
+    
+    const headers = await helperFunctions.login(accessToken);
+    const userid = await helperFunctions.getUserId(userName, headers);
+    const roomid = await helperFunctions.getRoomId(channelName, headers);
+    const speechText = await helperFunctions.removeModerator(userName,channelName,userid,roomid,headers);
+  
+    conv.ask(speechText);
+
+    }
+    else{
+
+    var accessToken = conv.user.access.token;
+
+    var userNameRaw = params.username;
+    var userNameData = userNameRaw.toLowerCase();
+    var userName = helperFunctions.replaceWhitespacesDots(userNameData);
+
+    var channelNameRaw = params.channelname;
+    var channelNameData = channelNameRaw.toLowerCase();
+    var channelName = helperFunctions.replaceWhitespacesFunc(channelNameData);
+    
+    const headers = await helperFunctions.login(accessToken);
+    const userid = await helperFunctions.getUserId(userName, headers);
+    const roomid = await helperFunctions.getRoomId(channelName, headers);
+    const speechText = await helperFunctions.removeModerator(userName,channelName,userid,roomid,headers);
+
+    conv.ask(speechText);
+
+}
 
 });
 
 app.intent('Remove Channel Owner Intent', async (conv, params) => {
 
-  var accessToken = conv.user.access.token;
-  var userNameRaw = params.username;
-  var userNameData = userNameRaw.toLowerCase();
-  var userName = helperFunctions.replaceWhitespacesDots(userNameData);
-  var channelNameRaw = params.channelname;
-  var channelNameData = channelNameRaw.toLowerCase();
-  var channelName = helperFunctions.replaceWhitespacesFunc(channelNameData);
-  
-  const headers = await helperFunctions.login(accessToken);
-  const userid = await helperFunctions.getUserId(userName, headers);
-  const roomid = await helperFunctions.getRoomId(channelName, headers);
-  const speechText = await helperFunctions.removeOwner(userName,channelName,userid,roomid,headers);
+  var locale = conv.user.locale;
 
-  conv.ask(speechText);
+    if (locale === 'hi-IN'){
+
+    var accessToken = conv.user.access.token;
+
+    var userNameRaw = params.username;
+    var userNameData = await helperFunctions.hinditranslate(userNameRaw);
+    var userNameLwr = userNameData.toLowerCase();
+    var userName = helperFunctions.replaceWhitespacesDots(userNameLwr);
+    
+    var channelNameRaw = params.channelname;
+    var channelNameData = await helperFunctions.hinditranslate(channelNameRaw);
+    var channelNameLwr = channelNameData.toLowerCase();
+    var channelName = helperFunctions.replaceWhitespacesFunc(channelNameLwr);
+    
+    const headers = await helperFunctions.login(accessToken);
+    const userid = await helperFunctions.getUserId(userName, headers);
+    const roomid = await helperFunctions.getRoomId(channelName, headers);
+    const speechText = await helperFunctions.removeOwner(userName,channelName,userid,roomid,headers);
+  
+    conv.ask(speechText);
+
+    }
+    else{
+
+    var accessToken = conv.user.access.token;
+
+    var userNameRaw = params.username;
+    var userNameData = userNameRaw.toLowerCase();
+    var userName = helperFunctions.replaceWhitespacesDots(userNameData);
+
+    var channelNameRaw = params.channelname;
+    var channelNameData = channelNameRaw.toLowerCase();
+    var channelName = helperFunctions.replaceWhitespacesFunc(channelNameData);
+    
+    const headers = await helperFunctions.login(accessToken);
+    const userid = await helperFunctions.getUserId(userName, headers);
+    const roomid = await helperFunctions.getRoomId(channelName, headers);
+    const speechText = await helperFunctions.removeOwner(userName,channelName,userid,roomid,headers);
+
+    conv.ask(speechText);
+
+}
 
 });
 
 app.intent('Post DM Message Intent', async (conv, params) => {
 
-  var accessToken = conv.user.access.token;
-  var message = params.message;
-  var userNameRaw = params.username;
-  var userNameData = userNameRaw.toLowerCase();
-  var userName = helperFunctions.replaceWhitespacesDots(userNameData);
+  var locale = conv.user.locale;
 
-  const headers = await helperFunctions.login(accessToken);
-  const roomid = await helperFunctions.createDMSession(userName, headers);
-  const speechText = await helperFunctions.postDirectMessage(message,roomid,headers);
+    if (locale === 'hi-IN'){
 
-  conv.ask(speechText);
+    var accessToken = conv.user.access.token;
+
+    var message = params.message;
+
+    var userNameRaw = params.username;
+    var userNameData = await helperFunctions.hinditranslate(userNameRaw);
+    var userNameLwr = userNameData.toLowerCase();
+    var userName = helperFunctions.replaceWhitespacesDots(userNameLwr);
+    
+    const headers = await helperFunctions.login(accessToken);
+    const roomid = await helperFunctions.createDMSession(userName, headers);
+    const speechText = await helperFunctions.postDirectMessage(message,roomid,headers);
+  
+    conv.ask(speechText);
+
+    }
+    else{
+
+    var accessToken = conv.user.access.token;
+
+    var message = params.message;
+
+    var userNameRaw = params.username;
+    var userNameData = userNameRaw.toLowerCase();
+    var userName = helperFunctions.replaceWhitespacesDots(userNameData);
+
+    const headers = await helperFunctions.login(accessToken);
+    const roomid = await helperFunctions.createDMSession(userName, headers);
+    const speechText = await helperFunctions.postDirectMessage(message,roomid,headers);
+
+    conv.ask(speechText);
+
+}
 
 });
 
 app.intent('Post DM Emoji Message Intent', async (conv, params) => {
 
-  var accessToken = conv.user.access.token;
-  var messageData = params.message;
-  const emojiData = params.emoji;
-  const emoji = helperFunctions.emojiTranslateFunc(emojiData);
-  var userNameRaw = params.username;
-  var userNameData = userNameRaw.toLowerCase();
-  var userName = helperFunctions.replaceWhitespacesDots(userNameData);
-  var message = messageData + emoji;
+  var locale = conv.user.locale;
 
-  const headers = await helperFunctions.login(accessToken);
-  const roomid = await helperFunctions.createDMSession(userName, headers);
-  const speechText = await helperFunctions.postDirectMessage(message,roomid,headers);
+    if (locale === 'hi-IN'){
 
-  conv.ask(speechText);
+    var accessToken = conv.user.access.token;
+
+    var messageData = params.message;
+    const emojiRaw = params.emoji;
+    var emojiData = await helperFunctions.hinditranslate(emojiRaw);
+    const emoji = helperFunctions.emojiTranslateFunc(emojiData);
+    var message = messageData + emoji;
+
+    var userNameRaw = params.username;
+    var userNameData = await helperFunctions.hinditranslate(userNameRaw);
+    var userNameLwr = userNameData.toLowerCase();
+    var userName = helperFunctions.replaceWhitespacesDots(userNameLwr);
+    
+    const headers = await helperFunctions.login(accessToken);
+    const roomid = await helperFunctions.createDMSession(userName, headers);
+    const speechText = await helperFunctions.postDirectMessage(message,roomid,headers);
+  
+    conv.ask(speechText);
+
+    }
+    else{
+
+    var accessToken = conv.user.access.token;
+
+    var messageData = params.message;
+    const emojiData = params.emoji;
+    const emoji = helperFunctions.emojiTranslateFunc(emojiData);
+    var message = messageData + emoji;
+    
+    var userNameRaw = params.username;
+    var userNameData = userNameRaw.toLowerCase();
+    var userName = helperFunctions.replaceWhitespacesDots(userNameData);
+    
+
+    const headers = await helperFunctions.login(accessToken);
+    const roomid = await helperFunctions.createDMSession(userName, headers);
+    const speechText = await helperFunctions.postDirectMessage(message,roomid,headers);
+
+    conv.ask(speechText);
+
+}
 
 });
 
