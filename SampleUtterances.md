@@ -33,495 +33,1065 @@
 
 ### Create A New Channel
 
-English
+**English**
+   
+* Conversational
 
-```
-Ok Google, Create CHANNELNAME
-```
+   ```
+   Ok Google, Create A New Channel
+   ```
+   
+* Single Sentence
 
-Hindi
+   ```
+   Ok Google, Create CHANNELNAME
+   ```
 
-```
-Ok Google, Create CHANNELNAME
-```
+**Hindi**
+   
+* Conversational
 
-Portuguese
+   ```
+   Ok Google, नई चैनल बनाएं
+   ```
+   
+* Single Sentence
 
-```
-Ok Google, Criar Canal CHANNELNAME
-```
+   ```
+   Ok Google, CHANNELNAME बनाएं
+   ```
+
+**Portuguese**
+   
+* Conversational
+
+   ```
+   Ok Google, Crie um novo canal
+   ```
+   
+* Single Sentence
+
+   ```
+   Ok Google, Criar Canal CHANNELNAME
+   ```
 
 ### Delete A Channel
 
-English
+**English**
 
-```
-Ok Google, Delete CHANNELNAME
-```
+* Conversational
 
-Hindi
+   ```
+   Ok Google, Delete A Channel
+   ```
+   
+* Single Sentence
 
-```
-Ok Google, Delete CHANNELNAME
-```
+   ```
+   Ok Google, Delete CHANNELNAME
+   ```
 
-Portuguese
+**Hindi**
 
-```
-Ok Google, Apagar Canal CHANNELNAME
-```
+* Conversational
+
+   ```
+   Ok Google, डिलीट करें एक चैनल
+   ```
+   
+* Single Sentence
+
+   ```
+   Ok Google, CHANNELNAME को डिलीट करें
+   ```
+
+**Portuguese**
+
+* Conversational
+
+   ```
+   Ok Google, Excluir Um Canal
+   ```
+   
+* Single Sentence
+
+   ```
+   Ok Google, Apagar Canal CHANNELNAME
+   ```
 
 ### Add All Users On Server To A Channel
 
-English
+**English**
 
-```
-Ok Google, Add All To CHANNELNAME
-```
+* Conversational
 
-Hindi
+   ```
+   Ok Google, Add All Users To Channel
+   ```
+   
+* Single Sentence
 
-```
-Ok Google, सभी को CHANNELNAME में जोड़ें
-```
+   ```
+   Ok Google, Add All To CHANNELNAME
+   ```
 
-Portuguese
+**Hindi**
 
-```
-Ok Google, Adicionar Todos Ao CHANNELNAME
-```
+* Conversational
+
+   ```
+   Ok Google, सभी उपयोगकर्ताओं को चैनल में जोड़ें
+   ```
+   
+* Single Sentence
+
+   ```
+   Ok Google, सभी को CHANNELNAME में जोड़ें
+   ```
+
+**Portuguese**
+
+* Conversational
+
+   ```
+   Ok Google, Adicionar Todos Os Usuários Ao Canal
+   ```
+   
+* Single Sentence
+
+   ```
+   Ok Google, Adicionar Todos Ao CHANNELNAME
+   ```
 
 ### Make An User Channel Moderator
 
-English
+**English**
 
-```
-Ok Google, Make USERNAME Moderator Of CHANNELNAME
-```
+* Conversational
 
-Hindi
+   ```
+   Ok Google, Make Channel Moderator
+   ```
+   
+* Single Sentence
 
-```
-Ok Google, USERNAME को CHANNELNAME का मॉडरेटर बनाएं
-```
+   ```
+   Ok Google, Make USERNAME Moderator Of CHANNELNAME
+   ```
 
-Portuguese
+**Hindi**
 
-```
-Ok Google, Fazer USERNAME Moderador De CHANNELNAME
-```
+* Conversational
+
+   ```
+   Ok Google, चैनल मॉडरेटर बनाएं
+   ```
+   
+* Single Sentence
+
+   ```
+   Ok Google, USERNAME को CHANNELNAME का मॉडरेटर बनाएं
+   ```
+
+**Portuguese**
+
+* Conversational
+
+   ```
+   Ok Google, Tornar Moderador Do Canal
+   ```
+   
+* Single Sentence
+
+   ```
+   Ok Google, Fazer USERNAME Moderador De CHANNELNAME
+   ```
 
 ### Remove Channel Moderator
 
-English
+**English**
 
-```
-Ok Google, Remove USERNAME As Moderator Of CHANNELNAME
-```
+* Conversational
 
-Hindi
+   ```
+   Ok Google, Remove Channel Moderator
+   ```
+   
+* Single Sentence
 
-```
-Ok Google, USERNAME को CHANNELNAME के मॉडरेटर के पद से निकालें
-```
+   ```
+   Ok Google, Remove USERNAME As Moderator Of CHANNELNAME
+   ```
 
-Portuguese
+**Hindi**
 
-```
-Ok Google, Remover USERNAME Como Moderador De CHANNELNAME
-```
+* Conversational
+
+   ```
+   Ok Google, चैनल मॉडरेटर निकालें
+   ```
+   
+* Single Sentence
+
+   ```
+   Ok Google, USERNAME को CHANNELNAME के मॉडरेटर के पद से निकालें
+   ```
+
+**Portuguese**
+
+* Conversational
+
+   ```
+   Ok Google, Remover O Moderador Do Canal
+   ```
+   
+* Single Sentence
+
+   ```
+   Ok Google, Remover USERNAME Como Moderador De CHANNELNAME
+   ```
 
 ### Make An User Channel Owner
 
-English
+**English**
 
-```
-Ok Google, Make USERNAME Owner Of CHANNELNAME
-```
+* Conversational
 
-Hindi
+   ```
+   Ok Google, Make Channel Owner
+   ```
+   
+* Single Sentence
 
-```
-Ok Google, USERNAME को CHANNELNAME का मालिक बनाएं
-```
+   ```
+   Ok Google, Make USERNAME Owner Of CHANNELNAME
+   ```
 
-Portuguese
+**Hindi**
 
-```
-Ok Google, Fazer USERNAME dono de CHANNELNAME
-```
+* Conversational
+
+   ```
+   Ok Google, चैनल का मालिक सेट करें
+   ```
+   
+* Single Sentence
+
+   ```
+   Ok Google, USERNAME को CHANNELNAME का मालिक बनाएं
+   ```
+
+**Portuguese**
+
+* Conversational
+
+   ```
+   Ok Google, Torne O Proprietário Do Canal
+   ```
+   
+* Single Sentence
+
+   ```
+   Ok Google, Fazer USERNAME Dono De CHANNELNAME
+   ```
 
 ### Remove Channel Owner
 
-English
+**English**
 
-```
-Ok Google, Remove USERNAME As Owner Of CHANNELNAME
-```
+* Conversational
 
-Hindi
+   ```
+   Ok Google, Remove Channel Owner
+   ```
+   
+* Single Sentence
 
-```
-Ok Google, USERNAME को CHANNELNAME के  मालिक के पद से निकालें
-```
+   ```
+   Ok Google, Remove USERNAME As Owner Of CHANNELNAME
+   ```
 
-Portuguese
+**Hindi**
 
-```
-Ok Google, Remover USERNAME Como Proprietário De CHANNELNAME
-```
+* Conversational
+
+   ```
+   Ok Google, चैनल मालिक निकालें
+   ```
+   
+* Single Sentence
+
+   ```
+   Ok Google, USERNAME को CHANNELNAME के  मालिक के पद से निकालें
+   ```
+
+**Portuguese**
+
+* Conversational
+
+   ```
+   Ok Google, Remover Proprietário Do Canal
+   ```
+   
+* Single Sentence
+
+   ```
+   Ok Google, Remover USERNAME Como Proprietário De CHANNELNAME
+   ```
 
 ### Archive A Channel
 
-English
+**English**
 
-```
-Ok Google, Archive CHANNELNAME
-```
+* Conversational
 
-Hindi
+   ```
+   Ok Google, Archive A Channel
+   ```
+   
+* Single Sentence
 
-```
-Ok Google, Archive CHANNELNAME
-```
+   ```
+   Ok Google, Archive CHANNELNAME
+   ```
 
-Portuguese
+**Hindi**
 
-```
-Ok Google, Arquivar CHANNELNAME
-```
+* Conversational
+
+   ```
+   Ok Google, चैनल का संग्रह करें
+   ```
+   
+* Single Sentence
+
+   ```
+   Ok Google, Archive CHANNELNAME
+   ```
+
+**Portuguese**
+
+* Conversational
+
+   ```
+   Ok Google, Arquivar Um Canal
+   ```
+   
+* Single Sentence
+
+   ```
+   Ok Google, Arquivar CHANNELNAME
+   ```
 
 ### Unarchive A Channel
 
-English
+**English**
 
-```
-Ok Google, Unarchive CHANNELNAME
-```
+* Conversational
 
-Hindi
+   ```
+   Ok Google, Unarchive A Channel
+   ```
+   
+* Single Sentence
 
-```
-Ok Google, अनारक्षित CHANNELNAME
-```
+   ```
+   Ok Google, Unarchive CHANNELNAME
+   ```
 
-Portuguese
+**Hindi**
 
-```
-Ok Google, Desarquivar CHANNELNAME
-```
+* Conversational
+
+   ```
+   Ok Google, चैनल अनारक्षित करें
+   ```
+   
+* Single Sentence
+
+   ```
+   Ok Google, अनारक्षित CHANNELNAME
+   ```
+
+**Portuguese**
+
+* Conversational
+
+   ```
+   Ok Google, Desarquivar Canal
+   ```
+   
+* Single Sentence
+
+   ```
+   Ok Google, Desarquivar CHANNELNAME
+   ```
 
 ### Invite User To A Channel
 
-English
+**English**
 
-```
-Ok Google, Invite USERNAME To CHANNELNAME
-```
+* Conversational
 
-Hindi
+   ```
+   Ok Google, Invite User
+   ```
+   
+* Single Sentence
 
-```
-Ok Google, USERNAME को CHANNELNAME में आमंत्रित करें
-```
+   ```
+   Ok Google, Invite USERNAME To CHANNELNAME
+   ```
 
-Portuguese
+**Hindi**
 
-```
-Ok Google, Convidar USERNAME Para CHANNELNAME
-```
+* Conversational
+
+   ```
+   Ok Google, उपयोगकर्ता को आमंत्रित करें
+   ```
+   
+* Single Sentence
+
+   ```
+   Ok Google, USERNAME को CHANNELNAME में आमंत्रित करें
+   ```
+
+**Portuguese**
+
+* Conversational
+
+   ```
+   Ok Google, Convidar Usuário
+   ```
+   
+* Single Sentence
+
+   ```
+   Ok Google, Convidar USERNAME Para CHANNELNAME
+   ```
 
 ### Leave A Channel
 
-English
+**English**
 
-```
-Ok Google, Leave CHANNELNAME
-```
+* Conversational
 
-Hindi
+   ```
+   Ok Google, Leave Channel
+   ```
+   
+* Single Sentence
 
-```
-Ok Google, CHANNELNAME को छोड़ दें
-```
+   ```
+   Ok Google, Leave CHANNELNAME
+   ```
 
-Portuguese
+**Hindi**
 
-```
-Ok Google, Sair De CHANNELNAME
-```
+* Conversational
+
+   ```
+   Ok Google, चैनल को छोड़ दें
+   ```
+   
+* Single Sentence
+
+   ```
+   Ok Google, CHANNELNAME को छोड़ दें
+   ```
+
+**Portuguese**
+
+* Conversational
+
+   ```
+   Ok Google, Sair do canal
+   ```
+   
+* Single Sentence
+
+   ```
+   Ok Google, Sair De CHANNELNAME
+   ```
 
 ### Kick User From A Channel
 
-English
+**English**
 
-```
-Ok Google, Kick USERNAME From CHANNELNAME
-```
+* Conversational
 
-Hindi
+   ```
+   Ok Google, Kick User
+   ```
+   
+* Single Sentence
 
-```
-Ok Google, USERNAME को CHANNELNAME से निकालें
-```
+   ```
+   Ok Google, Kick USERNAME From CHANNELNAME
+   ```
 
-Portuguese
+**Hindi**
 
-```
-Ok Google, Chute USERNAME De CHANNELNAME
-```
+* Conversational
+
+   ```
+   Ok Google, चैनल से उपयोगकर्ता को निकालें
+   ```
+   
+* Single Sentence
+
+   ```
+   Ok Google, USERNAME को CHANNELNAME से निकालें
+   ```
+
+**Portuguese**
+
+* Conversational
+
+   ```
+   Ok Google, Kick User
+   ```
+   
+* Single Sentence
+
+   ```
+   Ok Google, Chute USERNAME De CHANNELNAME
+   ```
 
 ### Make Channel Leader
 
-English
+**English**
 
-```
-Ok Google, Make USERNAME Leader Of CHANNELNAME
-```
+* Conversational
 
-Hindi
+   ```
+   Ok Google, Make Channel Leader
+   ```
+   
+* Single Sentence
 
-```
-Ok Google, USERNAME को CHANNELNAME का नेता बनाएं
-```
+   ```
+   Ok Google, Make USERNAME Leader Of CHANNELNAME
+   ```
 
-Portuguese
+**Hindi**
 
-```
-Ok Google, Tornar O Líder De USERNAME De CHANNELNAME
-```
+* Conversational
+
+   ```
+   Ok Google, चैनल लीडर बनाएं
+   ```
+   
+* Single Sentence
+
+   ```
+   Ok Google, USERNAME को CHANNELNAME का नेता बनाएं
+   ```
+
+**Portuguese**
+
+* Conversational
+
+   ```
+   Ok Google, Tornar O Líder Do Canal
+   ```
+   
+* Single Sentence
+
+   ```
+   Ok Google, Tornar O Líder De USERNAME De CHANNELNAME
+   ```
 
 ### Remove Channel Leader
 
-English
+**English**
 
-```
-Ok Google, Remove USERNAME As Leader Of CHANNELNAME
-```
+* Conversational
 
-Hindi
+   ```
+   Ok Google, Remove Channel Leader
+   ```
+   
+* Single Sentence
 
-```
-Ok Google, USERNAME को CHANNELNAME के  नेता के पद से निकालें
-```
+   ```
+   Ok Google, Remove USERNAME As Leader Of CHANNELNAME
+   ```
 
-Portuguese
+**Hindi**
 
-```
-Ok Google, Remover USERNAME Como Líder De CHANNELNAME
-```
+* Conversational
+
+   ```
+   Ok Google, चैनल लीडर निकालें
+   ```
+   
+* Single Sentence
+
+   ```
+   Ok Google, USERNAME को CHANNELNAME के  नेता के पद से निकालें
+   ```
+
+**Portuguese**
+
+* Conversational
+
+   ```
+   Ok Google, Remover O Líder Do Canal
+   ```
+   
+* Single Sentence
+
+   ```
+   Ok Google, Remover USERNAME Como Líder De CHANNELNAME
+   ```
 
 ### Rename Channel
 
-English
+**English**
 
-```
-Ok Google, Rename CHANNELNAME To NEWNAME
-```
+* Conversational
 
-Hindi
+   ```
+   Ok Google, Rename A Channel
+   ```
+   
+* Single Sentence
 
-```
-Ok Google, CHANNEL का नाम बदलकर NEWNAME करें
-```
+   ```
+   Ok Google, Rename CHANNELNAME To NEWNAME
+   ```
 
-Portuguese
+**Hindi**
 
-```
-Ok Google, Renomear CHANNELNAME Para NEWNAME
-```
+* Conversational
+
+   ```
+   Ok Google, चैनल का नाम बदलें
+   ```
+   
+* Single Sentence
+
+   ```
+   Ok Google, CHANNEL का नाम बदलकर NEWNAME करें
+   ```
+
+**Portuguese**
+
+* Conversational
+
+   ```
+   Ok Google, Renomear Um Canal
+   ```
+   
+* Single Sentence
+
+   ```
+   Ok Google, Renomear CHANNELNAME Para NEWNAME
+   ```
 
 ### Set Channel Topic
 
-English
+**English**
 
-```
-Ok Google, Set CHANNELNAME Topic To TOPICMESSAGE
-```
+* Conversational
 
-Hindi
+   ```
+   Ok Google, Set Channel Topic
+   ```
+   
+* Single Sentence
 
-```
-Ok Google, TOPICMESSAGE के विषय को CHANNELNAME पर सेट करें
-```
+   ```
+   Ok Google, Set CHANNELNAME Topic To TOPICMESSAGE
+   ```
 
-Portuguese
+**Hindi**
 
-```
-Ok Google, Definir O Tópico CHANNELNAME Para TOPICMESSAGE
-```
+* Conversational
+
+   ```
+   Ok Google, चैनल का टॉपिक सेट करें
+   ```
+   
+* Single Sentence
+
+   ```
+   Ok Google, TOPICMESSAGE के विषय को CHANNELNAME पर सेट करें
+   ```
+
+**Portuguese**
+
+* Conversational
+
+   ```
+   Ok Google, Definir O Tópico Do Canal
+   ```
+   
+* Single Sentence
+
+   ```
+   Ok Google, Definir O Tópico CHANNELNAME Para TOPICMESSAGE
+   ```
 
 ### Set Channel Description
 
-English
+**English**
 
-```
-Ok Google, Set CHANNELNAME Description To DESCRIPTIONMESSAGE
-```
+* Conversational
 
-Hindi
+   ```
+   Ok Google, Set Channel Description
+   ```
+   
+* Single Sentence
 
-```
-Ok Google, CHANNELNAME के लिए DESCRIPTIONMESSAGE विवरण सेट करें
-```
+   ```
+   Ok Google, Set CHANNELNAME Description To DESCRIPTIONMESSAGE
+   ```
 
-Portuguese
+**Hindi**
 
-```
-Ok Google, Defina A Descrição De CHANNELNAME Para DESCRIPTIONMESSAGE
-```
+* Conversational
+
+   ```
+   Ok Google, चैनल विवरण सेट करें
+   ```
+   
+* Single Sentence
+
+   ```
+   Ok Google, CHANNELNAME के लिए DESCRIPTIONMESSAGE विवरण सेट करें
+   ```
+
+**Portuguese**
+
+* Conversational
+
+   ```
+   Ok Google, Definir a descrição do canal
+   ```
+   
+* Single Sentence
+
+   ```
+   Ok Google, Defina A Descrição De CHANNELNAME Para DESCRIPTIONMESSAGE
+   ```
 
 ### Set Channel Announcement
 
-English
+**English**
 
-```
-Ok Google, Set CHANNELNAME Announcement To ANNOUNCEMENTMESSAGE
-```
+* Conversational
 
-Hindi
+   ```
+   Ok Google, Set Channel Announcement
+   ```
+   
+* Single Sentence
 
-```
-Ok Google, CHANNELNAME के लिए ANNOUNCEMENTMSG घोषणा सेट करें
-```
+   ```
+   Ok Google, Set CHANNELNAME Announcement To ANNOUNCEMENTMESSAGE
+   ```
 
-Portuguese
+**Hindi**
 
-```
-Ok Google, Definir O Anúncio De CHANNELNAME Para ANNOUNCMEANTMESSAGE
-```
+* Conversational
+
+   ```
+   Ok Google, चैनल घोषणा सेट करें
+   ```
+   
+* Single Sentence
+
+   ```
+   Ok Google, CHANNELNAME के लिए ANNOUNCEMENTMESSAGE घोषणा सेट करें
+   ```
+
+**Portuguese**
+
+* Conversational
+
+   ```
+   Ok Google, Definir Anúncio Do Canal
+   ```
+   
+* Single Sentence
+
+   ```
+   Ok Google, Definir O Anúncio De CHANNELNAME Para ANNOUNCEMENTMESSAGE
+   ```
 ***
 
 # Chat
 
 ### Post Message In A Channel
 
-English
+**English**
 
-```
-Ok Google, Send MESSAGE to CHANNELNAME
-```
+* Conversational
 
-Hindi
+   ```
+   Ok Google, Send A Message
+   ```
+   
+* Single Sentence
 
-```
-Ok Google, CHANNELNAME को MESSAGE भेजें
-```
+   ```
+   Ok Google, Send MESSAGE To CHANNELNAME
+   ```
 
-Portuguese
+**Hindi**
 
-```
-Ok Google, Mandar MESSAGE Para O CHANNELNAME
-```
+* Conversational
+
+   ```
+   Ok Google, एक संदेश भेजें
+   ```
+   
+* Single Sentence
+
+   ```
+   Ok Google, CHANNELNAME को MESSAGE भेजें
+   ```
+
+**Portuguese**
+
+* Conversational
+
+   ```
+   Ok Google, Enviar Mensagem
+   ```
+   
+* Single Sentence
+
+   ```
+   Ok Google, Mandar MESSAGE Para O CHANNELNAME
+   ```
 
 ### Post Emoji Message In A Channel
 
-English
+**English**
 
-```
-Ok Google, Send MESSAGE Emoji EMOJINAME to CHANNELNAME
-```
+* Conversational
 
-Hindi
+   ```
+   Ok Google, Send A Message With Emojis
+   ```
+   
+* Single Sentence
 
-```
-Ok Google, CHANNELNAME में MESSAGE इमोजी EMOJINAME भेजें
-```
+   ```
+   Ok Google, Send MESSAGE Emoji EMOJINAME To CHANNELNAME
+   ```
 
-Portuguese
+**Hindi**
 
-```
-Ok Google, Enviar MESSAGE Emoji EMOJINAME Para CHANNELNAME
-```
+* Conversational
+
+   ```
+   Ok Google, इमोजी के साथ एक संदेश भेजें
+   ```
+   
+* Single Sentence
+
+   ```
+   Ok Google, CHANNELNAME में MESSAGE इमोजी EMOJINAME भेजें
+   ```
+
+**Portuguese**
+
+* Conversational
+
+   ```
+   Ok Google, Enviar Mensagem Com Emojis
+   ```
+   
+* Single Sentence
+
+   ```
+   Ok Google, Enviar MESSAGE Emoji EMOJINAME Para CHANNELNAME
+   ```
 
 ### Read Last Message From A Channel
 
-English
+**English**
 
-```
-Ok Google, Read Last Message From CHANNELNAME
-```
+* Conversational
 
-Hindi
+   ```
+   Ok Google, Read Channel Last Message
+   ```
+   
+* Single Sentence
 
-```
-Ok Google, CHANNELNAME का अंतिम संदेश पढ़ें
-```
+   ```
+   Ok Google, Read Last Message From CHANNELNAME
+   ```
 
-Portuguese
+**Hindi**
 
-```
-Ok Google, Leia A última Mensagem Do CHANNELNAME
-```
+* Conversational
+
+   ```
+   Ok Google, चैनल का लास्ट मैसेज पढ़ें
+   ```
+   
+* Single Sentence
+
+   ```
+   Ok Google, CHANNELNAME का अंतिम संदेश पढ़ें
+   ```
+
+**Portuguese**
+
+* Conversational
+
+   ```
+   Ok Google, Leia A Última Mensagem Do Canal
+   ```
+   
+* Single Sentence
+
+   ```
+   Ok Google, Leia A última Mensagem Do CHANNELNAME
+   ```
 
 ### Read Unread Messages From A Channel
 
-English
+**English**
 
-```
-Ok Google, Read Unread Messages From CHANNELNAME
-```
+* Conversational
 
-Hindi
+   ```
+   Ok Google, Read My Unread Messages
+   ```
+   
+* Single Sentence
 
-```
-Ok Google, CHANNELNAME के अपठित संदेश पढ़ें
-```
+   ```
+   Ok Google, Read Unread Messages From CHANNELNAME
+   ```
 
-Portuguese
+**Hindi**
 
-```
-Ok Google, Leia Minhas Mensagens Não Lidas De CHANNELNAME
-```
+* Conversational
+
+   ```
+   Ok Google, मेरे अपठित संदेश पढ़ें
+   ```
+   
+* Single Sentence
+
+   ```
+   Ok Google, CHANNELNAME के अपठित संदेश पढ़ें
+   ```
+
+**Portuguese**
+
+* Conversational
+
+   ```
+   Ok Google, Leia Minhas Mensagens Não Lidas
+   ```
+   
+* Single Sentence
+
+   ```
+   Ok Google, Leia Minhas Mensagens Não Lidas De CHANNELNAME
+   ```
 ***
 
 # IM
 
 ### Send DM To An User
 
-English
+**English**
 
-```
-Ok Google, DM MESSAGE Recipient USERNAME
-Ok Google, Direct Message MESSAGE Recipient USERNAME
-```
+* Conversational
 
-Hindi
+   ```
+   Ok Google, Send A DM
+   ```
+   
+* Single Sentence
 
-```
-Ok Google, प्रत्यक्ष संदेश MESSAGE प्राप्तकर्ता USERNAME
-Ok Google, DM MESSAGE प्राप्तकर्ता USERNAME
-```
+   ```
+   Ok Google, DM MESSAGE Recipient USERNAME
+   ```
 
-Portuguese
+**Hindi**
 
-```
-Ok Google, Mensagem Direta MESSAGE Destinatário USERNAME
-Ok Google, DM MESSAGE Destinatário USERNAME
-```
+* Conversational
+
+   ```
+   Ok Google, एक डायरेक्ट संदेश भेजें
+   ```
+   
+* Single Sentence
+
+   ```
+   Ok Google, DM MESSAGE प्राप्तकर्ता USERNAME
+   ```
+
+**Portuguese**
+
+* Conversational
+
+   ```
+   Ok Google, Manda DM
+   ```
+   
+* Single Sentence
+
+   ```
+   Ok Google, DM MESSAGE Destinatário USERNAME
+   ```
 
 ### Send DM With Emoji To An User
 
-English
+**English**
 
-```
-Ok Google, Direct Message MESSAGE Emoji EMOJINAME Recipient USERNAME
-Ok Google, DM MESSAGE Emoji EMOJINAME Recipient USERNAME
-```
+* Conversational
 
-Hindi
+   ```
+   Ok Google, Send A DM With Emojis
+   ```
+   
+* Single Sentence
 
-```
-Ok Google, प्रत्यक्ष संदेश संदेश इमोजी EMOJINAME प्राप्तकर्ता USERNAME
-Ok Google, DM संदेश इमोजी EMOJINAME प्राप्तकर्ता USERNAME
-```
+   ```
+   Ok Google, DM MESSAGE Emoji EMOJINAME Recipient USERNAME
+   ```
 
-Portuguese
+**Hindi**
 
-```
-Ok Google, Mensagem Direta MENSAGEM Emoji EMOJINAME Destinatário USERNAME
-Ok Google, DM MENSAGEM Emoji EMOJINAME Destinatário USERNAME
-```
+* Conversational
+
+   ```
+   Ok Google, इमोजी के साथ एक डायरेक्ट संदेश भेजें
+   ```
+   
+* Single Sentence
+
+   ```
+   Ok Google, DM MESSAGE इमोजी EMOJINAME प्राप्तकर्ता USERNAME
+   ```
+
+**Portuguese**
+
+* Conversational
+
+   ```
+   Ok Google, Manda O DM Com Emojis
+   ```
+   
+* Single Sentence
+
+   ```
+   Ok Google, DM MENSAGEM Emoji EMOJINAME Destinatário USERNAME
+   ```
 
 ***
 
