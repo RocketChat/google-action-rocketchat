@@ -7,6 +7,7 @@ const removeWhitespace = require('remove-whitespace');
 const emojiTranslate = require('moji-translate');
 
 const i18n = require('i18n');
+var translate = require("@vitalets/google-translate-api")
 
 // Server Credentials. Follow readme to set them up.
 const { OAUTH_SERVICE_NAME } = envVariables;
@@ -624,6 +625,13 @@ const postDirectMessage = async (message, roomid, headers) =>
 			return i18n.__('POST_MESSAGE.ERROR');
 		});
 
+const hinditranslate = async (str) =>
+	await translate(str, {to: 'en'})
+		.then((res) => `${ res.text }`)
+		.catch(err => {
+			console.error(err);
+        });
+
 
 // Module Export of Functions
 
@@ -657,3 +665,4 @@ module.exports.removeModerator = removeModerator;
 module.exports.removeOwner = removeOwner;
 module.exports.createDMSession = createDMSession;
 module.exports.postDirectMessage = postDirectMessage;
+module.exports.hinditranslate = hinditranslate;
