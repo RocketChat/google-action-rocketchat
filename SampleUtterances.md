@@ -45,6 +45,8 @@
 * [IM Utterances](#im)
    * [Send DM To An User](#send-dm-to-an-user)
    * [Send DM With Emoji To An User](#send-dm-with-emoji-to-an-user)
+* [User Utterances](#user)
+   * [Help](#help-intent)
 
 ***
 
@@ -1643,6 +1645,8 @@ This utterances are for private channels. You can use 'Channel', 'Group', or 'Ro
 ***
 
 # Chat
+
+Utterance for sending messages. For complete list of emojis available please refer to documentation [here](https://github.com/muan/emojilib/blob/master/emojis.json).
 
 ### Post Message In A Channel
 
