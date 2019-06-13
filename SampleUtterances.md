@@ -1646,7 +1646,7 @@ This utterances are for private channels. You can use 'Channel', 'Group', or 'Ro
 
 # Chat
 
-Utterance for sending messages. For complete list of emojis available please refer to documentation [here](https://github.com/muan/emojilib/blob/master/emojis.json).
+Utterance for sending messages to channels. For complete list of emojis available please refer to documentation [here](https://github.com/muan/emojilib/blob/master/emojis.json).
 
 ### Post Message In A Channel
 
@@ -1826,6 +1826,8 @@ Utterance for sending messages. For complete list of emojis available please ref
 ***
 
 # IM
+
+Utterance for sending messages to users. For complete list of emojis available please refer to documentation [here](https://github.com/muan/emojilib/blob/master/emojis.json).
 
 ### Send DM To An User
 
