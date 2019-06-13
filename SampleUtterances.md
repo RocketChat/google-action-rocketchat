@@ -929,7 +929,7 @@ This utterances are for public channels. You can use 'Channel', 'Group', or 'Roo
 * Single Sentence
 
    ```
-   Ok Google, Read Last Message From CHANNELNAME
+   Ok Google, Read Last Message From Channel CHANNELNAME
    ```
 
 **Hindi**
@@ -943,7 +943,7 @@ This utterances are for public channels. You can use 'Channel', 'Group', or 'Roo
 * Single Sentence
 
    ```
-   Ok Google, CHANNELNAME का अंतिम संदेश पढ़ें
+   Ok Google, चैनल CHANNELNAME का लास्ट मैसेज पढ़ें
    ```
 
 **Portuguese**
@@ -957,7 +957,7 @@ This utterances are for public channels. You can use 'Channel', 'Group', or 'Roo
 * Single Sentence
 
    ```
-   Ok Google, Leia A última Mensagem Do CHANNELNAME
+   Ok Google, Leia A Última Mensagem Do Canal CHANNELNAME
    ```
 
 ### Read Unread Messages From A Channel
