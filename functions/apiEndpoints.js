@@ -54,4 +54,6 @@ module.exports = {
 	groupdescriptionurl: `${ SERVER_URL }/api/v1/groups.setDescription`,
 	groupannouncementurl: `${ SERVER_URL }/api/v1/groups.setAnnouncement`,
 	unarchivegroupurl: `${ SERVER_URL }/api/v1/groups.unarchive`,
+	groupmessageurl: `${ SERVER_URL }/api/v1/groups.messages?roomId=`,
+	groupcounterurl: `${ SERVER_URL }/api/v1/groups.counters?roomId=`,
 };

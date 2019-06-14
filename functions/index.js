@@ -366,6 +366,7 @@ app.intent('Unread Messages Intent', async (conv, params) => {
     var channelName = helperFunctions.replaceWhitespacesFunc(channelNameLwr);
 
     const headers = await helperFunctions.login(accessToken);
+    const unreadCount = await helperFunctions.getUnreadCounter(channelName, headers);
     const speechText = await helperFunctions.channelUnreadMessages(channelName, unreadCount, headers);
 
     conv.ask(speechText);
@@ -1819,6 +1820,82 @@ app.intent('Unarchive Group Intent', async (conv, params) => {
     const headers = await helperFunctions.login(accessToken);
     const roomid = await helperFunctions.getGroupId(channelName, headers);
     const speechText = await helperFunctions.unarchiveGroup(channelName, roomid, headers);
+
+    conv.ask(speechText);
+
+  }
+
+});
+
+app.intent('Group Last Message Intent', async (conv, params) => {
+
+  var locale = conv.user.locale;
+
+  if (locale === 'hi-IN') {
+
+    var accessToken = conv.user.access.token;
+
+    var channelNameRaw = params.channelname;
+    var channelNameData = await helperFunctions.hinditranslate(channelNameRaw);
+    var channelNameLwr = channelNameData.toLowerCase();
+    var channelName = helperFunctions.replaceWhitespacesFunc(channelNameLwr);
+
+    const headers = await helperFunctions.login(accessToken);
+    const roomid = await helperFunctions.getGroupId(channelName, headers);
+    const speechText = await helperFunctions.groupLastMessage(channelName,roomid, headers);
+
+    conv.ask(speechText);
+
+  } else {
+
+    var accessToken = conv.user.access.token;
+
+    var channelNameRaw = params.channelname;
+    var channelNameData = channelNameRaw.toLowerCase();
+    var channelName = helperFunctions.replaceWhitespacesFunc(channelNameData);
+
+    const headers = await helperFunctions.login(accessToken);
+    const roomid = await helperFunctions.getGroupId(channelName, headers);
+    const speechText = await helperFunctions.groupLastMessage(channelName,roomid, headers);
+
+    conv.ask(speechText);
+
+  }
+
+});
+
+app.intent('Group Unread Messages Intent', async (conv, params) => {
+
+  var locale = conv.user.locale;
+
+  if (locale === 'hi-IN') {
+
+    var accessToken = conv.user.access.token;
+
+    var channelNameRaw = params.channelname;
+    var channelNameData = await helperFunctions.hinditranslate(channelNameRaw);
+    var channelNameLwr = channelNameData.toLowerCase();
+    var channelName = helperFunctions.replaceWhitespacesFunc(channelNameLwr);
+
+    const headers = await helperFunctions.login(accessToken);
+    const roomid = await helperFunctions.getGroupId(channelName, headers);
+    const unreadCount = await helperFunctions.getGroupUnreadCounter(roomid, headers);
+    const speechText = await helperFunctions.groupUnreadMessages(channelName, roomid, unreadCount, headers);
+
+    conv.ask(speechText);
+
+  } else {
+
+    var accessToken = conv.user.access.token;
+
+    var channelNameRaw = params.channelname;
+    var channelNameData = channelNameRaw.toLowerCase();
+    var channelName = helperFunctions.replaceWhitespacesFunc(channelNameData);
+
+    const headers = await helperFunctions.login(accessToken);
+    const roomid = await helperFunctions.getGroupId(channelName, headers);
+    const unreadCount = await helperFunctions.getGroupUnreadCounter(roomid, headers);
+    const speechText = await helperFunctions.groupUnreadMessages(channelName, roomid, unreadCount, headers);
 
     conv.ask(speechText);
 

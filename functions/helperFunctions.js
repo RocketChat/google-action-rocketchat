@@ -1084,6 +1084,77 @@ const unarchiveGroup = async (channelName, roomid, headers) =>
 		return i18n.__('UNARCHIVE_CHANNEL.ERROR_NOT_FOUND', channelName);
 	});
 
+const groupLastMessage = async (channelName, roomid, headers) =>
+	await axios
+	.get(`${ apiEndpoints.groupmessageurl }${ roomid }`, {
+		headers
+	})
+	.then((res) => res.data)
+	.then((res) => {
+		if (res.success === true) {
+			return i18n.__('GET_LAST_MESSAGE_FROM_CHANNEL.SUCCESS', name = res.messages[0].u.username, message = res.messages[0].msg, );
+		} else {
+			return i18n.__('GET_LAST_MESSAGE_FROM_CHANNEL.ERROR', channelName);
+		}
+	})
+	.catch((err) => {
+		console.log(err.message);
+		if (err.response.data.errorType === 'error-room-not-found') {
+			return i18n.__('GET_LAST_MESSAGE_FROM_CHANNEL.ERROR_NOT_FOUND', channelName);
+		} else {
+			return i18n.__('GET_LAST_MESSAGE_FROM_CHANNEL.ERROR', channelName);
+		}
+	});
+
+const getGroupUnreadCounter = async (roomid, headers) =>
+	await axios
+	.get(`${ apiEndpoints.groupcounterurl }${ roomid }`, {
+		headers
+	})
+	.then((res) => res.data)
+	.then((res) => `${ res.unreads }`)
+	.catch((err) => {
+		console.log(err.message);
+	});
+
+const groupUnreadMessages = async (channelName, roomid, unreadCount, headers) =>
+	await axios
+	.get(`${ apiEndpoints.groupmessageurl }${ roomid }`, {
+		headers
+	})
+	.then((res) => res.data)
+	.then((res) => {
+		if (res.success === true) {
+
+			if (unreadCount == 0) {
+				return i18n.__('GET_UNREAD_MESSAGES_FROM_CHANNEL.NO_MESSAGE');
+			} else {
+				const msgs = [];
+
+				for (let i = 0; i <= unreadCount - 1; i++) {
+					msgs.push(`<s> ${res.messages[i].u.username} says, ${res.messages[i].msg} <break time=\"0.7\" /> </s>`);
+				}
+
+				var responseString = msgs.join('  ');
+
+				var finalMsg = i18n.__('GET_UNREAD_MESSAGES_FROM_CHANNEL.MESSAGE', unreadCount, responseString);
+
+				return finalMsg;
+			}
+		} else {
+			return i18n.__('GET_UNREAD_MESSAGES_FROM_CHANNEL.ERROR');
+		}
+	})
+	.catch((err) => {
+		console.log(err.message);
+		console.log(err.message);
+		if (err.response.data.errorType === 'error-room-not-found') {
+			return i18n.__('GET_UNREAD_MESSAGES_FROM_CHANNEL.ERROR_NOT_FOUND', channelName);
+		} else {
+			return i18n.__('GET_UNREAD_MESSAGES_FROM_CHANNELL.ERROR');
+		}
+	});
+
 // Module Export of Functions
 
 module.exports.login = login;
@@ -1136,3 +1207,6 @@ module.exports.groupTopic = groupTopic;
 module.exports.groupDescription = groupDescription;
 module.exports.groupAnnouncement = groupAnnouncement;
 module.exports.unarchiveGroup = unarchiveGroup;
+module.exports.groupLastMessage = groupLastMessage;
+module.exports.getGroupUnreadCounter = getGroupUnreadCounter;
+module.exports.groupUnreadMessages = groupUnreadMessages;
