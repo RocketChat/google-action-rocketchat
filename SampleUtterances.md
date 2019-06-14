@@ -40,8 +40,10 @@
 * [Chat Utterances](#chat)
     * [Post Message In A Channel](#post-message-in-a-channel)
     * [Post Emoji Message In A Channel](#post-emoji-message-in-a-channel)
-    * [Read Last Message From A Channel](#read-last-message-from-a-channel)
-    * [Read Unread Messages From A Channel](#read-unread-messages-from-a-channel)
+    * [Read Last Message From A Public Channel](#read-last-message-from-a-public-channel)
+    * [Read Last Message From A Private Channel](#read-last-message-from-a-private-channel)
+    * [Read Unread Messages From A Public Channel](#read-unread-messages-from-a-public-channel)
+    * [Read Unread Messages From A Private Channel](#read-unread-messages-from-a-private-channel)
 * [IM Utterances](#im)
    * [Send DM To An User](#send-dm-to-an-user)
    * [Send DM With Emoji To An User](#send-dm-with-emoji-to-an-user)
@@ -1736,7 +1738,7 @@ Utterance for sending messages to channels. For complete list of emojis availabl
    Ok Google, Enviar MESSAGE Emoji EMOJINAME Para CHANNELNAME
    ```
 
-### Read Last Message From A Channel
+### Read Last Message From A Public Channel
 
 **English**
 
@@ -1779,21 +1781,21 @@ Utterance for sending messages to channels. For complete list of emojis availabl
    ```
    Ok Google, Leia A Última Mensagem Do Canal CHANNELNAME
    ```
-
-### Read Unread Messages From A Channel
+   
+### Read Last Message From A Private Channel
 
 **English**
 
 * Conversational
 
    ```
-   Ok Google, Read My Unread Messages
+   Ok Google, Read Private Channel Last Message
    ```
    
 * Single Sentence
 
    ```
-   Ok Google, Read Unread Messages From CHANNELNAME
+   Ok Google, Read Last Message From Private Channel CHANNELNAME
    ```
 
 **Hindi**
@@ -1801,13 +1803,13 @@ Utterance for sending messages to channels. For complete list of emojis availabl
 * Conversational
 
    ```
-   Ok Google, मेरे अपठित संदेश पढ़ें
+   Ok Google, प्राइवेट चैनल का लास्ट मैसेज पढ़ें
    ```
    
 * Single Sentence
 
    ```
-   Ok Google, CHANNELNAME के अपठित संदेश पढ़ें
+   Ok Google, प्राइवेट चैनल CHANNELNAME का लास्ट मैसेज पढ़ें
    ```
 
 **Portuguese**
@@ -1815,13 +1817,101 @@ Utterance for sending messages to channels. For complete list of emojis availabl
 * Conversational
 
    ```
-   Ok Google, Leia Minhas Mensagens Não Lidas
+   Ok Google, Leia A Última Mensagem Do Canal Privado
    ```
    
 * Single Sentence
 
    ```
-   Ok Google, Leia Minhas Mensagens Não Lidas De CHANNELNAME
+   Ok Google, Leia A Última Mensagem Do Canal Privado CHANNELNAME
+   ```
+
+### Read Unread Messages From A Public Channel
+
+**English**
+
+* Conversational
+
+   ```
+   Ok Google, Read Unread Messages From Channel
+   ```
+   
+* Single Sentence
+
+   ```
+   Ok Google, Read Unread Messages From Channel CHANNELNAME
+   ```
+
+**Hindi**
+
+* Conversational
+
+   ```
+   Ok Google, चैनल के अपठित संदेश पढ़ें
+   ```
+   
+* Single Sentence
+
+   ```
+   Ok Google, चैनल CHANNELNAME के अपठित संदेश पढ़ें
+   ```
+
+**Portuguese**
+
+* Conversational
+
+   ```
+   Ok Google, Leia Mensagens Não Lidas Do Canal
+   ```
+   
+* Single Sentence
+
+   ```
+   Ok Google, Leia Minhas Mensagens Não Lidas De Canal CHANNELNAME
+   ```
+
+### Read Unread Messages From A Private Channel
+
+**English**
+
+* Conversational
+
+   ```
+   Ok Google, Read My Unread Messages From Private Channel
+   ```
+   
+* Single Sentence
+
+   ```
+   Ok Google, Read Unread Messages From Private Channel CHANNELNAME
+   ```
+
+**Hindi**
+
+* Conversational
+
+   ```
+   Ok Google, प्राइवेट चैनल के अपठित संदेश पढ़ें
+   ```
+   
+* Single Sentence
+
+   ```
+   Ok Google, प्राइवेट चैनल CHANNELNAME के अपठित संदेश पढ़ें
+   ```
+
+**Portuguese**
+
+* Conversational
+
+   ```
+   Ok Google, Leia Mensagens Não Lidas Do Canal Privado
+   ```
+   
+* Single Sentence
+
+   ```
+   Ok Google, Leia Minhas Mensagens Não Lidas De Canal Privado CHANNELNAME
    ```
 ***
 
