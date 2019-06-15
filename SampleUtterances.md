@@ -44,6 +44,7 @@
     * [Read Last Message From A Private Channel](#read-last-message-from-a-private-channel)
     * [Read Unread Messages From A Public Channel](#read-unread-messages-from-a-public-channel)
     * [Read Unread Messages From A Private Channel](#read-unread-messages-from-a-private-channel)
+    * [Read User Mentions From A Public Channel](#read-user-mentions-from-a-public-channel)
 * [IM Utterances](#im)
    * [Send DM To An User](#send-dm-to-an-user)
    * [Send DM With Emoji To An User](#send-dm-with-emoji-to-an-user)
@@ -1914,6 +1915,51 @@ Utterance for sending messages to channels. For complete list of emojis availabl
    ```
    Ok Google, Leia Minhas Mensagens Não Lidas De Canal Privado CHANNELNAME
    ```
+   
+### Read User Mentions From A Public Channel
+
+**English**
+
+* Conversational
+
+   ```
+   Ok Google, Read User Mentions From Channel
+   ```
+
+* Single Sentence
+
+   ```
+   Ok Google, Read User Mentions From Channel CHANNELNAME
+   ```
+
+**Hindi**
+
+* Conversational
+
+   ```
+   Ok Google, चैनल के यूज़र मेन्शॅन पढ़ें
+   ```
+
+* Single Sentence
+
+   ```
+   Ok Google, चैनल CHANNELNAME के यूज़र मेन्शॅन पढ़ें
+   ```
+
+**Portuguese**
+
+* Conversational
+
+   ```
+   Ok Google, Leia Menção Do Usuário Do Canal
+   ```
+
+* Single Sentence
+
+   ```
+   Ok Google, Leia Minhas Menção Do Usuário De Canal CHANNELNAME
+   ```
+
 ***
 
 # IM
