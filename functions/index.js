@@ -1842,7 +1842,7 @@ app.intent('Group Last Message Intent', async (conv, params) => {
 
     const headers = await helperFunctions.login(accessToken);
     const roomid = await helperFunctions.getGroupId(channelName, headers);
-    const speechText = await helperFunctions.groupLastMessage(channelName,roomid, headers);
+    const speechText = await helperFunctions.groupLastMessage(channelName, roomid, headers);
 
     conv.ask(speechText);
 
@@ -1856,7 +1856,7 @@ app.intent('Group Last Message Intent', async (conv, params) => {
 
     const headers = await helperFunctions.login(accessToken);
     const roomid = await helperFunctions.getGroupId(channelName, headers);
-    const speechText = await helperFunctions.groupLastMessage(channelName,roomid, headers);
+    const speechText = await helperFunctions.groupLastMessage(channelName, roomid, headers);
 
     conv.ask(speechText);
 
@@ -1902,5 +1902,15 @@ app.intent('Group Unread Messages Intent', async (conv, params) => {
   }
 
 });
+
+app.intent('Default No Input Intent', (conv) => {
+  const repromptCount = parseInt(conv.arguments.get('REPROMPT_COUNT'));
+  if (repromptCount === 0) {
+    conv.ask(i18n.__('NO_INPUT.MESSAGE'));
+  } else if (repromptCount === 1) {
+    conv.close(i18n.__('NO_INPUT.EXIT'));
+  };
+});
+
 
 exports.dialogflowFirebaseFulfillment = functions.https.onRequest(app);
