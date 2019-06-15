@@ -3,8 +3,9 @@
         "v1": "Sorry, I can't understand the command. Please say again.",
         "v2": "Sorry, I didn't get that. Could you say it again?."
     },
-    "HELP": {
-        "MESSAGE": "This is the Google Action for rocket chat. Refer sample utterances file on GitHub."
+    "NO_INPUT": {
+        "MESSAGE": "Sorry I didn't catch that. Could you repeat yourself?",
+        "EXIT": "Thank you for using Rocket Chat"
     },
     "GOODBYE": {
         "MESSAGE": "Thanks for using Rocket Chat."
@@ -53,22 +54,22 @@
         "ERROR": "Sorry, I couldn't archive this channel right now.",
         "ERROR_NOT_FOUND": "Sorry, I couldn't archive channel %s right now."
     },
-    "GET_UNREAD_MESSAGES_FROM_CHANNEL":{
-        "NO_MESSAGE" : "You have no unread messages.",
-        "MESSAGE" : "<speak> You Have %s Unread Messages <break time=\"1\" /> <p> %s </p> </speak>",
+    "GET_UNREAD_MESSAGES_FROM_CHANNEL": {
+        "NO_MESSAGE": "You have no unread messages.",
+        "MESSAGE": "<speak> You Have %s Unread Messages <break time=\"1\" /> <p> %s </p> </speak>",
         "ERROR": "Sorry, I couldn't get your unread messages right now.",
         "ERROR_NOT_FOUND": "Sorry, the channel %s does not exist. Please try again with different channel name."
     },
-    "INVITE_USER_TO_CHANNEL":{
+    "INVITE_USER_TO_CHANNEL": {
         "SUCCESS": "%s is invited to the channel %s ",
         "ERROR": "Sorry I couldn't invite user %s to channel %s right now",
         "ERROR_NOT_FOUND": "Sorry, I couldn't find channel %s right now"
     },
-    "LEAVE_CHANNEl":{
+    "LEAVE_CHANNEl": {
         "SUCCESS": "You Left channel %s .",
         "ERROR": "Sorry, You couldn't leave the channel %s right now. Maybe you are the only owner of Channel so first set someone as the channel owner"
     },
-    "KICK_USER_FROM_CHANNEL":{
+    "KICK_USER_FROM_CHANNEL": {
         "SUCCESS": "%s is now kicked from channel %s ",
         "ERROR": "Sorry I couldn't kick user %s from channel %s right now",
         "ERROR_NOT_FOUND": "Sorry, I couldn't find channel %s right now"
@@ -118,4 +119,4 @@
         "ERROR": "Sorry, I couldn't remove owner from this channel right now.",
         "ERROR_NOT_FOUND": "Sorry, I couldn't remove owner from channel %s right now."
     }
-  }
+}

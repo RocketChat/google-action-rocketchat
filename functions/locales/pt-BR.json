@@ -3,8 +3,9 @@
         "v1": "Desculpe, não consigo entender o comando. Por favor, repita.",
         "v2": "Desculpe, eu não entendi. Você poderia dizer isso de novo?"
     },
-    "HELP": {
-        "MESSAGE": "Esta é a ação do Google para o bate-papo com foguetes. Consulte o arquivo de declarações de amostra no GitHub."
+    "NO_INPUT": {
+        "MESSAGE": "Desculpe eu não entendi isso. Você poderia se repetir?",
+        "EXIT": "Obrigado por usar o Rocket Chat"
     },
     "GOODBYE": {
         "MESSAGE": "Obrigado por usar o Rocket Chat."
@@ -53,22 +54,22 @@
         "ERROR": "Desculpe, não consegui arquivar este canal agora.",
         "ERROR_NOT_FOUND": "Desculpe, não foi possível arquivar o canal %s agora."
     },
-    "GET_UNREAD_MESSAGES_FROM_CHANNEL":{
-        "NO_MESSAGE" : "Você não tem nenhuma mensagem não lida.",
-        "MESSAGE" : "<speak> Você tem %s mensagens não lidas <break time=\"1\" /> <p> %s </p> </speak>",
+    "GET_UNREAD_MESSAGES_FROM_CHANNEL": {
+        "NO_MESSAGE": "Você não tem nenhuma mensagem não lida.",
+        "MESSAGE": "<speak> Você tem %s mensagens não lidas <break time=\"1\" /> <p> %s </p> </speak>",
         "ERROR": "Desculpe, não consegui receber suas mensagens não lidas agora",
         "ERROR_NOT_FOUND": "Desculpe, o canal %s não existe. Por favor, tente novamente com o nome do canal diferente."
     },
-    "INVITE_USER_TO_CHANNEL":{
+    "INVITE_USER_TO_CHANNEL": {
         "SUCCESS": "%s é convidado para o canal %s",
         "ERROR": "Desculpe, não pude convidar o usuário %s para o canal %s agora",
         "ERROR_NOT_FOUND": "Desculpe, não encontrei o canal %s agora"
     },
-    "LEAVE_CHANNEl":{
+    "LEAVE_CHANNEl": {
         "SUCCESS": "Você saiu do canal %s.",
         "ERROR": "Desculpe, você não pode deixar o canal %s agora. Talvez você seja o único proprietário do canal. Primeiro, defina alguém como proprietário do canal"
     },
-    "KICK_USER_FROM_CHANNEL":{
+    "KICK_USER_FROM_CHANNEL": {
         "SUCCESS": "%s agora é kickado do canal %s ",
         "ERROR": "Desculpe, eu não pude chutar o usuário %s do canal %s agora",
         "ERROR_NOT_FOUND": "Desculpe, não encontrei o canal %s agora"
@@ -118,4 +119,4 @@
         "ERROR": "Desculpe, não consegui remover o proprietário deste canal agora.",
         "ERROR_NOT_FOUND": "Desculpe, não consegui remover o proprietário do canal %s agora."
     }
-  }
+}
