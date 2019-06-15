@@ -60,6 +60,12 @@
         "ERROR": "Sorry, I couldn't get your unread messages right now.",
         "ERROR_NOT_FOUND": "Sorry, the channel %s does not exist. Please try again with different channel name."
     },
+    "GET_USER_MENTIONS_FROM_CHANNEL": {
+        "NO_MESSAGE": "You have no user mention.",
+        "MESSAGE": "<speak> You Have %s User Mention <break time=\"1\" /> <p> %s </p> </speak>",
+        "ERROR": "Sorry, I couldn't get your user mention right now.",
+        "ERROR_NOT_FOUND": "Sorry, the channel %s does not exist. Please try again with different channel name."
+    },
     "INVITE_USER_TO_CHANNEL": {
         "SUCCESS": "%s is invited to the channel %s ",
         "ERROR": "Sorry I couldn't invite user %s to channel %s right now",
