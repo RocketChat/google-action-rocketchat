@@ -352,7 +352,7 @@ app.intent('Archive Channel Intent', async (conv, params) => {
 
 });
 
-app.intent('Unread Messages Intent', async (conv, params) => {
+app.intent('Channel Unread Messages Intent', async (conv, params) => {
 
   var locale = conv.user.locale;
 
@@ -382,6 +382,45 @@ app.intent('Unread Messages Intent', async (conv, params) => {
     const headers = await helperFunctions.login(accessToken);
     const unreadCount = await helperFunctions.getUnreadCounter(channelName, headers);
     const speechText = await helperFunctions.channelUnreadMessages(channelName, unreadCount, headers);
+
+    conv.ask(speechText);
+
+  }
+
+});
+
+app.intent('Channel User Mentions Intent', async (conv, params) => {
+
+  var locale = conv.user.locale;
+
+  if (locale === 'hi-IN') {
+
+    var accessToken = conv.user.access.token;
+
+    var channelNameRaw = params.channelname;
+    var channelNameData = await helperFunctions.hinditranslate(channelNameRaw);
+    var channelNameLwr = channelNameData.toLowerCase();
+    var channelName = helperFunctions.replaceWhitespacesFunc(channelNameLwr);
+
+    const headers = await helperFunctions.login(accessToken);
+    const mentionsCount = await helperFunctions.getMentionsCounter(channelName, headers);
+    const roomid = await helperFunctions.getRoomId(channelName, headers);
+    const speechText = await helperFunctions.channelUnreadMentions(channelName, roomid, mentionsCount, headers);
+
+    conv.ask(speechText);
+
+  } else {
+
+    var accessToken = conv.user.access.token;
+
+    var channelNameRaw = params.channelname;
+    var channelNameData = channelNameRaw.toLowerCase();
+    var channelName = helperFunctions.replaceWhitespacesFunc(channelNameData);
+
+    const headers = await helperFunctions.login(accessToken);
+    const mentionsCount = await helperFunctions.getMentionsCounter(channelName, headers);
+    const roomid = await helperFunctions.getRoomId(channelName, headers);
+    const speechText = await helperFunctions.channelUnreadMentions(channelName, roomid, mentionsCount, headers);
 
     conv.ask(speechText);
 

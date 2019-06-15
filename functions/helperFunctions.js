@@ -268,8 +268,17 @@ const getUnreadCounter = async (channelName, headers) =>
 		console.log(err.message);
 	});
 
+const getMentionsCounter = async (channelName, headers) =>
+	await axios
+	.get(`${ apiEndpoints.counterurl }${ channelName }`, {
+		headers
+	})
+	.then((res) => res.data)
+	.then((res) => `${ res.userMentions }`)
+	.catch((err) => {
+		console.log(err.message);
+	});
 
-//PLEASE DO NOT REFACTOR CHANNELUNREADMESSAGES FUNCTION
 const channelUnreadMessages = async (channelName, unreadCount, headers) =>
 	await axios
 	.get(`${ apiEndpoints.channelmessageurl }${ channelName }`, {
@@ -305,6 +314,44 @@ const channelUnreadMessages = async (channelName, unreadCount, headers) =>
 			return i18n.__('GET_UNREAD_MESSAGES_FROM_CHANNEL.ERROR_NOT_FOUND', channelName);
 		} else {
 			return i18n.__('GET_UNREAD_MESSAGES_FROM_CHANNELL.ERROR');
+		}
+	});
+
+const channelUnreadMentions = async (channelName, roomid, mentionsCount, headers) =>
+	await axios
+	.get(`${ apiEndpoints.channelmentionsurl }${ roomid }`, {
+		headers
+	})
+	.then((res) => res.data)
+	.then((res) => {
+		if (res.success === true) {
+
+			if (mentionsCount == 0) {
+				return i18n.__('GET_USER_MENTIONS_FROM_CHANNEL.NO_MESSAGE');
+			} else {
+				const msgs = [];
+
+				for (let i = 0; i <= mentionsCount - 1; i++) {
+					msgs.push(`<s> ${res.mentions[i].u.username} says, ${res.mentions[i].msg} <break time=\"0.7\" /> </s>`);
+				}
+
+				var responseString = msgs.join('  ');
+
+				var finalMsg = i18n.__('GET_USER_MENTIONS_FROM_CHANNEL.MESSAGE', mentionsCount, responseString);
+
+				return finalMsg;
+			}
+		} else {
+			return i18n.__('GET_USER_MENTIONS_FROM_CHANNEL.ERROR');
+		}
+	})
+	.catch((err) => {
+		console.log(err.message);
+		console.log(err.message);
+		if (err.response.data.errorType === 'error-room-not-found') {
+			return i18n.__('GET_USER_MENTIONS_FROM_CHANNEL.ERROR_NOT_FOUND', channelName);
+		} else {
+			return i18n.__('GET_USER_MENTIONS_FROM_CHANNEL.ERROR');
 		}
 	});
 
@@ -1172,7 +1219,9 @@ module.exports.replaceWhitespacesFunc = replaceWhitespacesFunc;
 module.exports.replaceWhitespacesDots = replaceWhitespacesDots;
 module.exports.emojiTranslateFunc = emojiTranslateFunc;
 module.exports.getUnreadCounter = getUnreadCounter;
+module.exports.getMentionsCounter = getMentionsCounter;
 module.exports.channelUnreadMessages = channelUnreadMessages;
+module.exports.channelUnreadMentions = channelUnreadMentions;
 module.exports.inviteUser = inviteUser;
 module.exports.leaveChannel = leaveChannel;
 module.exports.kickUser = kickUser;
