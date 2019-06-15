@@ -40,15 +40,14 @@
 * [Chat Utterances](#chat)
     * [Post Message In A Channel](#post-message-in-a-channel)
     * [Post Emoji Message In A Channel](#post-emoji-message-in-a-channel)
-    * [Read Last Message From A Public Channel](#read-last-message-from-a-public-channel)
-    * [Read Last Message From A Private Channel](#read-last-message-from-a-private-channel)
-    * [Read Unread Messages From A Public Channel](#read-unread-messages-from-a-public-channel)
-    * [Read Unread Messages From A Private Channel](#read-unread-messages-from-a-private-channel)
+    * [Read Last Message From A Channel](#read-last-message-from-a-channel)
+    * [Read Unread Messages From A Channel](#read-unread-messages-from-a-channel)
 * [IM Utterances](#im)
    * [Send DM To An User](#send-dm-to-an-user)
    * [Send DM With Emoji To An User](#send-dm-with-emoji-to-an-user)
 * [User Utterances](#user)
    * [Help](#help-intent)
+   * [Stop](#stop-intent)
 
 ***
 
@@ -1738,7 +1737,7 @@ Utterance for sending messages to channels. For complete list of emojis availabl
    Ok Google, Enviar MESSAGE Emoji EMOJINAME Para CHANNELNAME
    ```
 
-### Read Last Message From A Public Channel
+### Read Last Message From A Channel
 
 **English**
 
@@ -1781,21 +1780,21 @@ Utterance for sending messages to channels. For complete list of emojis availabl
    ```
    Ok Google, Leia A Última Mensagem Do Canal CHANNELNAME
    ```
-   
-### Read Last Message From A Private Channel
+
+### Read Unread Messages From A Channel
 
 **English**
 
 * Conversational
 
    ```
-   Ok Google, Read Private Channel Last Message
+   Ok Google, Read My Unread Messages
    ```
    
 * Single Sentence
 
    ```
-   Ok Google, Read Last Message From Private Channel CHANNELNAME
+   Ok Google, Read Unread Messages From CHANNELNAME
    ```
 
 **Hindi**
@@ -1803,13 +1802,13 @@ Utterance for sending messages to channels. For complete list of emojis availabl
 * Conversational
 
    ```
-   Ok Google, प्राइवेट चैनल का लास्ट मैसेज पढ़ें
+   Ok Google, मेरे अपठित संदेश पढ़ें
    ```
    
 * Single Sentence
 
    ```
-   Ok Google, प्राइवेट चैनल CHANNELNAME का लास्ट मैसेज पढ़ें
+   Ok Google, CHANNELNAME के अपठित संदेश पढ़ें
    ```
 
 **Portuguese**
@@ -1817,101 +1816,13 @@ Utterance for sending messages to channels. For complete list of emojis availabl
 * Conversational
 
    ```
-   Ok Google, Leia A Última Mensagem Do Canal Privado
+   Ok Google, Leia Minhas Mensagens Não Lidas
    ```
    
 * Single Sentence
 
    ```
-   Ok Google, Leia A Última Mensagem Do Canal Privado CHANNELNAME
-   ```
-
-### Read Unread Messages From A Public Channel
-
-**English**
-
-* Conversational
-
-   ```
-   Ok Google, Read Unread Messages From Channel
-   ```
-   
-* Single Sentence
-
-   ```
-   Ok Google, Read Unread Messages From Channel CHANNELNAME
-   ```
-
-**Hindi**
-
-* Conversational
-
-   ```
-   Ok Google, चैनल के अपठित संदेश पढ़ें
-   ```
-   
-* Single Sentence
-
-   ```
-   Ok Google, चैनल CHANNELNAME के अपठित संदेश पढ़ें
-   ```
-
-**Portuguese**
-
-* Conversational
-
-   ```
-   Ok Google, Leia Mensagens Não Lidas Do Canal
-   ```
-   
-* Single Sentence
-
-   ```
-   Ok Google, Leia Minhas Mensagens Não Lidas De Canal CHANNELNAME
-   ```
-
-### Read Unread Messages From A Private Channel
-
-**English**
-
-* Conversational
-
-   ```
-   Ok Google, Read My Unread Messages From Private Channel
-   ```
-   
-* Single Sentence
-
-   ```
-   Ok Google, Read Unread Messages From Private Channel CHANNELNAME
-   ```
-
-**Hindi**
-
-* Conversational
-
-   ```
-   Ok Google, प्राइवेट चैनल के अपठित संदेश पढ़ें
-   ```
-   
-* Single Sentence
-
-   ```
-   Ok Google, प्राइवेट चैनल CHANNELNAME के अपठित संदेश पढ़ें
-   ```
-
-**Portuguese**
-
-* Conversational
-
-   ```
-   Ok Google, Leia Mensagens Não Lidas Do Canal Privado
-   ```
-   
-* Single Sentence
-
-   ```
-   Ok Google, Leia Minhas Mensagens Não Lidas De Canal Privado CHANNELNAME
+   Ok Google, Leia Minhas Mensagens Não Lidas De CHANNELNAME
    ```
 ***
 
@@ -2029,6 +1940,26 @@ Utterance for sending messages to users. For complete list of emojis available p
 
    ```
    Ok Google, Socorro
+   ```
+
+### Stop Intent
+
+**English**
+
+   ```
+   Ok Google, Stop
+   ```
+
+**Hindi**
+
+   ```
+   Ok Google, कैंसिल
+   ```
+
+**Portuguese**
+
+   ```
+   Ok Google, Pare
    ```
 
 ***
