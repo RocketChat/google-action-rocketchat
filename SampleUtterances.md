@@ -38,8 +38,10 @@
     * [Set Group Description](#set-group-description)
     * [Set Group Announcement](#set-group-announcement)
 * [Chat Utterances](#chat)
-    * [Post Message In A Channel](#post-message-in-a-channel)
-    * [Post Emoji Message In A Channel](#post-emoji-message-in-a-channel)
+    * [Post Message In A Public Channel](#post-message-in-a-public-channel)
+    * [Post Message In A Private Channel](#post-message-in-a-private-channel)
+    * [Post Emoji Message In A Public Channel](#post-emoji-message-in-a-public-channel)
+    * [Post Emoji Message In A Private Channel](#post-emoji-message-in-a-private-channel)
     * [Read Last Message From A Public Channel](#read-last-message-from-a-public-channel)
     * [Read Last Message From A Private Channel](#read-last-message-from-a-private-channel)
     * [Read Unread Messages From A Public Channel](#read-unread-messages-from-a-public-channel)
@@ -1652,20 +1654,20 @@ This utterances are for private channels. You can use 'Channel', 'Group', or 'Ro
 
 Utterance for sending messages to channels. For complete list of emojis available please refer to documentation [here](https://github.com/muan/emojilib/blob/master/emojis.json).
 
-### Post Message In A Channel
+### Post Message In A Public Channel
 
 **English**
 
 * Conversational
 
    ```
-   Ok Google, Send A Message
+   Ok Google, Send Message To Channel
    ```
    
 * Single Sentence
 
    ```
-   Ok Google, Send MESSAGE To CHANNELNAME
+   Ok Google, Send MESSAGE To Channel CHANNELNAME
    ```
 
 **Hindi**
@@ -1673,13 +1675,13 @@ Utterance for sending messages to channels. For complete list of emojis availabl
 * Conversational
 
    ```
-   Ok Google, एक संदेश भेजें
+   Ok Google, चैनल में मैसेज भेजें
    ```
    
 * Single Sentence
 
    ```
-   Ok Google, CHANNELNAME को MESSAGE भेजें
+   Ok Google, चैनल CHANNELNAME में MESSAGE भेजें
    ```
 
 **Portuguese**
@@ -1687,29 +1689,29 @@ Utterance for sending messages to channels. For complete list of emojis availabl
 * Conversational
 
    ```
-   Ok Google, Enviar Mensagem
+   Ok Google, Enviar Mensagem Para O Canal
    ```
    
 * Single Sentence
 
    ```
-   Ok Google, Mandar MESSAGE Para O CHANNELNAME
+   Ok Google, Enviar MESSAGE Para O Canal CHANNELNAME
    ```
-
-### Post Emoji Message In A Channel
+   
+### Post Message In A Private Channel
 
 **English**
 
 * Conversational
 
    ```
-   Ok Google, Send A Message With Emojis
+   Ok Google, Send Message To Private Channel
    ```
    
 * Single Sentence
 
    ```
-   Ok Google, Send MESSAGE Emoji EMOJINAME To CHANNELNAME
+   Ok Google, Send MESSAGE To Private Channel CHANNELNAME
    ```
 
 **Hindi**
@@ -1717,13 +1719,13 @@ Utterance for sending messages to channels. For complete list of emojis availabl
 * Conversational
 
    ```
-   Ok Google, इमोजी के साथ एक संदेश भेजें
+   Ok Google, प्राइवेट चैनल में मैसेज भेजें
    ```
    
 * Single Sentence
 
    ```
-   Ok Google, CHANNELNAME में MESSAGE इमोजी EMOJINAME भेजें
+   Ok Google, प्राइवेट चैनल CHANNELNAME में MESSAGE भेजें
    ```
 
 **Portuguese**
@@ -1731,13 +1733,101 @@ Utterance for sending messages to channels. For complete list of emojis availabl
 * Conversational
 
    ```
-   Ok Google, Enviar Mensagem Com Emojis
+   Ok Google, Enviar Mensagem Para O Canal Privado
    ```
    
 * Single Sentence
 
    ```
-   Ok Google, Enviar MESSAGE Emoji EMOJINAME Para CHANNELNAME
+   Ok Google, Enviar MESSAGE Para O Canal Privado CHANNELNAME
+   ```
+
+### Post Emoji Message In A Public Channel
+
+**English**
+
+* Conversational
+
+   ```
+   Ok Google, Send Message With Emojis To Channel
+   ```
+   
+* Single Sentence
+
+   ```
+   Ok Google, Send MESSAGE Emoji EMOJINAME to Channel CHANNELNAME
+   ```
+
+**Hindi**
+
+* Conversational
+
+   ```
+   Ok Google, चैनल में इमोजी मैसेज भेजें
+   ```
+   
+* Single Sentence
+
+   ```
+   Ok Google, चैनल CHANNELNAME में MESSAGE इमोजी EMOJINAME भेजें
+   ```
+
+**Portuguese**
+
+* Conversational
+
+   ```
+   Ok Google, Enviar Mensagem Com Emoji Para O Canal
+   ```
+   
+* Single Sentence
+
+   ```
+   Ok Google, Enviar MESSAGE Emoji EMOJINAME Para O Canal CHANNELNAME
+   ```
+   
+### Post Emoji Message In A Private Channel
+
+**English**
+
+* Conversational
+
+   ```
+   Ok Google, Send Message With Emojis To Private Channel
+   ```
+   
+* Single Sentence
+
+   ```
+   Ok Google, Send MESSAGE Emoji EMOJINAME to Private Channel CHANNELNAME
+   ```
+
+**Hindi**
+
+* Conversational
+
+   ```
+   Ok Google, प्राइवेट चैनल में इमोजी मैसेज भेजें
+   ```
+   
+* Single Sentence
+
+   ```
+   Ok Google, प्राइवेट चैनल CHANNELNAME में MESSAGE इमोजी EMOJINAME भेजें
+   ```
+
+**Portuguese**
+
+* Conversational
+
+   ```
+   Ok Google, Enviar Mensagem Com Emoji Para O Canal Privado
+   ```
+   
+* Single Sentence
+
+   ```
+   Ok Google, Enviar MESSAGE Emoji EMOJINAME Para O Canal Privado CHANNELNAME
    ```
 
 ### Read Last Message From A Public Channel
