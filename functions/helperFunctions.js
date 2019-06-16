@@ -1202,6 +1202,29 @@ const groupUnreadMessages = async (channelName, roomid, unreadCount, headers) =>
 		}
 	});
 
+const postGroupMessage = async (roomid, message, headers) =>
+	await axios
+	.post(
+		apiEndpoints.postmessageurl, {
+			roomId: roomid,
+			text: message,
+		}, {
+			headers
+		}
+	)
+	.then((res) => res.data)
+	.then((res) => {
+		if (res.success === true) {
+			return i18n.__('POST_MESSAGE.SUCCESS');
+		} else {
+			return i18n.__('POST_MESSAGE.ERROR');
+		}
+	})
+	.catch((err) => {
+		console.log(err.message);
+		return i18n.__('POST_MESSAGE.ERROR');
+	});
+
 // Module Export of Functions
 
 module.exports.login = login;
@@ -1259,3 +1282,4 @@ module.exports.unarchiveGroup = unarchiveGroup;
 module.exports.groupLastMessage = groupLastMessage;
 module.exports.getGroupUnreadCounter = getGroupUnreadCounter;
 module.exports.groupUnreadMessages = groupUnreadMessages;
+module.exports.postGroupMessage = postGroupMessage;
