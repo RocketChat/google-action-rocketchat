@@ -11,6 +11,7 @@ const {
 
 module.exports = {
 	loginUrl: `${ SERVER_URL }/api/v1/login`,
+	anonymousReadUrl: `${ SERVER_URL }/api/v1/channels.anonymousread?roomName=`,
 	createchannelurl: `${ SERVER_URL }/api/v1/channels.create`,
 	deletechannelurl: `${ SERVER_URL }/api/v1/channels.delete`,
 	postmessageurl: `${ SERVER_URL }/api/v1/chat.postMessage`,
