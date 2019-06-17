@@ -14,6 +14,9 @@
         "SUCCESS": "Bem-vindo ao Rocket Chat Google Action. O que você gostaria de fazer hoje?",
         "ERROR": "Para começar a usar essa ação, vincule sua conta para autenticar."
     },
+    "WELCOME_ANONYMOUS_USER": {
+        "SUCCESS": "Bem-vindo ao Rocket Chat Google Action. Você está logado como usuário anônimo. Diga 'Leia meus briefings de flash' para ler seus briefings de flash."
+    },
     "POST_MESSAGE": {
         "SUCCESS": "Eu enviei sua mensagem.",
         "ERROR": "Desculpe, não consegui enviar sua mensagem agora."
