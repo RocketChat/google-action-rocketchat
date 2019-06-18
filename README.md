@@ -15,7 +15,6 @@
     * [Firebase Deployment](#firebase-deployment)
     * [Enabling Billing](#enabling-billing)
     * [Configuring Account Linking](#configuring-account-linking)
-    * [Setting Up Flash Briefing](#setting-up-flash-briefing)
 * [Development](#development)
     * [Files](#files)
     * [i18n](#i18n)
@@ -209,17 +208,7 @@ Function URL (factsAboutGoogle): https://us-central1-myprojectname-ab123.cloudfu
   
      firebase deploy --only functions
   
-## Setting Up Flash Briefing
-
-Flash briefing helps admin to setup a way that new users can interact with his Google Action anonymously. Admin can provide short messages to this anonymous user by simply setting up a channel as his flash briefing channel. Default channel is **General**. To setup flash briefing follow below mentioned steps:
-
-1.  Go to **Administration** -> **Accounts** -> **Allow Anonymous Read** and set it to **True**
-
-2.  In **Functions** folder, open **index.js** file and search for **Flash Briefing Intent**.
-
-3. Change **channelName** value with the channel name you want to setup for flash briefing and save it.
-
-4.  Run `firebase deploy --only functions`
+22. Finally We Are Done !
 
 ---
 
