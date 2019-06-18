@@ -1285,4 +1285,3 @@ module.exports.groupLastMessage = groupLastMessage;
 module.exports.getGroupUnreadCounter = getGroupUnreadCounter;
 module.exports.groupUnreadMessages = groupUnreadMessages;
 module.exports.postGroupMessage = postGroupMessage;
-module.exports.flashBriefingMessage = flashBriefingMessage;
