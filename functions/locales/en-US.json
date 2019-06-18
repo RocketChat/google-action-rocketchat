@@ -14,20 +14,13 @@
         "SUCCESS": "Welcome To Rocket Chat Google Action. What Would you like to do today?",
         "ERROR": "To start using this action, please link your account to authenticate."
     },
-    "WELCOME_ANONYMOUS_USER": {
-        "SUCCESS": "Welcome To Rocket Chat Google Action. You are currently logged in as anonymous user. Say 'Read my flash briefings' to read your flash briefings."
-    },
-    "FLASH_BRIEFING": {
-        "SUCCESS": "%s.",
-        "ERROR": "Sorry, I couldn't find the channel %s right now.",
-        "ERROR_NOT_FOUND": "Sorry, the channel %s does not exist. Please try again with different channel name."
-    },
     "POST_MESSAGE": {
         "SUCCESS": "I've sent your message.",
         "ERROR": "Sorry, I couldn't send your message right now."
     },
     "CREATE_CHANNEL": {
         "SUCCESS": "I've created your channel %s .",
+        "AUTH_ERROR": "Sorry You Are Currently Signed Out. To Access This Intent , please complete your account linking ",
         "ERROR": "Sorry, I couldn't create the channel %s right now.",
         "ERROR_DUPLICATE_NAME": "Sorry, the channel %s already exists. Please try again with different channel name.",
         "ERROR_INVALID_NAME": "Sorry, %s is not a valid channel name. Please try again with a single word name for the channel."
