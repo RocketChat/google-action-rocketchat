@@ -32,43 +32,10 @@ app.middleware((conv) => {
   moment.locale(conv.user.locale);
 });
 
+
 app.intent('Default Welcome Intent', (conv) => {
 
-  var accessToken = conv.user.access.token;
-
-  if (!accessToken) {
-
-    conv.ask(i18n.__('WELCOME_ANONYMOUS_USER.SUCCESS'));
-
-  } else {
-
     conv.ask(i18n.__('WELCOME.SUCCESS'));
-
-  }
-
-});
-
-app.intent('Flash Briefing Intent', async (conv, params) => {
-
-  var locale = conv.user.locale;
-
-  if (locale === 'hi-IN') {
-
-    var channelName = "general"
-
-    const speechText = await helperFunctions.flashBriefingMessage(channelName);
-
-    conv.close(speechText);
-
-  } else {
-
-    var channelName = "general"
-
-    const speechText = await helperFunctions.flashBriefingMessage(channelName);
-
-    conv.close(speechText);
-
-  }
 
 });
 

@@ -33,26 +33,6 @@ const login = async (accessToken) =>
 		console.log(err);
 	});
 
-const flashBriefingMessage = async (channelName) =>
-	await axios
-	.get(`${ apiEndpoints.anonymousReadUrl }${ channelName }`)
-	.then((res) => res.data)
-	.then((res) => {
-		if (res.success === true) {
-			return i18n.__('FLASH_BRIEFING.SUCCESS', message = res.messages[0].msg, );
-		} else {
-			return i18n.__('FLASH_BRIEFING.ERROR', channelName);
-		}
-	})
-	.catch((err) => {
-		console.log(err.message);
-		if (err.response.data.errorType === 'error-room-not-found') {
-			return i18n.__('FLASH_BRIEFING.ERROR_NOT_FOUND', channelName);
-		} else {
-			return i18n.__('FLASH_BRIEFING.ERROR', channelName);
-		}
-	});
-
 const createChannel = async (channelName, headers) =>
 	await axios
 	.post(
@@ -76,6 +56,8 @@ const createChannel = async (channelName, headers) =>
 			return i18n.__('CREATE_CHANNEL.ERROR_DUPLICATE_NAME', channelName);
 		} else if (err.response.data.errorType === 'error-invalid-room-name') {
 			return i18n.__('CREATE_CHANNEL.ERROR_INVALID_NAME', channelName);
+		} else if (err.response.status === 401) {
+			return i18n.__('CREATE_CHANNEL.AUTH_ERROR');
 		} else {
 			return i18n.__('CREATE_CHANNEL.ERROR', channelName);
 		}
