@@ -51,7 +51,6 @@
    * [Send DM To An User](#send-dm-to-an-user)
    * [Send DM With Emoji To An User](#send-dm-with-emoji-to-an-user)
 * [User Utterances](#user)
-   * [Flash Briefing Intent](#flash-briefing-intent)
    * [Help](#help-intent)
    * [Stop](#stop-intent)
 
@@ -2148,26 +2147,6 @@ Utterance for sending messages to users. For complete list of emojis available p
 ***
 
 # User
-
-### Flash Briefing Intent
-
-**English**
-
-   ```
-   Ok Google, Read My Flash Briefings
-   ```
-
-**Hindi**
-
-   ```
-   Ok Google, मेरी फ्लैश ब्रीफिंग पढ़ें
-   ```
-
-**Portuguese**
-
-   ```
-   Ok Google, Leia Meus Briefings De Flash
-   ```
 
 ### Help Intent
 
