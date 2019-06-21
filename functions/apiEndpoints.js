@@ -15,6 +15,7 @@ module.exports = {
 	deletechannelurl: `${ SERVER_URL }/api/v1/channels.delete`,
 	postmessageurl: `${ SERVER_URL }/api/v1/chat.postMessage`,
 	channelmessageurl: `${ SERVER_URL }/api/v1/channels.messages?roomName=`,
+	channelmentionsurl: `${ SERVER_URL }/api/v1/channels.getAllUserMentionsByChannel?roomId=`,
 	channelinfourl: `${ SERVER_URL }/api/v1/channels.info?roomName=`,
 	userinfourl: `${ SERVER_URL }/api/v1/users.info?username=`,
 	addallurl: `${ SERVER_URL }/api/v1/channels.addAll`,
@@ -54,4 +55,6 @@ module.exports = {
 	groupdescriptionurl: `${ SERVER_URL }/api/v1/groups.setDescription`,
 	groupannouncementurl: `${ SERVER_URL }/api/v1/groups.setAnnouncement`,
 	unarchivegroupurl: `${ SERVER_URL }/api/v1/groups.unarchive`,
+	groupmessageurl: `${ SERVER_URL }/api/v1/groups.messages?roomId=`,
+	groupcounterurl: `${ SERVER_URL }/api/v1/groups.counters?roomId=`,
 };

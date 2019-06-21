@@ -56,6 +56,8 @@ const createChannel = async (channelName, headers) =>
 			return i18n.__('CREATE_CHANNEL.ERROR_DUPLICATE_NAME', channelName);
 		} else if (err.response.data.errorType === 'error-invalid-room-name') {
 			return i18n.__('CREATE_CHANNEL.ERROR_INVALID_NAME', channelName);
+		} else if (err.response.status === 401) {
+			return i18n.__('CREATE_CHANNEL.AUTH_ERROR');
 		} else {
 			return i18n.__('CREATE_CHANNEL.ERROR', channelName);
 		}
@@ -268,8 +270,17 @@ const getUnreadCounter = async (channelName, headers) =>
 		console.log(err.message);
 	});
 
+const getMentionsCounter = async (channelName, headers) =>
+	await axios
+	.get(`${ apiEndpoints.counterurl }${ channelName }`, {
+		headers
+	})
+	.then((res) => res.data)
+	.then((res) => `${ res.userMentions }`)
+	.catch((err) => {
+		console.log(err.message);
+	});
 
-//PLEASE DO NOT REFACTOR CHANNELUNREADMESSAGES FUNCTION
 const channelUnreadMessages = async (channelName, unreadCount, headers) =>
 	await axios
 	.get(`${ apiEndpoints.channelmessageurl }${ channelName }`, {
@@ -305,6 +316,44 @@ const channelUnreadMessages = async (channelName, unreadCount, headers) =>
 			return i18n.__('GET_UNREAD_MESSAGES_FROM_CHANNEL.ERROR_NOT_FOUND', channelName);
 		} else {
 			return i18n.__('GET_UNREAD_MESSAGES_FROM_CHANNELL.ERROR');
+		}
+	});
+
+const channelUnreadMentions = async (channelName, roomid, mentionsCount, headers) =>
+	await axios
+	.get(`${ apiEndpoints.channelmentionsurl }${ roomid }`, {
+		headers
+	})
+	.then((res) => res.data)
+	.then((res) => {
+		if (res.success === true) {
+
+			if (mentionsCount == 0) {
+				return i18n.__('GET_USER_MENTIONS_FROM_CHANNEL.NO_MESSAGE');
+			} else {
+				const msgs = [];
+
+				for (let i = 0; i <= mentionsCount - 1; i++) {
+					msgs.push(`<s> ${res.mentions[i].u.username} says, ${res.mentions[i].msg} <break time=\"0.7\" /> </s>`);
+				}
+
+				var responseString = msgs.join('  ');
+
+				var finalMsg = i18n.__('GET_USER_MENTIONS_FROM_CHANNEL.MESSAGE', mentionsCount, responseString);
+
+				return finalMsg;
+			}
+		} else {
+			return i18n.__('GET_USER_MENTIONS_FROM_CHANNEL.ERROR');
+		}
+	})
+	.catch((err) => {
+		console.log(err.message);
+		console.log(err.message);
+		if (err.response.data.errorType === 'error-room-not-found') {
+			return i18n.__('GET_USER_MENTIONS_FROM_CHANNEL.ERROR_NOT_FOUND', channelName);
+		} else {
+			return i18n.__('GET_USER_MENTIONS_FROM_CHANNEL.ERROR');
 		}
 	});
 
@@ -1084,6 +1133,100 @@ const unarchiveGroup = async (channelName, roomid, headers) =>
 		return i18n.__('UNARCHIVE_CHANNEL.ERROR_NOT_FOUND', channelName);
 	});
 
+const groupLastMessage = async (channelName, roomid, headers) =>
+	await axios
+	.get(`${ apiEndpoints.groupmessageurl }${ roomid }`, {
+		headers
+	})
+	.then((res) => res.data)
+	.then((res) => {
+		if (res.success === true) {
+			return i18n.__('GET_LAST_MESSAGE_FROM_CHANNEL.SUCCESS', name = res.messages[0].u.username, message = res.messages[0].msg, );
+		} else {
+			return i18n.__('GET_LAST_MESSAGE_FROM_CHANNEL.ERROR', channelName);
+		}
+	})
+	.catch((err) => {
+		console.log(err.message);
+		if (err.response.data.errorType === 'error-room-not-found') {
+			return i18n.__('GET_LAST_MESSAGE_FROM_CHANNEL.ERROR_NOT_FOUND', channelName);
+		} else {
+			return i18n.__('GET_LAST_MESSAGE_FROM_CHANNEL.ERROR', channelName);
+		}
+	});
+
+const getGroupUnreadCounter = async (roomid, headers) =>
+	await axios
+	.get(`${ apiEndpoints.groupcounterurl }${ roomid }`, {
+		headers
+	})
+	.then((res) => res.data)
+	.then((res) => `${ res.unreads }`)
+	.catch((err) => {
+		console.log(err.message);
+	});
+
+const groupUnreadMessages = async (channelName, roomid, unreadCount, headers) =>
+	await axios
+	.get(`${ apiEndpoints.groupmessageurl }${ roomid }`, {
+		headers
+	})
+	.then((res) => res.data)
+	.then((res) => {
+		if (res.success === true) {
+
+			if (unreadCount == 0) {
+				return i18n.__('GET_UNREAD_MESSAGES_FROM_CHANNEL.NO_MESSAGE');
+			} else {
+				const msgs = [];
+
+				for (let i = 0; i <= unreadCount - 1; i++) {
+					msgs.push(`<s> ${res.messages[i].u.username} says, ${res.messages[i].msg} <break time=\"0.7\" /> </s>`);
+				}
+
+				var responseString = msgs.join('  ');
+
+				var finalMsg = i18n.__('GET_UNREAD_MESSAGES_FROM_CHANNEL.MESSAGE', unreadCount, responseString);
+
+				return finalMsg;
+			}
+		} else {
+			return i18n.__('GET_UNREAD_MESSAGES_FROM_CHANNEL.ERROR');
+		}
+	})
+	.catch((err) => {
+		console.log(err.message);
+		console.log(err.message);
+		if (err.response.data.errorType === 'error-room-not-found') {
+			return i18n.__('GET_UNREAD_MESSAGES_FROM_CHANNEL.ERROR_NOT_FOUND', channelName);
+		} else {
+			return i18n.__('GET_UNREAD_MESSAGES_FROM_CHANNELL.ERROR');
+		}
+	});
+
+const postGroupMessage = async (roomid, message, headers) =>
+	await axios
+	.post(
+		apiEndpoints.postmessageurl, {
+			roomId: roomid,
+			text: message,
+		}, {
+			headers
+		}
+	)
+	.then((res) => res.data)
+	.then((res) => {
+		if (res.success === true) {
+			return i18n.__('POST_MESSAGE.SUCCESS');
+		} else {
+			return i18n.__('POST_MESSAGE.ERROR');
+		}
+	})
+	.catch((err) => {
+		console.log(err.message);
+		return i18n.__('POST_MESSAGE.ERROR');
+	});
+
 // Module Export of Functions
 
 module.exports.login = login;
@@ -1101,7 +1244,9 @@ module.exports.replaceWhitespacesFunc = replaceWhitespacesFunc;
 module.exports.replaceWhitespacesDots = replaceWhitespacesDots;
 module.exports.emojiTranslateFunc = emojiTranslateFunc;
 module.exports.getUnreadCounter = getUnreadCounter;
+module.exports.getMentionsCounter = getMentionsCounter;
 module.exports.channelUnreadMessages = channelUnreadMessages;
+module.exports.channelUnreadMentions = channelUnreadMentions;
 module.exports.inviteUser = inviteUser;
 module.exports.leaveChannel = leaveChannel;
 module.exports.kickUser = kickUser;
@@ -1136,3 +1281,7 @@ module.exports.groupTopic = groupTopic;
 module.exports.groupDescription = groupDescription;
 module.exports.groupAnnouncement = groupAnnouncement;
 module.exports.unarchiveGroup = unarchiveGroup;
+module.exports.groupLastMessage = groupLastMessage;
+module.exports.getGroupUnreadCounter = getGroupUnreadCounter;
+module.exports.groupUnreadMessages = groupUnreadMessages;
+module.exports.postGroupMessage = postGroupMessage;

@@ -208,7 +208,7 @@ Function URL (factsAboutGoogle): https://us-central1-myprojectname-ab123.cloudfu
   
      firebase deploy --only functions
   
-22. WE ARE DONE FINALLY !
+22. Finally We Are Done !
 
 ---
 

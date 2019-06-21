@@ -32,9 +32,10 @@ app.middleware((conv) => {
   moment.locale(conv.user.locale);
 });
 
+
 app.intent('Default Welcome Intent', (conv) => {
 
-  conv.ask(i18n.__('WELCOME.SUCCESS'));
+    conv.ask(i18n.__('WELCOME.SUCCESS'));
 
 });
 
@@ -108,7 +109,7 @@ app.intent('Delete Channel Intent', async (conv, params) => {
 
 });
 
-app.intent('Post Message Intent', async (conv, params) => {
+app.intent('Post Channel Message Intent', async (conv, params) => {
 
   var locale = conv.user.locale;
 
@@ -352,7 +353,7 @@ app.intent('Archive Channel Intent', async (conv, params) => {
 
 });
 
-app.intent('Unread Messages Intent', async (conv, params) => {
+app.intent('Channel Unread Messages Intent', async (conv, params) => {
 
   var locale = conv.user.locale;
 
@@ -366,6 +367,7 @@ app.intent('Unread Messages Intent', async (conv, params) => {
     var channelName = helperFunctions.replaceWhitespacesFunc(channelNameLwr);
 
     const headers = await helperFunctions.login(accessToken);
+    const unreadCount = await helperFunctions.getUnreadCounter(channelName, headers);
     const speechText = await helperFunctions.channelUnreadMessages(channelName, unreadCount, headers);
 
     conv.ask(speechText);
@@ -388,7 +390,46 @@ app.intent('Unread Messages Intent', async (conv, params) => {
 
 });
 
-app.intent('Post Emoji Message Intent', async (conv, params) => {
+app.intent('Channel User Mentions Intent', async (conv, params) => {
+
+  var locale = conv.user.locale;
+
+  if (locale === 'hi-IN') {
+
+    var accessToken = conv.user.access.token;
+
+    var channelNameRaw = params.channelname;
+    var channelNameData = await helperFunctions.hinditranslate(channelNameRaw);
+    var channelNameLwr = channelNameData.toLowerCase();
+    var channelName = helperFunctions.replaceWhitespacesFunc(channelNameLwr);
+
+    const headers = await helperFunctions.login(accessToken);
+    const mentionsCount = await helperFunctions.getMentionsCounter(channelName, headers);
+    const roomid = await helperFunctions.getRoomId(channelName, headers);
+    const speechText = await helperFunctions.channelUnreadMentions(channelName, roomid, mentionsCount, headers);
+
+    conv.ask(speechText);
+
+  } else {
+
+    var accessToken = conv.user.access.token;
+
+    var channelNameRaw = params.channelname;
+    var channelNameData = channelNameRaw.toLowerCase();
+    var channelName = helperFunctions.replaceWhitespacesFunc(channelNameData);
+
+    const headers = await helperFunctions.login(accessToken);
+    const mentionsCount = await helperFunctions.getMentionsCounter(channelName, headers);
+    const roomid = await helperFunctions.getRoomId(channelName, headers);
+    const speechText = await helperFunctions.channelUnreadMentions(channelName, roomid, mentionsCount, headers);
+
+    conv.ask(speechText);
+
+  }
+
+});
+
+app.intent('Post Channel Emoji Message Intent', async (conv, params) => {
 
   var locale = conv.user.locale;
 
@@ -1825,5 +1866,180 @@ app.intent('Unarchive Group Intent', async (conv, params) => {
   }
 
 });
+
+app.intent('Group Last Message Intent', async (conv, params) => {
+
+  var locale = conv.user.locale;
+
+  if (locale === 'hi-IN') {
+
+    var accessToken = conv.user.access.token;
+
+    var channelNameRaw = params.channelname;
+    var channelNameData = await helperFunctions.hinditranslate(channelNameRaw);
+    var channelNameLwr = channelNameData.toLowerCase();
+    var channelName = helperFunctions.replaceWhitespacesFunc(channelNameLwr);
+
+    const headers = await helperFunctions.login(accessToken);
+    const roomid = await helperFunctions.getGroupId(channelName, headers);
+    const speechText = await helperFunctions.groupLastMessage(channelName, roomid, headers);
+
+    conv.ask(speechText);
+
+  } else {
+
+    var accessToken = conv.user.access.token;
+
+    var channelNameRaw = params.channelname;
+    var channelNameData = channelNameRaw.toLowerCase();
+    var channelName = helperFunctions.replaceWhitespacesFunc(channelNameData);
+
+    const headers = await helperFunctions.login(accessToken);
+    const roomid = await helperFunctions.getGroupId(channelName, headers);
+    const speechText = await helperFunctions.groupLastMessage(channelName, roomid, headers);
+
+    conv.ask(speechText);
+
+  }
+
+});
+
+app.intent('Group Unread Messages Intent', async (conv, params) => {
+
+  var locale = conv.user.locale;
+
+  if (locale === 'hi-IN') {
+
+    var accessToken = conv.user.access.token;
+
+    var channelNameRaw = params.channelname;
+    var channelNameData = await helperFunctions.hinditranslate(channelNameRaw);
+    var channelNameLwr = channelNameData.toLowerCase();
+    var channelName = helperFunctions.replaceWhitespacesFunc(channelNameLwr);
+
+    const headers = await helperFunctions.login(accessToken);
+    const roomid = await helperFunctions.getGroupId(channelName, headers);
+    const unreadCount = await helperFunctions.getGroupUnreadCounter(roomid, headers);
+    const speechText = await helperFunctions.groupUnreadMessages(channelName, roomid, unreadCount, headers);
+
+    conv.ask(speechText);
+
+  } else {
+
+    var accessToken = conv.user.access.token;
+
+    var channelNameRaw = params.channelname;
+    var channelNameData = channelNameRaw.toLowerCase();
+    var channelName = helperFunctions.replaceWhitespacesFunc(channelNameData);
+
+    const headers = await helperFunctions.login(accessToken);
+    const roomid = await helperFunctions.getGroupId(channelName, headers);
+    const unreadCount = await helperFunctions.getGroupUnreadCounter(roomid, headers);
+    const speechText = await helperFunctions.groupUnreadMessages(channelName, roomid, unreadCount, headers);
+
+    conv.ask(speechText);
+
+  }
+
+});
+
+app.intent('Default No Input Intent', (conv) => {
+  const repromptCount = parseInt(conv.arguments.get('REPROMPT_COUNT'));
+  if (repromptCount === 0) {
+    conv.ask(i18n.__('NO_INPUT.MESSAGE'));
+  } else if (repromptCount === 1) {
+    conv.close(i18n.__('NO_INPUT.EXIT'));
+  };
+});
+
+app.intent('Post Group Message Intent', async (conv, params) => {
+
+  var locale = conv.user.locale;
+
+  if (locale === 'hi-IN') {
+
+    var accessToken = conv.user.access.token;
+
+    var message = params.message;
+
+    var channelNameRaw = params.channelname;
+    var channelNameData = await helperFunctions.hinditranslate(channelNameRaw);
+    var channelNameLwr = channelNameData.toLowerCase();
+    var channelName = helperFunctions.replaceWhitespacesFunc(channelNameLwr);
+
+    const headers = await helperFunctions.login(accessToken);
+    const roomid = await helperFunctions.getGroupId(channelName, headers);
+    const speechText = await helperFunctions.postGroupMessage(roomid, message, headers);
+
+    conv.ask(speechText);
+
+  } else {
+
+    var accessToken = conv.user.access.token;
+
+    var message = params.message;
+
+    var channelNameRaw = params.channelname;
+    var channelNameData = channelNameRaw.toLowerCase();
+    var channelName = helperFunctions.replaceWhitespacesFunc(channelNameData);
+
+    const headers = await helperFunctions.login(accessToken);
+    const roomid = await helperFunctions.getGroupId(channelName, headers);
+    const speechText = await helperFunctions.postGroupMessage(roomid, message, headers);
+
+    conv.ask(speechText);
+
+  }
+
+});
+
+app.intent('Post Group Emoji Message Intent', async (conv, params) => {
+
+  var locale = conv.user.locale;
+
+  if (locale === 'hi-IN') {
+
+    var accessToken = conv.user.access.token;
+
+    var channelNameRaw = params.channelname;
+    var channelNameData = await helperFunctions.hinditranslate(channelNameRaw);
+    var channelNameLwr = channelNameData.toLowerCase();
+    var channelName = helperFunctions.replaceWhitespacesFunc(channelNameLwr);
+
+    var messageData = params.message;
+    const emojiRaw = params.emoji;
+    var emojiData = await helperFunctions.hinditranslate(emojiRaw);
+    const emoji = helperFunctions.emojiTranslateFunc(emojiData);
+    const message = messageData + emoji;
+
+    const headers = await helperFunctions.login(accessToken);
+    const roomid = await helperFunctions.getGroupId(channelName, headers);
+    const speechText = await helperFunctions.postGroupMessage(roomid, message, headers);
+
+    conv.ask(speechText);
+
+  } else {
+
+    var accessToken = conv.user.access.token;
+
+    var channelNameRaw = params.channelname;
+    var channelNameData = channelNameRaw.toLowerCase();
+    var channelName = helperFunctions.replaceWhitespacesFunc(channelNameData);
+
+    var messageData = params.message;
+    const emojiData = params.emoji;
+    const emoji = helperFunctions.emojiTranslateFunc(emojiData);
+    const message = messageData + emoji;
+
+    const headers = await helperFunctions.login(accessToken);
+    const roomid = await helperFunctions.getGroupId(channelName, headers);
+    const speechText = await helperFunctions.postGroupMessage(roomid, message, headers);
+
+    conv.ask(speechText);
+
+  }
+
+});
+
 
 exports.dialogflowFirebaseFulfillment = functions.https.onRequest(app);
