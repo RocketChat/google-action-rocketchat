@@ -315,7 +315,7 @@ const channelUnreadMessages = async (channelName, unreadCount, headers) =>
 		if (err.response.data.errorType === 'error-room-not-found') {
 			return i18n.__('GET_UNREAD_MESSAGES_FROM_CHANNEL.ERROR_NOT_FOUND', channelName);
 		} else {
-			return i18n.__('GET_UNREAD_MESSAGES_FROM_CHANNELL.ERROR');
+			return i18n.__('GET_UNREAD_MESSAGES_FROM_CHANNEL.ERROR');
 		}
 	});
 
@@ -1200,7 +1200,7 @@ const groupUnreadMessages = async (channelName, roomid, unreadCount, headers) =>
 		if (err.response.data.errorType === 'error-room-not-found') {
 			return i18n.__('GET_UNREAD_MESSAGES_FROM_CHANNEL.ERROR_NOT_FOUND', channelName);
 		} else {
-			return i18n.__('GET_UNREAD_MESSAGES_FROM_CHANNELL.ERROR');
+			return i18n.__('GET_UNREAD_MESSAGES_FROM_CHANNEL.ERROR');
 		}
 	});
 
