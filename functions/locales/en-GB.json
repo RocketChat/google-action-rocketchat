@@ -3,8 +3,9 @@
         "v1": "Sorry, I can't understand the command. Please say again.",
         "v2": "Sorry, I didn't get that. Could you say it again?."
     },
-    "HELP": {
-        "MESSAGE": "This is the Google Action for rocket chat. Refer sample utterances file on GitHub."
+    "NO_INPUT": {
+        "MESSAGE": "Sorry I didn't catch that. Could you repeat yourself?",
+        "EXIT": "Thank you for using Rocket Chat"
     },
     "GOODBYE": {
         "MESSAGE": "Thanks for using Rocket Chat."
@@ -19,6 +20,7 @@
     },
     "CREATE_CHANNEL": {
         "SUCCESS": "I've created your channel %s .",
+        "AUTH_ERROR": "Sorry You Are Currently Signed Out. To Access This Intent , please complete your account linking ",
         "ERROR": "Sorry, I couldn't create the channel %s right now.",
         "ERROR_DUPLICATE_NAME": "Sorry, the channel %s already exists. Please try again with different channel name.",
         "ERROR_INVALID_NAME": "Sorry, %s is not a valid channel name. Please try again with a single word name for the channel."
@@ -31,7 +33,9 @@
     "GET_LAST_MESSAGE_FROM_CHANNEL": {
         "SUCCESS": "%s says, %s.",
         "ERROR": "Sorry, I couldn't find the channel %s right now.",
-        "ERROR_NOT_FOUND": "Sorry, the channel %s does not exist. Please try again with different channel name."
+        "ERROR_NOT_FOUND": "Sorry, the channel %s does not exist. Please try again with different channel name.",
+        "UNSUPPORTED_MEDIA_TYPE": "Sorry, the message is not supported on this device",
+        "IMAGE_MESSAGE": "%s sent you an image message."
     },
     "MAKE_MODERATOR": {
         "SUCCESS": "%s is now the moderator of %s.",
@@ -52,5 +56,76 @@
         "SUCCESS": "%s is now archived.",
         "ERROR": "Sorry, I couldn't archive this channel right now.",
         "ERROR_NOT_FOUND": "Sorry, I couldn't archive channel %s right now."
+    },
+    "GET_UNREAD_MESSAGES_FROM_CHANNEL": {
+        "NO_MESSAGE": "You have no unread messages.",
+        "MESSAGE": "<speak> You Have %s Unread Messages <break time=\"1\" /> <p> %s </p> </speak>",
+        "ERROR": "Sorry, I couldn't get your unread messages right now.",
+        "ERROR_NOT_FOUND": "Sorry, the channel %s does not exist. Please try again with different channel name."
+    },
+    "GET_USER_MENTIONS_FROM_CHANNEL": {
+        "NO_MESSAGE": "You have no user mention.",
+        "MESSAGE": "<speak> You Have %s User Mention <break time=\"1\" /> <p> %s </p> </speak>",
+        "ERROR": "Sorry, I couldn't get your user mention right now.",
+        "ERROR_NOT_FOUND": "Sorry, the channel %s does not exist. Please try again with different channel name."
+    },
+    "INVITE_USER_TO_CHANNEL": {
+        "SUCCESS": "%s is invited to the channel %s ",
+        "ERROR": "Sorry I couldn't invite user %s to channel %s right now",
+        "ERROR_NOT_FOUND": "Sorry, I couldn't find channel %s right now"
+    },
+    "LEAVE_CHANNEl": {
+        "SUCCESS": "You Left channel %s .",
+        "ERROR": "Sorry, You couldn't leave the channel %s right now. Maybe you are the only owner of Channel so first set someone as the channel owner"
+    },
+    "KICK_USER_FROM_CHANNEL": {
+        "SUCCESS": "%s is now kicked from channel %s ",
+        "ERROR": "Sorry I couldn't kick user %s from channel %s right now",
+        "ERROR_NOT_FOUND": "Sorry, I couldn't find channel %s right now"
+    },
+    "ADD_LEADER": {
+        "SUCCESS": "%s is now the leader of %s.",
+        "ERROR": "Sorry, I couldn't assign a leader to the channel right now.",
+        "ERROR_NOT_FOUND": "Sorry, I couldn't assign a leader to channel %s right now."
+    },
+    "RENAME_ROOM": {
+        "SUCCESS": "%s is now renamed to %s.",
+        "ERROR": "Sorry, I couldn't rename this channel right now.",
+        "ERROR_NOT_FOUND": "Sorry, I couldn't rename channel %s right now."
+    },
+    "UNARCHIVE_CHANNEL": {
+        "SUCCESS": "%s is now unarchived.",
+        "ERROR": "Sorry, I couldn't unarchive this channel right now.",
+        "ERROR_NOT_FOUND": "Sorry, I couldn't unarchive channel %s right now."
+    },
+    "CHANNEL_TOPIC": {
+        "SUCCESS": "%s topic is now changed to %s",
+        "ERROR": "Sorry, I couldn't change this channel topic right now.",
+        "ERROR_NOT_FOUND": "Sorry, I couldn't change topic for channel %s right now."
+    },
+    "CHANNEL_DESCRIPTION": {
+        "SUCCESS": "%s description is now changed to %s",
+        "ERROR": "Sorry, I couldn't change this channel description right now.",
+        "ERROR_NOT_FOUND": "Sorry, I couldn't change description for channel %s right now."
+    },
+    "CHANNEL_ANNOUNCEMENT": {
+        "SUCCESS": "%s announcement is now changed to %s",
+        "ERROR": "Sorry, I couldn't change this channel announcement right now.",
+        "ERROR_NOT_FOUND": "Sorry, I couldn't change announcement for channel %s right now."
+    },
+    "REMOVE_LEADER": {
+        "SUCCESS": "%s is no longer the leader of %s.",
+        "ERROR": "Sorry, I couldn't remove leader from this channel right now.",
+        "ERROR_NOT_FOUND": "Sorry, I couldn't remove leader from channel %s right now."
+    },
+    "REMOVE_MODERATOR": {
+        "SUCCESS": "%s is no longer the moderator of %s.",
+        "ERROR": "Sorry, I couldn't remove moderator from this channel right now.",
+        "ERROR_NOT_FOUND": "Sorry, I couldn't remove moderator from channel %s right now."
+    },
+    "REMOVE_OWNER": {
+        "SUCCESS": "%s is no longer the owner of %s.",
+        "ERROR": "Sorry, I couldn't remove owner from this channel right now.",
+        "ERROR_NOT_FOUND": "Sorry, I couldn't remove owner from channel %s right now."
     }
-  }
+}
