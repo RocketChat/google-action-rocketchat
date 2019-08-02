@@ -1227,6 +1227,78 @@ const postGroupMessage = async (roomid, message, headers) =>
 		return i18n.__('POST_MESSAGE.ERROR');
 	});
 
+const getLastMessageType = async (channelName, headers) =>
+	await axios
+	.get(`${ apiEndpoints.channelmessageurl }${ channelName }`, {
+		headers
+	})
+	.then((res) => res.data)
+	.then((res) => {
+		if (!res.messages[0].file) {
+			return 'textmessage'
+		} else {
+			return res.messages[0].file.type
+		}
+	})
+	.catch((err) => {
+		console.log(err.message);
+		if (err.response.data.errorType === 'error-room-not-found') {
+			return 'room-not-found'
+		}
+	});
+
+const getLastMessageFileURL = async (channelName, headers) =>
+	await axios
+	.get(`${ apiEndpoints.channelmessageurl }${ channelName }`, {
+		headers
+	})
+	.then((res) => res.data)
+	.then((res) => `https://bots.rocket.chat/file-upload/${ res.messages[0].file._id }/${res.messages[0].file.name}`)
+	.catch((err) => {
+		console.log(err.message);
+	});
+
+const getLastMessageFileDowloadURL = async (fileurl, headers) =>
+	await axios
+	.get(fileurl, {
+		headers
+	})
+	.then((response) => `${ response.request.res.responseUrl }`)
+	.catch((err) => {
+		console.log(err.message);
+	});
+
+const getGroupLastMessageType = async (roomid, headers) =>
+	await axios
+	.get(`${ apiEndpoints.groupmessageurl }${ roomid }`, {
+		headers
+	})
+	.then((res) => res.data)
+	.then((res) => {
+		if (!res.messages[0].file) {
+			return 'textmessage'
+		} else {
+			return res.messages[0].file.type
+		}
+	})
+	.catch((err) => {
+		console.log(err.message);
+		if (err.response.data.errorType === 'error-room-not-found') {
+			return 'room-not-found'
+		}
+	});
+
+const getGroupLastMessageFileURL = async (roomid, headers) =>
+	await axios
+	.get(`${ apiEndpoints.groupmessageurl }${ roomid }`, {
+		headers
+	})
+	.then((res) => res.data)
+	.then((res) => `https://bots.rocket.chat/file-upload/${ res.messages[0].file._id }/${res.messages[0].file.name}`)
+	.catch((err) => {
+		console.log(err.message);
+	});
+
 // Module Export of Functions
 
 module.exports.login = login;
@@ -1285,3 +1357,8 @@ module.exports.groupLastMessage = groupLastMessage;
 module.exports.getGroupUnreadCounter = getGroupUnreadCounter;
 module.exports.groupUnreadMessages = groupUnreadMessages;
 module.exports.postGroupMessage = postGroupMessage;
+module.exports.getLastMessageType = getLastMessageType;
+module.exports.getLastMessageFileURL = getLastMessageFileURL;
+module.exports.getLastMessageFileDowloadURL = getLastMessageFileDowloadURL;
+module.exports.getGroupLastMessageType = getGroupLastMessageType;
+module.exports.getGroupLastMessageFileURL = getGroupLastMessageFileURL;

@@ -2,14 +2,19 @@
 
 const {
   dialogflow,
-  SignIn
+  SignIn,
+  BasicCard,
+  Button,
+  Image,
+  MediaObject,
 } = require('actions-on-google');
 const functions = require('firebase-functions');
 
 const helperFunctions = require('./helperFunctions');
 const envVariables = require('./config');
 const {
-  CLIENT_ID
+  CLIENT_ID,
+  SERVER_URL,
 } = envVariables;
 
 const app = dialogflow({
@@ -35,7 +40,7 @@ app.middleware((conv) => {
 
 app.intent('Default Welcome Intent', (conv) => {
 
-    conv.ask(i18n.__('WELCOME.SUCCESS'));
+  conv.ask(i18n.__('WELCOME.SUCCESS'));
 
 });
 
@@ -162,9 +167,57 @@ app.intent('Channel Last Message Intent', async (conv, params) => {
     var channelName = helperFunctions.replaceWhitespacesFunc(channelNameLwr);
 
     const headers = await helperFunctions.login(accessToken);
-    const speechText = await helperFunctions.channelLastMessage(channelName, headers);
+    const messageType = await helperFunctions.getLastMessageType(channelName, headers);
 
-    conv.ask(speechText);
+    if (messageType === 'textmessage') {
+
+      const speechText = await helperFunctions.channelLastMessage(channelName, headers);
+
+      conv.ask(speechText);
+
+    } else if (messageType.includes("image")) {
+
+      const fileurl = await helperFunctions.getLastMessageFileURL(channelName, headers);
+      const download = await helperFunctions.getLastMessageFileDowloadURL(fileurl, headers);
+
+      const lastmessageData = await helperFunctions.channelLastMessage(channelName, headers);
+      const userName = lastmessageData.replace('says, .', '');
+      const speechText = i18n.__('GET_LAST_MESSAGE_FROM_CHANNEL.IMAGE_MESSAGE', userName);
+
+      if (!conv.screen) {
+        
+        conv.ask(speechText);
+        return;
+      }
+
+      conv.ask(speechText);
+
+      conv.ask(new BasicCard({
+        text: `An Image Message`,
+        buttons: new Button({
+          title: 'Read Message',
+          url: `${SERVER_URL}/channel/${channelName}`,
+        }),
+        image: new Image({
+          url: download,
+          alt: 'Rocket Chat Image Message',
+        }),
+        display: 'CROPPED',
+      }));
+
+    } else if (messageType.includes("room-not-found")){
+      
+      const speechText = i18n.__('GET_LAST_MESSAGE_FROM_CHANNEL.ERROR_NOT_FOUND', channelName);
+
+      conv.ask(speechText);
+
+    } else {
+
+      const speechText = i18n.__('GET_LAST_MESSAGE_FROM_CHANNEL.UNSUPPORTED_MEDIA_TYPE', channelName);
+
+      conv.ask(speechText);
+
+    }
 
   } else {
 
@@ -175,9 +228,58 @@ app.intent('Channel Last Message Intent', async (conv, params) => {
     var channelName = helperFunctions.replaceWhitespacesFunc(channelNameData);
 
     const headers = await helperFunctions.login(accessToken);
-    const speechText = await helperFunctions.channelLastMessage(channelName, headers);
+    const messageType = await helperFunctions.getLastMessageType(channelName, headers);
 
-    conv.ask(speechText);
+    if (messageType === 'textmessage') {
+
+      const speechText = await helperFunctions.channelLastMessage(channelName, headers);
+
+      conv.ask(speechText);
+
+    } else if (messageType.includes("image")) {
+
+      const fileurl = await helperFunctions.getLastMessageFileURL(channelName, headers);
+      const download = await helperFunctions.getLastMessageFileDowloadURL(fileurl, headers);
+
+      const lastmessageData = await helperFunctions.channelLastMessage(channelName, headers);
+      const userName = lastmessageData.replace('says, .', '');
+      const speechText = i18n.__('GET_LAST_MESSAGE_FROM_CHANNEL.IMAGE_MESSAGE', userName);
+
+      if (!conv.screen) {
+        
+        conv.ask(speechText);
+        return;
+      }
+
+      conv.ask(speechText);
+
+      conv.ask(new BasicCard({
+        text: `An Image Message`,
+        buttons: new Button({
+          title: 'Read Message',
+          url: `${SERVER_URL}/channel/${channelName}`,
+        }),
+        image: new Image({
+          url: download,
+          alt: 'Rocket Chat Image Message',
+        }),
+        display: 'CROPPED',
+      }));
+
+    } else if (messageType.includes("room-not-found")){
+      
+      const speechText = i18n.__('GET_LAST_MESSAGE_FROM_CHANNEL.ERROR_NOT_FOUND', channelName);
+
+      conv.ask(speechText);
+
+    } else {
+
+      const speechText = i18n.__('GET_LAST_MESSAGE_FROM_CHANNEL.UNSUPPORTED_MEDIA_TYPE', channelName);
+
+      conv.ask(speechText);
+
+    }
+
 
   }
 
@@ -1882,9 +1984,57 @@ app.intent('Group Last Message Intent', async (conv, params) => {
 
     const headers = await helperFunctions.login(accessToken);
     const roomid = await helperFunctions.getGroupId(channelName, headers);
-    const speechText = await helperFunctions.groupLastMessage(channelName, roomid, headers);
+    const messageType = await helperFunctions.getGroupLastMessageType(roomid, headers);
 
-    conv.ask(speechText);
+    if (messageType === 'textmessage') {
+
+      const speechText = await helperFunctions.groupLastMessage(channelName, roomid, headers);
+
+      conv.ask(speechText);
+
+    } else if (messageType.includes("image")) {
+
+      const fileurl = await helperFunctions.getGroupLastMessageFileURL(roomid, headers);
+      const download = await helperFunctions.getLastMessageFileDowloadURL(fileurl, headers);
+
+      const lastmessageData = await helperFunctions.groupLastMessage(channelName, roomid, headers);
+      const userName = lastmessageData.replace('says, .', '');
+      const speechText = i18n.__('GET_LAST_MESSAGE_FROM_CHANNEL.IMAGE_MESSAGE', userName);
+
+      if (!conv.screen) {
+        
+        conv.ask(speechText);
+        return;
+      }
+
+      conv.ask(speechText);
+
+      conv.ask(new BasicCard({
+        text: `An Image Message`,
+        buttons: new Button({
+          title: 'Read Message',
+          url: `${SERVER_URL}/group/${channelName}`,
+        }),
+        image: new Image({
+          url: download,
+          alt: 'Rocket Chat Image Message',
+        }),
+        display: 'CROPPED',
+      }));
+
+    } else if (messageType.includes("room-not-found")){
+      
+      const speechText = i18n.__('GET_LAST_MESSAGE_FROM_CHANNEL.ERROR_NOT_FOUND', channelName);
+
+      conv.ask(speechText);
+
+    } else {
+
+      const speechText = i18n.__('GET_LAST_MESSAGE_FROM_CHANNEL.UNSUPPORTED_MEDIA_TYPE', channelName);
+
+      conv.ask(speechText);
+
+    }
 
   } else {
 
@@ -1896,9 +2046,57 @@ app.intent('Group Last Message Intent', async (conv, params) => {
 
     const headers = await helperFunctions.login(accessToken);
     const roomid = await helperFunctions.getGroupId(channelName, headers);
-    const speechText = await helperFunctions.groupLastMessage(channelName, roomid, headers);
+    const messageType = await helperFunctions.getGroupLastMessageType(roomid, headers);
 
-    conv.ask(speechText);
+    if (messageType === 'textmessage') {
+
+      const speechText = await helperFunctions.groupLastMessage(channelName, roomid, headers);
+
+      conv.ask(speechText);
+
+    } else if (messageType.includes("image")) {
+
+      const fileurl = await helperFunctions.getGroupLastMessageFileURL(roomid, headers);
+      const download = await helperFunctions.getLastMessageFileDowloadURL(fileurl, headers);
+
+      const lastmessageData = await helperFunctions.groupLastMessage(channelName, roomid, headers);
+      const userName = lastmessageData.replace('says, .', '');
+      const speechText = i18n.__('GET_LAST_MESSAGE_FROM_CHANNEL.IMAGE_MESSAGE', userName);
+
+      if (!conv.screen) {
+        
+        conv.ask(speechText);
+        return;
+      }
+
+      conv.ask(speechText);
+
+      conv.ask(new BasicCard({
+        text: `An Image Message`,
+        buttons: new Button({
+          title: 'Read Message',
+          url: `${SERVER_URL}/group/${channelName}`,
+        }),
+        image: new Image({
+          url: download,
+          alt: 'Rocket Chat Image Message',
+        }),
+        display: 'CROPPED',
+      }));
+
+    } else if (messageType.includes("room-not-found")){
+      
+      const speechText = i18n.__('GET_LAST_MESSAGE_FROM_CHANNEL.ERROR_NOT_FOUND', channelName);
+
+      conv.ask(speechText);
+
+    } else {
+
+      const speechText = i18n.__('GET_LAST_MESSAGE_FROM_CHANNEL.UNSUPPORTED_MEDIA_TYPE', channelName);
+
+      conv.ask(speechText);
+
+    }
 
   }
 

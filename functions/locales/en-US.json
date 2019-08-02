@@ -33,7 +33,9 @@
     "GET_LAST_MESSAGE_FROM_CHANNEL": {
         "SUCCESS": "%s says, %s.",
         "ERROR": "Sorry, I couldn't find the channel %s right now.",
-        "ERROR_NOT_FOUND": "Sorry, the channel %s does not exist. Please try again with different channel name."
+        "ERROR_NOT_FOUND": "Sorry, the channel %s does not exist. Please try again with different channel name.",
+        "UNSUPPORTED_MEDIA_TYPE": "Sorry, the message is not supported on this device",
+        "IMAGE_MESSAGE": "%s sent you an image message."
     },
     "MAKE_MODERATOR": {
         "SUCCESS": "%s is now the moderator of %s.",
