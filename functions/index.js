@@ -2013,7 +2013,7 @@ app.intent('Group Last Message Intent', async (conv, params) => {
         text: `An Image Message`,
         buttons: new Button({
           title: 'Read Message',
-          url: `${SERVER_URL}/channel/${channelName}`,
+          url: `${SERVER_URL}/group/${channelName}`,
         }),
         image: new Image({
           url: download,
@@ -2075,7 +2075,7 @@ app.intent('Group Last Message Intent', async (conv, params) => {
         text: `An Image Message`,
         buttons: new Button({
           title: 'Read Message',
-          url: `${SERVER_URL}/channel/${channelName}`,
+          url: `${SERVER_URL}/group/${channelName}`,
         }),
         image: new Image({
           url: download,
