@@ -57,7 +57,7 @@ This action uses Firebase Cloud Functions to make an HTTP request to a non-Googl
 
 4. Clone repository to your local machine.
 
-      `git clone https://github.com/PrajvalRaval/google-action-rocketchat.git`
+      `git clone https://github.com/RocketChat/google-action-rocketchat.git`
 
 + Then, change directory to *google-action-rocketchat*.
 
