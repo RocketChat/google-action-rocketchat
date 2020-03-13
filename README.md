@@ -16,6 +16,7 @@
     * [Enabling Billing](#enabling-billing)
     * [Configuring Account Linking](#configuring-account-linking)
 * [Development](#development)
+    * [Testing locally with ngrok](#testing-locally-with-ngrok)
     * [Files](#files)
     * [i18n](#i18n)
 * [Running this Action](#running-this-action)
@@ -219,6 +220,21 @@ Function URL (factsAboutGoogle): https://us-central1-myprojectname-ab123.cloudfu
 ---
 
 ## Development
+
+#### Testing locally with ngrok
+You can test your changes in the local development environment by going through the following steps :
+1. Install the dev dependencies from `./functions/package.json`
+
+2. Open terminal and run `firebase functions:config:get > runtimeconfig.json`
+
+3. Open `./functions/config.js` and replace the values for the local config variables by the respective values from `runtimeconfig.js` file you obtained in step 2.
+
+4. Cd into `/functions` directory and run `export IS_LOCAL_DEV=true` in the terminal.
+
+5. From the same directory, run `npm run dev` in the terminal. Open another terminal from the same directory and run `npm run tunnel`.
+
+6. You can now use the link generated via ngrok for fulfillment in the Dialogflow console. A new link will be generated each time you close the ngrok terminal. You will need to change that in the Dialogflow console each time.
+
 
 #### Files
 1.  `./functions/index.js`
