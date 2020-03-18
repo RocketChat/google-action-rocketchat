@@ -9,7 +9,6 @@ const {
   MediaObject,
 } = require('actions-on-google');
 const functions = require('firebase-functions');
-
 const helperFunctions = require('./helperFunctions');
 const envVariables = require('./config');
 const {
@@ -24,6 +23,14 @@ const app = dialogflow({
 
 const i18n = require('i18n');
 const moment = require('moment');
+
+// Express server for local testing running at PORT
+const express = require("express");
+const bodyParser = require("body-parser");
+const expressApp = express().use(bodyParser.json());
+const cors = require('cors');
+expressApp.use(cors());
+expressApp.post("/", app);
 
 i18n.configure({
   locales: ['en-US', 'pt-BR', 'hi-IN'],
@@ -2239,5 +2246,12 @@ app.intent('Post Group Emoji Message Intent', async (conv, params) => {
 
 });
 
+// Run local server at PORT
+if (process.env.IS_LOCAL_DEV === "true") {
+  const PORT = 8000;
+  expressApp.listen(PORT, () =>
+    console.log(`*** SERVER RUNNING LOCALLY ON PORT ${PORT} ***`)
+  );
+}
 
 exports.dialogflowFirebaseFulfillment = functions.https.onRequest(app);

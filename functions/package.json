@@ -10,7 +10,9 @@
   },
   "scripts": {
     "start": "firebase serve --only functions",
-    "deploy": "firebase deploy --only functions"
+    "deploy": "firebase deploy --only functions",
+    "dev": "nodemon index.js",
+    "tunnel": "ngrok http 8000"
   },
   "dependencies": {
     "@vitalets/google-translate-api": "^2.8.0",
@@ -23,5 +25,11 @@
     "moji-translate": "^1.0.8",
     "moment": "^2.18.1",
     "remove-whitespace": "^1.1.0"
+  },
+  "devDependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.17.1",
+    "ngrok": "^3.2.7",
+    "nodemon": "^2.0.2"
   }
 }
