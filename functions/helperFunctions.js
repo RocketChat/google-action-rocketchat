@@ -1,4 +1,3 @@
-/* eslint-disable no-return-await */
 const axios = require('axios');
 const removeWhitespace = require('remove-whitespace');
 const emojiTranslate = require('moji-translate');
@@ -13,8 +12,8 @@ const {
 	OAUTH_SERVICE_NAME,
 } = envVariables;
 
-const login = async (accessToken) =>
-	await axios
+const login = (accessToken) =>
+	axios
 		.post(apiEndpoints.loginUrl, {
 			serviceName: OAUTH_SERVICE_NAME,
 			accessToken,
@@ -33,8 +32,8 @@ const login = async (accessToken) =>
 			console.log(err);
 		});
 
-const createChannel = async (channelName, headers) =>
-	await axios
+const createChannel = (channelName, headers) =>
+	axios
 		.post(
 			apiEndpoints.createchannelurl, {
 				name: channelName,
@@ -61,8 +60,8 @@ const createChannel = async (channelName, headers) =>
 			return i18n.__('CREATE_CHANNEL.ERROR', channelName);
 		});
 
-const deleteChannel = async (channelName, headers) =>
-	await axios
+const deleteChannel = (channelName, headers) =>
+	axios
 		.post(
 			apiEndpoints.deletechannelurl, {
 				roomName: channelName,
@@ -85,8 +84,8 @@ const deleteChannel = async (channelName, headers) =>
 			return i18n.__('DELETE_CHANNEL.ERROR', channelName);
 		});
 
-const postMessage = async (channelName, message, headers) =>
-	await axios
+const postMessage = (channelName, message, headers) =>
+	axios
 		.post(
 			apiEndpoints.postmessageurl, {
 				channel: `#${ channelName }`,
@@ -107,8 +106,8 @@ const postMessage = async (channelName, message, headers) =>
 			return i18n.__('POST_MESSAGE.ERROR');
 		});
 
-const channelLastMessage = async (channelName, headers) =>
-	await axios
+const channelLastMessage = (channelName, headers) =>
+	axios
 		.get(`${ apiEndpoints.channelmessageurl }${ channelName }`, {
 			headers,
 		})
@@ -127,8 +126,8 @@ const channelLastMessage = async (channelName, headers) =>
 			return i18n.__('GET_LAST_MESSAGE_FROM_CHANNEL.ERROR', channelName);
 		});
 
-const getUserId = async (userName, headers) =>
-	await axios
+const getUserId = (userName, headers) =>
+	axios
 		.get(`${ apiEndpoints.userinfourl }${ userName }`, {
 			headers,
 		})
@@ -138,8 +137,8 @@ const getUserId = async (userName, headers) =>
 			console.log(err.message);
 		});
 
-const getRoomId = async (channelName, headers) =>
-	await axios
+const getRoomId = (channelName, headers) =>
+	axios
 		.get(`${ apiEndpoints.channelinfourl }${ channelName }`, {
 			headers,
 		})
@@ -149,8 +148,8 @@ const getRoomId = async (channelName, headers) =>
 			console.log(err.message);
 		});
 
-const makeModerator = async (userName, channelName, userid, roomid, headers) =>
-	await axios
+const makeModerator = (userName, channelName, userid, roomid, headers) =>
+	axios
 		.post(
 			apiEndpoints.makemoderatorurl, {
 				userId: userid,
@@ -171,8 +170,8 @@ const makeModerator = async (userName, channelName, userid, roomid, headers) =>
 			return i18n.__('MAKE_MODERATOR.ERROR_NOT_FOUND', channelName);
 		});
 
-const addAll = async (channelName, roomid, headers) =>
-	await axios
+const addAll = (channelName, roomid, headers) =>
+	axios
 		.post(
 			apiEndpoints.addallurl, {
 				roomId: roomid,
@@ -192,8 +191,8 @@ const addAll = async (channelName, roomid, headers) =>
 			return i18n.__('ADD_ALL_TO_CHANNEL.ERROR_NOT_FOUND', channelName);
 		});
 
-const addOwner = async (userName, channelName, userid, roomid, headers) =>
-	await axios
+const addOwner = (userName, channelName, userid, roomid, headers) =>
+	axios
 		.post(
 			apiEndpoints.addownerurl, {
 				userId: userid,
@@ -214,8 +213,8 @@ const addOwner = async (userName, channelName, userid, roomid, headers) =>
 			return i18n.__('ADD_OWNER.ERROR_NOT_FOUND', channelName);
 		});
 
-const archiveChannel = async (channelName, roomid, headers) =>
-	await axios
+const archiveChannel = (channelName, roomid, headers) =>
+	axios
 		.post(
 			apiEndpoints.archivechannelurl, {
 				roomId: roomid,
@@ -248,8 +247,8 @@ function emojiTranslateFunc(str) {
 	return emojiTranslate.translate(str, onlyEmoji);
 }
 
-const getUnreadCounter = async (channelName, headers) =>
-	await axios
+const getUnreadCounter = (channelName, headers) =>
+	axios
 		.get(`${ apiEndpoints.counterurl }${ channelName }`, {
 			headers,
 		})
@@ -259,8 +258,8 @@ const getUnreadCounter = async (channelName, headers) =>
 			console.log(err.message);
 		});
 
-const getMentionsCounter = async (channelName, headers) =>
-	await axios
+const getMentionsCounter = (channelName, headers) =>
+	axios
 		.get(`${ apiEndpoints.counterurl }${ channelName }`, {
 			headers,
 		})
@@ -270,8 +269,8 @@ const getMentionsCounter = async (channelName, headers) =>
 			console.log(err.message);
 		});
 
-const channelUnreadMessages = async (channelName, unreadCount, headers) =>
-	await axios
+const channelUnreadMessages = (channelName, unreadCount, headers) =>
+	axios
 		.get(`${ apiEndpoints.channelmessageurl }${ channelName }`, {
 			headers,
 		})
@@ -304,8 +303,8 @@ const channelUnreadMessages = async (channelName, unreadCount, headers) =>
 			return i18n.__('GET_UNREAD_MESSAGES_FROM_CHANNEL.ERROR');
 		});
 
-const channelUnreadMentions = async (channelName, roomid, mentionsCount, headers) =>
-	await axios
+const channelUnreadMentions = (channelName, roomid, mentionsCount, headers) =>
+	axios
 		.get(`${ apiEndpoints.channelmentionsurl }${ roomid }`, {
 			headers,
 		})
@@ -338,8 +337,8 @@ const channelUnreadMentions = async (channelName, roomid, mentionsCount, headers
 			return i18n.__('GET_USER_MENTIONS_FROM_CHANNEL.ERROR');
 		});
 
-const inviteUser = async (userName, channelName, userid, roomid, headers) =>
-	await axios
+const inviteUser = (userName, channelName, userid, roomid, headers) =>
+	axios
 		.post(
 			apiEndpoints.inviteuserurl, {
 				userId: userid,
@@ -366,8 +365,8 @@ const inviteUser = async (userName, channelName, userid, roomid, headers) =>
 		});
 
 
-const leaveChannel = async (channelName, roomid, headers) =>
-	await axios
+const leaveChannel = (channelName, roomid, headers) =>
+	axios
 		.post(
 			apiEndpoints.leavechannelurl, {
 				roomId: roomid,
@@ -387,8 +386,8 @@ const leaveChannel = async (channelName, roomid, headers) =>
 			return i18n.__('LEAVE_CHANNEl.ERROR', channelName);
 		});
 
-const kickUser = async (userName, channelName, userid, roomid, headers) =>
-	await axios
+const kickUser = (userName, channelName, userid, roomid, headers) =>
+	axios
 		.post(
 			apiEndpoints.kickuserurl, {
 				userId: userid,
@@ -414,8 +413,8 @@ const kickUser = async (userName, channelName, userid, roomid, headers) =>
 			return i18n.__('KICK_USER_FROM_CHANNEL.ERROR', userName, channelName);
 		});
 
-const addLeader = async (userName, channelName, userid, roomid, headers) =>
-	await axios
+const addLeader = (userName, channelName, userid, roomid, headers) =>
+	axios
 		.post(
 			apiEndpoints.addleaderurl, {
 				userId: userid,
@@ -436,8 +435,8 @@ const addLeader = async (userName, channelName, userid, roomid, headers) =>
 			return i18n.__('ADD_LEADER.ERROR_NOT_FOUND', channelName);
 		});
 
-const channelRename = async (channelName, roomid, newName, headers) =>
-	await axios
+const channelRename = (channelName, roomid, newName, headers) =>
+	axios
 		.post(
 			apiEndpoints.channelrenameurl, {
 				roomId: roomid,
@@ -458,8 +457,8 @@ const channelRename = async (channelName, roomid, newName, headers) =>
 			return i18n.__('RENAME_ROOM.ERROR_NOT_FOUND', channelName);
 		});
 
-const unarchiveChannel = async (channelName, roomid, headers) =>
-	await axios
+const unarchiveChannel = (channelName, roomid, headers) =>
+	axios
 		.post(
 			apiEndpoints.unarchivechannelurl, {
 				roomId: roomid,
@@ -479,8 +478,8 @@ const unarchiveChannel = async (channelName, roomid, headers) =>
 			return i18n.__('UNARCHIVE_CHANNEL.ERROR_NOT_FOUND', channelName);
 		});
 
-const channelTopic = async (channelName, roomid, topic, headers) =>
-	await axios
+const channelTopic = (channelName, roomid, topic, headers) =>
+	axios
 		.post(
 			apiEndpoints.channeltopicurl, {
 				roomId: roomid,
@@ -501,8 +500,8 @@ const channelTopic = async (channelName, roomid, topic, headers) =>
 			return i18n.__('CHANNEL_TOPIC.ERROR_NOT_FOUND', channelName);
 		});
 
-const channelDescription = async (channelName, roomid, description, headers) =>
-	await axios
+const channelDescription = (channelName, roomid, description, headers) =>
+	axios
 		.post(
 			apiEndpoints.channeldescriptionurl, {
 				roomId: roomid,
@@ -523,8 +522,8 @@ const channelDescription = async (channelName, roomid, description, headers) =>
 			return i18n.__('CHANNEL_DESCRIPTION.ERROR_NOT_FOUND', channelName);
 		});
 
-const channelAnnouncement = async (channelName, roomid, announcement, headers) =>
-	await axios
+const channelAnnouncement = (channelName, roomid, announcement, headers) =>
+	axios
 		.post(
 			apiEndpoints.channelannouncementurl, {
 				roomId: roomid,
@@ -545,8 +544,8 @@ const channelAnnouncement = async (channelName, roomid, announcement, headers) =
 			return i18n.__('CHANNEL_ANNOUNCEMENT.ERROR_NOT_FOUND', channelName);
 		});
 
-const removeLeader = async (userName, channelName, userid, roomid, headers) =>
-	await axios
+const removeLeader = (userName, channelName, userid, roomid, headers) =>
+	axios
 		.post(
 			apiEndpoints.removeleaderurl, {
 				userId: userid,
@@ -567,8 +566,8 @@ const removeLeader = async (userName, channelName, userid, roomid, headers) =>
 			return i18n.__('REMOVE_LEADER.ERROR_NOT_FOUND', channelName);
 		});
 
-const removeModerator = async (userName, channelName, userid, roomid, headers) =>
-	await axios
+const removeModerator = (userName, channelName, userid, roomid, headers) =>
+	axios
 		.post(
 			apiEndpoints.removemoderatorurl, {
 				userId: userid,
@@ -589,8 +588,8 @@ const removeModerator = async (userName, channelName, userid, roomid, headers) =
 			return i18n.__('REMOVE_MODERATOR.ERROR_NOT_FOUND', channelName);
 		});
 
-const removeOwner = async (userName, channelName, userid, roomid, headers) =>
-	await axios
+const removeOwner = (userName, channelName, userid, roomid, headers) =>
+	axios
 		.post(
 			apiEndpoints.removeownerurl, {
 				userId: userid,
@@ -611,8 +610,8 @@ const removeOwner = async (userName, channelName, userid, roomid, headers) =>
 			return i18n.__('REMOVE_OWNER.ERROR_NOT_FOUND', channelName);
 		});
 
-const createDMSession = async (userName, headers) =>
-	await axios
+const createDMSession = (userName, headers) =>
+	axios
 		.post(
 			apiEndpoints.createimurl, {
 				username: userName,
@@ -626,8 +625,8 @@ const createDMSession = async (userName, headers) =>
 			console.log(err.message);
 		});
 
-const postDirectMessage = async (message, roomid, headers) =>
-	await axios
+const postDirectMessage = (message, roomid, headers) =>
+	axios
 		.post(
 			apiEndpoints.postmessageurl, {
 				roomId: roomid,
@@ -648,8 +647,8 @@ const postDirectMessage = async (message, roomid, headers) =>
 			return i18n.__('POST_MESSAGE.ERROR');
 		});
 
-const hinditranslate = async (str) =>
-	await translate(str, {
+const hinditranslate = (str) =>
+	translate(str, {
 		to: 'en',
 	})
 		.then((res) => `${ res.text }`)
@@ -657,8 +656,8 @@ const hinditranslate = async (str) =>
 			console.error(err);
 		});
 
-const createGroup = async (channelName, headers) =>
-	await axios
+const createGroup = (channelName, headers) =>
+	axios
 		.post(
 			apiEndpoints.creategroupurl, {
 				name: channelName,
@@ -683,8 +682,8 @@ const createGroup = async (channelName, headers) =>
 			return i18n.__('CREATE_CHANNEL.ERROR', channelName);
 		});
 
-const getGroupId = async (channelName, headers) =>
-	await axios
+const getGroupId = (channelName, headers) =>
+	axios
 		.get(`${ apiEndpoints.groupinfourl }${ channelName }`, {
 			headers,
 		})
@@ -694,8 +693,8 @@ const getGroupId = async (channelName, headers) =>
 			console.log(err.message);
 		});
 
-const addAllToGroup = async (channelName, roomid, headers) =>
-	await axios
+const addAllToGroup = (channelName, roomid, headers) =>
+	axios
 		.post(
 			apiEndpoints.addalltogroupurl, {
 				roomId: roomid,
@@ -715,8 +714,8 @@ const addAllToGroup = async (channelName, roomid, headers) =>
 			return i18n.__('ADD_ALL_TO_CHANNEL.ERROR_NOT_FOUND', channelName);
 		});
 
-const addGroupLeader = async (userName, channelName, userid, roomid, headers) =>
-	await axios
+const addGroupLeader = (userName, channelName, userid, roomid, headers) =>
+	axios
 		.post(
 			apiEndpoints.addgroupleaderurl, {
 				userId: userid,
@@ -738,8 +737,8 @@ const addGroupLeader = async (userName, channelName, userid, roomid, headers) =>
 		});
 
 
-const addGroupModerator = async (userName, channelName, userid, roomid, headers) =>
-	await axios
+const addGroupModerator = (userName, channelName, userid, roomid, headers) =>
+	axios
 		.post(
 			apiEndpoints.addgroupmoderatorurl, {
 				userId: userid,
@@ -760,8 +759,8 @@ const addGroupModerator = async (userName, channelName, userid, roomid, headers)
 			return i18n.__('MAKE_MODERATOR.ERROR_NOT_FOUND', channelName);
 		});
 
-const addGroupOwner = async (userName, channelName, userid, roomid, headers) =>
-	await axios
+const addGroupOwner = (userName, channelName, userid, roomid, headers) =>
+	axios
 		.post(
 			apiEndpoints.addgroupownerurl, {
 				userId: userid,
@@ -782,8 +781,8 @@ const addGroupOwner = async (userName, channelName, userid, roomid, headers) =>
 			return i18n.__('ADD_OWNER.ERROR_NOT_FOUND', channelName);
 		});
 
-const archiveGroup = async (channelName, roomid, headers) =>
-	await axios
+const archiveGroup = (channelName, roomid, headers) =>
+	axios
 		.post(
 			apiEndpoints.archivegroupurl, {
 				roomId: roomid,
@@ -803,8 +802,8 @@ const archiveGroup = async (channelName, roomid, headers) =>
 			return i18n.__('ARCHIVE_CHANNEL.ERROR_NOT_FOUND', channelName);
 		});
 
-const deleteGroup = async (channelName, headers) =>
-	await axios
+const deleteGroup = (channelName, headers) =>
+	axios
 		.post(
 			apiEndpoints.deletegroupurl, {
 				roomName: channelName,
@@ -827,8 +826,8 @@ const deleteGroup = async (channelName, headers) =>
 			return i18n.__('DELETE_CHANNEL.ERROR', channelName);
 		});
 
-const inviteUserToGroup = async (userName, channelName, userid, roomid, headers) =>
-	await axios
+const inviteUserToGroup = (userName, channelName, userid, roomid, headers) =>
+	axios
 		.post(
 			apiEndpoints.inviteusertogroupurl, {
 				userId: userid,
@@ -854,8 +853,8 @@ const inviteUserToGroup = async (userName, channelName, userid, roomid, headers)
 			return i18n.__('INVITE_USER_TO_CHANNEL.ERROR', userName, channelName);
 		});
 
-const kickUserFromGroup = async (userName, channelName, userid, roomid, headers) =>
-	await axios
+const kickUserFromGroup = (userName, channelName, userid, roomid, headers) =>
+	axios
 		.post(
 			apiEndpoints.kickuserfromgroupurl, {
 				userId: userid,
@@ -881,8 +880,8 @@ const kickUserFromGroup = async (userName, channelName, userid, roomid, headers)
 			return i18n.__('KICK_USER_FROM_CHANNEL.ERROR', userName, channelName);
 		});
 
-const leaveGroup = async (channelName, roomid, headers) =>
-	await axios
+const leaveGroup = (channelName, roomid, headers) =>
+	axios
 		.post(
 			apiEndpoints.leavegroupurl, {
 				roomId: roomid,
@@ -902,8 +901,8 @@ const leaveGroup = async (channelName, roomid, headers) =>
 			return i18n.__('LEAVE_CHANNEl.ERROR', channelName);
 		});
 
-const removeGroupLeader = async (userName, channelName, userid, roomid, headers) =>
-	await axios
+const removeGroupLeader = (userName, channelName, userid, roomid, headers) =>
+	axios
 		.post(
 			apiEndpoints.removegroupleaderurl, {
 				userId: userid,
@@ -924,8 +923,8 @@ const removeGroupLeader = async (userName, channelName, userid, roomid, headers)
 			return i18n.__('REMOVE_LEADER.ERROR_NOT_FOUND', channelName);
 		});
 
-const removeGroupModerator = async (userName, channelName, userid, roomid, headers) =>
-	await axios
+const removeGroupModerator = (userName, channelName, userid, roomid, headers) =>
+	axios
 		.post(
 			apiEndpoints.removegroupmoderatorurl, {
 				userId: userid,
@@ -946,8 +945,8 @@ const removeGroupModerator = async (userName, channelName, userid, roomid, heade
 			return i18n.__('REMOVE_MODERATOR.ERROR_NOT_FOUND', channelName);
 		});
 
-const removeGroupOwner = async (userName, channelName, userid, roomid, headers) =>
-	await axios
+const removeGroupOwner = (userName, channelName, userid, roomid, headers) =>
+	axios
 		.post(
 			apiEndpoints.removegroupownerurl, {
 				userId: userid,
@@ -968,8 +967,8 @@ const removeGroupOwner = async (userName, channelName, userid, roomid, headers) 
 			return i18n.__('REMOVE_OWNER.ERROR_NOT_FOUND', channelName);
 		});
 
-const groupRename = async (channelName, roomid, newName, headers) =>
-	await axios
+const groupRename = (channelName, roomid, newName, headers) =>
+	axios
 		.post(
 			apiEndpoints.renamegroupurl, {
 				roomId: roomid,
@@ -990,8 +989,8 @@ const groupRename = async (channelName, roomid, newName, headers) =>
 			return i18n.__('RENAME_ROOM.ERROR_NOT_FOUND', channelName);
 		});
 
-const groupTopic = async (channelName, roomid, topic, headers) =>
-	await axios
+const groupTopic = (channelName, roomid, topic, headers) =>
+	axios
 		.post(
 			apiEndpoints.grouptopicurl, {
 				roomId: roomid,
@@ -1012,8 +1011,8 @@ const groupTopic = async (channelName, roomid, topic, headers) =>
 			return i18n.__('CHANNEL_TOPIC.ERROR_NOT_FOUND', channelName);
 		});
 
-const groupDescription = async (channelName, roomid, description, headers) =>
-	await axios
+const groupDescription = (channelName, roomid, description, headers) =>
+	axios
 		.post(
 			apiEndpoints.groupdescriptionurl, {
 				roomId: roomid,
@@ -1034,8 +1033,8 @@ const groupDescription = async (channelName, roomid, description, headers) =>
 			return i18n.__('CHANNEL_DESCRIPTION.ERROR_NOT_FOUND', channelName);
 		});
 
-const groupAnnouncement = async (channelName, roomid, announcement, headers) =>
-	await axios
+const groupAnnouncement = (channelName, roomid, announcement, headers) =>
+	axios
 		.post(
 			apiEndpoints.groupannouncementurl, {
 				roomId: roomid,
@@ -1056,8 +1055,8 @@ const groupAnnouncement = async (channelName, roomid, announcement, headers) =>
 			return i18n.__('CHANNEL_ANNOUNCEMENT.ERROR_NOT_FOUND', channelName);
 		});
 
-const unarchiveGroup = async (channelName, roomid, headers) =>
-	await axios
+const unarchiveGroup = (channelName, roomid, headers) =>
+	axios
 		.post(
 			apiEndpoints.unarchivegroupurl, {
 				roomId: roomid,
@@ -1077,8 +1076,8 @@ const unarchiveGroup = async (channelName, roomid, headers) =>
 			return i18n.__('UNARCHIVE_CHANNEL.ERROR_NOT_FOUND', channelName);
 		});
 
-const groupLastMessage = async (channelName, roomid, headers) =>
-	await axios
+const groupLastMessage = (channelName, roomid, headers) =>
+	axios
 		.get(`${ apiEndpoints.groupmessageurl }${ roomid }`, {
 			headers,
 		})
@@ -1097,8 +1096,8 @@ const groupLastMessage = async (channelName, roomid, headers) =>
 			return i18n.__('GET_LAST_MESSAGE_FROM_CHANNEL.ERROR', channelName);
 		});
 
-const getGroupUnreadCounter = async (roomid, headers) =>
-	await axios
+const getGroupUnreadCounter = (roomid, headers) =>
+	axios
 		.get(`${ apiEndpoints.groupcounterurl }${ roomid }`, {
 			headers,
 		})
@@ -1108,8 +1107,8 @@ const getGroupUnreadCounter = async (roomid, headers) =>
 			console.log(err.message);
 		});
 
-const groupUnreadMessages = async (channelName, roomid, unreadCount, headers) =>
-	await axios
+const groupUnreadMessages = (channelName, roomid, unreadCount, headers) =>
+	axios
 		.get(`${ apiEndpoints.groupmessageurl }${ roomid }`, {
 			headers,
 		})
@@ -1142,8 +1141,8 @@ const groupUnreadMessages = async (channelName, roomid, unreadCount, headers) =>
 			return i18n.__('GET_UNREAD_MESSAGES_FROM_CHANNEL.ERROR');
 		});
 
-const postGroupMessage = async (roomid, message, headers) =>
-	await axios
+const postGroupMessage = (roomid, message, headers) =>
+	axios
 		.post(
 			apiEndpoints.postmessageurl, {
 				roomId: roomid,
@@ -1164,8 +1163,8 @@ const postGroupMessage = async (roomid, message, headers) =>
 			return i18n.__('POST_MESSAGE.ERROR');
 		});
 
-const getLastMessageType = async (channelName, headers) =>
-	await axios
+const getLastMessageType = (channelName, headers) =>
+	axios
 		.get(`${ apiEndpoints.channelmessageurl }${ channelName }`, {
 			headers,
 		})
@@ -1183,8 +1182,8 @@ const getLastMessageType = async (channelName, headers) =>
 			}
 		});
 
-const getLastMessageFileURL = async (channelName, headers) =>
-	await axios
+const getLastMessageFileURL = (channelName, headers) =>
+	axios
 		.get(`${ apiEndpoints.channelmessageurl }${ channelName }`, {
 			headers,
 		})
@@ -1194,8 +1193,8 @@ const getLastMessageFileURL = async (channelName, headers) =>
 			console.log(err.message);
 		});
 
-const getLastMessageFileDowloadURL = async (fileurl, headers) =>
-	await axios
+const getLastMessageFileDowloadURL = (fileurl, headers) =>
+	axios
 		.get(fileurl, {
 			headers,
 		})
@@ -1204,8 +1203,8 @@ const getLastMessageFileDowloadURL = async (fileurl, headers) =>
 			console.log(err.message);
 		});
 
-const getGroupLastMessageType = async (roomid, headers) =>
-	await axios
+const getGroupLastMessageType = (roomid, headers) =>
+	axios
 		.get(`${ apiEndpoints.groupmessageurl }${ roomid }`, {
 			headers,
 		})
@@ -1223,8 +1222,8 @@ const getGroupLastMessageType = async (roomid, headers) =>
 			}
 		});
 
-const getGroupLastMessageFileURL = async (roomid, headers) =>
-	await axios
+const getGroupLastMessageFileURL = (roomid, headers) =>
+	axios
 		.get(`${ apiEndpoints.groupmessageurl }${ roomid }`, {
 			headers,
 		})
