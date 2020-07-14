@@ -1,0 +1,22 @@
+name: Lint
+
+on:
+  pull_request:
+    paths-ignore:
+      - '**.md'    
+  push:    
+    branches:
+      - master
+      - releases/*
+    paths-ignore:
+      - '**.md'
+
+jobs:
+  eslint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: install dependencies
+        run: cd functions && npm install
+      - name: run lint check
+        run: cd functions && npm run lint
