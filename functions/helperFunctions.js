@@ -1,3 +1,4 @@
+/* eslint-disable no-return-await */
 const axios = require('axios');
 const removeWhitespace = require('remove-whitespace');
 const emojiTranslate = require('moji-translate');
@@ -243,7 +244,7 @@ function replaceWhitespacesDots(str) {
 }
 
 function emojiTranslateFunc(str) {
-	onlyEmoji = true;
+	const onlyEmoji = true;
 	return emojiTranslate.translate(str, onlyEmoji);
 }
 
@@ -277,7 +278,7 @@ const channelUnreadMessages = async (channelName, unreadCount, headers) =>
 		.then((res) => res.data)
 		.then((res) => {
 			if (res.success === true) {
-				if (unreadCount == 0) {
+				if (unreadCount === 0) {
 					return i18n.__('GET_UNREAD_MESSAGES_FROM_CHANNEL.NO_MESSAGE');
 				}
 				const msgs = [];
@@ -311,7 +312,7 @@ const channelUnreadMentions = async (channelName, roomid, mentionsCount, headers
 		.then((res) => res.data)
 		.then((res) => {
 			if (res.success === true) {
-				if (mentionsCount == 0) {
+				if (mentionsCount === 0) {
 					return i18n.__('GET_USER_MENTIONS_FROM_CHANNEL.NO_MESSAGE');
 				}
 				const msgs = [];
@@ -1115,7 +1116,7 @@ const groupUnreadMessages = async (channelName, roomid, unreadCount, headers) =>
 		.then((res) => res.data)
 		.then((res) => {
 			if (res.success === true) {
-				if (unreadCount == 0) {
+				if (unreadCount === 0) {
 					return i18n.__('GET_UNREAD_MESSAGES_FROM_CHANNEL.NO_MESSAGE');
 				}
 				const msgs = [];
