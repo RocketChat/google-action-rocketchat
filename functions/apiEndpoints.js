@@ -3,7 +3,7 @@ const envVariables = require('./config');
 // Server URL Environment Variable
 
 const {
-	SERVER_URL
+	SERVER_URL,
 } = envVariables;
 
 
