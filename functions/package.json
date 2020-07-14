@@ -10,18 +10,23 @@
   },
   "scripts": {
     "start": "firebase serve --only functions",
-    "deploy": "firebase deploy --only functions"
+    "deploy": "firebase deploy --only functions",
+    "lint": "./node_modules/.bin/eslint '**/*.js'"
   },
   "dependencies": {
     "@vitalets/google-translate-api": "^2.8.0",
     "actions-on-google": "^2.7.0",
     "axios": "^0.18.0",
-    "eslint": "^5.16.0",
     "firebase-admin": "^7.2.0",
     "firebase-functions": "^3.0.1",
     "i18n": "^0.8.3",
     "moji-translate": "^1.0.8",
     "moment": "^2.18.1",
     "remove-whitespace": "^1.1.0"
+  },
+  "devDependencies": {
+    "@rocket.chat/eslint-config": "^0.4.0",
+    "babel-eslint": "^10.1.0",
+    "eslint": "^7.4.0"
   }
 }
