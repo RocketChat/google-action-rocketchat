@@ -45,23 +45,23 @@ app.intent('Create Channel Intent', async (conv, params) => {
 	const { locale } = conv.user;
 
 	if (locale === 'hi-IN') {
-		var accessToken = conv.user.access.token;
+		const accessToken = conv.user.access.token;
 
-		var channelNameRaw = params.channelname;
-		var channelNameData = await helperFunctions.hinditranslate(channelNameRaw);
+		const channelNameRaw = params.channelname;
+		const channelNameData = await helperFunctions.hinditranslate(channelNameRaw);
 		const channelNameLwr = channelNameData.toLowerCase();
-		var channelName = helperFunctions.replaceWhitespacesFunc(channelNameLwr);
+		const channelName = helperFunctions.replaceWhitespacesFunc(channelNameLwr);
 
 		const headers = await helperFunctions.login(accessToken);
 		const speechText = await helperFunctions.createChannel(channelName, headers);
 
 		conv.ask(speechText);
 	} else {
-		var accessToken = conv.user.access.token;
+		const accessToken = conv.user.access.token;
 
-		var channelNameRaw = params.channelname;
-		var channelNameData = channelNameRaw.toLowerCase();
-		var channelName = helperFunctions.replaceWhitespacesFunc(channelNameData);
+		const channelNameRaw = params.channelname;
+		const channelNameData = channelNameRaw.toLowerCase();
+		const channelName = helperFunctions.replaceWhitespacesFunc(channelNameData);
 
 		const headers = await helperFunctions.login(accessToken);
 		const speechText = await helperFunctions.createChannel(channelName, headers);
@@ -74,23 +74,23 @@ app.intent('Delete Channel Intent', async (conv, params) => {
 	const { locale } = conv.user;
 
 	if (locale === 'hi-IN') {
-		var accessToken = conv.user.access.token;
+		const accessToken = conv.user.access.token;
 
-		var channelNameRaw = params.channelname;
-		var channelNameData = await helperFunctions.hinditranslate(channelNameRaw);
+		const channelNameRaw = params.channelname;
+		const channelNameData = await helperFunctions.hinditranslate(channelNameRaw);
 		const channelNameLwr = channelNameData.toLowerCase();
-		var channelName = helperFunctions.replaceWhitespacesFunc(channelNameLwr);
+		const channelName = helperFunctions.replaceWhitespacesFunc(channelNameLwr);
 
 		const headers = await helperFunctions.login(accessToken);
 		const speechText = await helperFunctions.deleteChannel(channelName, headers);
 
 		conv.ask(speechText);
 	} else {
-		var accessToken = conv.user.access.token;
+		const accessToken = conv.user.access.token;
 
-		var channelNameRaw = params.channelname;
-		var channelNameData = channelNameRaw.toLowerCase();
-		var channelName = helperFunctions.replaceWhitespacesFunc(channelNameData);
+		const channelNameRaw = params.channelname;
+		const channelNameData = channelNameRaw.toLowerCase();
+		const channelName = helperFunctions.replaceWhitespacesFunc(channelNameData);
 
 		const headers = await helperFunctions.login(accessToken);
 		const speechText = await helperFunctions.deleteChannel(channelName, headers);
@@ -103,27 +103,27 @@ app.intent('Post Channel Message Intent', async (conv, params) => {
 	const { locale } = conv.user;
 
 	if (locale === 'hi-IN') {
-		var accessToken = conv.user.access.token;
+		const accessToken = conv.user.access.token;
 
-		var { message } = params;
+		const { message } = params;
 
-		var channelNameRaw = params.channelname;
-		var channelNameData = await helperFunctions.hinditranslate(channelNameRaw);
+		const channelNameRaw = params.channelname;
+		const channelNameData = await helperFunctions.hinditranslate(channelNameRaw);
 		const channelNameLwr = channelNameData.toLowerCase();
-		var channelName = helperFunctions.replaceWhitespacesFunc(channelNameLwr);
+		const channelName = helperFunctions.replaceWhitespacesFunc(channelNameLwr);
 
 		const headers = await helperFunctions.login(accessToken);
 		const speechText = await helperFunctions.postMessage(channelName, message, headers);
 
 		conv.ask(speechText);
 	} else {
-		var accessToken = conv.user.access.token;
+		const accessToken = conv.user.access.token;
 
-		var { message } = params;
+		const { message } = params;
 
-		var channelNameRaw = params.channelname;
-		var channelNameData = channelNameRaw.toLowerCase();
-		var channelName = helperFunctions.replaceWhitespacesFunc(channelNameData);
+		const channelNameRaw = params.channelname;
+		const channelNameData = channelNameRaw.toLowerCase();
+		const channelName = helperFunctions.replaceWhitespacesFunc(channelNameData);
 
 		const headers = await helperFunctions.login(accessToken);
 		const speechText = await helperFunctions.postMessage(channelName, message, headers);
@@ -136,12 +136,12 @@ app.intent('Channel Last Message Intent', async (conv, params) => {
 	const { locale } = conv.user;
 
 	if (locale === 'hi-IN') {
-		var accessToken = conv.user.access.token;
+		const accessToken = conv.user.access.token;
 
-		var channelNameRaw = params.channelname;
-		var channelNameData = await helperFunctions.hinditranslate(channelNameRaw);
+		const channelNameRaw = params.channelname;
+		const channelNameData = await helperFunctions.hinditranslate(channelNameRaw);
 		const channelNameLwr = channelNameData.toLowerCase();
-		var channelName = helperFunctions.replaceWhitespacesFunc(channelNameLwr);
+		const channelName = helperFunctions.replaceWhitespacesFunc(channelNameLwr);
 
 		const headers = await helperFunctions.login(accessToken);
 		const messageType = await helperFunctions.getLastMessageType(channelName, headers);
@@ -187,11 +187,11 @@ app.intent('Channel Last Message Intent', async (conv, params) => {
 			conv.ask(speechText);
 		}
 	} else {
-		var accessToken = conv.user.access.token;
+		const accessToken = conv.user.access.token;
 
-		var channelNameRaw = params.channelname;
-		var channelNameData = channelNameRaw.toLowerCase();
-		var channelName = helperFunctions.replaceWhitespacesFunc(channelNameData);
+		const channelNameRaw = params.channelname;
+		const channelNameData = channelNameRaw.toLowerCase();
+		const channelName = helperFunctions.replaceWhitespacesFunc(channelNameData);
 
 		const headers = await helperFunctions.login(accessToken);
 		const messageType = await helperFunctions.getLastMessageType(channelName, headers);
@@ -243,17 +243,17 @@ app.intent('Add Channel Moderator Intent', async (conv, params) => {
 	const { locale } = conv.user;
 
 	if (locale === 'hi-IN') {
-		var accessToken = conv.user.access.token;
+		const accessToken = conv.user.access.token;
 
-		var userNameRaw = params.username;
-		var userNameData = await helperFunctions.hinditranslate(userNameRaw);
+		const userNameRaw = params.username;
+		const userNameData = await helperFunctions.hinditranslate(userNameRaw);
 		const userNameLwr = userNameData.toLowerCase();
-		var userName = helperFunctions.replaceWhitespacesDots(userNameLwr);
+		const userName = helperFunctions.replaceWhitespacesDots(userNameLwr);
 
-		var channelNameRaw = params.channelname;
-		var channelNameData = await helperFunctions.hinditranslate(channelNameRaw);
+		const channelNameRaw = params.channelname;
+		const channelNameData = await helperFunctions.hinditranslate(channelNameRaw);
 		const channelNameLwr = channelNameData.toLowerCase();
-		var channelName = helperFunctions.replaceWhitespacesFunc(channelNameLwr);
+		const channelName = helperFunctions.replaceWhitespacesFunc(channelNameLwr);
 
 		const headers = await helperFunctions.login(accessToken);
 		const userid = await helperFunctions.getUserId(userName, headers);
@@ -262,15 +262,15 @@ app.intent('Add Channel Moderator Intent', async (conv, params) => {
 
 		conv.ask(speechText);
 	} else {
-		var accessToken = conv.user.access.token;
+		const accessToken = conv.user.access.token;
 
-		var userNameRaw = params.username;
-		var userNameData = userNameRaw.toLowerCase();
-		var userName = helperFunctions.replaceWhitespacesDots(userNameData);
+		const userNameRaw = params.username;
+		const userNameData = userNameRaw.toLowerCase();
+		const userName = helperFunctions.replaceWhitespacesDots(userNameData);
 
-		var channelNameRaw = params.channelname;
-		var channelNameData = channelNameRaw.toLowerCase();
-		var channelName = helperFunctions.replaceWhitespacesFunc(channelNameData);
+		const channelNameRaw = params.channelname;
+		const channelNameData = channelNameRaw.toLowerCase();
+		const channelName = helperFunctions.replaceWhitespacesFunc(channelNameData);
 
 		const headers = await helperFunctions.login(accessToken);
 		const userid = await helperFunctions.getUserId(userName, headers);
@@ -285,17 +285,17 @@ app.intent('Add Channel Owner Intent', async (conv, params) => {
 	const { locale } = conv.user;
 
 	if (locale === 'hi-IN') {
-		var accessToken = conv.user.access.token;
+		const accessToken = conv.user.access.token;
 
-		var userNameRaw = params.username;
-		var userNameData = await helperFunctions.hinditranslate(userNameRaw);
+		const userNameRaw = params.username;
+		const userNameData = await helperFunctions.hinditranslate(userNameRaw);
 		const userNameLwr = userNameData.toLowerCase();
-		var userName = helperFunctions.replaceWhitespacesDots(userNameLwr);
+		const userName = helperFunctions.replaceWhitespacesDots(userNameLwr);
 
-		var channelNameRaw = params.channelname;
-		var channelNameData = await helperFunctions.hinditranslate(channelNameRaw);
+		const channelNameRaw = params.channelname;
+		const channelNameData = await helperFunctions.hinditranslate(channelNameRaw);
 		const channelNameLwr = channelNameData.toLowerCase();
-		var channelName = helperFunctions.replaceWhitespacesFunc(channelNameLwr);
+		const channelName = helperFunctions.replaceWhitespacesFunc(channelNameLwr);
 
 		const headers = await helperFunctions.login(accessToken);
 		const userid = await helperFunctions.getUserId(userName, headers);
@@ -304,15 +304,15 @@ app.intent('Add Channel Owner Intent', async (conv, params) => {
 
 		conv.ask(speechText);
 	} else {
-		var accessToken = conv.user.access.token;
+		const accessToken = conv.user.access.token;
 
-		var userNameRaw = params.username;
-		var userNameData = userNameRaw.toLowerCase();
-		var userName = helperFunctions.replaceWhitespacesDots(userNameData);
+		const userNameRaw = params.username;
+		const userNameData = userNameRaw.toLowerCase();
+		const userName = helperFunctions.replaceWhitespacesDots(userNameData);
 
-		var channelNameRaw = params.channelname;
-		var channelNameData = channelNameRaw.toLowerCase();
-		var channelName = helperFunctions.replaceWhitespacesFunc(channelNameData);
+		const channelNameRaw = params.channelname;
+		const channelNameData = channelNameRaw.toLowerCase();
+		const channelName = helperFunctions.replaceWhitespacesFunc(channelNameData);
 
 		const headers = await helperFunctions.login(accessToken);
 		const userid = await helperFunctions.getUserId(userName, headers);
@@ -327,12 +327,12 @@ app.intent('Add All To Channel Intent', async (conv, params) => {
 	const { locale } = conv.user;
 
 	if (locale === 'hi-IN') {
-		var accessToken = conv.user.access.token;
+		const accessToken = conv.user.access.token;
 
-		var channelNameRaw = params.channelname;
-		var channelNameData = await helperFunctions.hinditranslate(channelNameRaw);
+		const channelNameRaw = params.channelname;
+		const channelNameData = await helperFunctions.hinditranslate(channelNameRaw);
 		const channelNameLwr = channelNameData.toLowerCase();
-		var channelName = helperFunctions.replaceWhitespacesFunc(channelNameLwr);
+		const channelName = helperFunctions.replaceWhitespacesFunc(channelNameLwr);
 
 		const headers = await helperFunctions.login(accessToken);
 		const roomid = await helperFunctions.getRoomId(channelName, headers);
@@ -340,11 +340,11 @@ app.intent('Add All To Channel Intent', async (conv, params) => {
 
 		conv.ask(speechText);
 	} else {
-		var accessToken = conv.user.access.token;
+		const accessToken = conv.user.access.token;
 
-		var channelNameRaw = params.channelname;
-		var channelNameData = channelNameRaw.toLowerCase();
-		var channelName = helperFunctions.replaceWhitespacesFunc(channelNameData);
+		const channelNameRaw = params.channelname;
+		const channelNameData = channelNameRaw.toLowerCase();
+		const channelName = helperFunctions.replaceWhitespacesFunc(channelNameData);
 
 		const headers = await helperFunctions.login(accessToken);
 		const roomid = await helperFunctions.getRoomId(channelName, headers);
@@ -358,12 +358,12 @@ app.intent('Archive Channel Intent', async (conv, params) => {
 	const { locale } = conv.user;
 
 	if (locale === 'hi-IN') {
-		var accessToken = conv.user.access.token;
+		const accessToken = conv.user.access.token;
 
-		var channelNameRaw = params.channelname;
-		var channelNameData = await helperFunctions.hinditranslate(channelNameRaw);
+		const channelNameRaw = params.channelname;
+		const channelNameData = await helperFunctions.hinditranslate(channelNameRaw);
 		const channelNameLwr = channelNameData.toLowerCase();
-		var channelName = helperFunctions.replaceWhitespacesFunc(channelNameLwr);
+		const channelName = helperFunctions.replaceWhitespacesFunc(channelNameLwr);
 
 		const headers = await helperFunctions.login(accessToken);
 		const roomid = await helperFunctions.getRoomId(channelName, headers);
@@ -371,11 +371,11 @@ app.intent('Archive Channel Intent', async (conv, params) => {
 
 		conv.ask(speechText);
 	} else {
-		var accessToken = conv.user.access.token;
+		const accessToken = conv.user.access.token;
 
-		var channelNameRaw = params.channelname;
-		var channelNameData = channelNameRaw.toLowerCase();
-		var channelName = helperFunctions.replaceWhitespacesFunc(channelNameData);
+		const channelNameRaw = params.channelname;
+		const channelNameData = channelNameRaw.toLowerCase();
+		const channelName = helperFunctions.replaceWhitespacesFunc(channelNameData);
 
 		const headers = await helperFunctions.login(accessToken);
 		const roomid = await helperFunctions.getRoomId(channelName, headers);
@@ -389,12 +389,12 @@ app.intent('Channel Unread Messages Intent', async (conv, params) => {
 	const { locale } = conv.user;
 
 	if (locale === 'hi-IN') {
-		var accessToken = conv.user.access.token;
+		const accessToken = conv.user.access.token;
 
-		var channelNameRaw = params.channelname;
-		var channelNameData = await helperFunctions.hinditranslate(channelNameRaw);
+		const channelNameRaw = params.channelname;
+		const channelNameData = await helperFunctions.hinditranslate(channelNameRaw);
 		const channelNameLwr = channelNameData.toLowerCase();
-		var channelName = helperFunctions.replaceWhitespacesFunc(channelNameLwr);
+		const channelName = helperFunctions.replaceWhitespacesFunc(channelNameLwr);
 
 		const headers = await helperFunctions.login(accessToken);
 		const unreadCount = await helperFunctions.getUnreadCounter(channelName, headers);
@@ -402,11 +402,11 @@ app.intent('Channel Unread Messages Intent', async (conv, params) => {
 
 		conv.ask(speechText);
 	} else {
-		var accessToken = conv.user.access.token;
+		const accessToken = conv.user.access.token;
 
-		var channelNameRaw = params.channelname;
-		var channelNameData = channelNameRaw.toLowerCase();
-		var channelName = helperFunctions.replaceWhitespacesFunc(channelNameData);
+		const channelNameRaw = params.channelname;
+		const channelNameData = channelNameRaw.toLowerCase();
+		const channelName = helperFunctions.replaceWhitespacesFunc(channelNameData);
 
 		const headers = await helperFunctions.login(accessToken);
 		const unreadCount = await helperFunctions.getUnreadCounter(channelName, headers);
@@ -420,12 +420,12 @@ app.intent('Channel User Mentions Intent', async (conv, params) => {
 	const { locale } = conv.user;
 
 	if (locale === 'hi-IN') {
-		var accessToken = conv.user.access.token;
+		const accessToken = conv.user.access.token;
 
-		var channelNameRaw = params.channelname;
-		var channelNameData = await helperFunctions.hinditranslate(channelNameRaw);
+		const channelNameRaw = params.channelname;
+		const channelNameData = await helperFunctions.hinditranslate(channelNameRaw);
 		const channelNameLwr = channelNameData.toLowerCase();
-		var channelName = helperFunctions.replaceWhitespacesFunc(channelNameLwr);
+		const channelName = helperFunctions.replaceWhitespacesFunc(channelNameLwr);
 
 		const headers = await helperFunctions.login(accessToken);
 		const mentionsCount = await helperFunctions.getMentionsCounter(channelName, headers);
@@ -434,11 +434,11 @@ app.intent('Channel User Mentions Intent', async (conv, params) => {
 
 		conv.ask(speechText);
 	} else {
-		var accessToken = conv.user.access.token;
+		const accessToken = conv.user.access.token;
 
-		var channelNameRaw = params.channelname;
-		var channelNameData = channelNameRaw.toLowerCase();
-		var channelName = helperFunctions.replaceWhitespacesFunc(channelNameData);
+		const channelNameRaw = params.channelname;
+		const channelNameData = channelNameRaw.toLowerCase();
+		const channelName = helperFunctions.replaceWhitespacesFunc(channelNameData);
 
 		const headers = await helperFunctions.login(accessToken);
 		const mentionsCount = await helperFunctions.getMentionsCounter(channelName, headers);
@@ -453,14 +453,14 @@ app.intent('Post Channel Emoji Message Intent', async (conv, params) => {
 	const { locale } = conv.user;
 
 	if (locale === 'hi-IN') {
-		var accessToken = conv.user.access.token;
+		const accessToken = conv.user.access.token;
 
-		var channelNameRaw = params.channelname;
-		var channelNameData = await helperFunctions.hinditranslate(channelNameRaw);
+		const channelNameRaw = params.channelname;
+		const channelNameData = await helperFunctions.hinditranslate(channelNameRaw);
 		const channelNameLwr = channelNameData.toLowerCase();
-		var channelName = helperFunctions.replaceWhitespacesFunc(channelNameLwr);
+		const channelName = helperFunctions.replaceWhitespacesFunc(channelNameLwr);
 
-		var messageData = params.message;
+		const messageData = params.message;
 		const emojiRaw = params.emoji;
 		const emojiData = await helperFunctions.hinditranslate(emojiRaw);
 		const emoji = helperFunctions.emojiTranslateFunc(emojiData);
@@ -471,13 +471,13 @@ app.intent('Post Channel Emoji Message Intent', async (conv, params) => {
 
 		conv.ask(speechText);
 	} else {
-		var accessToken = conv.user.access.token;
+		const accessToken = conv.user.access.token;
 
-		var channelNameRaw = params.channelname;
-		var channelNameData = channelNameRaw.toLowerCase();
-		var channelName = helperFunctions.replaceWhitespacesFunc(channelNameData);
+		const channelNameRaw = params.channelname;
+		const channelNameData = channelNameRaw.toLowerCase();
+		const channelName = helperFunctions.replaceWhitespacesFunc(channelNameData);
 
-		var messageData = params.message;
+		const messageData = params.message;
 		const emojiData = params.emoji;
 		const emoji = helperFunctions.emojiTranslateFunc(emojiData);
 		const message = messageData + emoji;
@@ -493,17 +493,17 @@ app.intent('Invite User Intent', async (conv, params) => {
 	const { locale } = conv.user;
 
 	if (locale === 'hi-IN') {
-		var accessToken = conv.user.access.token;
+		const accessToken = conv.user.access.token;
 
-		var userNameRaw = params.username;
-		var userNameData = await helperFunctions.hinditranslate(userNameRaw);
+		const userNameRaw = params.username;
+		const userNameData = await helperFunctions.hinditranslate(userNameRaw);
 		const userNameLwr = userNameData.toLowerCase();
-		var userName = helperFunctions.replaceWhitespacesDots(userNameLwr);
+		const userName = helperFunctions.replaceWhitespacesDots(userNameLwr);
 
-		var channelNameRaw = params.channelname;
-		var channelNameData = await helperFunctions.hinditranslate(channelNameRaw);
+		const channelNameRaw = params.channelname;
+		const channelNameData = await helperFunctions.hinditranslate(channelNameRaw);
 		const channelNameLwr = channelNameData.toLowerCase();
-		var channelName = helperFunctions.replaceWhitespacesFunc(channelNameLwr);
+		const channelName = helperFunctions.replaceWhitespacesFunc(channelNameLwr);
 
 		const headers = await helperFunctions.login(accessToken);
 		const userid = await helperFunctions.getUserId(userName, headers);
@@ -512,15 +512,15 @@ app.intent('Invite User Intent', async (conv, params) => {
 
 		conv.ask(speechText);
 	} else {
-		var accessToken = conv.user.access.token;
+		const accessToken = conv.user.access.token;
 
-		var userNameRaw = params.username;
-		var userNameData = userNameRaw.toLowerCase();
-		var userName = helperFunctions.replaceWhitespacesDots(userNameData);
+		const userNameRaw = params.username;
+		const userNameData = userNameRaw.toLowerCase();
+		const userName = helperFunctions.replaceWhitespacesDots(userNameData);
 
-		var channelNameRaw = params.channelname;
-		var channelNameData = channelNameRaw.toLowerCase();
-		var channelName = helperFunctions.replaceWhitespacesFunc(channelNameData);
+		const channelNameRaw = params.channelname;
+		const channelNameData = channelNameRaw.toLowerCase();
+		const channelName = helperFunctions.replaceWhitespacesFunc(channelNameData);
 
 		const headers = await helperFunctions.login(accessToken);
 		const userid = await helperFunctions.getUserId(userName, headers);
@@ -535,12 +535,12 @@ app.intent('Leave Channel Intent', async (conv, params) => {
 	const { locale } = conv.user;
 
 	if (locale === 'hi-IN') {
-		var accessToken = conv.user.access.token;
+		const accessToken = conv.user.access.token;
 
-		var channelNameRaw = params.channelname;
-		var channelNameData = await helperFunctions.hinditranslate(channelNameRaw);
+		const channelNameRaw = params.channelname;
+		const channelNameData = await helperFunctions.hinditranslate(channelNameRaw);
 		const channelNameLwr = channelNameData.toLowerCase();
-		var channelName = helperFunctions.replaceWhitespacesFunc(channelNameLwr);
+		const channelName = helperFunctions.replaceWhitespacesFunc(channelNameLwr);
 
 		const headers = await helperFunctions.login(accessToken);
 		const roomid = await helperFunctions.getRoomId(channelName, headers);
@@ -548,11 +548,11 @@ app.intent('Leave Channel Intent', async (conv, params) => {
 
 		conv.ask(speechText);
 	} else {
-		var accessToken = conv.user.access.token;
+		const accessToken = conv.user.access.token;
 
-		var channelNameRaw = params.channelname;
-		var channelNameData = channelNameRaw.toLowerCase();
-		var channelName = helperFunctions.replaceWhitespacesFunc(channelNameData);
+		const channelNameRaw = params.channelname;
+		const channelNameData = channelNameRaw.toLowerCase();
+		const channelName = helperFunctions.replaceWhitespacesFunc(channelNameData);
 
 		const headers = await helperFunctions.login(accessToken);
 		const roomid = await helperFunctions.getRoomId(channelName, headers);
@@ -566,17 +566,17 @@ app.intent('Kick User Intent', async (conv, params) => {
 	const { locale } = conv.user;
 
 	if (locale === 'hi-IN') {
-		var accessToken = conv.user.access.token;
+		const accessToken = conv.user.access.token;
 
-		var userNameRaw = params.username;
-		var userNameData = await helperFunctions.hinditranslate(userNameRaw);
+		const userNameRaw = params.username;
+		const userNameData = await helperFunctions.hinditranslate(userNameRaw);
 		const userNameLwr = userNameData.toLowerCase();
-		var userName = helperFunctions.replaceWhitespacesDots(userNameLwr);
+		const userName = helperFunctions.replaceWhitespacesDots(userNameLwr);
 
-		var channelNameRaw = params.channelname;
-		var channelNameData = await helperFunctions.hinditranslate(channelNameRaw);
+		const channelNameRaw = params.channelname;
+		const channelNameData = await helperFunctions.hinditranslate(channelNameRaw);
 		const channelNameLwr = channelNameData.toLowerCase();
-		var channelName = helperFunctions.replaceWhitespacesFunc(channelNameLwr);
+		const channelName = helperFunctions.replaceWhitespacesFunc(channelNameLwr);
 
 		const headers = await helperFunctions.login(accessToken);
 		const userid = await helperFunctions.getUserId(userName, headers);
@@ -585,15 +585,15 @@ app.intent('Kick User Intent', async (conv, params) => {
 
 		conv.ask(speechText);
 	} else {
-		var accessToken = conv.user.access.token;
+		const accessToken = conv.user.access.token;
 
-		var userNameRaw = params.username;
-		var userNameData = userNameRaw.toLowerCase();
-		var userName = helperFunctions.replaceWhitespacesDots(userNameData);
+		const userNameRaw = params.username;
+		const userNameData = userNameRaw.toLowerCase();
+		const userName = helperFunctions.replaceWhitespacesDots(userNameData);
 
-		var channelNameRaw = params.channelname;
-		var channelNameData = channelNameRaw.toLowerCase();
-		var channelName = helperFunctions.replaceWhitespacesFunc(channelNameData);
+		const channelNameRaw = params.channelname;
+		const channelNameData = channelNameRaw.toLowerCase();
+		const channelName = helperFunctions.replaceWhitespacesFunc(channelNameData);
 
 		const headers = await helperFunctions.login(accessToken);
 		const userid = await helperFunctions.getUserId(userName, headers);
@@ -608,17 +608,17 @@ app.intent('Add Channel Leader Intent', async (conv, params) => {
 	const { locale } = conv.user;
 
 	if (locale === 'hi-IN') {
-		var accessToken = conv.user.access.token;
+		const accessToken = conv.user.access.token;
 
-		var userNameRaw = params.username;
-		var userNameData = await helperFunctions.hinditranslate(userNameRaw);
+		const userNameRaw = params.username;
+		const userNameData = await helperFunctions.hinditranslate(userNameRaw);
 		const userNameLwr = userNameData.toLowerCase();
-		var userName = helperFunctions.replaceWhitespacesDots(userNameLwr);
+		const userName = helperFunctions.replaceWhitespacesDots(userNameLwr);
 
-		var channelNameRaw = params.channelname;
-		var channelNameData = await helperFunctions.hinditranslate(channelNameRaw);
+		const channelNameRaw = params.channelname;
+		const channelNameData = await helperFunctions.hinditranslate(channelNameRaw);
 		const channelNameLwr = channelNameData.toLowerCase();
-		var channelName = helperFunctions.replaceWhitespacesFunc(channelNameLwr);
+		const channelName = helperFunctions.replaceWhitespacesFunc(channelNameLwr);
 
 		const headers = await helperFunctions.login(accessToken);
 		const userid = await helperFunctions.getUserId(userName, headers);
@@ -627,15 +627,15 @@ app.intent('Add Channel Leader Intent', async (conv, params) => {
 
 		conv.ask(speechText);
 	} else {
-		var accessToken = conv.user.access.token;
+		const accessToken = conv.user.access.token;
 
-		var userNameRaw = params.username;
-		var userNameData = userNameRaw.toLowerCase();
-		var userName = helperFunctions.replaceWhitespacesDots(userNameData);
+		const userNameRaw = params.username;
+		const userNameData = userNameRaw.toLowerCase();
+		const userName = helperFunctions.replaceWhitespacesDots(userNameData);
 
-		var channelNameRaw = params.channelname;
-		var channelNameData = channelNameRaw.toLowerCase();
-		var channelName = helperFunctions.replaceWhitespacesFunc(channelNameData);
+		const channelNameRaw = params.channelname;
+		const channelNameData = channelNameRaw.toLowerCase();
+		const channelName = helperFunctions.replaceWhitespacesFunc(channelNameData);
 
 		const headers = await helperFunctions.login(accessToken);
 		const userid = await helperFunctions.getUserId(userName, headers);
@@ -650,17 +650,17 @@ app.intent('Rename Channel Intent', async (conv, params) => {
 	const { locale } = conv.user;
 
 	if (locale === 'hi-IN') {
-		var accessToken = conv.user.access.token;
+		const accessToken = conv.user.access.token;
 
-		var channelNameRaw = params.channelname;
-		var channelNameData = await helperFunctions.hinditranslate(channelNameRaw);
+		const channelNameRaw = params.channelname;
+		const channelNameData = await helperFunctions.hinditranslate(channelNameRaw);
 		const channelNameLwr = channelNameData.toLowerCase();
-		var channelName = helperFunctions.replaceWhitespacesFunc(channelNameLwr);
+		const channelName = helperFunctions.replaceWhitespacesFunc(channelNameLwr);
 
-		var newNameRaw = params.newname;
-		var newNameData = await helperFunctions.hinditranslate(newNameRaw);
+		const newNameRaw = params.newname;
+		const newNameData = await helperFunctions.hinditranslate(newNameRaw);
 		const newNameLwr = newNameData.toLowerCase();
-		var newName = helperFunctions.replaceWhitespacesFunc(newNameLwr);
+		const newName = helperFunctions.replaceWhitespacesFunc(newNameLwr);
 
 		const headers = await helperFunctions.login(accessToken);
 		const roomid = await helperFunctions.getRoomId(channelName, headers);
@@ -668,15 +668,15 @@ app.intent('Rename Channel Intent', async (conv, params) => {
 
 		conv.ask(speechText);
 	} else {
-		var accessToken = conv.user.access.token;
+		const accessToken = conv.user.access.token;
 
-		var channelNameRaw = params.channelname;
-		var channelNameData = channelNameRaw.toLowerCase();
-		var channelName = helperFunctions.replaceWhitespacesFunc(channelNameData);
+		const channelNameRaw = params.channelname;
+		const channelNameData = channelNameRaw.toLowerCase();
+		const channelName = helperFunctions.replaceWhitespacesFunc(channelNameData);
 
-		var newNameRaw = params.newname;
-		var newNameData = newNameRaw.toLowerCase();
-		var newName = helperFunctions.replaceWhitespacesFunc(newNameData);
+		const newNameRaw = params.newname;
+		const newNameData = newNameRaw.toLowerCase();
+		const newName = helperFunctions.replaceWhitespacesFunc(newNameData);
 
 		const headers = await helperFunctions.login(accessToken);
 		const roomid = await helperFunctions.getRoomId(channelName, headers);
@@ -690,12 +690,12 @@ app.intent('Unarchive Channel Intent', async (conv, params) => {
 	const { locale } = conv.user;
 
 	if (locale === 'hi-IN') {
-		var accessToken = conv.user.access.token;
+		const accessToken = conv.user.access.token;
 
-		var channelNameRaw = params.channelname;
-		var channelNameData = await helperFunctions.hinditranslate(channelNameRaw);
+		const channelNameRaw = params.channelname;
+		const channelNameData = await helperFunctions.hinditranslate(channelNameRaw);
 		const channelNameLwr = channelNameData.toLowerCase();
-		var channelName = helperFunctions.replaceWhitespacesFunc(channelNameLwr);
+		const channelName = helperFunctions.replaceWhitespacesFunc(channelNameLwr);
 
 		const headers = await helperFunctions.login(accessToken);
 		const roomid = await helperFunctions.getRoomId(channelName, headers);
@@ -703,11 +703,11 @@ app.intent('Unarchive Channel Intent', async (conv, params) => {
 
 		conv.ask(speechText);
 	} else {
-		var accessToken = conv.user.access.token;
+		const accessToken = conv.user.access.token;
 
-		var channelNameRaw = params.channelname;
-		var channelNameData = channelNameRaw.toLowerCase();
-		var channelName = helperFunctions.replaceWhitespacesFunc(channelNameData);
+		const channelNameRaw = params.channelname;
+		const channelNameData = channelNameRaw.toLowerCase();
+		const channelName = helperFunctions.replaceWhitespacesFunc(channelNameData);
 
 		const headers = await helperFunctions.login(accessToken);
 		const roomid = await helperFunctions.getRoomId(channelName, headers);
@@ -721,14 +721,14 @@ app.intent('Channel Topic Intent', async (conv, params) => {
 	const { locale } = conv.user;
 
 	if (locale === 'hi-IN') {
-		var accessToken = conv.user.access.token;
+		const accessToken = conv.user.access.token;
 
-		var channelNameRaw = params.channelname;
-		var channelNameData = await helperFunctions.hinditranslate(channelNameRaw);
+		const channelNameRaw = params.channelname;
+		const channelNameData = await helperFunctions.hinditranslate(channelNameRaw);
 		const channelNameLwr = channelNameData.toLowerCase();
-		var channelName = helperFunctions.replaceWhitespacesFunc(channelNameLwr);
+		const channelName = helperFunctions.replaceWhitespacesFunc(channelNameLwr);
 
-		var { topic } = params;
+		const { topic } = params;
 
 		const headers = await helperFunctions.login(accessToken);
 		const roomid = await helperFunctions.getRoomId(channelName, headers);
@@ -736,13 +736,13 @@ app.intent('Channel Topic Intent', async (conv, params) => {
 
 		conv.ask(speechText);
 	} else {
-		var accessToken = conv.user.access.token;
+		const accessToken = conv.user.access.token;
 
-		var channelNameRaw = params.channelname;
-		var channelNameData = channelNameRaw.toLowerCase();
-		var channelName = helperFunctions.replaceWhitespacesFunc(channelNameData);
+		const channelNameRaw = params.channelname;
+		const channelNameData = channelNameRaw.toLowerCase();
+		const channelName = helperFunctions.replaceWhitespacesFunc(channelNameData);
 
-		var { topic } = params;
+		const { topic } = params;
 
 		const headers = await helperFunctions.login(accessToken);
 		const roomid = await helperFunctions.getRoomId(channelName, headers);
@@ -756,14 +756,14 @@ app.intent('Channel Description Intent', async (conv, params) => {
 	const { locale } = conv.user;
 
 	if (locale === 'hi-IN') {
-		var accessToken = conv.user.access.token;
+		const accessToken = conv.user.access.token;
 
-		var channelNameRaw = params.channelname;
-		var channelNameData = await helperFunctions.hinditranslate(channelNameRaw);
+		const channelNameRaw = params.channelname;
+		const channelNameData = await helperFunctions.hinditranslate(channelNameRaw);
 		const channelNameLwr = channelNameData.toLowerCase();
-		var channelName = helperFunctions.replaceWhitespacesFunc(channelNameLwr);
+		const channelName = helperFunctions.replaceWhitespacesFunc(channelNameLwr);
 
-		var { description } = params;
+		const { description } = params;
 
 		const headers = await helperFunctions.login(accessToken);
 		const roomid = await helperFunctions.getRoomId(channelName, headers);
@@ -771,13 +771,13 @@ app.intent('Channel Description Intent', async (conv, params) => {
 
 		conv.ask(speechText);
 	} else {
-		var accessToken = conv.user.access.token;
+		const accessToken = conv.user.access.token;
 
-		var channelNameRaw = params.channelname;
-		var channelNameData = channelNameRaw.toLowerCase();
-		var channelName = helperFunctions.replaceWhitespacesFunc(channelNameData);
+		const channelNameRaw = params.channelname;
+		const channelNameData = channelNameRaw.toLowerCase();
+		const channelName = helperFunctions.replaceWhitespacesFunc(channelNameData);
 
-		var { description } = params;
+		const { description } = params;
 
 		const headers = await helperFunctions.login(accessToken);
 		const roomid = await helperFunctions.getRoomId(channelName, headers);
@@ -791,14 +791,14 @@ app.intent('Channel Announcement Intent', async (conv, params) => {
 	const { locale } = conv.user;
 
 	if (locale === 'hi-IN') {
-		var accessToken = conv.user.access.token;
+		const accessToken = conv.user.access.token;
 
-		var channelNameRaw = params.channelname;
-		var channelNameData = await helperFunctions.hinditranslate(channelNameRaw);
+		const channelNameRaw = params.channelname;
+		const channelNameData = await helperFunctions.hinditranslate(channelNameRaw);
 		const channelNameLwr = channelNameData.toLowerCase();
-		var channelName = helperFunctions.replaceWhitespacesFunc(channelNameLwr);
+		const channelName = helperFunctions.replaceWhitespacesFunc(channelNameLwr);
 
-		var { announcement } = params;
+		const { announcement } = params;
 
 		const headers = await helperFunctions.login(accessToken);
 		const roomid = await helperFunctions.getRoomId(channelName, headers);
@@ -806,13 +806,13 @@ app.intent('Channel Announcement Intent', async (conv, params) => {
 
 		conv.ask(speechText);
 	} else {
-		var accessToken = conv.user.access.token;
+		const accessToken = conv.user.access.token;
 
-		var channelNameRaw = params.channelname;
-		var channelNameData = channelNameRaw.toLowerCase();
-		var channelName = helperFunctions.replaceWhitespacesFunc(channelNameData);
+		const channelNameRaw = params.channelname;
+		const channelNameData = channelNameRaw.toLowerCase();
+		const channelName = helperFunctions.replaceWhitespacesFunc(channelNameData);
 
-		var { announcement } = params;
+		const { announcement } = params;
 
 		const headers = await helperFunctions.login(accessToken);
 		const roomid = await helperFunctions.getRoomId(channelName, headers);
@@ -826,17 +826,17 @@ app.intent('Remove Channel Leader Intent', async (conv, params) => {
 	const { locale } = conv.user;
 
 	if (locale === 'hi-IN') {
-		var accessToken = conv.user.access.token;
+		const accessToken = conv.user.access.token;
 
-		var userNameRaw = params.username;
-		var userNameData = await helperFunctions.hinditranslate(userNameRaw);
+		const userNameRaw = params.username;
+		const userNameData = await helperFunctions.hinditranslate(userNameRaw);
 		const userNameLwr = userNameData.toLowerCase();
-		var userName = helperFunctions.replaceWhitespacesDots(userNameLwr);
+		const userName = helperFunctions.replaceWhitespacesDots(userNameLwr);
 
-		var channelNameRaw = params.channelname;
-		var channelNameData = await helperFunctions.hinditranslate(channelNameRaw);
+		const channelNameRaw = params.channelname;
+		const channelNameData = await helperFunctions.hinditranslate(channelNameRaw);
 		const channelNameLwr = channelNameData.toLowerCase();
-		var channelName = helperFunctions.replaceWhitespacesFunc(channelNameLwr);
+		const channelName = helperFunctions.replaceWhitespacesFunc(channelNameLwr);
 
 		const headers = await helperFunctions.login(accessToken);
 		const userid = await helperFunctions.getUserId(userName, headers);
@@ -845,15 +845,15 @@ app.intent('Remove Channel Leader Intent', async (conv, params) => {
 
 		conv.ask(speechText);
 	} else {
-		var accessToken = conv.user.access.token;
+		const accessToken = conv.user.access.token;
 
-		var userNameRaw = params.username;
-		var userNameData = userNameRaw.toLowerCase();
-		var userName = helperFunctions.replaceWhitespacesDots(userNameData);
+		const userNameRaw = params.username;
+		const userNameData = userNameRaw.toLowerCase();
+		const userName = helperFunctions.replaceWhitespacesDots(userNameData);
 
-		var channelNameRaw = params.channelname;
-		var channelNameData = channelNameRaw.toLowerCase();
-		var channelName = helperFunctions.replaceWhitespacesFunc(channelNameData);
+		const channelNameRaw = params.channelname;
+		const channelNameData = channelNameRaw.toLowerCase();
+		const channelName = helperFunctions.replaceWhitespacesFunc(channelNameData);
 
 		const headers = await helperFunctions.login(accessToken);
 		const userid = await helperFunctions.getUserId(userName, headers);
@@ -868,17 +868,17 @@ app.intent('Remove Channel Moderator Intent', async (conv, params) => {
 	const { locale } = conv.user;
 
 	if (locale === 'hi-IN') {
-		var accessToken = conv.user.access.token;
+		const accessToken = conv.user.access.token;
 
-		var userNameRaw = params.username;
-		var userNameData = await helperFunctions.hinditranslate(userNameRaw);
+		const userNameRaw = params.username;
+		const userNameData = await helperFunctions.hinditranslate(userNameRaw);
 		const userNameLwr = userNameData.toLowerCase();
-		var userName = helperFunctions.replaceWhitespacesDots(userNameLwr);
+		const userName = helperFunctions.replaceWhitespacesDots(userNameLwr);
 
-		var channelNameRaw = params.channelname;
-		var channelNameData = await helperFunctions.hinditranslate(channelNameRaw);
+		const channelNameRaw = params.channelname;
+		const channelNameData = await helperFunctions.hinditranslate(channelNameRaw);
 		const channelNameLwr = channelNameData.toLowerCase();
-		var channelName = helperFunctions.replaceWhitespacesFunc(channelNameLwr);
+		const channelName = helperFunctions.replaceWhitespacesFunc(channelNameLwr);
 
 		const headers = await helperFunctions.login(accessToken);
 		const userid = await helperFunctions.getUserId(userName, headers);
@@ -887,15 +887,15 @@ app.intent('Remove Channel Moderator Intent', async (conv, params) => {
 
 		conv.ask(speechText);
 	} else {
-		var accessToken = conv.user.access.token;
+		const accessToken = conv.user.access.token;
 
-		var userNameRaw = params.username;
-		var userNameData = userNameRaw.toLowerCase();
-		var userName = helperFunctions.replaceWhitespacesDots(userNameData);
+		const userNameRaw = params.username;
+		const userNameData = userNameRaw.toLowerCase();
+		const userName = helperFunctions.replaceWhitespacesDots(userNameData);
 
-		var channelNameRaw = params.channelname;
-		var channelNameData = channelNameRaw.toLowerCase();
-		var channelName = helperFunctions.replaceWhitespacesFunc(channelNameData);
+		const channelNameRaw = params.channelname;
+		const channelNameData = channelNameRaw.toLowerCase();
+		const channelName = helperFunctions.replaceWhitespacesFunc(channelNameData);
 
 		const headers = await helperFunctions.login(accessToken);
 		const userid = await helperFunctions.getUserId(userName, headers);
@@ -910,17 +910,17 @@ app.intent('Remove Channel Owner Intent', async (conv, params) => {
 	const { locale } = conv.user;
 
 	if (locale === 'hi-IN') {
-		var accessToken = conv.user.access.token;
+		const accessToken = conv.user.access.token;
 
-		var userNameRaw = params.username;
-		var userNameData = await helperFunctions.hinditranslate(userNameRaw);
+		const userNameRaw = params.username;
+		const userNameData = await helperFunctions.hinditranslate(userNameRaw);
 		const userNameLwr = userNameData.toLowerCase();
-		var userName = helperFunctions.replaceWhitespacesDots(userNameLwr);
+		const userName = helperFunctions.replaceWhitespacesDots(userNameLwr);
 
-		var channelNameRaw = params.channelname;
-		var channelNameData = await helperFunctions.hinditranslate(channelNameRaw);
+		const channelNameRaw = params.channelname;
+		const channelNameData = await helperFunctions.hinditranslate(channelNameRaw);
 		const channelNameLwr = channelNameData.toLowerCase();
-		var channelName = helperFunctions.replaceWhitespacesFunc(channelNameLwr);
+		const channelName = helperFunctions.replaceWhitespacesFunc(channelNameLwr);
 
 		const headers = await helperFunctions.login(accessToken);
 		const userid = await helperFunctions.getUserId(userName, headers);
@@ -929,15 +929,15 @@ app.intent('Remove Channel Owner Intent', async (conv, params) => {
 
 		conv.ask(speechText);
 	} else {
-		var accessToken = conv.user.access.token;
+		const accessToken = conv.user.access.token;
 
-		var userNameRaw = params.username;
-		var userNameData = userNameRaw.toLowerCase();
-		var userName = helperFunctions.replaceWhitespacesDots(userNameData);
+		const userNameRaw = params.username;
+		const userNameData = userNameRaw.toLowerCase();
+		const userName = helperFunctions.replaceWhitespacesDots(userNameData);
 
-		var channelNameRaw = params.channelname;
-		var channelNameData = channelNameRaw.toLowerCase();
-		var channelName = helperFunctions.replaceWhitespacesFunc(channelNameData);
+		const channelNameRaw = params.channelname;
+		const channelNameData = channelNameRaw.toLowerCase();
+		const channelName = helperFunctions.replaceWhitespacesFunc(channelNameData);
 
 		const headers = await helperFunctions.login(accessToken);
 		const userid = await helperFunctions.getUserId(userName, headers);
@@ -952,14 +952,14 @@ app.intent('Post DM Message Intent', async (conv, params) => {
 	const { locale } = conv.user;
 
 	if (locale === 'hi-IN') {
-		var accessToken = conv.user.access.token;
+		const accessToken = conv.user.access.token;
 
-		var { message } = params;
+		const { message } = params;
 
-		var userNameRaw = params.username;
-		var userNameData = await helperFunctions.hinditranslate(userNameRaw);
+		const userNameRaw = params.username;
+		const userNameData = await helperFunctions.hinditranslate(userNameRaw);
 		const userNameLwr = userNameData.toLowerCase();
-		var userName = helperFunctions.replaceWhitespacesDots(userNameLwr);
+		const userName = helperFunctions.replaceWhitespacesDots(userNameLwr);
 
 		const headers = await helperFunctions.login(accessToken);
 		const roomid = await helperFunctions.createDMSession(userName, headers);
@@ -967,13 +967,13 @@ app.intent('Post DM Message Intent', async (conv, params) => {
 
 		conv.ask(speechText);
 	} else {
-		var accessToken = conv.user.access.token;
+		const accessToken = conv.user.access.token;
 
-		var { message } = params;
+		const { message } = params;
 
-		var userNameRaw = params.username;
-		var userNameData = userNameRaw.toLowerCase();
-		var userName = helperFunctions.replaceWhitespacesDots(userNameData);
+		const userNameRaw = params.username;
+		const userNameData = userNameRaw.toLowerCase();
+		const userName = helperFunctions.replaceWhitespacesDots(userNameData);
 
 		const headers = await helperFunctions.login(accessToken);
 		const roomid = await helperFunctions.createDMSession(userName, headers);
@@ -987,18 +987,18 @@ app.intent('Post DM Emoji Message Intent', async (conv, params) => {
 	const { locale } = conv.user;
 
 	if (locale === 'hi-IN') {
-		var accessToken = conv.user.access.token;
+		const accessToken = conv.user.access.token;
 
-		var messageData = params.message;
+		const messageData = params.message;
 		const emojiRaw = params.emoji;
 		const emojiData = await helperFunctions.hinditranslate(emojiRaw);
 		const emoji = helperFunctions.emojiTranslateFunc(emojiData);
-		var message = messageData + emoji;
+		const message = messageData + emoji;
 
-		var userNameRaw = params.username;
-		var userNameData = await helperFunctions.hinditranslate(userNameRaw);
+		const userNameRaw = params.username;
+		const userNameData = await helperFunctions.hinditranslate(userNameRaw);
 		const userNameLwr = userNameData.toLowerCase();
-		var userName = helperFunctions.replaceWhitespacesDots(userNameLwr);
+		const userName = helperFunctions.replaceWhitespacesDots(userNameLwr);
 
 		const headers = await helperFunctions.login(accessToken);
 		const roomid = await helperFunctions.createDMSession(userName, headers);
@@ -1006,16 +1006,16 @@ app.intent('Post DM Emoji Message Intent', async (conv, params) => {
 
 		conv.ask(speechText);
 	} else {
-		var accessToken = conv.user.access.token;
+		const accessToken = conv.user.access.token;
 
-		var messageData = params.message;
+		const messageData = params.message;
 		const emojiData = params.emoji;
 		const emoji = helperFunctions.emojiTranslateFunc(emojiData);
-		var message = messageData + emoji;
+		const message = messageData + emoji;
 
-		var userNameRaw = params.username;
-		var userNameData = userNameRaw.toLowerCase();
-		var userName = helperFunctions.replaceWhitespacesDots(userNameData);
+		const userNameRaw = params.username;
+		const userNameData = userNameRaw.toLowerCase();
+		const userName = helperFunctions.replaceWhitespacesDots(userNameData);
 
 
 		const headers = await helperFunctions.login(accessToken);
@@ -1030,23 +1030,23 @@ app.intent('Create Group Intent', async (conv, params) => {
 	const { locale } = conv.user;
 
 	if (locale === 'hi-IN') {
-		var accessToken = conv.user.access.token;
+		const accessToken = conv.user.access.token;
 
-		var channelNameRaw = params.channelname;
-		var channelNameData = await helperFunctions.hinditranslate(channelNameRaw);
+		const channelNameRaw = params.channelname;
+		const channelNameData = await helperFunctions.hinditranslate(channelNameRaw);
 		const channelNameLwr = channelNameData.toLowerCase();
-		var channelName = helperFunctions.replaceWhitespacesFunc(channelNameLwr);
+		const channelName = helperFunctions.replaceWhitespacesFunc(channelNameLwr);
 
 		const headers = await helperFunctions.login(accessToken);
 		const speechText = await helperFunctions.createGroup(channelName, headers);
 
 		conv.ask(speechText);
 	} else {
-		var accessToken = conv.user.access.token;
+		const accessToken = conv.user.access.token;
 
-		var channelNameRaw = params.channelname;
-		var channelNameData = channelNameRaw.toLowerCase();
-		var channelName = helperFunctions.replaceWhitespacesFunc(channelNameData);
+		const channelNameRaw = params.channelname;
+		const channelNameData = channelNameRaw.toLowerCase();
+		const channelName = helperFunctions.replaceWhitespacesFunc(channelNameData);
 
 		const headers = await helperFunctions.login(accessToken);
 		const speechText = await helperFunctions.createGroup(channelName, headers);
@@ -1059,12 +1059,12 @@ app.intent('Add All To Group Intent', async (conv, params) => {
 	const { locale } = conv.user;
 
 	if (locale === 'hi-IN') {
-		var accessToken = conv.user.access.token;
+		const accessToken = conv.user.access.token;
 
-		var channelNameRaw = params.channelname;
-		var channelNameData = await helperFunctions.hinditranslate(channelNameRaw);
+		const channelNameRaw = params.channelname;
+		const channelNameData = await helperFunctions.hinditranslate(channelNameRaw);
 		const channelNameLwr = channelNameData.toLowerCase();
-		var channelName = helperFunctions.replaceWhitespacesFunc(channelNameLwr);
+		const channelName = helperFunctions.replaceWhitespacesFunc(channelNameLwr);
 
 		const headers = await helperFunctions.login(accessToken);
 		const roomid = await helperFunctions.getGroupId(channelName, headers);
@@ -1072,11 +1072,11 @@ app.intent('Add All To Group Intent', async (conv, params) => {
 
 		conv.ask(speechText);
 	} else {
-		var accessToken = conv.user.access.token;
+		const accessToken = conv.user.access.token;
 
-		var channelNameRaw = params.channelname;
-		var channelNameData = channelNameRaw.toLowerCase();
-		var channelName = helperFunctions.replaceWhitespacesFunc(channelNameData);
+		const channelNameRaw = params.channelname;
+		const channelNameData = channelNameRaw.toLowerCase();
+		const channelName = helperFunctions.replaceWhitespacesFunc(channelNameData);
 
 		const headers = await helperFunctions.login(accessToken);
 		const roomid = await helperFunctions.getGroupId(channelName, headers);
@@ -1090,17 +1090,17 @@ app.intent('Add Group Leader Intent', async (conv, params) => {
 	const { locale } = conv.user;
 
 	if (locale === 'hi-IN') {
-		var accessToken = conv.user.access.token;
+		const accessToken = conv.user.access.token;
 
-		var userNameRaw = params.username;
-		var userNameData = await helperFunctions.hinditranslate(userNameRaw);
+		const userNameRaw = params.username;
+		const userNameData = await helperFunctions.hinditranslate(userNameRaw);
 		const userNameLwr = userNameData.toLowerCase();
-		var userName = helperFunctions.replaceWhitespacesDots(userNameLwr);
+		const userName = helperFunctions.replaceWhitespacesDots(userNameLwr);
 
-		var channelNameRaw = params.channelname;
-		var channelNameData = await helperFunctions.hinditranslate(channelNameRaw);
+		const channelNameRaw = params.channelname;
+		const channelNameData = await helperFunctions.hinditranslate(channelNameRaw);
 		const channelNameLwr = channelNameData.toLowerCase();
-		var channelName = helperFunctions.replaceWhitespacesFunc(channelNameLwr);
+		const channelName = helperFunctions.replaceWhitespacesFunc(channelNameLwr);
 
 		const headers = await helperFunctions.login(accessToken);
 		const userid = await helperFunctions.getUserId(userName, headers);
@@ -1109,15 +1109,15 @@ app.intent('Add Group Leader Intent', async (conv, params) => {
 
 		conv.ask(speechText);
 	} else {
-		var accessToken = conv.user.access.token;
+		const accessToken = conv.user.access.token;
 
-		var userNameRaw = params.username;
-		var userNameData = userNameRaw.toLowerCase();
-		var userName = helperFunctions.replaceWhitespacesDots(userNameData);
+		const userNameRaw = params.username;
+		const userNameData = userNameRaw.toLowerCase();
+		const userName = helperFunctions.replaceWhitespacesDots(userNameData);
 
-		var channelNameRaw = params.channelname;
-		var channelNameData = channelNameRaw.toLowerCase();
-		var channelName = helperFunctions.replaceWhitespacesFunc(channelNameData);
+		const channelNameRaw = params.channelname;
+		const channelNameData = channelNameRaw.toLowerCase();
+		const channelName = helperFunctions.replaceWhitespacesFunc(channelNameData);
 
 		const headers = await helperFunctions.login(accessToken);
 		const userid = await helperFunctions.getUserId(userName, headers);
@@ -1132,17 +1132,17 @@ app.intent('Add Group Moderator Intent', async (conv, params) => {
 	const { locale } = conv.user;
 
 	if (locale === 'hi-IN') {
-		var accessToken = conv.user.access.token;
+		const accessToken = conv.user.access.token;
 
-		var userNameRaw = params.username;
-		var userNameData = await helperFunctions.hinditranslate(userNameRaw);
+		const userNameRaw = params.username;
+		const userNameData = await helperFunctions.hinditranslate(userNameRaw);
 		const userNameLwr = userNameData.toLowerCase();
-		var userName = helperFunctions.replaceWhitespacesDots(userNameLwr);
+		const userName = helperFunctions.replaceWhitespacesDots(userNameLwr);
 
-		var channelNameRaw = params.channelname;
-		var channelNameData = await helperFunctions.hinditranslate(channelNameRaw);
+		const channelNameRaw = params.channelname;
+		const channelNameData = await helperFunctions.hinditranslate(channelNameRaw);
 		const channelNameLwr = channelNameData.toLowerCase();
-		var channelName = helperFunctions.replaceWhitespacesFunc(channelNameLwr);
+		const channelName = helperFunctions.replaceWhitespacesFunc(channelNameLwr);
 
 		const headers = await helperFunctions.login(accessToken);
 		const userid = await helperFunctions.getUserId(userName, headers);
@@ -1151,15 +1151,15 @@ app.intent('Add Group Moderator Intent', async (conv, params) => {
 
 		conv.ask(speechText);
 	} else {
-		var accessToken = conv.user.access.token;
+		const accessToken = conv.user.access.token;
 
-		var userNameRaw = params.username;
-		var userNameData = userNameRaw.toLowerCase();
-		var userName = helperFunctions.replaceWhitespacesDots(userNameData);
+		const userNameRaw = params.username;
+		const userNameData = userNameRaw.toLowerCase();
+		const userName = helperFunctions.replaceWhitespacesDots(userNameData);
 
-		var channelNameRaw = params.channelname;
-		var channelNameData = channelNameRaw.toLowerCase();
-		var channelName = helperFunctions.replaceWhitespacesFunc(channelNameData);
+		const channelNameRaw = params.channelname;
+		const channelNameData = channelNameRaw.toLowerCase();
+		const channelName = helperFunctions.replaceWhitespacesFunc(channelNameData);
 
 		const headers = await helperFunctions.login(accessToken);
 		const userid = await helperFunctions.getUserId(userName, headers);
@@ -1174,17 +1174,17 @@ app.intent('Add Group Owner Intent', async (conv, params) => {
 	const { locale } = conv.user;
 
 	if (locale === 'hi-IN') {
-		var accessToken = conv.user.access.token;
+		const accessToken = conv.user.access.token;
 
-		var userNameRaw = params.username;
-		var userNameData = await helperFunctions.hinditranslate(userNameRaw);
+		const userNameRaw = params.username;
+		const userNameData = await helperFunctions.hinditranslate(userNameRaw);
 		const userNameLwr = userNameData.toLowerCase();
-		var userName = helperFunctions.replaceWhitespacesDots(userNameLwr);
+		const userName = helperFunctions.replaceWhitespacesDots(userNameLwr);
 
-		var channelNameRaw = params.channelname;
-		var channelNameData = await helperFunctions.hinditranslate(channelNameRaw);
+		const channelNameRaw = params.channelname;
+		const channelNameData = await helperFunctions.hinditranslate(channelNameRaw);
 		const channelNameLwr = channelNameData.toLowerCase();
-		var channelName = helperFunctions.replaceWhitespacesFunc(channelNameLwr);
+		const channelName = helperFunctions.replaceWhitespacesFunc(channelNameLwr);
 
 		const headers = await helperFunctions.login(accessToken);
 		const userid = await helperFunctions.getUserId(userName, headers);
@@ -1193,15 +1193,15 @@ app.intent('Add Group Owner Intent', async (conv, params) => {
 
 		conv.ask(speechText);
 	} else {
-		var accessToken = conv.user.access.token;
+		const accessToken = conv.user.access.token;
 
-		var userNameRaw = params.username;
-		var userNameData = userNameRaw.toLowerCase();
-		var userName = helperFunctions.replaceWhitespacesDots(userNameData);
+		const userNameRaw = params.username;
+		const userNameData = userNameRaw.toLowerCase();
+		const userName = helperFunctions.replaceWhitespacesDots(userNameData);
 
-		var channelNameRaw = params.channelname;
-		var channelNameData = channelNameRaw.toLowerCase();
-		var channelName = helperFunctions.replaceWhitespacesFunc(channelNameData);
+		const channelNameRaw = params.channelname;
+		const channelNameData = channelNameRaw.toLowerCase();
+		const channelName = helperFunctions.replaceWhitespacesFunc(channelNameData);
 
 		const headers = await helperFunctions.login(accessToken);
 		const userid = await helperFunctions.getUserId(userName, headers);
@@ -1216,12 +1216,12 @@ app.intent('Archive Group Intent', async (conv, params) => {
 	const { locale } = conv.user;
 
 	if (locale === 'hi-IN') {
-		var accessToken = conv.user.access.token;
+		const accessToken = conv.user.access.token;
 
-		var channelNameRaw = params.channelname;
-		var channelNameData = await helperFunctions.hinditranslate(channelNameRaw);
+		const channelNameRaw = params.channelname;
+		const channelNameData = await helperFunctions.hinditranslate(channelNameRaw);
 		const channelNameLwr = channelNameData.toLowerCase();
-		var channelName = helperFunctions.replaceWhitespacesFunc(channelNameLwr);
+		const channelName = helperFunctions.replaceWhitespacesFunc(channelNameLwr);
 
 		const headers = await helperFunctions.login(accessToken);
 		const roomid = await helperFunctions.getGroupId(channelName, headers);
@@ -1229,11 +1229,11 @@ app.intent('Archive Group Intent', async (conv, params) => {
 
 		conv.ask(speechText);
 	} else {
-		var accessToken = conv.user.access.token;
+		const accessToken = conv.user.access.token;
 
-		var channelNameRaw = params.channelname;
-		var channelNameData = channelNameRaw.toLowerCase();
-		var channelName = helperFunctions.replaceWhitespacesFunc(channelNameData);
+		const channelNameRaw = params.channelname;
+		const channelNameData = channelNameRaw.toLowerCase();
+		const channelName = helperFunctions.replaceWhitespacesFunc(channelNameData);
 
 		const headers = await helperFunctions.login(accessToken);
 		const roomid = await helperFunctions.getGroupId(channelName, headers);
@@ -1247,23 +1247,23 @@ app.intent('Delete Group Intent', async (conv, params) => {
 	const { locale } = conv.user;
 
 	if (locale === 'hi-IN') {
-		var accessToken = conv.user.access.token;
+		const accessToken = conv.user.access.token;
 
-		var channelNameRaw = params.channelname;
-		var channelNameData = await helperFunctions.hinditranslate(channelNameRaw);
+		const channelNameRaw = params.channelname;
+		const channelNameData = await helperFunctions.hinditranslate(channelNameRaw);
 		const channelNameLwr = channelNameData.toLowerCase();
-		var channelName = helperFunctions.replaceWhitespacesFunc(channelNameLwr);
+		const channelName = helperFunctions.replaceWhitespacesFunc(channelNameLwr);
 
 		const headers = await helperFunctions.login(accessToken);
 		const speechText = await helperFunctions.deleteGroup(channelName, headers);
 
 		conv.ask(speechText);
 	} else {
-		var accessToken = conv.user.access.token;
+		const accessToken = conv.user.access.token;
 
-		var channelNameRaw = params.channelname;
-		var channelNameData = channelNameRaw.toLowerCase();
-		var channelName = helperFunctions.replaceWhitespacesFunc(channelNameData);
+		const channelNameRaw = params.channelname;
+		const channelNameData = channelNameRaw.toLowerCase();
+		const channelName = helperFunctions.replaceWhitespacesFunc(channelNameData);
 
 		const headers = await helperFunctions.login(accessToken);
 		const speechText = await helperFunctions.deleteGroup(channelName, headers);
@@ -1276,17 +1276,17 @@ app.intent('Invite User To Group Intent', async (conv, params) => {
 	const { locale } = conv.user;
 
 	if (locale === 'hi-IN') {
-		var accessToken = conv.user.access.token;
+		const accessToken = conv.user.access.token;
 
-		var userNameRaw = params.username;
-		var userNameData = await helperFunctions.hinditranslate(userNameRaw);
+		const userNameRaw = params.username;
+		const userNameData = await helperFunctions.hinditranslate(userNameRaw);
 		const userNameLwr = userNameData.toLowerCase();
-		var userName = helperFunctions.replaceWhitespacesDots(userNameLwr);
+		const userName = helperFunctions.replaceWhitespacesDots(userNameLwr);
 
-		var channelNameRaw = params.channelname;
-		var channelNameData = await helperFunctions.hinditranslate(channelNameRaw);
+		const channelNameRaw = params.channelname;
+		const channelNameData = await helperFunctions.hinditranslate(channelNameRaw);
 		const channelNameLwr = channelNameData.toLowerCase();
-		var channelName = helperFunctions.replaceWhitespacesFunc(channelNameLwr);
+		const channelName = helperFunctions.replaceWhitespacesFunc(channelNameLwr);
 
 		const headers = await helperFunctions.login(accessToken);
 		const userid = await helperFunctions.getUserId(userName, headers);
@@ -1295,15 +1295,15 @@ app.intent('Invite User To Group Intent', async (conv, params) => {
 
 		conv.ask(speechText);
 	} else {
-		var accessToken = conv.user.access.token;
+		const accessToken = conv.user.access.token;
 
-		var userNameRaw = params.username;
-		var userNameData = userNameRaw.toLowerCase();
-		var userName = helperFunctions.replaceWhitespacesDots(userNameData);
+		const userNameRaw = params.username;
+		const userNameData = userNameRaw.toLowerCase();
+		const userName = helperFunctions.replaceWhitespacesDots(userNameData);
 
-		var channelNameRaw = params.channelname;
-		var channelNameData = channelNameRaw.toLowerCase();
-		var channelName = helperFunctions.replaceWhitespacesFunc(channelNameData);
+		const channelNameRaw = params.channelname;
+		const channelNameData = channelNameRaw.toLowerCase();
+		const channelName = helperFunctions.replaceWhitespacesFunc(channelNameData);
 
 		const headers = await helperFunctions.login(accessToken);
 		const userid = await helperFunctions.getUserId(userName, headers);
@@ -1318,17 +1318,17 @@ app.intent('Kick User From Group Intent', async (conv, params) => {
 	const { locale } = conv.user;
 
 	if (locale === 'hi-IN') {
-		var accessToken = conv.user.access.token;
+		const accessToken = conv.user.access.token;
 
-		var userNameRaw = params.username;
-		var userNameData = await helperFunctions.hinditranslate(userNameRaw);
+		const userNameRaw = params.username;
+		const userNameData = await helperFunctions.hinditranslate(userNameRaw);
 		const userNameLwr = userNameData.toLowerCase();
-		var userName = helperFunctions.replaceWhitespacesDots(userNameLwr);
+		const userName = helperFunctions.replaceWhitespacesDots(userNameLwr);
 
-		var channelNameRaw = params.channelname;
-		var channelNameData = await helperFunctions.hinditranslate(channelNameRaw);
+		const channelNameRaw = params.channelname;
+		const channelNameData = await helperFunctions.hinditranslate(channelNameRaw);
 		const channelNameLwr = channelNameData.toLowerCase();
-		var channelName = helperFunctions.replaceWhitespacesFunc(channelNameLwr);
+		const channelName = helperFunctions.replaceWhitespacesFunc(channelNameLwr);
 
 		const headers = await helperFunctions.login(accessToken);
 		const userid = await helperFunctions.getUserId(userName, headers);
@@ -1337,15 +1337,15 @@ app.intent('Kick User From Group Intent', async (conv, params) => {
 
 		conv.ask(speechText);
 	} else {
-		var accessToken = conv.user.access.token;
+		const accessToken = conv.user.access.token;
 
-		var userNameRaw = params.username;
-		var userNameData = userNameRaw.toLowerCase();
-		var userName = helperFunctions.replaceWhitespacesDots(userNameData);
+		const userNameRaw = params.username;
+		const userNameData = userNameRaw.toLowerCase();
+		const userName = helperFunctions.replaceWhitespacesDots(userNameData);
 
-		var channelNameRaw = params.channelname;
-		var channelNameData = channelNameRaw.toLowerCase();
-		var channelName = helperFunctions.replaceWhitespacesFunc(channelNameData);
+		const channelNameRaw = params.channelname;
+		const channelNameData = channelNameRaw.toLowerCase();
+		const channelName = helperFunctions.replaceWhitespacesFunc(channelNameData);
 
 		const headers = await helperFunctions.login(accessToken);
 		const userid = await helperFunctions.getUserId(userName, headers);
@@ -1360,12 +1360,12 @@ app.intent('Leave Group Intent', async (conv, params) => {
 	const { locale } = conv.user;
 
 	if (locale === 'hi-IN') {
-		var accessToken = conv.user.access.token;
+		const accessToken = conv.user.access.token;
 
-		var channelNameRaw = params.channelname;
-		var channelNameData = await helperFunctions.hinditranslate(channelNameRaw);
+		const channelNameRaw = params.channelname;
+		const channelNameData = await helperFunctions.hinditranslate(channelNameRaw);
 		const channelNameLwr = channelNameData.toLowerCase();
-		var channelName = helperFunctions.replaceWhitespacesFunc(channelNameLwr);
+		const channelName = helperFunctions.replaceWhitespacesFunc(channelNameLwr);
 
 		const headers = await helperFunctions.login(accessToken);
 		const roomid = await helperFunctions.getGroupId(channelName, headers);
@@ -1373,11 +1373,11 @@ app.intent('Leave Group Intent', async (conv, params) => {
 
 		conv.ask(speechText);
 	} else {
-		var accessToken = conv.user.access.token;
+		const accessToken = conv.user.access.token;
 
-		var channelNameRaw = params.channelname;
-		var channelNameData = channelNameRaw.toLowerCase();
-		var channelName = helperFunctions.replaceWhitespacesFunc(channelNameData);
+		const channelNameRaw = params.channelname;
+		const channelNameData = channelNameRaw.toLowerCase();
+		const channelName = helperFunctions.replaceWhitespacesFunc(channelNameData);
 
 		const headers = await helperFunctions.login(accessToken);
 		const roomid = await helperFunctions.getGroupId(channelName, headers);
@@ -1391,17 +1391,17 @@ app.intent('Remove Group Leader Intent', async (conv, params) => {
 	const { locale } = conv.user;
 
 	if (locale === 'hi-IN') {
-		var accessToken = conv.user.access.token;
+		const accessToken = conv.user.access.token;
 
-		var userNameRaw = params.username;
-		var userNameData = await helperFunctions.hinditranslate(userNameRaw);
+		const userNameRaw = params.username;
+		const userNameData = await helperFunctions.hinditranslate(userNameRaw);
 		const userNameLwr = userNameData.toLowerCase();
-		var userName = helperFunctions.replaceWhitespacesDots(userNameLwr);
+		const userName = helperFunctions.replaceWhitespacesDots(userNameLwr);
 
-		var channelNameRaw = params.channelname;
-		var channelNameData = await helperFunctions.hinditranslate(channelNameRaw);
+		const channelNameRaw = params.channelname;
+		const channelNameData = await helperFunctions.hinditranslate(channelNameRaw);
 		const channelNameLwr = channelNameData.toLowerCase();
-		var channelName = helperFunctions.replaceWhitespacesFunc(channelNameLwr);
+		const channelName = helperFunctions.replaceWhitespacesFunc(channelNameLwr);
 
 		const headers = await helperFunctions.login(accessToken);
 		const userid = await helperFunctions.getUserId(userName, headers);
@@ -1410,15 +1410,15 @@ app.intent('Remove Group Leader Intent', async (conv, params) => {
 
 		conv.ask(speechText);
 	} else {
-		var accessToken = conv.user.access.token;
+		const accessToken = conv.user.access.token;
 
-		var userNameRaw = params.username;
-		var userNameData = userNameRaw.toLowerCase();
-		var userName = helperFunctions.replaceWhitespacesDots(userNameData);
+		const userNameRaw = params.username;
+		const userNameData = userNameRaw.toLowerCase();
+		const userName = helperFunctions.replaceWhitespacesDots(userNameData);
 
-		var channelNameRaw = params.channelname;
-		var channelNameData = channelNameRaw.toLowerCase();
-		var channelName = helperFunctions.replaceWhitespacesFunc(channelNameData);
+		const channelNameRaw = params.channelname;
+		const channelNameData = channelNameRaw.toLowerCase();
+		const channelName = helperFunctions.replaceWhitespacesFunc(channelNameData);
 
 		const headers = await helperFunctions.login(accessToken);
 		const userid = await helperFunctions.getUserId(userName, headers);
@@ -1433,17 +1433,17 @@ app.intent('Remove Group Moderator Intent', async (conv, params) => {
 	const { locale } = conv.user;
 
 	if (locale === 'hi-IN') {
-		var accessToken = conv.user.access.token;
+		const accessToken = conv.user.access.token;
 
-		var userNameRaw = params.username;
-		var userNameData = await helperFunctions.hinditranslate(userNameRaw);
+		const userNameRaw = params.username;
+		const userNameData = await helperFunctions.hinditranslate(userNameRaw);
 		const userNameLwr = userNameData.toLowerCase();
-		var userName = helperFunctions.replaceWhitespacesDots(userNameLwr);
+		const userName = helperFunctions.replaceWhitespacesDots(userNameLwr);
 
-		var channelNameRaw = params.channelname;
-		var channelNameData = await helperFunctions.hinditranslate(channelNameRaw);
+		const channelNameRaw = params.channelname;
+		const channelNameData = await helperFunctions.hinditranslate(channelNameRaw);
 		const channelNameLwr = channelNameData.toLowerCase();
-		var channelName = helperFunctions.replaceWhitespacesFunc(channelNameLwr);
+		const channelName = helperFunctions.replaceWhitespacesFunc(channelNameLwr);
 
 		const headers = await helperFunctions.login(accessToken);
 		const userid = await helperFunctions.getUserId(userName, headers);
@@ -1452,15 +1452,15 @@ app.intent('Remove Group Moderator Intent', async (conv, params) => {
 
 		conv.ask(speechText);
 	} else {
-		var accessToken = conv.user.access.token;
+		const accessToken = conv.user.access.token;
 
-		var userNameRaw = params.username;
-		var userNameData = userNameRaw.toLowerCase();
-		var userName = helperFunctions.replaceWhitespacesDots(userNameData);
+		const userNameRaw = params.username;
+		const userNameData = userNameRaw.toLowerCase();
+		const userName = helperFunctions.replaceWhitespacesDots(userNameData);
 
-		var channelNameRaw = params.channelname;
-		var channelNameData = channelNameRaw.toLowerCase();
-		var channelName = helperFunctions.replaceWhitespacesFunc(channelNameData);
+		const channelNameRaw = params.channelname;
+		const channelNameData = channelNameRaw.toLowerCase();
+		const channelName = helperFunctions.replaceWhitespacesFunc(channelNameData);
 
 		const headers = await helperFunctions.login(accessToken);
 		const userid = await helperFunctions.getUserId(userName, headers);
@@ -1475,17 +1475,17 @@ app.intent('Remove Group Owner Intent', async (conv, params) => {
 	const { locale } = conv.user;
 
 	if (locale === 'hi-IN') {
-		var accessToken = conv.user.access.token;
+		const accessToken = conv.user.access.token;
 
-		var userNameRaw = params.username;
-		var userNameData = await helperFunctions.hinditranslate(userNameRaw);
+		const userNameRaw = params.username;
+		const userNameData = await helperFunctions.hinditranslate(userNameRaw);
 		const userNameLwr = userNameData.toLowerCase();
-		var userName = helperFunctions.replaceWhitespacesDots(userNameLwr);
+		const userName = helperFunctions.replaceWhitespacesDots(userNameLwr);
 
-		var channelNameRaw = params.channelname;
-		var channelNameData = await helperFunctions.hinditranslate(channelNameRaw);
+		const channelNameRaw = params.channelname;
+		const channelNameData = await helperFunctions.hinditranslate(channelNameRaw);
 		const channelNameLwr = channelNameData.toLowerCase();
-		var channelName = helperFunctions.replaceWhitespacesFunc(channelNameLwr);
+		const channelName = helperFunctions.replaceWhitespacesFunc(channelNameLwr);
 
 		const headers = await helperFunctions.login(accessToken);
 		const userid = await helperFunctions.getUserId(userName, headers);
@@ -1494,15 +1494,15 @@ app.intent('Remove Group Owner Intent', async (conv, params) => {
 
 		conv.ask(speechText);
 	} else {
-		var accessToken = conv.user.access.token;
+		const accessToken = conv.user.access.token;
 
-		var userNameRaw = params.username;
-		var userNameData = userNameRaw.toLowerCase();
-		var userName = helperFunctions.replaceWhitespacesDots(userNameData);
+		const userNameRaw = params.username;
+		const userNameData = userNameRaw.toLowerCase();
+		const userName = helperFunctions.replaceWhitespacesDots(userNameData);
 
-		var channelNameRaw = params.channelname;
-		var channelNameData = channelNameRaw.toLowerCase();
-		var channelName = helperFunctions.replaceWhitespacesFunc(channelNameData);
+		const channelNameRaw = params.channelname;
+		const channelNameData = channelNameRaw.toLowerCase();
+		const channelName = helperFunctions.replaceWhitespacesFunc(channelNameData);
 
 		const headers = await helperFunctions.login(accessToken);
 		const userid = await helperFunctions.getUserId(userName, headers);
@@ -1517,17 +1517,17 @@ app.intent('Rename Group Intent', async (conv, params) => {
 	const { locale } = conv.user;
 
 	if (locale === 'hi-IN') {
-		var accessToken = conv.user.access.token;
+		const accessToken = conv.user.access.token;
 
-		var channelNameRaw = params.channelname;
-		var channelNameData = await helperFunctions.hinditranslate(channelNameRaw);
+		const channelNameRaw = params.channelname;
+		const channelNameData = await helperFunctions.hinditranslate(channelNameRaw);
 		const channelNameLwr = channelNameData.toLowerCase();
-		var channelName = helperFunctions.replaceWhitespacesFunc(channelNameLwr);
+		const channelName = helperFunctions.replaceWhitespacesFunc(channelNameLwr);
 
-		var newNameRaw = params.newname;
-		var newNameData = await helperFunctions.hinditranslate(newNameRaw);
+		const newNameRaw = params.newname;
+		const newNameData = await helperFunctions.hinditranslate(newNameRaw);
 		const newNameLwr = newNameData.toLowerCase();
-		var newName = helperFunctions.replaceWhitespacesFunc(newNameLwr);
+		const newName = helperFunctions.replaceWhitespacesFunc(newNameLwr);
 
 		const headers = await helperFunctions.login(accessToken);
 		const roomid = await helperFunctions.getGroupId(channelName, headers);
@@ -1535,15 +1535,15 @@ app.intent('Rename Group Intent', async (conv, params) => {
 
 		conv.ask(speechText);
 	} else {
-		var accessToken = conv.user.access.token;
+		const accessToken = conv.user.access.token;
 
-		var channelNameRaw = params.channelname;
-		var channelNameData = channelNameRaw.toLowerCase();
-		var channelName = helperFunctions.replaceWhitespacesFunc(channelNameData);
+		const channelNameRaw = params.channelname;
+		const channelNameData = channelNameRaw.toLowerCase();
+		const channelName = helperFunctions.replaceWhitespacesFunc(channelNameData);
 
-		var newNameRaw = params.newname;
-		var newNameData = newNameRaw.toLowerCase();
-		var newName = helperFunctions.replaceWhitespacesFunc(newNameData);
+		const newNameRaw = params.newname;
+		const newNameData = newNameRaw.toLowerCase();
+		const newName = helperFunctions.replaceWhitespacesFunc(newNameData);
 
 		const headers = await helperFunctions.login(accessToken);
 		const roomid = await helperFunctions.getGroupId(channelName, headers);
@@ -1557,14 +1557,14 @@ app.intent('Group Topic Intent', async (conv, params) => {
 	const { locale } = conv.user;
 
 	if (locale === 'hi-IN') {
-		var accessToken = conv.user.access.token;
+		const accessToken = conv.user.access.token;
 
-		var channelNameRaw = params.channelname;
-		var channelNameData = await helperFunctions.hinditranslate(channelNameRaw);
+		const channelNameRaw = params.channelname;
+		const channelNameData = await helperFunctions.hinditranslate(channelNameRaw);
 		const channelNameLwr = channelNameData.toLowerCase();
-		var channelName = helperFunctions.replaceWhitespacesFunc(channelNameLwr);
+		const channelName = helperFunctions.replaceWhitespacesFunc(channelNameLwr);
 
-		var { topic } = params;
+		const { topic } = params;
 
 		const headers = await helperFunctions.login(accessToken);
 		const roomid = await helperFunctions.getGroupId(channelName, headers);
@@ -1572,13 +1572,13 @@ app.intent('Group Topic Intent', async (conv, params) => {
 
 		conv.ask(speechText);
 	} else {
-		var accessToken = conv.user.access.token;
+		const accessToken = conv.user.access.token;
 
-		var channelNameRaw = params.channelname;
-		var channelNameData = channelNameRaw.toLowerCase();
-		var channelName = helperFunctions.replaceWhitespacesFunc(channelNameData);
+		const channelNameRaw = params.channelname;
+		const channelNameData = channelNameRaw.toLowerCase();
+		const channelName = helperFunctions.replaceWhitespacesFunc(channelNameData);
 
-		var { topic } = params;
+		const { topic } = params;
 
 		const headers = await helperFunctions.login(accessToken);
 		const roomid = await helperFunctions.getGroupId(channelName, headers);
@@ -1592,14 +1592,14 @@ app.intent('Group Description Intent', async (conv, params) => {
 	const { locale } = conv.user;
 
 	if (locale === 'hi-IN') {
-		var accessToken = conv.user.access.token;
+		const accessToken = conv.user.access.token;
 
-		var channelNameRaw = params.channelname;
-		var channelNameData = await helperFunctions.hinditranslate(channelNameRaw);
+		const channelNameRaw = params.channelname;
+		const channelNameData = await helperFunctions.hinditranslate(channelNameRaw);
 		const channelNameLwr = channelNameData.toLowerCase();
-		var channelName = helperFunctions.replaceWhitespacesFunc(channelNameLwr);
+		const channelName = helperFunctions.replaceWhitespacesFunc(channelNameLwr);
 
-		var { description } = params;
+		const { description } = params;
 
 		const headers = await helperFunctions.login(accessToken);
 		const roomid = await helperFunctions.getGroupId(channelName, headers);
@@ -1607,13 +1607,13 @@ app.intent('Group Description Intent', async (conv, params) => {
 
 		conv.ask(speechText);
 	} else {
-		var accessToken = conv.user.access.token;
+		const accessToken = conv.user.access.token;
 
-		var channelNameRaw = params.channelname;
-		var channelNameData = channelNameRaw.toLowerCase();
-		var channelName = helperFunctions.replaceWhitespacesFunc(channelNameData);
+		const channelNameRaw = params.channelname;
+		const channelNameData = channelNameRaw.toLowerCase();
+		const channelName = helperFunctions.replaceWhitespacesFunc(channelNameData);
 
-		var { description } = params;
+		const { description } = params;
 
 		const headers = await helperFunctions.login(accessToken);
 		const roomid = await helperFunctions.getGroupId(channelName, headers);
@@ -1627,14 +1627,14 @@ app.intent('Group Announcement Intent', async (conv, params) => {
 	const { locale } = conv.user;
 
 	if (locale === 'hi-IN') {
-		var accessToken = conv.user.access.token;
+		const accessToken = conv.user.access.token;
 
-		var channelNameRaw = params.channelname;
-		var channelNameData = await helperFunctions.hinditranslate(channelNameRaw);
+		const channelNameRaw = params.channelname;
+		const channelNameData = await helperFunctions.hinditranslate(channelNameRaw);
 		const channelNameLwr = channelNameData.toLowerCase();
-		var channelName = helperFunctions.replaceWhitespacesFunc(channelNameLwr);
+		const channelName = helperFunctions.replaceWhitespacesFunc(channelNameLwr);
 
-		var { announcement } = params;
+		const { announcement } = params;
 
 		const headers = await helperFunctions.login(accessToken);
 		const roomid = await helperFunctions.getGroupId(channelName, headers);
@@ -1642,13 +1642,13 @@ app.intent('Group Announcement Intent', async (conv, params) => {
 
 		conv.ask(speechText);
 	} else {
-		var accessToken = conv.user.access.token;
+		const accessToken = conv.user.access.token;
 
-		var channelNameRaw = params.channelname;
-		var channelNameData = channelNameRaw.toLowerCase();
-		var channelName = helperFunctions.replaceWhitespacesFunc(channelNameData);
+		const channelNameRaw = params.channelname;
+		const channelNameData = channelNameRaw.toLowerCase();
+		const channelName = helperFunctions.replaceWhitespacesFunc(channelNameData);
 
-		var { announcement } = params;
+		const { announcement } = params;
 
 		const headers = await helperFunctions.login(accessToken);
 		const roomid = await helperFunctions.getGroupId(channelName, headers);
@@ -1662,12 +1662,12 @@ app.intent('Unarchive Group Intent', async (conv, params) => {
 	const { locale } = conv.user;
 
 	if (locale === 'hi-IN') {
-		var accessToken = conv.user.access.token;
+		const accessToken = conv.user.access.token;
 
-		var channelNameRaw = params.channelname;
-		var channelNameData = await helperFunctions.hinditranslate(channelNameRaw);
+		const channelNameRaw = params.channelname;
+		const channelNameData = await helperFunctions.hinditranslate(channelNameRaw);
 		const channelNameLwr = channelNameData.toLowerCase();
-		var channelName = helperFunctions.replaceWhitespacesFunc(channelNameLwr);
+		const channelName = helperFunctions.replaceWhitespacesFunc(channelNameLwr);
 
 		const headers = await helperFunctions.login(accessToken);
 		const roomid = await helperFunctions.getGroupId(channelName, headers);
@@ -1675,11 +1675,11 @@ app.intent('Unarchive Group Intent', async (conv, params) => {
 
 		conv.ask(speechText);
 	} else {
-		var accessToken = conv.user.access.token;
+		const accessToken = conv.user.access.token;
 
-		var channelNameRaw = params.channelname;
-		var channelNameData = channelNameRaw.toLowerCase();
-		var channelName = helperFunctions.replaceWhitespacesFunc(channelNameData);
+		const channelNameRaw = params.channelname;
+		const channelNameData = channelNameRaw.toLowerCase();
+		const channelName = helperFunctions.replaceWhitespacesFunc(channelNameData);
 
 		const headers = await helperFunctions.login(accessToken);
 		const roomid = await helperFunctions.getGroupId(channelName, headers);
@@ -1693,12 +1693,12 @@ app.intent('Group Last Message Intent', async (conv, params) => {
 	const { locale } = conv.user;
 
 	if (locale === 'hi-IN') {
-		var accessToken = conv.user.access.token;
+		const accessToken = conv.user.access.token;
 
-		var channelNameRaw = params.channelname;
-		var channelNameData = await helperFunctions.hinditranslate(channelNameRaw);
+		const channelNameRaw = params.channelname;
+		const channelNameData = await helperFunctions.hinditranslate(channelNameRaw);
 		const channelNameLwr = channelNameData.toLowerCase();
-		var channelName = helperFunctions.replaceWhitespacesFunc(channelNameLwr);
+		const channelName = helperFunctions.replaceWhitespacesFunc(channelNameLwr);
 
 		const headers = await helperFunctions.login(accessToken);
 		const roomid = await helperFunctions.getGroupId(channelName, headers);
@@ -1745,11 +1745,11 @@ app.intent('Group Last Message Intent', async (conv, params) => {
 			conv.ask(speechText);
 		}
 	} else {
-		var accessToken = conv.user.access.token;
+		const accessToken = conv.user.access.token;
 
-		var channelNameRaw = params.channelname;
-		var channelNameData = channelNameRaw.toLowerCase();
-		var channelName = helperFunctions.replaceWhitespacesFunc(channelNameData);
+		const channelNameRaw = params.channelname;
+		const channelNameData = channelNameRaw.toLowerCase();
+		const channelName = helperFunctions.replaceWhitespacesFunc(channelNameData);
 
 		const headers = await helperFunctions.login(accessToken);
 		const roomid = await helperFunctions.getGroupId(channelName, headers);
@@ -1802,12 +1802,12 @@ app.intent('Group Unread Messages Intent', async (conv, params) => {
 	const { locale } = conv.user;
 
 	if (locale === 'hi-IN') {
-		var accessToken = conv.user.access.token;
+		const accessToken = conv.user.access.token;
 
-		var channelNameRaw = params.channelname;
-		var channelNameData = await helperFunctions.hinditranslate(channelNameRaw);
+		const channelNameRaw = params.channelname;
+		const channelNameData = await helperFunctions.hinditranslate(channelNameRaw);
 		const channelNameLwr = channelNameData.toLowerCase();
-		var channelName = helperFunctions.replaceWhitespacesFunc(channelNameLwr);
+		const channelName = helperFunctions.replaceWhitespacesFunc(channelNameLwr);
 
 		const headers = await helperFunctions.login(accessToken);
 		const roomid = await helperFunctions.getGroupId(channelName, headers);
@@ -1816,11 +1816,11 @@ app.intent('Group Unread Messages Intent', async (conv, params) => {
 
 		conv.ask(speechText);
 	} else {
-		var accessToken = conv.user.access.token;
+		const accessToken = conv.user.access.token;
 
-		var channelNameRaw = params.channelname;
-		var channelNameData = channelNameRaw.toLowerCase();
-		var channelName = helperFunctions.replaceWhitespacesFunc(channelNameData);
+		const channelNameRaw = params.channelname;
+		const channelNameData = channelNameRaw.toLowerCase();
+		const channelName = helperFunctions.replaceWhitespacesFunc(channelNameData);
 
 		const headers = await helperFunctions.login(accessToken);
 		const roomid = await helperFunctions.getGroupId(channelName, headers);
@@ -1844,14 +1844,14 @@ app.intent('Post Group Message Intent', async (conv, params) => {
 	const { locale } = conv.user;
 
 	if (locale === 'hi-IN') {
-		var accessToken = conv.user.access.token;
+		const accessToken = conv.user.access.token;
 
-		var { message } = params;
+		const { message } = params;
 
-		var channelNameRaw = params.channelname;
-		var channelNameData = await helperFunctions.hinditranslate(channelNameRaw);
+		const channelNameRaw = params.channelname;
+		const channelNameData = await helperFunctions.hinditranslate(channelNameRaw);
 		const channelNameLwr = channelNameData.toLowerCase();
-		var channelName = helperFunctions.replaceWhitespacesFunc(channelNameLwr);
+		const channelName = helperFunctions.replaceWhitespacesFunc(channelNameLwr);
 
 		const headers = await helperFunctions.login(accessToken);
 		const roomid = await helperFunctions.getGroupId(channelName, headers);
@@ -1859,13 +1859,13 @@ app.intent('Post Group Message Intent', async (conv, params) => {
 
 		conv.ask(speechText);
 	} else {
-		var accessToken = conv.user.access.token;
+		const accessToken = conv.user.access.token;
 
-		var { message } = params;
+		const { message } = params;
 
-		var channelNameRaw = params.channelname;
-		var channelNameData = channelNameRaw.toLowerCase();
-		var channelName = helperFunctions.replaceWhitespacesFunc(channelNameData);
+		const channelNameRaw = params.channelname;
+		const channelNameData = channelNameRaw.toLowerCase();
+		const channelName = helperFunctions.replaceWhitespacesFunc(channelNameData);
 
 		const headers = await helperFunctions.login(accessToken);
 		const roomid = await helperFunctions.getGroupId(channelName, headers);
@@ -1879,14 +1879,14 @@ app.intent('Post Group Emoji Message Intent', async (conv, params) => {
 	const { locale } = conv.user;
 
 	if (locale === 'hi-IN') {
-		var accessToken = conv.user.access.token;
+		const accessToken = conv.user.access.token;
 
-		var channelNameRaw = params.channelname;
-		var channelNameData = await helperFunctions.hinditranslate(channelNameRaw);
+		const channelNameRaw = params.channelname;
+		const channelNameData = await helperFunctions.hinditranslate(channelNameRaw);
 		const channelNameLwr = channelNameData.toLowerCase();
-		var channelName = helperFunctions.replaceWhitespacesFunc(channelNameLwr);
+		const channelName = helperFunctions.replaceWhitespacesFunc(channelNameLwr);
 
-		var messageData = params.message;
+		const messageData = params.message;
 		const emojiRaw = params.emoji;
 		const emojiData = await helperFunctions.hinditranslate(emojiRaw);
 		const emoji = helperFunctions.emojiTranslateFunc(emojiData);
@@ -1898,13 +1898,13 @@ app.intent('Post Group Emoji Message Intent', async (conv, params) => {
 
 		conv.ask(speechText);
 	} else {
-		var accessToken = conv.user.access.token;
+		const accessToken = conv.user.access.token;
 
-		var channelNameRaw = params.channelname;
-		var channelNameData = channelNameRaw.toLowerCase();
-		var channelName = helperFunctions.replaceWhitespacesFunc(channelNameData);
+		const channelNameRaw = params.channelname;
+		const channelNameData = channelNameRaw.toLowerCase();
+		const channelName = helperFunctions.replaceWhitespacesFunc(channelNameData);
 
-		var messageData = params.message;
+		const messageData = params.message;
 		const emojiData = params.emoji;
 		const emoji = helperFunctions.emojiTranslateFunc(emojiData);
 		const message = messageData + emoji;
