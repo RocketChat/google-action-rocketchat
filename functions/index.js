@@ -2,13 +2,13 @@
 
 const {
 	dialogflow,
-	SignIn,
 	BasicCard,
 	Button,
 	Image,
-	MediaObject,
 } = require('actions-on-google');
 const functions = require('firebase-functions');
+const i18n = require('i18n');
+const moment = require('moment');
 
 const helperFunctions = require('./helperFunctions');
 const envVariables = require('./config');
@@ -23,8 +23,6 @@ const app = dialogflow({
 	clientId: CLIENT_ID,
 });
 
-const i18n = require('i18n');
-const moment = require('moment');
 
 i18n.configure({
 	locales: ['en-US', 'pt-BR', 'hi-IN'],
