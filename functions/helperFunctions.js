@@ -114,7 +114,7 @@ const channelLastMessage = (channelName, headers) =>
 		.then((res) => res.data)
 		.then((res) => {
 			if (res.success === true) {
-				return i18n.__('GET_LAST_MESSAGE_FROM_CHANNEL.SUCCESS', name = res.messages[0].u.username, message = res.messages[0].msg);
+				return i18n.__('GET_LAST_MESSAGE_FROM_CHANNEL.SUCCESS', res.messages[0].u.username, res.messages[0].msg);
 			}
 			return i18n.__('GET_LAST_MESSAGE_FROM_CHANNEL.ERROR', channelName);
 		})
@@ -1084,7 +1084,7 @@ const groupLastMessage = (channelName, roomid, headers) =>
 		.then((res) => res.data)
 		.then((res) => {
 			if (res.success === true) {
-				return i18n.__('GET_LAST_MESSAGE_FROM_CHANNEL.SUCCESS', name = res.messages[0].u.username, message = res.messages[0].msg);
+				return i18n.__('GET_LAST_MESSAGE_FROM_CHANNEL.SUCCESS', res.messages[0].u.username, res.messages[0].msg);
 			}
 			return i18n.__('GET_LAST_MESSAGE_FROM_CHANNEL.ERROR', channelName);
 		})
