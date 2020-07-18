@@ -2239,5 +2239,12 @@ app.intent('Post Group Emoji Message Intent', async (conv, params) => {
 
 });
 
-
-exports.dialogflowFirebaseFulfillment = functions.https.onRequest(app);
+if(process.env.DEVELOPMENT) {
+	const express = require('express')
+	const bodyParser = require('body-parser')
+	const expressApp = express().use(bodyParser.json())
+	expressApp.post('/', (app))
+	expressApp.listen(3000)
+} else{
+	exports.dialogflowFirebaseFulfillment = functions.https.onRequest(app);
+}
