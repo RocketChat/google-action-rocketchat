@@ -4,6 +4,7 @@ const envVariables = require('./config');
 
 const removeWhitespace = require('remove-whitespace');
 const emojiTranslate = require('moji-translate');
+const stringSimilar = require('string-similarity')
 
 const i18n = require('i18n');
 var translate = require("@vitalets/google-translate-api")
@@ -1299,6 +1300,42 @@ const getGroupLastMessageFileURL = async (roomid, headers) =>
 		console.log(err.message);
 	});
 
+const resolveChannelname = async (channelName, headers) => {
+	try {
+		const publicChannelsResponse = await axios.get(apiEndpoints.channellisturl, {
+			headers,
+		}).then((res) => res.data);
+
+		const privateChannelsResponse = await axios.get(apiEndpoints.grouplisturl, {
+			headers,
+		}).then((res) => res.data);
+
+		// adding public channels to the array
+		let channels = publicChannelsResponse.channels.map((channel) => ({
+			name: channel.name,
+			id: channel._id,
+			type: channel.t }));
+
+		// adding private channels to the array
+		channels = channels.concat(privateChannelsResponse.groups.map((channel) => ({
+			name: channel.name,
+			id: channel._id,
+			type: channel.t,
+		})));
+
+		let channelNames = channels.map(channel => channel.name)
+		let comparison = stringSimilar.findBestMatch(removeWhitespace(channelName), channelNames)
+		if(comparison.bestMatch.rating > 0.3) {
+			return channels[comparison.bestMatchIndex]
+		} else {
+			return null
+		}
+
+	} catch (err) {
+		console.log(err);
+	}
+};
+
 // Module Export of Functions
 
 module.exports.login = login;
@@ -1362,3 +1399,4 @@ module.exports.getLastMessageFileURL = getLastMessageFileURL;
 module.exports.getLastMessageFileDowloadURL = getLastMessageFileDowloadURL;
 module.exports.getGroupLastMessageType = getGroupLastMessageType;
 module.exports.getGroupLastMessageFileURL = getGroupLastMessageFileURL;
+module.exports.resolveChannelname = resolveChannelname;
