@@ -117,8 +117,13 @@ app.intent('Delete Channel Intent', async (conv, params) => {
 app.intent('Post Channel Message Intent Slot Collection', async (conv, params) => {
   const accessToken = conv.user.access.token;
   const headers = await helperFunctions.login(accessToken);
-  const channelname = params.channelname;
+  let channelname = params.channelname;
   const message = params.message;
+
+  var locale = conv.user.locale;
+  if(locale === 'hi-IN') {
+    channelname = await helperFunctions.hinditranslate(channelname);
+  }
 
   const channelDetails = await helperFunctions.resolveChannelname(channelname, headers);
 
@@ -133,38 +138,16 @@ app.intent('Post Channel Message Intent Slot Collection', async (conv, params) =
 
 app.intent('Post Channel Message Intent Confirmed', async (conv, params) => {
 
-  var locale = conv.user.locale;
+  var accessToken = conv.user.access.token;
 
-  if (locale === 'hi-IN') {
+  var message = params.message;
 
-    var accessToken = conv.user.access.token;
+  const channelName = conv.data.channelDetails.name
 
-    var message = params.message;
+  const headers = await helperFunctions.login(accessToken);
+  const speechText = await helperFunctions.postMessage(channelName, message, headers);
 
-    var channelNameRaw = params.channelname;
-    var channelNameData = await helperFunctions.hinditranslate(channelNameRaw);
-    var channelNameLwr = channelNameData.toLowerCase();
-    var channelName = helperFunctions.replaceWhitespacesFunc(channelNameLwr);
-
-    const headers = await helperFunctions.login(accessToken);
-    const speechText = await helperFunctions.postMessage(channelName, message, headers);
-
-    conv.ask(speechText);
-
-  } else {
-
-    var accessToken = conv.user.access.token;
-
-    var message = params.message;
-
-    const channelName = conv.data.channelDetails.name
-
-    const headers = await helperFunctions.login(accessToken);
-    const speechText = await helperFunctions.postMessage(channelName, message, headers);
-
-    conv.ask(speechText);
-
-  }
+  conv.ask(speechText);
 
 });
 
