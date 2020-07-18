@@ -10,7 +10,8 @@
   },
   "scripts": {
     "start": "firebase serve --only functions",
-    "deploy": "firebase deploy --only functions"
+    "deploy": "firebase deploy --only functions",
+    "local": "DEVELOPMENT=true node index.js"
   },
   "dependencies": {
     "@vitalets/google-translate-api": "^2.8.0",
@@ -25,6 +26,7 @@
     "remove-whitespace": "^1.1.0"
   },
   "devDependencies": {
+    "dotenv": "^8.2.0",
     "express": "^4.17.1"
   }
 }
