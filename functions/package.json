@@ -23,7 +23,8 @@
     "i18n": "^0.8.3",
     "moji-translate": "^1.0.8",
     "moment": "^2.18.1",
-    "remove-whitespace": "^1.1.0"
+    "remove-whitespace": "^1.1.0",
+    "string-similarity": "^4.0.1"
   },
   "devDependencies": {
     "dotenv": "^8.2.0",

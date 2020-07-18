@@ -57,7 +57,7 @@ module.exports = {
 	unarchivegroupurl: `${ SERVER_URL }/api/v1/groups.unarchive`,
 	groupmessageurl: `${ SERVER_URL }/api/v1/groups.messages?roomId=`,
 	groupcounterurl: `${ SERVER_URL }/api/v1/groups.counters?roomId=`,
-	channellisturl: `${ serverurl }/api/v1/channels.list.joined`,
-	grouplisturl: `${ serverurl }/api/v1/groups.list`,
-	getsubscriptionsurl: `${ serverurl }/api/v1/subscriptions.get`
+	channellisturl: `${ SERVER_URL }/api/v1/channels.list.joined`,
+	grouplisturl: `${ SERVER_URL }/api/v1/groups.list`,
+	getsubscriptionsurl: `${ SERVER_URL }/api/v1/subscriptions.get`
 };
