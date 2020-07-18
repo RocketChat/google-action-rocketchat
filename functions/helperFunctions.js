@@ -1336,6 +1336,32 @@ const resolveChannelname = async (channelName, headers) => {
 	}
 };
 
+const resolveUsername = async (username, headers) => {
+	try {
+		const subscriptions = await axios.get(apiEndpoints.getsubscriptionsurl, {
+			headers,
+		})
+		.then((res) => res.data.update)
+		.then((subscriptions) => subscriptions.filter((subscription) => subscription.t === 'd'))
+		.then((subscriptions) => subscriptions.map((subscription) => ({
+			name: subscription.name,
+			id: subscription.rid.replace(subscription.u._id, ''),
+			type: subscription.t,
+		})));
+
+		let usernames = subscriptions.map(user => user.name)
+		let comparison = stringSimilar.findBestMatch(removeWhitespace(username), usernames)
+		if(comparison.bestMatch.rating > 0.3) {
+			return subscriptions[comparison.bestMatchIndex]
+		} else {
+			return null
+		}
+
+	} catch (err) {
+		console.log(err);
+	}
+};
+
 // Module Export of Functions
 
 module.exports.login = login;
@@ -1400,3 +1426,4 @@ module.exports.getLastMessageFileDowloadURL = getLastMessageFileDowloadURL;
 module.exports.getGroupLastMessageType = getGroupLastMessageType;
 module.exports.getGroupLastMessageFileURL = getGroupLastMessageFileURL;
 module.exports.resolveChannelname = resolveChannelname;
+module.exports.resolveUsername = resolveUsername;
