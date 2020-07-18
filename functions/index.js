@@ -114,7 +114,24 @@ app.intent('Delete Channel Intent', async (conv, params) => {
 
 });
 
-app.intent('Post Channel Message Intent', async (conv, params) => {
+app.intent('Post Channel Message Intent Slot Collection', async (conv, params) => {
+  const accessToken = conv.user.access.token;
+  const headers = await helperFunctions.login(accessToken);
+  const channelname = params.channelname;
+  const message = params.message;
+
+  const channelDetails = await helperFunctions.resolveChannelname(channelname, headers);
+
+  if(channelDetails) {
+    conv.ask(i18n.__('POST_MESSAGE.CONFIRMATION', message, channelDetails.name))
+    conv.data.channelDetails = channelDetails
+    conv.contexts.set('post_message', 1, {channelname, message})
+  } else {
+    conv.ask(i18n.__('POST_MESSAGE.NO_CHANNEL', channelname))
+  }
+})
+
+app.intent('Post Channel Message Intent Confirmed', async (conv, params) => {
 
   var locale = conv.user.locale;
 
@@ -140,9 +157,7 @@ app.intent('Post Channel Message Intent', async (conv, params) => {
 
     var message = params.message;
 
-    var channelNameRaw = params.channelname;
-    var channelNameData = channelNameRaw.toLowerCase();
-    var channelName = helperFunctions.replaceWhitespacesFunc(channelNameData);
+    const channelName = conv.data.channelDetails.name
 
     const headers = await helperFunctions.login(accessToken);
     const speechText = await helperFunctions.postMessage(channelName, message, headers);
