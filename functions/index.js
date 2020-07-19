@@ -2148,47 +2148,6 @@ app.intent('Default No Input Intent', (conv) => {
   };
 });
 
-app.intent('Post Group Message Intent', async (conv, params) => {
-
-  var locale = conv.user.locale;
-
-  if (locale === 'hi-IN') {
-
-    var accessToken = conv.user.access.token;
-
-    var message = params.message;
-
-    var channelNameRaw = params.channelname;
-    var channelNameData = await helperFunctions.hinditranslate(channelNameRaw);
-    var channelNameLwr = channelNameData.toLowerCase();
-    var channelName = helperFunctions.replaceWhitespacesFunc(channelNameLwr);
-
-    const headers = await helperFunctions.login(accessToken);
-    const roomid = await helperFunctions.getGroupId(channelName, headers);
-    const speechText = await helperFunctions.postGroupMessage(roomid, message, headers);
-
-    conv.ask(speechText);
-
-  } else {
-
-    var accessToken = conv.user.access.token;
-
-    var message = params.message;
-
-    var channelNameRaw = params.channelname;
-    var channelNameData = channelNameRaw.toLowerCase();
-    var channelName = helperFunctions.replaceWhitespacesFunc(channelNameData);
-
-    const headers = await helperFunctions.login(accessToken);
-    const roomid = await helperFunctions.getGroupId(channelName, headers);
-    const speechText = await helperFunctions.postGroupMessage(roomid, message, headers);
-
-    conv.ask(speechText);
-
-  }
-
-});
-
 app.intent('Post Group Emoji Message Intent', async (conv, params) => {
 
   var locale = conv.user.locale;
