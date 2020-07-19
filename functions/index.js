@@ -1108,45 +1108,36 @@ app.intent('Remove Channel Owner Intent', async (conv, params) => {
 
 });
 
-app.intent('Post DM Message Intent', async (conv, params) => {
+app.intent('Post DM Message Intent Slot Collection', async (conv, params) => {
+  const accessToken = conv.user.access.token;
+  const headers = await helperFunctions.login(accessToken);
+  const username = params.username;
+  const message = params.message;
 
   var locale = conv.user.locale;
-
-  if (locale === 'hi-IN') {
-
-    var accessToken = conv.user.access.token;
-
-    var message = params.message;
-
-    var userNameRaw = params.username;
-    var userNameData = await helperFunctions.hinditranslate(userNameRaw);
-    var userNameLwr = userNameData.toLowerCase();
-    var userName = helperFunctions.replaceWhitespacesDots(userNameLwr);
-
-    const headers = await helperFunctions.login(accessToken);
-    const roomid = await helperFunctions.createDMSession(userName, headers);
-    const speechText = await helperFunctions.postDirectMessage(message, roomid, headers);
-
-    conv.ask(speechText);
-
-  } else {
-
-    var accessToken = conv.user.access.token;
-
-    var message = params.message;
-
-    var userNameRaw = params.username;
-    var userNameData = userNameRaw.toLowerCase();
-    var userName = helperFunctions.replaceWhitespacesDots(userNameData);
-
-    const headers = await helperFunctions.login(accessToken);
-    const roomid = await helperFunctions.createDMSession(userName, headers);
-    const speechText = await helperFunctions.postDirectMessage(message, roomid, headers);
-
-    conv.ask(speechText);
-
+  if(locale === 'hi-IN') {
+    username = await helperFunctions.hinditranslate(username);
   }
 
+  const userDetails = await helperFunctions.resolveUsername(username, headers);
+
+  if(userDetails) {
+    conv.ask(i18n.__('POST_MESSAGE.CONFIRM_DM_INTENT', message, userDetails.name))
+    conv.data.userDetails = userDetails
+    conv.contexts.set('post_dm_message', 1, {username, message})
+  } else {
+    conv.ask(i18n.__('POST_MESSAGE.NO_USER', username))
+  }
+})
+
+app.intent('Post DM Message Intent Confirmed', async (conv, params) => {
+  var accessToken = conv.user.access.token;
+  var message = params.message;
+  const userName = conv.data.userDetails.name
+  const headers = await helperFunctions.login(accessToken);
+  const roomid = await helperFunctions.createDMSession(userName, headers);
+  const speechText = await helperFunctions.postDirectMessage(message, roomid, headers);
+  conv.ask(speechText);
 });
 
 app.intent('Post DM Emoji Message Intent', async (conv, params) => {
