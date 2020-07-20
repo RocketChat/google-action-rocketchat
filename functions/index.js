@@ -1111,7 +1111,7 @@ app.intent('Remove Channel Owner Intent', async (conv, params) => {
 app.intent('Post DM Message Intent Slot Collection', async (conv, params) => {
   const accessToken = conv.user.access.token;
   const headers = await helperFunctions.login(accessToken);
-  const username = params.username;
+  let username = params.username;
   const message = params.message;
 
   var locale = conv.user.locale;
