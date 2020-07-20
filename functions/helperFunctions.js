@@ -553,11 +553,11 @@ const channelDescription = async (channelName, roomid, description, headers) =>
 		return i18n.__('CHANNEL_DESCRIPTION.ERROR_NOT_FOUND', channelName);
 	});
 
-const channelAnnouncement = async (channelName, roomid, announcement, headers) =>
-	await axios
+const setAnnouncement = (roomDetails, announcement, headers) =>
+	axios
 	.post(
-		apiEndpoints.channelannouncementurl, {
-			roomId: roomid,
+		roomDetails.type == 'c' ? apiEndpoints.channelannouncementurl : apiEndpoints.groupannouncementurl, {
+			roomId: roomDetails.id,
 			announcement: announcement,
 		}, {
 			headers
@@ -566,7 +566,7 @@ const channelAnnouncement = async (channelName, roomid, announcement, headers) =
 	.then((res) => res.data)
 	.then((res) => {
 		if (res.success === true) {
-			return i18n.__('CHANNEL_ANNOUNCEMENT.SUCCESS', channelName, announcement);
+			return i18n.__('CHANNEL_ANNOUNCEMENT.SUCCESS', roomDetails.name, announcement);
 		} else {
 			return i18n.__('CHANNEL_ANNOUNCEMENT.ERROR');
 		}
@@ -1390,7 +1390,7 @@ module.exports.channelRename = channelRename;
 module.exports.unarchiveChannel = unarchiveChannel;
 module.exports.channelTopic = channelTopic;
 module.exports.channelDescription = channelDescription;
-module.exports.channelAnnouncement = channelAnnouncement;
+module.exports.setAnnouncement = setAnnouncement;
 module.exports.removeLeader = removeLeader;
 module.exports.removeModerator = removeModerator;
 module.exports.removeOwner = removeOwner;
