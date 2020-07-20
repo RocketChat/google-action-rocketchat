@@ -1882,47 +1882,6 @@ app.intent('Group Description Intent', async (conv, params) => {
 
 });
 
-app.intent('Group Announcement Intent', async (conv, params) => {
-
-  var locale = conv.user.locale;
-
-  if (locale === 'hi-IN') {
-
-    var accessToken = conv.user.access.token;
-
-    var channelNameRaw = params.channelname;
-    var channelNameData = await helperFunctions.hinditranslate(channelNameRaw);
-    var channelNameLwr = channelNameData.toLowerCase();
-    var channelName = helperFunctions.replaceWhitespacesFunc(channelNameLwr);
-
-    var announcement = params.announcement;
-
-    const headers = await helperFunctions.login(accessToken);
-    const roomid = await helperFunctions.getGroupId(channelName, headers);
-    const speechText = await helperFunctions.groupAnnouncement(channelName, roomid, announcement, headers);
-
-    conv.ask(speechText);
-
-  } else {
-
-    var accessToken = conv.user.access.token;
-
-    var channelNameRaw = params.channelname;
-    var channelNameData = channelNameRaw.toLowerCase();
-    var channelName = helperFunctions.replaceWhitespacesFunc(channelNameData);
-
-    var announcement = params.announcement;
-
-    const headers = await helperFunctions.login(accessToken);
-    const roomid = await helperFunctions.getGroupId(channelName, headers);
-    const speechText = await helperFunctions.groupAnnouncement(channelName, roomid, announcement, headers);
-
-    conv.ask(speechText);
-
-  }
-
-});
-
 app.intent('Unarchive Group Intent', async (conv, params) => {
 
   var locale = conv.user.locale;
