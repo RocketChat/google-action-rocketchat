@@ -1089,29 +1089,6 @@ const groupDescription = async (channelName, roomid, description, headers) =>
 		return i18n.__('CHANNEL_DESCRIPTION.ERROR_NOT_FOUND', channelName);
 	});
 
-const groupAnnouncement = async (channelName, roomid, announcement, headers) =>
-	await axios
-	.post(
-		apiEndpoints.groupannouncementurl, {
-			roomId: roomid,
-			announcement: announcement,
-		}, {
-			headers
-		}
-	)
-	.then((res) => res.data)
-	.then((res) => {
-		if (res.success === true) {
-			return i18n.__('CHANNEL_ANNOUNCEMENT.SUCCESS', channelName, announcement);
-		} else {
-			return i18n.__('CHANNEL_ANNOUNCEMENT.ERROR');
-		}
-	})
-	.catch((err) => {
-		console.log(err.message);
-		return i18n.__('CHANNEL_ANNOUNCEMENT.ERROR_NOT_FOUND', channelName);
-	});
-
 const unarchiveGroup = async (channelName, roomid, headers) =>
 	await axios
 	.post(
@@ -1414,7 +1391,6 @@ module.exports.removeGroupOwner = removeGroupOwner;
 module.exports.groupRename = groupRename;
 module.exports.groupTopic = groupTopic;
 module.exports.groupDescription = groupDescription;
-module.exports.groupAnnouncement = groupAnnouncement;
 module.exports.unarchiveGroup = unarchiveGroup;
 module.exports.groupLastMessage = groupLastMessage;
 module.exports.getGroupUnreadCounter = getGroupUnreadCounter;
