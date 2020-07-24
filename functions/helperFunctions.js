@@ -553,28 +553,30 @@ const channelDescription = async (channelName, roomid, description, headers) =>
 		return i18n.__('CHANNEL_DESCRIPTION.ERROR_NOT_FOUND', channelName);
 	});
 
-const setAnnouncement = (roomDetails, announcement, headers) =>
-	axios
-	.post(
-		roomDetails.type == 'c' ? apiEndpoints.channelannouncementurl : apiEndpoints.groupannouncementurl, {
-			roomId: roomDetails.id,
-			announcement: announcement,
-		}, {
-			headers
-		}
-	)
-	.then((res) => res.data)
-	.then((res) => {
-		if (res.success === true) {
+const setAnnouncement = async (roomDetails, announcement, headers) => {
+	try{
+		const response = await axios
+		.post(
+			roomDetails.type == 'c' ? apiEndpoints.channelannouncementurl : apiEndpoints.groupannouncementurl, {
+				roomId: roomDetails.id,
+				announcement: announcement,
+			}, {
+				headers
+			}
+		)
+		.then((res) => res.data)
+
+		if (response.success === true) {
 			return i18n.__('CHANNEL_ANNOUNCEMENT.SUCCESS', roomDetails.name, announcement);
 		} else {
 			return i18n.__('CHANNEL_ANNOUNCEMENT.ERROR');
 		}
-	})
-	.catch((err) => {
-		console.log(err.message);
-		return i18n.__('CHANNEL_ANNOUNCEMENT.ERROR_NOT_FOUND', channelName);
-	});
+		
+	}catch(err){
+			console.log(err.message);
+			return i18n.__('CHANNEL_ANNOUNCEMENT.ERROR_NOT_FOUND', channelName);
+		};
+	}
 
 const removeLeader = async (userName, channelName, userid, roomid, headers) =>
 	await axios
