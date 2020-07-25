@@ -439,28 +439,30 @@ const kickUser = async (userName, channelName, userid, roomid, headers) =>
 		}
 	});
 
-const addLeader = async (userName, channelName, userid, roomid, headers) =>
-	await axios
-	.post(
-		apiEndpoints.addleaderurl, {
-			userId: userid,
-			roomId: roomid,
-		}, {
-			headers
-		}
-	)
-	.then((res) => res.data)
-	.then((res) => {
-		if (res.success === true) {
-			return i18n.__('ADD_LEADER.SUCCESS', userName, channelName);
+const addLeader = async (userDetails, channelDetails, headers) => {
+	try{
+		const response = await axios
+		.post(
+			channelDetails.type === 'c' ? apiEndpoints.addleaderurl : apiEndpoints.addGroupLeader, {
+				userId: userDetails.id,
+				roomId: channelDetails.id,
+			}, {
+				headers
+			}
+		)
+		.then((res) => res.data)
+	
+		
+		if (response.success === true) {
+			return i18n.__('ADD_LEADER.SUCCESS', userDetails.name, channelDetails.name);
 		} else {
 			return i18n.__('ADD_LEADER.ERROR');
 		}
-	})
-	.catch((err) => {
+	}catch(err) {
 		console.log(err.message);
-		return i18n.__('ADD_LEADER.ERROR_NOT_FOUND', channelName);
-	});
+		return i18n.__('ADD_LEADER.ERROR_NOT_FOUND', channelDetails.name);
+	};
+}
 
 const channelRename = async (channelName, roomid, newName, headers) =>
 	await axios
