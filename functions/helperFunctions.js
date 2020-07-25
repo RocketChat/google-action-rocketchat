@@ -203,28 +203,29 @@ const addAll = async (channelName, roomid, headers) =>
 		return i18n.__('ADD_ALL_TO_CHANNEL.ERROR_NOT_FOUND', channelName);
 	});
 
-const addOwner = async (userName, channelName, userid, roomid, headers) =>
-	await axios
-	.post(
-		apiEndpoints.addownerurl, {
-			userId: userid,
-			roomId: roomid,
-		}, {
-			headers
-		}
-	)
-	.then((res) => res.data)
-	.then((res) => {
-		if (res.success === true) {
-			return i18n.__('ADD_OWNER.SUCCESS', userName, channelName);
+const addOwner = async (userDetails, channelDetails, headers) => {
+	try{
+		const response = await axios
+		.post(
+			channelDetails.type === 'c' ? apiEndpoints.addownerurl : apiEndpoints.addgroupownerurl, {
+				userId: userDetails.id,
+				roomId: channelDetails.id,
+			}, {
+				headers
+			}
+		)
+		.then((res) => res.data)
+
+		if (response.success === true) {
+			return i18n.__('ADD_OWNER.SUCCESS', userDetails.name, channelDetails.name);
 		} else {
 			return i18n.__('ADD_OWNER.ERROR');
 		}
-	})
-	.catch((err) => {
+	}catch(err) {
 		console.log(err.message);
-		return i18n.__('ADD_OWNER.ERROR_NOT_FOUND', channelName);
-	});
+		return i18n.__('ADD_OWNER.ERROR_NOT_FOUND', channelDetails.name);
+	};
+}
 
 const archiveChannel = async (channelName, roomid, headers) =>
 	await axios
