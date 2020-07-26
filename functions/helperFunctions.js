@@ -624,28 +624,29 @@ const removeModerator = async (userName, channelName, userid, roomid, headers) =
 		return i18n.__('REMOVE_MODERATOR.ERROR_NOT_FOUND', channelName);
 	});
 
-const removeOwner = async (userName, channelName, userid, roomid, headers) =>
-	await axios
-	.post(
-		apiEndpoints.removeownerurl, {
-			userId: userid,
-			roomId: roomid,
-		}, {
-			headers
-		}
-	)
-	.then((res) => res.data)
-	.then((res) => {
-		if (res.success === true) {
-			return i18n.__('REMOVE_OWNER.SUCCESS', userName, channelName);
+const removeOwner = async (userDetails, channelDetails, headers) => {
+	try{
+		const response = await axios
+		.post(
+			channelDetails.type === 'c' ? apiEndpoints.removeownerurl : apiEndpoints.removegroupownerurl, {
+				userId: userDetails.id,
+				roomId: channelDetails.id,
+			}, {
+				headers
+			}
+		)
+		.then((res) => res.data)
+
+		if (response.success === true) {
+			return i18n.__('REMOVE_OWNER.SUCCESS', userDetails.name, channelDetails.name);
 		} else {
 			return i18n.__('REMOVE_OWNER.ERROR');
 		}
-	})
-	.catch((err) => {
+	}catch(err) {
 		console.log(err.message);
-		return i18n.__('REMOVE_OWNER.ERROR_NOT_FOUND', channelName);
-	});
+		return i18n.__('REMOVE_OWNER.ERROR_NOT_FOUND', channelDetails.name);
+	};
+}
 
 const createDMSession = async (userName, headers) =>
 	await axios
