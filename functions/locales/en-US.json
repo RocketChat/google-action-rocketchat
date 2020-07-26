@@ -120,19 +120,23 @@
     },
     "REMOVE_LEADER": {
         "SUCCESS": "%s is no longer the leader of %s.",
+        "CONFIRM_INTENT": "You want to remove {{username}}, as {{role}} of room {{channelname}}, is that correct?",
         "ERROR": "Sorry, I couldn't remove leader from this channel right now.",
         "ERROR_NOT_FOUND": "Sorry, I couldn't remove leader from channel %s right now."
     },
     "REMOVE_MODERATOR": {
         "SUCCESS": "%s is no longer the moderator of %s.",
+        "CONFIRM_INTENT": "You want to remove {{username}}, as {{role}} of room {{channelname}}, is that correct?",
         "ERROR": "Sorry, I couldn't remove moderator from this channel right now.",
         "ERROR_NOT_FOUND": "Sorry, I couldn't remove moderator from channel %s right now."
     },
     "REMOVE_OWNER": {
         "SUCCESS": "%s is no longer the owner of %s.",
+        "CONFIRM_INTENT": "You want to remove {{username}}, as {{role}} of room {{channelname}}, is that correct?",
         "ERROR": "Sorry, I couldn't remove owner from this channel right now.",
         "ERROR_NOT_FOUND": "Sorry, I couldn't remove owner from channel %s right now."
     },
     "NO_USER": "There's no user named, %s in your contacts list.",
-    "NO_ROOM": "You are not part of any channel named %s ."
+    "NO_ROOM": "You are not part of any channel named %s .",
+    "NO_USER_WITH_ROLE": "There is no {{role}} named {{username}} in room {{channelname}}."
 }

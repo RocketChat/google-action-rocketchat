@@ -111,6 +111,10 @@ const handleConfirmationUserWithRoleAndChannelResolution = async (app, intentDat
   })
 }
 
+handleConfirmationUserWithRoleAndChannelResolution(app, {intentName: 'Remove Leader Intent Slot Collection', intentResource: 'REMOVE_LEADER', intentContext: 'remove_leader', role: 'leader'})
+handleConfirmationUserWithRoleAndChannelResolution(app, {intentName: 'Remove Owner Intent Slot Collection', intentResource: 'REMOVE_OWNER', intentContext: 'remove_owner', role: 'owner'})
+handleConfirmationUserWithRoleAndChannelResolution(app, {intentName: 'Remove Moderator Intent Slot Collection', intentResource: 'REMOVE_MODERATOR', intentContext: 'remove_moderator', role: 'moderator'})
+
 const handleExecutionUserAndChannelResolution = async (app, {intentName, helperFunction}) => {
   app.intent(intentName, async(conv, params) => {
     var accessToken = conv.user.access.token;
@@ -126,6 +130,9 @@ handleExecutionUserAndChannelResolution(app, {intentName: 'Add Moderator Intent 
 handleExecutionUserAndChannelResolution(app, {intentName: 'Add Owner Intent Confirmed', helperFunction: helperFunctions.addOwner})
 handleExecutionUserAndChannelResolution(app, {intentName: 'Invite User Intent Confirmed', helperFunction: helperFunctions.inviteUser})
 handleExecutionUserAndChannelResolution(app, {intentName: 'Kick User Intent Confirmed', helperFunction: helperFunctions.kickUser})
+handleExecutionUserAndChannelResolution(app, {intentName: 'Remove Leader Intent Confirmed', helperFunction: helperFunctions.removeLeader})
+handleExecutionUserAndChannelResolution(app, {intentName: 'Remove Owner Intent Confirmed', helperFunction: helperFunctions.removeOwner})
+handleExecutionUserAndChannelResolution(app, {intentName: 'Remove Moderator Intent Confirmed', helperFunction: helperFunctions.removeModerator})
 
 app.intent('Create Channel Intent', async (conv, params) => {
 
