@@ -73,6 +73,12 @@ const handleConfirmationUserAndChannelResolution = async (app, intentData) => {
   })
 }
 
+handleConfirmationUserAndChannelResolution(app, {intentName: 'Add Leader Intent Slot Collection', intentResource: 'ADD_LEADER', intentContext: 'add_leader'});
+handleConfirmationUserAndChannelResolution(app, {intentName: 'Add Moderator Intent Slot Collection', intentResource: 'MAKE_MODERATOR', intentContext: 'add_moderator'});
+handleConfirmationUserAndChannelResolution(app, {intentName: 'Add Owner Intent Slot Collection', intentResource: 'ADD_OWNER', intentContext: 'add_owner'});
+handleConfirmationUserAndChannelResolution(app, {intentName: 'Invite User Intent Slot Collection', intentResource: 'INVITE_USER_TO_CHANNEL', intentContext: 'invite_user'});
+handleConfirmationUserAndChannelResolution(app, {intentName: 'Kick User Intent Slot Collection', intentResource: 'KICK_USER_FROM_CHANNEL', intentContext: 'kick_user'});
+
 const handleExecutionUserAndChannelResolution = async (app, {intentName, helperFunction}) => {
   app.intent(intentName, async(conv, params) => {
     var accessToken = conv.user.access.token;
@@ -82,6 +88,12 @@ const handleExecutionUserAndChannelResolution = async (app, {intentName, helperF
     conv.ask(speechText);
   })
 }
+
+handleExecutionUserAndChannelResolution(app, {intentName: 'Add Leader Intent Confirmed', helperFunction: helperFunctions.addLeader})
+handleExecutionUserAndChannelResolution(app, {intentName: 'Add Moderator Intent Confirmed', helperFunction: helperFunctions.makeModerator})
+handleExecutionUserAndChannelResolution(app, {intentName: 'Add Owner Intent Confirmed', helperFunction: helperFunctions.addOwner})
+handleExecutionUserAndChannelResolution(app, {intentName: 'Invite User Intent Confirmed', helperFunction: helperFunctions.inviteUser})
+handleExecutionUserAndChannelResolution(app, {intentName: 'Kick User Intent Confirmed', helperFunction: helperFunctions.kickUser})
 
 app.intent('Create Channel Intent', async (conv, params) => {
 

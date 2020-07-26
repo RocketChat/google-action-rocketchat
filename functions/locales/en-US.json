@@ -39,6 +39,7 @@
     },
     "MAKE_MODERATOR": {
         "SUCCESS": "%s is now the moderator of %s.",
+        "CONFIRM_INTENT": "You want to make %s, as moderator of room %s, is that correct?",
         "ERROR": "Sorry, I couldn't assign a moderator right now.",
         "ERROR_NOT_FOUND": "Sorry, I couldn't assign a moderator to %s right now."
     },
@@ -49,6 +50,7 @@
     },
     "ADD_OWNER": {
         "SUCCESS": "%s is now the owner of %s.",
+        "CONFIRM_INTENT": "You want to make %s, as an owner of room %s, is that correct?",
         "ERROR": "Sorry, I couldn't assign a owner to the channel right now.",
         "ERROR_NOT_FOUND": "Sorry, I couldn't assign a owner to channel %s right now."
     },
@@ -71,6 +73,7 @@
     },
     "INVITE_USER_TO_CHANNEL": {
         "SUCCESS": "%s is invited to the channel %s ",
+        "CONFIRM_INTENT": "You want to invite %s, to room %s, is that correct?",
         "ERROR": "Sorry I couldn't invite user %s to channel %s right now",
         "ERROR_NOT_FOUND": "Sorry, I couldn't find channel %s right now"
     },
@@ -80,11 +83,13 @@
     },
     "KICK_USER_FROM_CHANNEL": {
         "SUCCESS": "%s is now kicked from channel %s ",
+        "CONFIRM_INTENT": "You want to kick %s, from room %s, is that correct?",
         "ERROR": "Sorry I couldn't kick user %s from channel %s right now",
         "ERROR_NOT_FOUND": "Sorry, I couldn't find channel %s right now"
     },
     "ADD_LEADER": {
         "SUCCESS": "%s is now the leader of %s.",
+        "CONFIRM_INTENT": "You want to make %s, as leader of room %s, is that correct?",
         "ERROR": "Sorry, I couldn't assign a leader to the channel right now.",
         "ERROR_NOT_FOUND": "Sorry, I couldn't assign a leader to channel %s right now."
     },
@@ -127,5 +132,7 @@
         "SUCCESS": "%s is no longer the owner of %s.",
         "ERROR": "Sorry, I couldn't remove owner from this channel right now.",
         "ERROR_NOT_FOUND": "Sorry, I couldn't remove owner from channel %s right now."
-    }
+    },
+    "NO_USER": "There's no user named, %s in your contacts list.",
+    "NO_ROOM": "You are not part of any channel named %s ."
 }
