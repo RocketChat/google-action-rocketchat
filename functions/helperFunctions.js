@@ -161,7 +161,7 @@ const makeModerator = async (userDetails, channelDetails, headers) => {
 	try{
 		const response = await axios
 		.post(
-			channelDetails.type === 'c' ? apiEndpoints.makemoderatorurl : apiEndpoints.addGroupModerator, {
+			channelDetails.type === 'c' ? apiEndpoints.makemoderatorurl : apiEndpoints.addgroupmoderatorurl, {
 				userId: userDetails.id,
 				roomId: channelDetails.id,
 			}, {
@@ -441,7 +441,7 @@ const addLeader = async (userDetails, channelDetails, headers) => {
 	try{
 		const response = await axios
 		.post(
-			channelDetails.type === 'c' ? apiEndpoints.addleaderurl : apiEndpoints.addGroupLeader, {
+			channelDetails.type === 'c' ? apiEndpoints.addleaderurl : apiEndpoints.addgroupleaderurl, {
 				userId: userDetails.id,
 				roomId: channelDetails.id,
 			}, {
