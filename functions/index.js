@@ -73,6 +73,16 @@ const handleConfirmationUserAndChannelResolution = async (app, intentData) => {
   })
 }
 
+const handleExecutionUserAndChannelResolution = async (app, {intentName, helperFunction}) => {
+  app.intent(intentName, async(conv, params) => {
+    var accessToken = conv.user.access.token;
+    const headers = await helperFunctions.login(accessToken);
+  
+    const speechText = await helperFunction(conv.data.userDetails, conv.data.channelDetails, headers);
+    conv.ask(speechText);
+  })
+}
+
 app.intent('Create Channel Intent', async (conv, params) => {
 
   var locale = conv.user.locale;
