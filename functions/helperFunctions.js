@@ -360,35 +360,32 @@ const channelUnreadMentions = async (channelName, roomid, mentionsCount, headers
 		}
 	});
 
-const inviteUser = async (userName, channelName, userid, roomid, headers) =>
-	await axios
-	.post(
-		apiEndpoints.inviteuserurl, {
-			userId: userid,
-			roomId: roomid,
-		}, {
-			headers
-		}
-	)
-	.then((res) => res.data)
-	.then((res) => {
-		if (res.success === true) {
-			return i18n.__('INVITE_USER_TO_CHANNEL.SUCCESS', userName, channelName);
+const inviteUser = async (userDetails, channelDetails, headers) => {
+	try{
+		const response = await axios
+		.post(
+			channelDetails.type === 'c' ? apiEndpoints.inviteuserurl : apiEndpoints.inviteusertogroupurl, {
+				userId: userDetails.id,
+				roomId: channelDetails.id,
+			}, {
+				headers
+			}
+		)
+		.then((res) => res.data)
+		if (response.success === true) {
+			return i18n.__('INVITE_USER_TO_CHANNEL.SUCCESS', userDetails.name, channelDetails.name);
 		} else {
-			return i18n.__('INVITE_USER_TO_CHANNEL.ERROR', userName, channelName);
+			return i18n.__('INVITE_USER_TO_CHANNEL.ERROR', userDetails.name, channelDetails.name);
 		}
-	})
-	.catch((err) => {
-		console.log(err.message);
-		console.log(err.message);
-		console.log(err.message);
+	}	catch(err) {
+		console.log(err);
 		if (err.response.data.errorType === 'error-room-not-found') {
-			return i18n.__('INVITE_USER_TO_CHANNEL.ERROR_NOT_FOUND', channelName);
+			return i18n.__('INVITE_USER_TO_CHANNEL.ERROR_NOT_FOUND', channelDetails.name);
 		} else {
-			return i18n.__('INVITE_USER_TO_CHANNEL.ERROR', userName, channelName);
+			return i18n.__('INVITE_USER_TO_CHANNEL.ERROR', userDetails.name, channelDetails.name);
 		}
-	});
-
+	};
+}
 
 const leaveChannel = async (channelName, roomid, headers) =>
 	await axios
