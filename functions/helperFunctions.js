@@ -409,34 +409,33 @@ const leaveChannel = async (channelName, roomid, headers) =>
 		return i18n.__('LEAVE_CHANNEl.ERROR', channelName);
 	});
 
-const kickUser = async (userName, channelName, userid, roomid, headers) =>
-	await axios
-	.post(
-		apiEndpoints.kickuserurl, {
-			userId: userid,
-			roomId: roomid,
-		}, {
-			headers
-		}
-	)
-	.then((res) => res.data)
-	.then((res) => {
-		if (res.success === true) {
-			return i18n.__('KICK_USER_FROM_CHANNEL.SUCCESS', userName, channelName);
+const kickUser = async (userDetails, channelDetails, headers) => {
+	try{
+		const response = await axios
+		.post(
+			channelDetails.type === 'c' ? apiEndpoints.kickuserurl : apiEndpoints.kickuserfromgroupurl, {
+				userId: userDetails.id,
+				roomId: channelDetails.id,
+			}, {
+				headers
+			}
+		)
+		.then((res) => res.data)
+
+		if (response.success === true) {
+			return i18n.__('KICK_USER_FROM_CHANNEL.SUCCESS', userDetails.name, channelDetails.name);
 		} else {
-			return i18n.__('KICK_USER_FROM_CHANNEL.ERROR', userName, channelName);
+			return i18n.__('KICK_USER_FROM_CHANNEL.ERROR', userDetails.name, channelDetails.name);
 		}
-	})
-	.catch((err) => {
-		console.log(err.message);
-		console.log(err.message);
+	}catch(err){
 		console.log(err.message);
 		if (err.response.data.errorType === 'error-room-not-found') {
-			return i18n.__('KICK_USER_FROM_CHANNEL.ERROR_NOT_FOUND', channelName);
+			return i18n.__('KICK_USER_FROM_CHANNEL.ERROR_NOT_FOUND', channelDetails.name);
 		} else {
-			return i18n.__('KICK_USER_FROM_CHANNEL.ERROR', userName, channelName);
+			return i18n.__('KICK_USER_FROM_CHANNEL.ERROR', userDetails.name, channelDetails.name);
 		}
-	});
+	};
+}	
 
 const addLeader = async (userDetails, channelDetails, headers) => {
 	try{
