@@ -1362,6 +1362,54 @@ const resolveUsername = async (username, headers) => {
 	}
 };
 
+const resolveUsersWithRolesFromRoom = async (recognisedUsername, channelDetails, role, headers) => {
+	try {
+		const url = channelDetails.type === 'c' ? apiEndpoints.getrolesfromchannelurl : apiEndpoints.getrolesfromgroupurl;
+		const response = await axios.get(`${ url }?roomId=${ channelDetails.id }`, {
+			headers,
+		}).then((res) => res.data);
+
+		let users = [];
+		for (const user of response.roles) {
+			if (user.roles.includes(role)) {
+				users.push(user.u);
+			}
+		}
+
+		users = users.map(user => {
+			return {
+				id: user._id,
+				name: user.username
+			}
+		})
+
+		let usernames = users.map(user => user.name)
+		let comparison = stringSimilar.findBestMatch(removeWhitespace(recognisedUsername), usernames)
+
+		if(comparison.bestMatch.rating > 0.3) {
+			console.log(users[comparison.bestMatchIndex])
+			return users[comparison.bestMatchIndex]
+		} else {
+			return null
+		}
+
+	} catch (err) {
+		console.log(err);
+		if (err.response.data.errorType && err.response.data.errorType === 'error-user-not-in-room') {
+			return 'You are not part of this room';
+		} else if (err.response.data.errorType && err.response.data.errorType === 'error-room-not-found') {
+			return 'no such room';
+		} else if (err.response.data.errorType && err.response.data.errorType === 'error-invalid-room') {
+			return 'no such room';
+		} else if (err.response.status === 401) {
+			return 'login before using this intent';
+		} else {
+			return 'error';
+		}
+	}
+
+};
+
 // Module Export of Functions
 
 module.exports.login = login;
@@ -1427,3 +1475,4 @@ module.exports.getGroupLastMessageType = getGroupLastMessageType;
 module.exports.getGroupLastMessageFileURL = getGroupLastMessageFileURL;
 module.exports.resolveChannelname = resolveChannelname;
 module.exports.resolveUsername = resolveUsername;
+module.exports.resolveUsersWithRolesFromRoom = resolveUsersWithRolesFromRoom;
