@@ -18,7 +18,7 @@ const {
 } = envVariables;
 
 const app = dialogflow({
-  debug: true,
+  debug: false,
   clientId: CLIENT_ID
 });
 
@@ -78,6 +78,38 @@ handleConfirmationUserAndChannelResolution(app, {intentName: 'Add Moderator Inte
 handleConfirmationUserAndChannelResolution(app, {intentName: 'Add Owner Intent Slot Collection', intentResource: 'ADD_OWNER', intentContext: 'add_owner'});
 handleConfirmationUserAndChannelResolution(app, {intentName: 'Invite User Intent Slot Collection', intentResource: 'INVITE_USER_TO_CHANNEL', intentContext: 'invite_user'});
 handleConfirmationUserAndChannelResolution(app, {intentName: 'Kick User Intent Slot Collection', intentResource: 'KICK_USER_FROM_CHANNEL', intentContext: 'kick_user'});
+
+const handleConfirmationUserWithRoleAndChannelResolution = async (app, intentData) => {
+  app.intent(intentData.intentName, async (conv, params) => {
+    const accessToken = conv.user.access.token;
+    const headers = await helperFunctions.login(accessToken);
+    let channelname = params.channelname;
+    let username = params.username;
+  
+    var locale = conv.user.locale;
+    if(locale === 'hi-IN') {
+      channelname = await helperFunctions.hinditranslate(channelname);
+      username = await helperFunctions.hinditranslate(username);
+    }
+  
+    const channelDetails = await helperFunctions.resolveChannelname(channelname, headers);
+    if(!channelDetails){
+      conv.ask(i18n.__('NO_ROOM', channelname))
+      return
+    }
+
+    const userDetails = await helperFunctions.resolveUsersWithRolesFromRoom(username, channelDetails, intentData.role, headers);
+  
+    if(!userDetails){
+      conv.ask(i18n.__('NO_USER_WITH_ROLE', {role: intentData.role, username, channelname: channelDetails.name}))
+    } else {
+      conv.ask(i18n.__(`${intentData.intentResource}.CONFIRM_INTENT`, {username: userDetails.name, role: intentData.role, channelname: channelDetails.name}))
+      conv.data.channelDetails = channelDetails
+      conv.data.userDetails = userDetails
+      conv.contexts.set(intentData.intentContext, 1, {channelname, username})
+    }
+  })
+}
 
 const handleExecutionUserAndChannelResolution = async (app, {intentName, helperFunction}) => {
   app.intent(intentName, async(conv, params) => {
