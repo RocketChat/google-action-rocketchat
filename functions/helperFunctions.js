@@ -1323,6 +1323,10 @@ const resolveChannelname = async (channelName, headers) => {
 			type: channel.t,
 		})));
 
+		if(channels.length === 0) {
+			return null
+		}
+
 		let channelNames = channels.map(channel => channel.name)
 		let comparison = stringSimilar.findBestMatch(removeWhitespace(channelName), channelNames)
 		if(comparison.bestMatch.rating > 0.3) {
@@ -1348,6 +1352,10 @@ const resolveUsername = async (username, headers) => {
 			id: subscription.rid.replace(subscription.u._id, ''),
 			type: subscription.t,
 		})));
+
+		if(subscriptions.length === 0){
+			return null
+		}
 
 		let usernames = subscriptions.map(user => user.name)
 		let comparison = stringSimilar.findBestMatch(removeWhitespace(username), usernames)
