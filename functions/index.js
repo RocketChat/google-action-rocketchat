@@ -455,41 +455,28 @@ app.intent('Archive Channel Intent', async (conv, params) => {
 
 });
 
-app.intent('Channel Unread Messages Intent', async (conv, params) => {
+app.intent('Read Unread Messages From Channel Intent', async (conv, params) => {
+
+  const accessToken = conv.user.access.token;
+  const headers = await helperFunctions.login(accessToken);
+  let channelname = params.channelname;
 
   var locale = conv.user.locale;
-
-  if (locale === 'hi-IN') {
-
-    var accessToken = conv.user.access.token;
-
-    var channelNameRaw = params.channelname;
-    var channelNameData = await helperFunctions.hinditranslate(channelNameRaw);
-    var channelNameLwr = channelNameData.toLowerCase();
-    var channelName = helperFunctions.replaceWhitespacesFunc(channelNameLwr);
-
-    const headers = await helperFunctions.login(accessToken);
-    const unreadCount = await helperFunctions.getUnreadCounter(channelName, headers);
-    const speechText = await helperFunctions.channelUnreadMessages(channelName, unreadCount, headers);
-
-    conv.ask(speechText);
-
-  } else {
-
-    var accessToken = conv.user.access.token;
-
-    var channelNameRaw = params.channelname;
-    var channelNameData = channelNameRaw.toLowerCase();
-    var channelName = helperFunctions.replaceWhitespacesFunc(channelNameData);
-
-    const headers = await helperFunctions.login(accessToken);
-    const unreadCount = await helperFunctions.getUnreadCounter(channelName, headers);
-    const speechText = await helperFunctions.channelUnreadMessages(channelName, unreadCount, headers);
-
-    conv.ask(speechText);
-
+  if(locale === 'hi-IN') {
+    channelname = await helperFunctions.hinditranslate(channelname);
   }
 
+  const channelDetails = await helperFunctions.resolveChannelname(channelname, headers);
+
+  let speechText;
+  if(channelDetails.type === 'p') {
+    const unreadCount = await helperFunctions.getGroupUnreadCounter(channelDetails.id, headers);
+    speechText = await helperFunctions.groupUnreadMessages(channelDetails.name, channelDetails.id, unreadCount, headers);
+  } else {
+    const unreadCount = await helperFunctions.getUnreadCounter(channelDetails.name, headers);
+    speechText = await helperFunctions.channelUnreadMessages(channelDetails.name, unreadCount, headers);
+  }
+  conv.ask(speechText);
 });
 
 app.intent('Channel User Mentions Intent', async (conv, params) => {
