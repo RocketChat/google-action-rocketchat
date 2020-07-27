@@ -1365,6 +1365,33 @@ const resolveUsername = async (username, headers) => {
 	}
 };
 
+const getAllUnreads = async (headers) => {
+	try {
+
+		const subscriptions = await axios.get(apiEndpoints.getsubscriptionsurl, {
+			headers,
+		})
+			.then((res) => res.data.update);
+		let finalMessage = '';
+
+		for (const subscription of subscriptions) {
+			if (subscription.unread && subscription.unread !== 0) {
+				if (subscription.t && subscription.t === 'd') {
+					finalMessage += `${ subscription.unread } unreads from ${ subscription.name }, `;
+				} else {
+					finalMessage += `${ subscription.unread } unreads in ${ subscription.name }, `;
+				}
+			}
+		}
+
+		if (finalMessage === '') { return i18n.__('GET_ALL_UNREADS.NO_UNREADS'); }
+		return i18n.__('GET_ALL_UNREADS.MESSAGE', { message: finalMessage });
+	} catch (err) {
+		console.log(err.message);
+		return i18n.__('GET_ALL_UNREADS.ERROR');
+	}
+};
+
 // Module Export of Functions
 
 module.exports.login = login;
@@ -1430,3 +1457,4 @@ module.exports.getGroupLastMessageType = getGroupLastMessageType;
 module.exports.getGroupLastMessageFileURL = getGroupLastMessageFileURL;
 module.exports.resolveChannelname = resolveChannelname;
 module.exports.resolveUsername = resolveUsername;
+module.exports.getAllUnreads = getAllUnreads;
