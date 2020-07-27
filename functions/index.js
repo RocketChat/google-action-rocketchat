@@ -37,6 +37,32 @@ app.middleware((conv) => {
   moment.locale(conv.user.locale);
 });
 
+const handleConfirmationChannelResolution = async (app, intentData) => {
+  app.intent(intentData.intentName, async (conv, params) => {
+    try{
+      const accessToken = conv.user.access.token;
+      const headers = await helperFunctions.login(accessToken);
+      let channelname = params.channelname;
+    
+      var locale = conv.user.locale;
+      if(locale === 'hi-IN') {
+        channelname = await helperFunctions.hinditranslate(channelname);
+      }
+    
+      const channelDetails = await helperFunctions.resolveChannelname(channelname, headers);
+    
+      if(!channelDetails){
+        conv.ask(i18n.__('NO_ROOM', channelname))
+        conv.ask(i18n.__('GENERIC_REPROMPT'))
+        return 
+      }
+  
+      intentData.confirmationLogic({conv, params, channelDetails, headers})
+    }catch(err){
+      conv.ask(i18n.__('TRY_AGAIN'));
+    }
+  })
+}
 
 app.intent('Default Welcome Intent', (conv) => {
 
