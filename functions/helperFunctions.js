@@ -284,7 +284,7 @@ const getMentionsCounter = async (channelName, headers) =>
 
 const channelUnreadMessages = async (channelName, unreadCount, headers) =>
 	await axios
-	.get(`${ apiEndpoints.channelmessageurl }${ channelName }`, {
+	.get(`${ apiEndpoints.channelmessageurl }${ channelName }&count=${ unreadCount }`, {
 		headers
 	})
 	.then((res) => res.data)
@@ -297,12 +297,14 @@ const channelUnreadMessages = async (channelName, unreadCount, headers) =>
 				const msgs = [];
 
 				for (let i = 0; i <= unreadCount - 1; i++) {
-					msgs.push(`<s> ${res.messages[i].u.username} says, ${res.messages[i].msg} <break time=\"0.7\" /> </s>`);
+					if (res.messages[i] && !res.messages[i].t){
+						msgs.push(`<s> ${res.messages[i].u.username} says, ${res.messages[i].msg}. <break time=\"0.7\" /> </s>`);
+					}
 				}
 
 				var responseString = msgs.join('  ');
 
-				var finalMsg = i18n.__('GET_UNREAD_MESSAGES_FROM_CHANNEL.MESSAGE', unreadCount, responseString);
+				var finalMsg = i18n.__('GET_UNREAD_MESSAGES_FROM_CHANNEL.MESSAGE', msgs.length, responseString);
 
 				return finalMsg;
 			}
@@ -311,7 +313,6 @@ const channelUnreadMessages = async (channelName, unreadCount, headers) =>
 		}
 	})
 	.catch((err) => {
-		console.log(err.message);
 		console.log(err.message);
 		if (err.response.data.errorType === 'error-room-not-found') {
 			return i18n.__('GET_UNREAD_MESSAGES_FROM_CHANNEL.ERROR_NOT_FOUND', channelName);
@@ -1169,7 +1170,7 @@ const getGroupUnreadCounter = async (roomid, headers) =>
 
 const groupUnreadMessages = async (channelName, roomid, unreadCount, headers) =>
 	await axios
-	.get(`${ apiEndpoints.groupmessageurl }${ roomid }`, {
+	.get(`${ apiEndpoints.groupmessageurl }${ roomid }&count=${ unreadCount }`, {
 		headers
 	})
 	.then((res) => res.data)
@@ -1182,12 +1183,14 @@ const groupUnreadMessages = async (channelName, roomid, unreadCount, headers) =>
 				const msgs = [];
 
 				for (let i = 0; i <= unreadCount - 1; i++) {
-					msgs.push(`<s> ${res.messages[i].u.username} says, ${res.messages[i].msg} <break time=\"0.7\" /> </s>`);
+					if (res.messages[i] && !res.messages[i].t){
+						msgs.push(`<s> ${res.messages[i].u.username} says, ${res.messages[i].msg}. <break time=\"0.7\" /> </s>`);
+					}
 				}
 
 				var responseString = msgs.join('  ');
 
-				var finalMsg = i18n.__('GET_UNREAD_MESSAGES_FROM_CHANNEL.MESSAGE', unreadCount, responseString);
+				var finalMsg = i18n.__('GET_UNREAD_MESSAGES_FROM_CHANNEL.MESSAGE', msgs.length, responseString);
 
 				return finalMsg;
 			}
