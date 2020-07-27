@@ -137,5 +137,11 @@
         "MESSAGE": "You have, {{message}}.",
         "NO_MENTIONS": "You don't have any unread mentions.",
         "ERROR": "Sorry, I am not able to get your mentions."
-    }
+    },
+    "MENTIONS": {
+        "READ_MENTIONS": "You have {{count}} mentions in {{roomName}}. {{finalMessage}}.",
+        "NO_MENTIONS": "You don't have any mentions in {{roomName}}.",
+        "ERROR": "Sorry, I couldn't get your mentions"
+    },
+    "NO_ROOM": "You are not part of any channel or group named %s ."
 }

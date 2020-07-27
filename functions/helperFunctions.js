@@ -282,6 +282,22 @@ const getMentionsCounter = async (channelName, headers) =>
 		console.log(err.message);
 	});
 
+const getGroupMentionsCounter = async (roomid, headers) => {
+	try{
+		const response = await axios
+		.get(`${ apiEndpoints.groupcounterurl }${ roomid }`, {
+			headers
+		})
+		.then((res) => res.data)
+		.then((res) => res.userMentions)
+
+		console.log(response)
+		return response;
+	} catch(err) {
+		console.log(err.message);
+	}
+}
+
 const channelUnreadMessages = async (channelName, unreadCount, headers) =>
 	await axios
 	.get(`${ apiEndpoints.channelmessageurl }${ channelName }&count=${ unreadCount }`, {
@@ -1419,6 +1435,33 @@ const getAllUnreadMentions = async (headers) => {
 	}
 };
 
+const readUnreadMentions = async (channelDetails, count, headers) => {
+	try {
+		if (count === 0) { return i18n.__('MENTIONS.NO_MENTIONS', { roomName: channelDetails.name }); }
+
+		const response = await axios.get(`${ apiEndpoints.getmentionedmessagesurl }?roomId=${ channelDetails.id }&count=${ count }`, {
+			headers,
+		}).then((res) => res.data);
+
+		if (response.success === true) {
+			let finalMessage = '';
+
+			response.messages.forEach((message) => {
+				finalMessage += `${ message.u.username } says, ${ message.msg }.`;
+			});
+
+			return i18n.__('MENTIONS.READ_MENTIONS', {
+				finalMessage, count, roomName: channelDetails.name,
+			});
+		} else {
+			return i18n.__('MENTIONS.ERROR');
+		}
+
+	} catch (err) {
+		return i18n.__('MENTIONS.ERROR');
+	}
+};
+
 // Module Export of Functions
 
 module.exports.login = login;
@@ -1437,6 +1480,7 @@ module.exports.replaceWhitespacesDots = replaceWhitespacesDots;
 module.exports.emojiTranslateFunc = emojiTranslateFunc;
 module.exports.getUnreadCounter = getUnreadCounter;
 module.exports.getMentionsCounter = getMentionsCounter;
+module.exports.getGroupMentionsCounter = getGroupMentionsCounter;
 module.exports.channelUnreadMessages = channelUnreadMessages;
 module.exports.channelUnreadMentions = channelUnreadMentions;
 module.exports.inviteUser = inviteUser;
@@ -1486,3 +1530,4 @@ module.exports.resolveChannelname = resolveChannelname;
 module.exports.resolveUsername = resolveUsername;
 module.exports.getAllUnreads = getAllUnreads;
 module.exports.getAllUnreadMentions = getAllUnreadMentions;
+module.exports.readUnreadMentions = readUnreadMentions;
