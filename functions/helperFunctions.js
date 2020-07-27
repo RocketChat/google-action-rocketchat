@@ -1392,6 +1392,33 @@ const getAllUnreads = async (headers) => {
 	}
 };
 
+const getAllUnreadMentions = async (headers) => {
+	try {
+
+		const subscriptions = await axios.get(apiEndpoints.getsubscriptionsurl, {
+			headers,
+		})
+			.then((res) => res.data.update);
+		let finalMessage = '';
+
+		for (const subscription of subscriptions) {
+			if (subscription.userMentions && subscription.userMentions !== 0) {
+				if (subscription.t && subscription.t === 'd') {
+					finalMessage += `${ subscription.userMentions } mentions from ${ subscription.name },`;
+				} else {
+					finalMessage += `${ subscription.userMentions } mentions in ${ subscription.name },`;
+				}
+			}
+		}
+
+		if (finalMessage === '') { return i18n.__('GET_ALL_UNREAD_MENTIONS.NO_MENTIONS'); }
+		return i18n.__('GET_ALL_UNREAD_MENTIONS.MESSAGE', { message: finalMessage });
+	} catch (err) {
+		console.log(err.message);
+		return i18n.__('GET_ALL_UNREAD_MENTIONS.ERROR');
+	}
+};
+
 // Module Export of Functions
 
 module.exports.login = login;
@@ -1458,3 +1485,4 @@ module.exports.getGroupLastMessageFileURL = getGroupLastMessageFileURL;
 module.exports.resolveChannelname = resolveChannelname;
 module.exports.resolveUsername = resolveUsername;
 module.exports.getAllUnreads = getAllUnreads;
+module.exports.getAllUnreadMentions = getAllUnreadMentions;

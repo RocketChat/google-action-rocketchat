@@ -127,5 +127,15 @@
         "SUCCESS": "%s is no longer the owner of %s.",
         "ERROR": "Sorry, I couldn't remove owner from this channel right now.",
         "ERROR_NOT_FOUND": "Sorry, I couldn't remove owner from channel %s right now."
+    },
+    "GET_ALL_UNREADS": {
+        "MESSAGE": "You have, {{message}}.",
+        "NO_UNREADS": "You don't have any unread messages.",
+        "ERROR": "Sorry, I am not able to get unread messages."
+    },
+    "GET_ALL_UNREAD_MENTIONS": {
+        "MESSAGE": "You have, {{message}}.",
+        "NO_MENTIONS": "You don't have any unread mentions.",
+        "ERROR": "Sorry, I am not able to get your mentions."
     }
 }
