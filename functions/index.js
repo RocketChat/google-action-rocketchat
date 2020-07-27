@@ -455,6 +455,13 @@ app.intent('Archive Channel Intent', async (conv, params) => {
 
 });
 
+app.intent('Get All Unread Messages Intent', async (conv) => {
+  const accessToken = conv.user.access.token;
+  const headers = await helperFunctions.login(accessToken);
+  const speechText = await helperFunctions.getAllUnreads(headers);
+  conv.ask(speechText);
+})
+
 app.intent('Read Unread Messages From Channel Intent', async (conv, params) => {
 
   const accessToken = conv.user.access.token;
