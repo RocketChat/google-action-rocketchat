@@ -462,6 +462,33 @@ app.intent('Get All Unread Mentions Intent', async (conv) => {
   conv.ask(speechText);
 })
 
+app.intent('Read Unread Mentions From Channel Intent', async (conv, params) => {
+  const accessToken = conv.user.access.token;
+  const headers = await helperFunctions.login(accessToken);
+  let channelname = params.channelname;
+
+  var locale = conv.user.locale;
+  if(locale === 'hi-IN') {
+    channelname = await helperFunctions.hinditranslate(channelname);
+  }
+
+  const channelDetails = await helperFunctions.resolveChannelname(channelname, headers);
+  if(!channelDetails) {
+    conv.ask(i18n.__('NO_ROOM', channelname))
+    return
+  }
+
+  let unreadMentionsCount;
+  if(channelDetails.type === 'c') {
+    unreadMentionsCount = await helperFunctions.getMentionsCounter(channelDetails.name, headers);
+  } else if(channelDetails.type === 'p') {
+    unreadMentionsCount = await helperFunctions.getGroupMentionsCounter(channelDetails.id, headers);
+  }
+
+  const speechText = await helperFunctions.readUnreadMentions(channelDetails, unreadMentionsCount, headers);
+  conv.ask(speechText)
+})
+
 app.intent('Get All Unread Messages Intent', async (conv) => {
   const accessToken = conv.user.access.token;
   const headers = await helperFunctions.login(accessToken);
@@ -481,6 +508,10 @@ app.intent('Read Unread Messages From Channel Intent', async (conv, params) => {
   }
 
   const channelDetails = await helperFunctions.resolveChannelname(channelname, headers);
+  if(!channelDetails) {
+    conv.ask(i18n.__('NO_ROOM', channelname))
+    return
+  }
 
   let speechText;
   if(channelDetails.type === 'p') {
