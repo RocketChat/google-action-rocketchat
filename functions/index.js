@@ -118,6 +118,17 @@ app.intent('Create Channel Intent', async (conv, params) => {
 
 });
 
+handleConfirmationChannelResolution(app, {intentName: 'Delete Channel Intent Slot Collection', confirmationLogic: ({conv, channelDetails}) => {
+  conv.ask(i18n.__(`DELETE_CHANNEL.CONFIRM_INTENT`, { roomname: channelDetails.name }))
+  conv.data.channelDetails = channelDetails
+  conv.contexts.set('delete_channel', 1, {channelname: channelDetails.name})
+}})
+
+handleExecutionChannelResolution(app, {intentName: 'Delete Channel Intent Confirmed', executionLogic: async ({conv, headers}) => {
+  const speechText = await helperFunctions.deleteChannel(conv.data.channelDetails, headers);
+  conv.ask(speechText);
+}})
+
 app.intent('Delete Channel Intent', async (conv, params) => {
 
   var locale = conv.user.locale;
