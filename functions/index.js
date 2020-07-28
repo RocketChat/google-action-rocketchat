@@ -64,6 +64,19 @@ const handleConfirmationChannelResolution = async (app, intentData) => {
   })
 }
 
+const handleExecutionChannelResolution = async (app, intentData) => {
+  app.intent(intentData.intentName, async(conv, params) => {
+    try{
+      const accessToken = conv.user.access.token;
+      const headers = await helperFunctions.login(accessToken);
+      await intentData.executionLogic({conv, params, headers})
+      conv.ask(i18n.__('GENERIC_REPROMPT'))
+    }catch(err){
+      conv.ask(i18n.__('TRY_AGAIN'));
+    }
+  })
+}
+
 app.intent('Default Welcome Intent', (conv) => {
 
   conv.ask(i18n.__('WELCOME.SUCCESS'));
