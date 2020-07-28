@@ -104,6 +104,7 @@
     },
     "CHANNEL_TOPIC": {
         "SUCCESS": "%s topic is now changed to %s",
+        "CONFIRM_INTENT": "You want to set topic of room, {{roomname}} as, {{topic}}, is that correct?",
         "ERROR": "Sorry, I couldn't change this channel topic right now.",
         "ERROR_NOT_FOUND": "Sorry, I couldn't change topic for channel %s right now."
     },
