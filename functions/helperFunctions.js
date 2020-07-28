@@ -465,28 +465,29 @@ const addLeader = async (userName, channelName, userid, roomid, headers) =>
 		return i18n.__('ADD_LEADER.ERROR_NOT_FOUND', channelName);
 	});
 
-const channelRename = async (channelName, roomid, newName, headers) =>
-	await axios
-	.post(
-		apiEndpoints.channelrenameurl, {
-			roomId: roomid,
-			name: newName,
-		}, {
-			headers
-		}
-	)
-	.then((res) => res.data)
-	.then((res) => {
-		if (res.success === true) {
-			return i18n.__('RENAME_ROOM.SUCCESS', channelName, newName);
+const channelRename = async (channelDetails, newName, headers) => {
+	try{
+		const response = await axios
+		.post(
+			channelDetails.type === 'c' ? apiEndpoints.channelrenameurl : apiEndpoints.renamegroupurl, {
+				roomId: channelDetails.id,
+				name: newName,
+			}, {
+				headers
+			}
+		)
+		.then((res) => res.data)
+
+		if (response.success === true) {
+			return i18n.__('RENAME_ROOM.SUCCESS', channelDetails.name, newName);
 		} else {
 			return i18n.__('RENAME_ROOM.ERROR');
 		}
-	})
-	.catch((err) => {
+	}catch(err){
 		console.log(err.message);
-		return i18n.__('RENAME_ROOM.ERROR_NOT_FOUND', channelName);
-	});
+		return i18n.__('RENAME_ROOM.ERROR_NOT_FOUND', channelDetails.name);
+	};
+}
 
 const unarchiveChannel = async (channelDetails, headers) => {
 	try{
