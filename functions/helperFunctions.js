@@ -511,28 +511,29 @@ const unarchiveChannel = async (channelDetails, headers) => {
 	};
 }
 
-const channelTopic = async (channelName, roomid, topic, headers) =>
-	await axios
-	.post(
-		apiEndpoints.channeltopicurl, {
-			roomId: roomid,
-			topic: topic,
-		}, {
-			headers
-		}
-	)
-	.then((res) => res.data)
-	.then((res) => {
-		if (res.success === true) {
-			return i18n.__('CHANNEL_TOPIC.SUCCESS', channelName, topic);
+const channelTopic = async (channelDetails, topic, headers) => {
+	try{
+		const response = await axios
+		.post(
+			channelDetails.type === 'c' ? apiEndpoints.channeltopicurl : apiEndpoints.grouptopicurl, {
+				roomId: channelDetails.id,
+				topic: topic,
+			}, {
+				headers
+			}
+		)
+		.then((res) => res.data)
+
+		if (response.success === true) {
+			return i18n.__('CHANNEL_TOPIC.SUCCESS', channelDetails.name, topic);
 		} else {
 			return i18n.__('CHANNEL_TOPIC.ERROR');
 		}
-	})
-	.catch((err) => {
+	}catch(err) {
 		console.log(err.message);
-		return i18n.__('CHANNEL_TOPIC.ERROR_NOT_FOUND', channelName);
-	});
+		return i18n.__('CHANNEL_TOPIC.ERROR_NOT_FOUND', channelDetails.name);
+	};
+}
 
 const channelDescription = async (channelName, roomid, description, headers) =>
 	await axios
