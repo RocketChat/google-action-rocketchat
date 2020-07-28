@@ -54,6 +54,7 @@
     },
     "ARCHIVE_CHANNEL": {
         "SUCCESS": "%s is now archived.",
+        "CONFIRM_INTENT": "You want to archive room {{roomname}}, is that correct?",
         "ERROR": "Sorry, I couldn't archive this channel right now.",
         "ERROR_NOT_FOUND": "Sorry, I couldn't archive channel %s right now."
     },
@@ -127,5 +128,8 @@
         "SUCCESS": "%s is no longer the owner of %s.",
         "ERROR": "Sorry, I couldn't remove owner from this channel right now.",
         "ERROR_NOT_FOUND": "Sorry, I couldn't remove owner from channel %s right now."
-    }
+    },
+    "NO_ROOM": "You are not part of any room named %s.",
+    "TRY_AGAIN": "Sorry, something went wrong, can you please try again?",
+    "GENERIC_REPROMPT": "Is there anything else you would like to do?"
 }

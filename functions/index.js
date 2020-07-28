@@ -457,6 +457,17 @@ app.intent('Add All To Channel Intent', async (conv, params) => {
 
 });
 
+handleConfirmationChannelResolution(app, {intentName: 'Archive Channel Intent Slot Collection', confirmationLogic: ({conv, channelDetails}) => {
+  conv.ask(i18n.__(`ARCHIVE_CHANNEL.CONFIRM_INTENT`, { roomname: channelDetails.name }))
+  conv.data.channelDetails = channelDetails
+  conv.contexts.set('archive_channel', 1, {channelname: channelDetails.name})
+}})
+
+handleExecutionChannelResolution(app, {intentName: 'Archive Channel Intent Confirmed', executionLogic: async ({conv, headers}) => {
+  const speechText = await helperFunctions.archiveChannel(conv.data.channelDetails, headers);
+  conv.ask(speechText);
+}})
+
 app.intent('Archive Channel Intent', async (conv, params) => {
 
   var locale = conv.user.locale;
