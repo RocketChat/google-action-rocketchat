@@ -389,27 +389,28 @@ const inviteUser = async (userName, channelName, userid, roomid, headers) =>
 	});
 
 
-const leaveChannel = async (channelName, roomid, headers) =>
-	await axios
-	.post(
-		apiEndpoints.leavechannelurl, {
-			roomId: roomid,
-		}, {
-			headers
-		}
-	)
-	.then((res) => res.data)
-	.then((res) => {
-		if (res.success === true) {
-			return i18n.__('LEAVE_CHANNEl.SUCCESS', channelName);
+const leaveChannel = async (channelDetails, headers) => {
+	try{
+		const response = await axios
+		.post(
+			channelDetails.type === 'c' ? apiEndpoints.leavechannelurl : apiEndpoints.leavegroupurl, {
+				roomId: channelDetails.id,
+			}, {
+				headers
+			}
+		)
+		.then((res) => res.data)
+
+		if (response.success === true) {
+			return i18n.__('LEAVE_CHANNEL.SUCCESS', channelDetails.name);
 		} else {
-			return i18n.__('LEAVE_CHANNEl.ERROR', channelName);
+			return i18n.__('LEAVE_CHANNEL.ERROR', channelDetails.name);
 		}
-	})
-	.catch((err) => {
+	}catch(err) {
 		console.log(err.message);
-		return i18n.__('LEAVE_CHANNEl.ERROR', channelName);
-	});
+		return i18n.__('LEAVE_CHANNEL.ERROR', channelDetails.name);
+	};
+}
 
 const kickUser = async (userName, channelName, userid, roomid, headers) =>
 	await axios
