@@ -64,31 +64,32 @@ const createChannel = async (channelName, headers) =>
 		}
 	});
 
-const deleteChannel = async (channelName, headers) =>
-	await axios
-	.post(
-		apiEndpoints.deletechannelurl, {
-			roomName: channelName,
-		}, {
-			headers
-		}
-	)
-	.then((res) => res.data)
-	.then((res) => {
-		if (res.success === true) {
-			return i18n.__('DELETE_CHANNEL.SUCCESS', channelName);
+const deleteChannel = async (channelDetails, headers) => {
+	try{
+		const response = await axios
+		.post(
+			channelDetails.type === 'c' ? apiEndpoints.deletechannelurl : apiEndpoints.deletegroupurl, {
+				roomName: channelDetails.name,
+			}, {
+				headers
+			}
+		)
+		.then((res) => res.data)
+
+		if (response.success === true) {
+			return i18n.__('DELETE_CHANNEL.SUCCESS', channelDetails.name);
 		} else {
-			return i18n.__('DELETE_CHANNEL.ERROR', channelName);
+			return i18n.__('DELETE_CHANNEL.ERROR', channelDetails.name);
 		}
-	})
-	.catch((err) => {
+	}catch(err) {
 		console.log(err.message);
 		if (err.response.data.errorType === 'error-room-not-found') {
-			return i18n.__('DELETE_CHANNEL.ERROR_NOT_FOUND', channelName);
+			return i18n.__('DELETE_CHANNEL.ERROR_NOT_FOUND', channelDetails.name);
 		} else {
-			return i18n.__('DELETE_CHANNEL.ERROR', channelName);
+			return i18n.__('DELETE_CHANNEL.ERROR', channelDetails.name);
 		}
-	});
+	};
+}
 
 const postMessage = async (channelName, message, headers) =>
 	await axios
