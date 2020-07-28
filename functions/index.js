@@ -7,6 +7,7 @@ const {
   Button,
   Image,
   MediaObject,
+  Suggestions
 } = require('actions-on-google');
 const functions = require('firebase-functions');
 
@@ -53,11 +54,17 @@ const handleConfirmationChannelResolution = async (app, intentData) => {
     
       if(!channelDetails){
         conv.ask(i18n.__('NO_ROOM', channelname))
-        conv.ask(i18n.__('GENERIC_REPROMPT'))
+        if(Math.random() >= 0.5) {
+          conv.ask(i18n.__('GENERIC_REPROMPT'))
+        } else {
+          // giving hints to the user
+          conv.ask([i18n.__('GENERIC_REPROMPT'), i18n.__('HINTS_TRANSITION'), helperFunctions.randomProperty(i18n.__('HINTS'))].join(' '))
+        }
         return 
       }
   
       intentData.confirmationLogic({conv, params, channelDetails, headers})
+      conv.ask(new Suggestions(['yes', 'no']))
     }catch(err){
       conv.ask(i18n.__('TRY_AGAIN'));
     }
@@ -70,7 +77,13 @@ const handleExecutionChannelResolution = async (app, intentData) => {
       const accessToken = conv.user.access.token;
       const headers = await helperFunctions.login(accessToken);
       await intentData.executionLogic({conv, params, headers})
-      conv.ask(i18n.__('GENERIC_REPROMPT'))
+      const random = Math.random()
+      console.log(random);
+      if(random >= 0.7) {
+        conv.ask(i18n.__('GENERIC_REPROMPT'))
+      } else {
+        conv.ask([i18n.__('GENERIC_REPROMPT'), i18n.__('HINTS_TRANSITION'), helperFunctions.randomProperty(i18n.__('HINTS'))].join(' '))
+      }
     }catch(err){
       conv.ask(i18n.__('TRY_AGAIN'));
     }

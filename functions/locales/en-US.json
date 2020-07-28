@@ -135,6 +135,14 @@
         "ERROR": "Sorry, I couldn't remove owner from this channel right now.",
         "ERROR_NOT_FOUND": "Sorry, I couldn't remove owner from channel %s right now."
     },
+    "HINTS": {
+        "GET_UNREADS": "Do I have any unread messages?",
+        "GET_UNREAD_MENTIONS": "Do I have any unread mentions?",
+        "CHANGE_STATUS": "Change my status.",
+        "READ_UNREADS": "Read unreads messages from a channel.",
+        "CHANNEL_ANNOUNCEMENT": "Make an announcement in channel."
+    },
+    "HINTS_TRANSITION": "You can try saying, ",
     "NO_ROOM": "You are not part of any room named %s.",
     "TRY_AGAIN": "Sorry, something went wrong, can you please try again?",
     "GENERIC_REPROMPT": "Anything else I can help you with?"
