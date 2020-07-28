@@ -1377,6 +1377,15 @@ const resolveUsername = async (username, headers) => {
 	}
 };
 
+const randomProperty = function(obj) {
+	if (typeof obj === 'string') {
+		return obj;
+	} else {
+		const keys = Object.keys(obj);
+		return obj[keys[keys.length * Math.random() << 0]];
+	}
+};
+
 // Module Export of Functions
 
 module.exports.login = login;
@@ -1442,3 +1451,4 @@ module.exports.getGroupLastMessageType = getGroupLastMessageType;
 module.exports.getGroupLastMessageFileURL = getGroupLastMessageFileURL;
 module.exports.resolveChannelname = resolveChannelname;
 module.exports.resolveUsername = resolveUsername;
+module.exports.randomProperty = randomProperty;
