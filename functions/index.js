@@ -854,6 +854,17 @@ app.intent('Rename Channel Intent', async (conv, params) => {
 
 });
 
+handleConfirmationChannelResolution(app, {intentName: 'Unarchive Channel Intent Slot Collection', confirmationLogic: ({conv, channelDetails}) => {
+  conv.ask(i18n.__(`UNARCHIVE_CHANNEL.CONFIRM_INTENT`, { roomname: channelDetails.name }))
+  conv.data.channelDetails = channelDetails
+  conv.contexts.set('unarchive_channel', 1, {channelname: channelDetails.name})
+}})
+
+handleExecutionChannelResolution(app, {intentName: 'Unarchive Channel Intent Confirmed', executionLogic: async ({conv, headers}) => {
+  const speechText = await helperFunctions.unarchiveChannel(conv.data.channelDetails, headers);
+  conv.ask(speechText);
+}})
+
 app.intent('Unarchive Channel Intent', async (conv, params) => {
 
   var locale = conv.user.locale;
