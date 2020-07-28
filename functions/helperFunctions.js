@@ -1370,6 +1370,20 @@ const resolveUsername = async (username, headers) => {
 	}
 };
 
+const getLastMessage = async (channelDetails, headers) => {
+	try{
+		const url = channelDetails.type === 'c' ? apiEndpoints.channelmessageurl : apiEndpoints.groupmessageurlname;
+		const response = await axios.get(`${url}${channelDetails.name}&count=1`, {
+            headers
+        })
+		.then(res => res.data.messages[0])
+		
+		return response
+	}catch(err) {
+		console.log(err);
+	}
+}
+
 // Module Export of Functions
 
 module.exports.login = login;
@@ -1435,3 +1449,4 @@ module.exports.getGroupLastMessageType = getGroupLastMessageType;
 module.exports.getGroupLastMessageFileURL = getGroupLastMessageFileURL;
 module.exports.resolveChannelname = resolveChannelname;
 module.exports.resolveUsername = resolveUsername;
+module.exports.getLastMessage = getLastMessage;
