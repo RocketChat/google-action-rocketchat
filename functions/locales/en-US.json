@@ -110,6 +110,7 @@
     },
     "CHANNEL_DESCRIPTION": {
         "SUCCESS": "%s description is now changed to %s",
+        "CONFIRM_INTENT": "You want to set description of room, {{roomname}} as, {{description}}, is that correct?",
         "ERROR": "Sorry, I couldn't change this channel description right now.",
         "ERROR_NOT_FOUND": "Sorry, I couldn't change description for channel %s right now."
     },

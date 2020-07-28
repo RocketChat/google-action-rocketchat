@@ -976,6 +976,17 @@ app.intent('Channel Topic Intent', async (conv, params) => {
 
 });
 
+handleConfirmationChannelResolution(app, {intentName: 'Change Description Intent Slot Collection', confirmationLogic: ({conv, params, channelDetails}) => {
+  conv.ask(i18n.__(`CHANNEL_DESCRIPTION.CONFIRM_INTENT`, { roomname: channelDetails.name, description: params.description }))
+  conv.data.channelDetails = channelDetails
+  conv.contexts.set('change_description', 1, {channelname: channelDetails.name, description: params.description})
+}})
+
+handleExecutionChannelResolution(app, {intentName: 'Change Description Intent Confirmed', executionLogic: async ({conv, params, headers}) => {
+  const speechText = await helperFunctions.channelDescription(conv.data.channelDetails, params.description, headers);
+  conv.ask(speechText);
+}})
+
 app.intent('Channel Description Intent', async (conv, params) => {
 
   var locale = conv.user.locale;
