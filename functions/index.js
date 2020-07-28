@@ -18,7 +18,7 @@ const {
 } = envVariables;
 
 const app = dialogflow({
-  debug: true,
+  debug: false,
   clientId: CLIENT_ID
 });
 
@@ -152,6 +152,53 @@ app.intent('Post Channel Message Intent', async (conv, params) => {
   }
 
 });
+
+app.intent('Get Last Message From Channel', async (conv, params) => {
+  var accessToken = conv.user.access.token;
+  const headers = await helperFunctions.login(accessToken);
+  let channelname = params.channelname;
+  var locale = conv.user.locale;
+
+  if (locale === 'hi-IN') {
+    channelname = helperFunctions.hinditranslate(channelname)
+  }
+
+  const channelDetails = await helperFunctions.resolveChannelname(params.channelname, headers);
+
+  if(!channelDetails) {
+    conv.ask('no room')
+    return
+  }
+
+  const lastMessage = await helperFunctions.getLastMessage(channelDetails, headers);
+  let speechText;
+  let download;
+  if(!lastMessage.file && !lastMessage.type){
+    speechText = `${lastMessage.u.username} says ${lastMessage.msg}`
+  } else if (!lastMessage.file) {
+    speechText = `${lastMessage.u.username} performed some action in the channel`
+  } else if (lastMessage.file) {
+    if(lastMessage.file.type.includes('image')){
+      speechText = `${lastMessage.u.username} sent this image titled ${lastMessage.attachments[0].title}`
+      download = await helperFunctions.getLastMessageFileDowloadURL(`${SERVER_URL}${lastMessage.attachments[0].image_url}`, headers)
+    } else if (lastMessage.file.type.includes('video')){
+      speechText = `${lastMessage.u.username} sent a video titled ${lastMessage.attachments[0].title}`
+    }else {
+      speechText = `${lastMessage.u.username} has shared a file titled ${lastMessage.attachments[0].title}`;
+    }
+  } else {
+    speechText = `${lastMessage.u.username} has sent a message`;
+  }
+  conv.ask(speechText)
+  if(download){
+    conv.ask(new BasicCard({
+      image: new Image({
+        url: `${download}`,
+        alt: 'Image alternate text',
+      }),
+    }));  
+  }
+})
 
 app.intent('Channel Last Message Intent', async (conv, params) => {
 
