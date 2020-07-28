@@ -675,6 +675,17 @@ app.intent('Invite User Intent', async (conv, params) => {
 
 });
 
+handleConfirmationChannelResolution(app, {intentName: 'Leave Channel Intent Slot Collection', confirmationLogic: ({conv, channelDetails}) => {
+  conv.ask(i18n.__(`LEAVE_CHANNEL.CONFIRM_INTENT`, { roomname: channelDetails.name }))
+  conv.data.channelDetails = channelDetails
+  conv.contexts.set('leave_channel', 1, {channelname: channelDetails.name})
+}})
+
+handleExecutionChannelResolution(app, {intentName: 'Leave Channel Intent Confirmed', executionLogic: async ({conv, headers}) => {
+  const speechText = await helperFunctions.leaveChannel(conv.data.channelDetails, headers);
+  conv.ask(speechText);
+}})
+
 app.intent('Leave Channel Intent', async (conv, params) => {
 
   var locale = conv.user.locale;

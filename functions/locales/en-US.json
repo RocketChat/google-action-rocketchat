@@ -75,8 +75,9 @@
         "ERROR": "Sorry I couldn't invite user %s to channel %s right now",
         "ERROR_NOT_FOUND": "Sorry, I couldn't find channel %s right now"
     },
-    "LEAVE_CHANNEl": {
+    "LEAVE_CHANNEL": {
         "SUCCESS": "You Left channel %s .",
+        "CONFIRM_INTENT": "You want to leave room {{roomname}}, is that correct?",
         "ERROR": "Sorry, You couldn't leave the channel %s right now. Maybe you are the only owner of Channel so first set someone as the channel owner"
     },
     "KICK_USER_FROM_CHANNEL": {
