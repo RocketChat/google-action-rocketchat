@@ -830,6 +830,18 @@ app.intent('Add Channel Leader Intent', async (conv, params) => {
 
 });
 
+handleConfirmationChannelResolution(app, {intentName: 'Rename Room Intent Slot Collection', confirmationLogic: ({conv, params, channelDetails}) => {
+  conv.ask(i18n.__('RENAME_ROOM.CONFIRM_INTENT', { roomname: channelDetails.name, newname: helperFunctions.replaceWhitespacesFunc(params.newname) }))
+  conv.data.channelDetails = channelDetails
+  conv.contexts.set('rename_room', 1, {channelname: channelDetails.name, newname: params.newname})
+}})
+
+handleExecutionChannelResolution(app, {intentName: 'Rename Room Intent Confirmed', executionLogic: async ({conv, params, headers}) => {
+  const newname = helperFunctions.replaceWhitespacesFunc(params.newname);
+  const speechText = await helperFunctions.channelRename(conv.data.channelDetails, newname, headers);
+  conv.ask(speechText);
+}})
+
 app.intent('Rename Channel Intent', async (conv, params) => {
 
   var locale = conv.user.locale;

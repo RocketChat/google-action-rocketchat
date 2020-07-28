@@ -93,6 +93,7 @@
     },
     "RENAME_ROOM": {
         "SUCCESS": "%s is now renamed to %s.",
+        "CONFIRM_INTENT":"You want to rename room {{roomname}}, to {{newname}}, is that correct?",
         "ERROR": "Sorry, I couldn't rename this channel right now.",
         "ERROR_NOT_FOUND": "Sorry, I couldn't rename channel %s right now."
     },
