@@ -7,6 +7,7 @@ const {
   Button,
   Image,
   MediaObject,
+  Table
 } = require('actions-on-google');
 const functions = require('firebase-functions');
 
@@ -493,7 +494,34 @@ app.intent('Get All Unread Messages Intent', async (conv) => {
   const accessToken = conv.user.access.token;
   const headers = await helperFunctions.login(accessToken);
   const speechText = await helperFunctions.getAllUnreads(headers);
-  conv.ask(speechText);
+  conv.ask(speechText[0]);
+  if(speechText[1].length != 0) {
+    const unreadsDetails = speechText[1]
+    let count = unreadsDetails.reduce((prev, curr) => prev + curr.unreads, 0)
+
+    let rows = []
+    for(let detail of unreadsDetails) {
+      let cell = {
+        "cells": [{
+          "text": detail.name
+        }, {
+          "text": `${detail.unreads}`
+        }]
+      }
+      rows.push(cell);
+    }
+
+    conv.add(new Table({
+      "title": `${count}`,
+      "subtitle": "Unreads",
+      "columns": [{
+        "header": "Room/User"
+      }, {
+        "header": "Unreads"
+      }],
+      "rows": rows
+    }));
+  }
 })
 
 app.intent('Read Unread Messages From Channel Intent', async (conv, params) => {
