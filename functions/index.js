@@ -163,10 +163,11 @@ app.intent('Get Last Message From Channel', async (conv, params) => {
     channelname = helperFunctions.hinditranslate(channelname)
   }
 
-  const channelDetails = await helperFunctions.resolveChannelname(params.channelname, headers);
+  const channelDetails = await helperFunctions.resolveChannelname(channelname, headers);
 
   if(!channelDetails) {
-    conv.ask('no room')
+    conv.ask(i18n.__('NO_ROOM', channelname))
+    conv.ask(i18n.__('GENERIC_REPROMPT'))
     return
   }
 
@@ -184,7 +185,7 @@ app.intent('Get Last Message From Channel', async (conv, params) => {
     } else if (lastMessage.t === 'room_changed_announcement') {
       speechText = i18n.__('MESSAGE_TYPE.CHANGE_ANNOUNCEMENT', {username: lastMessage.u.username, announcement: lastMessage.msg})
     } else {
-      speechText = speechText = i18n.__('MESSAGE_TYPE.UNKNOWN_MESSAGE', {username: lastMessage.u.username})
+      speechText = i18n.__('MESSAGE_TYPE.UNKNOWN_MESSAGE', {username: lastMessage.u.username})
     }
   } else if (lastMessage.file) {
     if(lastMessage.file.type.includes('image')){
@@ -227,12 +228,15 @@ app.intent('Get Last Message From Channel', async (conv, params) => {
   } else {
     conv.ask(new BasicCard({
       title: `Message from ${lastMessage.u.username}`,
+      subtitle: lastMessage.msg || '',
       buttons: new Button({
         title: 'Open in Browser',
         url: `${url}`,
       })
     }));
   }
+  conv.ask(i18n.__('GENERIC_REPROMPT'))
+
 })
 
 app.intent('Channel Last Message Intent', async (conv, params) => {
