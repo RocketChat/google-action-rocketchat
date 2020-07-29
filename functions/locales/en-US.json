@@ -149,5 +149,6 @@
     "HINTS_TRANSITION": "You can try saying, ",
     "NO_ROOM": "You are not part of any room named %s.",
     "TRY_AGAIN": "Sorry, something went wrong, can you please try again?",
-    "GENERIC_REPROMPT": "Anything else I can help you with?"
+    "GENERIC_REPROMPT": "Anything else I can help you with?",
+    "GENERIC_DENIED_MESSAGE": "Okay, Anything else I can help you with?"
 }

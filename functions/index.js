@@ -2373,6 +2373,39 @@ handleExecutionChannelResolution(app, {intentName: 'Change Status Intent Confirm
   conv.ask(speechText);
 }})
 
+app.intent('Denied Intent', (conv) => {
+  const contexts = [
+    'change_description',
+    'change_topic',
+    'rename_room',
+    'archive_channel',
+    'unarchive_channel',
+    'change_status',
+    'add_leader',
+    'add_moderator',
+    'add_owner',
+    'invite_user',
+    'kick_user',
+    'leave_channel',
+    'delete_channel',
+    'remove_owner',
+    'remove_moderator',
+    'remove_leader',
+    'change_status',
+    'post_dm_message',
+    'post_message',
+    'set_announcement'
+  ]
+
+  let inputContexts = Object.keys(conv.contexts.input)
+
+  if(helperFunctions.hasCommonElement(contexts, inputContexts)){
+    conv.ask('GENERIC_DENIED_MESSAGE')
+  } else {
+    conv.close(i18n.__('GOODBYE.MESSAGE'))
+  }
+})
+
 if(process.env.DEVELOPMENT) {
 	const express = require('express')
 	const bodyParser = require('body-parser')
