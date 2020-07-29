@@ -133,6 +133,7 @@ app.intent('Post Channel Message Intent Slot Collection', async (conv, params) =
     conv.contexts.set('post_message', 1, {channelname, message})
   } else {
     conv.ask(i18n.__('POST_MESSAGE.NO_CHANNEL', channelname))
+    conv.ask(i18n.__('GENERIC_REPROMPT'))
   }
 })
 
@@ -148,6 +149,7 @@ app.intent('Post Channel Message Intent Confirmed', async (conv, params) => {
   const speechText = await helperFunctions.postMessage(channelName, message, headers);
 
   conv.ask(speechText);
+  conv.ask(i18n.__('GENERIC_REPROMPT'))
 
 });
 
