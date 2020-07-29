@@ -7,6 +7,7 @@ const {
   Button,
   Image,
   MediaObject,
+  Suggestions,
 } = require('actions-on-google');
 const functions = require('firebase-functions');
 
@@ -131,6 +132,7 @@ app.intent('Post Channel Message Intent Slot Collection', async (conv, params) =
     conv.ask(i18n.__('POST_MESSAGE.CONFIRMATION', message, channelDetails.name))
     conv.data.channelDetails = channelDetails
     conv.contexts.set('post_message', 1, {channelname, message})
+    conv.ask(new Suggestions(["yes", "no"]))
   } else {
     conv.ask(i18n.__('POST_MESSAGE.NO_CHANNEL', channelname))
     conv.ask(i18n.__('GENERIC_REPROMPT'))
@@ -150,7 +152,7 @@ app.intent('Post Channel Message Intent Confirmed', async (conv, params) => {
 
   conv.ask(speechText);
   conv.ask(i18n.__('GENERIC_REPROMPT'))
-
+  conv.ask(new Suggestions("Read last message"))
 });
 
 app.intent('Channel Last Message Intent', async (conv, params) => {
