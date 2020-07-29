@@ -34,6 +34,21 @@ const login = async (accessToken) =>
 		console.log(err);
 	});
 
+const userDetails = async (accessToken) => {
+	try{
+		const response = await axios
+		.post(apiEndpoints.loginUrl, {
+			serviceName: OAUTH_SERVICE_NAME,
+			accessToken,
+			expiresIn: 200,
+		})
+		.then((res) => res.data.data.me)
+		return response;
+	}catch(err) {
+		console.log(err);
+	}
+}
+
 const createChannel = async (channelName, headers) =>
 	await axios
 	.post(
@@ -1535,3 +1550,4 @@ module.exports.resolveUsername = resolveUsername;
 module.exports.getAllUnreads = getAllUnreads;
 module.exports.getAllUnreadMentions = getAllUnreadMentions;
 module.exports.readUnreadMentions = readUnreadMentions;
+module.exports.userDetails = userDetails;
