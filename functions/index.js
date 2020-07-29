@@ -460,7 +460,34 @@ app.intent('Get All Unread Mentions Intent', async (conv) => {
   const accessToken = conv.user.access.token;
   const headers = await helperFunctions.login(accessToken);
   const speechText = await helperFunctions.getAllUnreadMentions(headers);
-  conv.ask(speechText);
+  conv.ask(speechText[0]);
+  if(speechText[1].length != 0) {
+    const unreadsDetails = speechText[1]
+    let count = unreadsDetails.reduce((prev, curr) => prev + curr.mentions, 0)
+
+    let rows = []
+    for(let detail of unreadsDetails) {
+      let cell = {
+        "cells": [{
+          "text": detail.name
+        }, {
+          "text": `${detail.mentions}`
+        }]
+      }
+      rows.push(cell);
+    }
+
+    conv.add(new Table({
+      "title": `${count}`,
+      "subtitle": "Unreads",
+      "columns": [{
+        "header": "Room/User"
+      }, {
+        "header": "Unreads"
+      }],
+      "rows": rows
+    }));
+  }
 })
 
 app.intent('Read Unread Mentions From Channel Intent', async (conv, params) => {
