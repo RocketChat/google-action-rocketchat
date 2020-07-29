@@ -1481,6 +1481,27 @@ const readUnreadMentions = async (channelDetails, count, headers) => {
 	}
 };
 
+const getAccountSummary = async (headers) => {
+	try {
+		const subscriptions = await axios.get(apiEndpoints.getsubscriptionsurl, {
+			headers,
+		})
+		.then((res) => res.data.update);
+
+		let summary = [];
+
+		for (const subscription of subscriptions) {
+			if ((subscription.unread && subscription.unread !== 0) || (subscription.userMentions && subscription.userMentions !== 0)) {
+				summary.push([subscription.name, subscription.unread.toString() , subscription.userMentions.toString()])
+			}
+		}
+
+		return summary;
+	} catch (err) {
+		console.log(err.message);
+	}
+}
+
 // Module Export of Functions
 
 module.exports.login = login;
@@ -1551,3 +1572,4 @@ module.exports.getAllUnreads = getAllUnreads;
 module.exports.getAllUnreadMentions = getAllUnreadMentions;
 module.exports.readUnreadMentions = readUnreadMentions;
 module.exports.userDetails = userDetails;
+module.exports.getAccountSummary = getAccountSummary;
