@@ -513,6 +513,7 @@ app.intent('Get All Unread Mentions Intent', async (conv) => {
   const headers = await helperFunctions.login(accessToken);
   const speechText = await helperFunctions.getAllUnreadMentions(headers);
   conv.ask(speechText[0]);
+  conv.ask(i18n.__('GENERIC_REPROMPT'));
   if(speechText[1].length != 0) {
     const unreadsDetails = speechText[1]
     let count = unreadsDetails.reduce((prev, curr) => prev + curr.mentions, 0)
@@ -555,6 +556,7 @@ app.intent('Read Unread Mentions From Channel Intent', async (conv, params) => {
   const channelDetails = await helperFunctions.resolveChannelname(channelname, headers);
   if(!channelDetails) {
     conv.ask(i18n.__('NO_ROOM', channelname))
+    conv.ask(i18n.__('GENERIC_REPROMPT'))
     return
   }
 
@@ -567,6 +569,7 @@ app.intent('Read Unread Mentions From Channel Intent', async (conv, params) => {
 
   const speechText = await helperFunctions.readUnreadMentions(channelDetails, unreadMentionsCount, headers);
   conv.ask(speechText)
+  conv.ask(i18n.__('GENERIC_REPROMPT'))
 })
 
 app.intent('Get All Unread Messages Intent', async (conv) => {
@@ -574,6 +577,7 @@ app.intent('Get All Unread Messages Intent', async (conv) => {
   const headers = await helperFunctions.login(accessToken);
   const speechText = await helperFunctions.getAllUnreads(headers);
   conv.ask(speechText[0]);
+  conv.ask(i18n.__('GENERIC_REPROMPT'))
   if(speechText[1].length != 0) {
     const unreadsDetails = speechText[1]
     let count = unreadsDetails.reduce((prev, curr) => prev + curr.unreads, 0)
@@ -617,6 +621,7 @@ app.intent('Read Unread Messages From Channel Intent', async (conv, params) => {
   const channelDetails = await helperFunctions.resolveChannelname(channelname, headers);
   if(!channelDetails) {
     conv.ask(i18n.__('NO_ROOM', channelname))
+    conv.ask(i18n.__('GENERIC_REPROMPT'))
     return
   }
 
@@ -629,6 +634,7 @@ app.intent('Read Unread Messages From Channel Intent', async (conv, params) => {
     speechText = await helperFunctions.channelUnreadMessages(channelDetails.name, unreadCount, headers);
   }
   conv.ask(speechText);
+  conv.ask(i18n.__('GENERIC_REPROMPT'))
 });
 
 app.intent('Channel User Mentions Intent', async (conv, params) => {
