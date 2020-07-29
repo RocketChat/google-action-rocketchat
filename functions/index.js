@@ -2400,7 +2400,7 @@ app.intent('Denied Intent', (conv) => {
   let inputContexts = Object.keys(conv.contexts.input)
 
   if(helperFunctions.hasCommonElement(contexts, inputContexts)){
-    conv.ask('GENERIC_DENIED_MESSAGE')
+    conv.ask(i18n.__('GENERIC_DENIED_MESSAGE'))
   } else {
     conv.close(i18n.__('GOODBYE.MESSAGE'))
   }
