@@ -1418,6 +1418,7 @@ const getAllUnreadMentions = async (headers) => {
 		})
 			.then((res) => res.data.update);
 		let finalMessage = '';
+		let unreadDetails = [];
 
 		for (const subscription of subscriptions) {
 			if (subscription.userMentions && subscription.userMentions !== 0) {
@@ -1426,14 +1427,15 @@ const getAllUnreadMentions = async (headers) => {
 				} else {
 					finalMessage += `${ subscription.userMentions } mentions in ${ subscription.name },`;
 				}
+				unreadDetails.push({name: subscription.name, mentions: subscription.userMentions})
 			}
 		}
 
-		if (finalMessage === '') { return i18n.__('GET_ALL_UNREAD_MENTIONS.NO_MENTIONS'); }
-		return i18n.__('GET_ALL_UNREAD_MENTIONS.MESSAGE', { message: finalMessage });
+		if (finalMessage === '') { return [i18n.__('GET_ALL_UNREAD_MENTIONS.NO_MENTIONS'), []] }
+		return [i18n.__('GET_ALL_UNREAD_MENTIONS.MESSAGE', { message: finalMessage }), unreadDetails];
 	} catch (err) {
 		console.log(err.message);
-		return i18n.__('GET_ALL_UNREAD_MENTIONS.ERROR');
+		return [i18n.__('GET_ALL_UNREAD_MENTIONS.ERROR'), []];
 	}
 };
 
