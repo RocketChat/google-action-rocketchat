@@ -78,7 +78,6 @@ const handleExecutionChannelResolution = async (app, intentData) => {
       const headers = await helperFunctions.login(accessToken);
       await intentData.executionLogic({conv, params, headers})
       const random = Math.random()
-      console.log(random);
       if(random >= 0.7) {
         conv.ask(i18n.__('GENERIC_REPROMPT'))
       } else {
@@ -2368,6 +2367,11 @@ app.intent('Post Group Emoji Message Intent', async (conv, params) => {
   }
 
 });
+
+handleExecutionChannelResolution(app, {intentName: 'Change Status Intent Confirmed', executionLogic: async ({conv, params, headers}) => {
+  const speechText = await helperFunctions.setStatus(params.status, headers)
+  conv.ask(speechText);
+}})
 
 if(process.env.DEVELOPMENT) {
 	const express = require('express')
