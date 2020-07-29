@@ -127,5 +127,15 @@
         "SUCCESS": "%s is no longer the owner of %s.",
         "ERROR": "Sorry, I couldn't remove owner from this channel right now.",
         "ERROR_NOT_FOUND": "Sorry, I couldn't remove owner from channel %s right now."
+    },
+    "MESSAGE_TYPE": {
+        "TEXT_MESSAGE": "{{username}} says, {{message}}",
+        "CHANGE_DESCRIPTION": "{{username}} changed the description to, {{description}}.",
+        "CHANGE_ANNOUNCEMENT": "{{username}} made an announcement that says {{announcement}}.",
+        "CHANGE_TOPIC": "{{username}} changed the topic to {{topic}}.",
+        "IMAGE_MESSAGE": "{{username}} shared an image titled {{title}}.",
+        "VIDEO_MESSAGE": "{{username}} shared a video titled {{title}}.", 
+        "FILE_MESSAGE": "{{username}} shared a file titled {{title}}.",
+        "UNKNOWN_MESSAGE": "{{username}}, performed some action"
     }
 }

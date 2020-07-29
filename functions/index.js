@@ -172,31 +172,66 @@ app.intent('Get Last Message From Channel', async (conv, params) => {
 
   const lastMessage = await helperFunctions.getLastMessage(channelDetails, headers);
   let speechText;
+  let imageURL;
   let download;
-  if(!lastMessage.file && !lastMessage.type){
-    speechText = `${lastMessage.u.username} says ${lastMessage.msg}`
+  if(!lastMessage.file && !lastMessage.t){
+    speechText = i18n.__('MESSAGE_TYPE.TEXT_MESSAGE', {username: lastMessage.u.username, message: lastMessage.msg})
   } else if (!lastMessage.file) {
-    speechText = `${lastMessage.u.username} performed some action in the channel`
+    if(lastMessage.t === 'room_changed_description'){
+      speechText = i18n.__('MESSAGE_TYPE.CHANGE_DESCRIPTION', {username: lastMessage.u.username, description: lastMessage.msg})
+    } else if (lastMessage.t === 'room_changed_topic'){
+      speechText = i18n.__('MESSAGE_TYPE.CHANGE_TOPIC', {username: lastMessage.u.username, topic: lastMessage.msg})
+    } else if (lastMessage.t === 'room_changed_announcement') {
+      speechText = i18n.__('MESSAGE_TYPE.CHANGE_ANNOUNCEMENT', {username: lastMessage.u.username, announcement: lastMessage.msg})
+    } else {
+      speechText = speechText = i18n.__('MESSAGE_TYPE.UNKNOWN_MESSAGE', {username: lastMessage.u.username})
+    }
   } else if (lastMessage.file) {
     if(lastMessage.file.type.includes('image')){
-      speechText = `${lastMessage.u.username} sent this image titled ${lastMessage.attachments[0].title}`
-      download = await helperFunctions.getLastMessageFileDowloadURL(`${SERVER_URL}${lastMessage.attachments[0].image_url}`, headers)
+      speechText = i18n.__('MESSAGE_TYPE.IMAGE_MESSAGE', {username: lastMessage.u.username, title: lastMessage.attachments[0].title}) 
+      imageURL = await helperFunctions.getLastMessageFileDowloadURL(`${SERVER_URL}${lastMessage.attachments[0].image_url}`, headers)
     } else if (lastMessage.file.type.includes('video')){
-      speechText = `${lastMessage.u.username} sent a video titled ${lastMessage.attachments[0].title}`
+      speechText = i18n.__('MESSAGE_TYPE.VIDEO_MESSAGE', {username: lastMessage.u.username, title: lastMessage.attachments[0].title}) 
+      download = await helperFunctions.getLastMessageFileDowloadURL(`${SERVER_URL}${lastMessage.attachments[0].title_link}`, headers)
     }else {
-      speechText = `${lastMessage.u.username} has shared a file titled ${lastMessage.attachments[0].title}`;
+      speechText = i18n.__('MESSAGE_TYPE.FILE_MESSAGE', {username: lastMessage.u.username, title: lastMessage.attachments[0].title}) 
+      download = await helperFunctions.getLastMessageFileDowloadURL(`${SERVER_URL}${lastMessage.attachments[0].title_link}`, headers)
     }
   } else {
-    speechText = `${lastMessage.u.username} has sent a message`;
+    speechText = i18n.__('MESSAGE_TYPE.UNKNOWN_MESSAGE', {username: lastMessage.u.username})
   }
   conv.ask(speechText)
-  if(download){
+  const url = `${SERVER_URL}/${channelDetails.type === 'c' ? 'channel' : 'group'}/${channelDetails.name}`
+  if(imageURL){
     conv.ask(new BasicCard({
-      image: new Image({
-        url: `${download}`,
-        alt: 'Image alternate text',
+      text: `${lastMessage.attachments[0].title}`,
+      buttons: new Button({
+        title: 'Open in Browser',
+        url: `${url}`,
       }),
-    }));  
+      image: new Image({
+        url: `${imageURL}`,
+        alt: 'Rocket Chat Image Message',
+      }),
+      display: 'CROPPED',
+    }));
+  } else if(download) {
+    conv.ask(new BasicCard({
+      title: `Message from ${lastMessage.u.username}`,
+      subtitle: `${ lastMessage.attachments[0].title}`,
+      buttons: new Button({
+        title: 'View File',
+        url: `${download}`,
+      })
+    }));
+  } else {
+    conv.ask(new BasicCard({
+      title: `Message from ${lastMessage.u.username}`,
+      buttons: new Button({
+        title: 'Open in Browser',
+        url: `${url}`,
+      })
+    }));
   }
 })
 
