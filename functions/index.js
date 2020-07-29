@@ -7,6 +7,7 @@ const {
   Button,
   Image,
   MediaObject,
+  Suggestions,
 } = require('actions-on-google');
 const functions = require('firebase-functions');
 
@@ -62,13 +63,16 @@ const handleConfirmationUserAndChannelResolution = async (app, intentData) => {
   
     if(!userDetails){
       conv.ask(i18n.__('NO_USER', username))
+      conv.ask(i18n.__('GENERIC_REPROMPT'))
     } else if(!channelDetails){
       conv.ask(i18n.__('NO_ROOM', channelname))
+      conv.ask(i18n.__('GENERIC_REPROMPT'))
     } else {
       conv.ask(i18n.__(`${intentData.intentResource}.CONFIRM_INTENT`, userDetails.name, channelDetails.name))
       conv.data.channelDetails = channelDetails
       conv.data.userDetails = userDetails
       conv.contexts.set(intentData.intentContext, 1, {channelname, username})
+      conv.ask(new Suggestions(["yes", "no"]))
     }
   })
 }
@@ -95,6 +99,7 @@ const handleConfirmationUserWithRoleAndChannelResolution = async (app, intentDat
     const channelDetails = await helperFunctions.resolveChannelname(channelname, headers);
     if(!channelDetails){
       conv.ask(i18n.__('NO_ROOM', channelname))
+      conv.ask(i18n.__('GENERIC_REPROMPT'))
       return
     }
 
@@ -102,8 +107,10 @@ const handleConfirmationUserWithRoleAndChannelResolution = async (app, intentDat
   
     if(!userDetails){
       conv.ask(i18n.__('NO_USER_WITH_ROLE', {role: intentData.role, username, channelname: channelDetails.name}))
+      conv.ask(i18n.__('GENERIC_REPROMPT'))
     } else {
       conv.ask(i18n.__(`${intentData.intentResource}.CONFIRM_INTENT`, {username: userDetails.name, role: intentData.role, channelname: channelDetails.name}))
+      conv.ask(new Suggestions(["yes", "no"]))
       conv.data.channelDetails = channelDetails
       conv.data.userDetails = userDetails
       conv.contexts.set(intentData.intentContext, 1, {channelname, username})
@@ -122,6 +129,7 @@ const handleExecutionUserAndChannelResolution = async (app, {intentName, helperF
   
     const speechText = await helperFunction(conv.data.userDetails, conv.data.channelDetails, headers);
     conv.ask(speechText);
+    conv.ask(i18n.__('GENERIC_REPROMPT'))
   })
 }
 
