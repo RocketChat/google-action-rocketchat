@@ -1386,6 +1386,24 @@ const randomProperty = function(obj) {
 	}
 };
 
+const setStatus = async (message, headers) => {
+	try {
+		const response = await axios.post(apiEndpoints.setstatusurl, {
+			message,
+		}, {
+			headers,
+		}).then((res) => res.data);
+
+		if (response.success) {
+			return i18n.__('STATUS.SUCCESS');
+		}
+		return i18n.__('STATUS.ERROR');
+	} catch (err) {
+		console.log(err);
+		return i18n.__('STATUS.ERROR');
+	}
+};
+
 // Module Export of Functions
 
 module.exports.login = login;
@@ -1452,3 +1470,4 @@ module.exports.getGroupLastMessageFileURL = getGroupLastMessageFileURL;
 module.exports.resolveChannelname = resolveChannelname;
 module.exports.resolveUsername = resolveUsername;
 module.exports.randomProperty = randomProperty;
+module.exports.setStatus = setStatus;

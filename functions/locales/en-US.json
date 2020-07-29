@@ -142,6 +142,10 @@
         "READ_UNREADS": "Read unreads messages from a channel.",
         "CHANNEL_ANNOUNCEMENT": "Make an announcement in channel."
     },
+    "STATUS": {
+        "SUCCESS": "I have changed your status.",
+        "ERROR": "Sorry, I could not change your status."
+    },
     "HINTS_TRANSITION": "You can try saying, ",
     "NO_ROOM": "You are not part of any room named %s.",
     "TRY_AGAIN": "Sorry, something went wrong, can you please try again?",

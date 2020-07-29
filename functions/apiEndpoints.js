@@ -59,5 +59,6 @@ module.exports = {
 	groupcounterurl: `${ SERVER_URL }/api/v1/groups.counters?roomId=`,
 	channellisturl: `${ SERVER_URL }/api/v1/channels.list.joined`,
 	grouplisturl: `${ SERVER_URL }/api/v1/groups.list`,
-	getsubscriptionsurl: `${ SERVER_URL }/api/v1/subscriptions.get`
+	getsubscriptionsurl: `${ SERVER_URL }/api/v1/subscriptions.get`,
+	setstatusurl: `${ SERVER_URL }/api/v1/users.setStatus`,
 };
