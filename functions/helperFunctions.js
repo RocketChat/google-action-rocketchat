@@ -1404,6 +1404,16 @@ const setStatus = async (message, headers) => {
 	}
 };
 
+const hasCommonElement = (arr1, arr2) => {
+	let set = new Set(arr1)
+	for (let element of arr2){
+	  if (set.has(element)){
+		return true
+	  }
+	}
+	return false
+}
+
 // Module Export of Functions
 
 module.exports.login = login;
@@ -1471,3 +1481,4 @@ module.exports.resolveChannelname = resolveChannelname;
 module.exports.resolveUsername = resolveUsername;
 module.exports.randomProperty = randomProperty;
 module.exports.setStatus = setStatus;
+module.exports.hasCommonElement = hasCommonElement;
