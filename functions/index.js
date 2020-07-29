@@ -7,7 +7,8 @@ const {
   Button,
   Image,
   MediaObject,
-  Table
+  Table,
+  Suggestions
 } = require('actions-on-google');
 const functions = require('firebase-functions');
 
@@ -39,10 +40,61 @@ app.middleware((conv) => {
 });
 
 
-app.intent('Default Welcome Intent', (conv) => {
-
-  conv.ask(i18n.__('WELCOME.SUCCESS'));
-
+app.intent('Default Welcome Intent', async (conv) => {
+  try{
+    const accessToken = conv.user.access.token;
+    const headers = await helperFunctions.login(accessToken);
+    const userDetails = await helperFunctions.userDetails(accessToken);
+    const summary = await helperFunctions.getAccountSummary(headers);
+  
+    conv.ask(i18n.__('WELCOME.SUCCESS'));
+    conv.add(new Suggestions("What can you do?"))
+  
+    if(summary.length === 0){
+      conv.ask(new BasicCard({
+        text: `Your Account Details`,
+        subtitle: userDetails.statusText,
+        title: userDetails.username,
+        image: new Image({
+          url: `${userDetails.avatarUrl}`,
+          alt: userDetails.username,
+        }),
+        display: 'CROPPED',
+      }));
+    }else {
+      let rows = []
+      for (let detail of summary) {
+        rows.push({ cells: detail})
+      }
+    
+      conv.ask(new Table({
+        title: userDetails.username,
+        subtitle: 'Your Account Summary',
+        image: new Image({
+          url: userDetails.avatarUrl,
+          alt: 'adarsh.naidu'
+        }),
+        columns: [
+          {
+            header: 'Subscriptions',
+            align: 'CENTER',
+          },
+          {
+            header: 'Unreads',
+            align: 'CENTER',
+          },
+          {
+            header: 'Mentions',
+            align: 'CENTER',
+          },
+        ],
+        rows: rows,
+      }))
+    }
+  }catch(err) {
+    console.log(err)
+    conv.ask(i18n.__('WELCOME.SUCCESS'));
+  }
 });
 
 app.intent('Create Channel Intent', async (conv, params) => {
