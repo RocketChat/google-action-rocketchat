@@ -1389,6 +1389,7 @@ const getAllUnreads = async (headers) => {
 		})
 			.then((res) => res.data.update);
 		let finalMessage = '';
+		let unreadDetails = [];
 
 		for (const subscription of subscriptions) {
 			if (subscription.unread && subscription.unread !== 0) {
@@ -1397,14 +1398,15 @@ const getAllUnreads = async (headers) => {
 				} else {
 					finalMessage += `${ subscription.unread } unreads in ${ subscription.name }, `;
 				}
+				unreadDetails.push({name: subscription.name, unreads: subscription.unread})
 			}
 		}
 
-		if (finalMessage === '') { return i18n.__('GET_ALL_UNREADS.NO_UNREADS'); }
-		return i18n.__('GET_ALL_UNREADS.MESSAGE', { message: finalMessage });
+		if (finalMessage === '') { return [i18n.__('GET_ALL_UNREADS.NO_UNREADS'), []]; }
+		return [i18n.__('GET_ALL_UNREADS.MESSAGE', { message: finalMessage }), unreadDetails];
 	} catch (err) {
 		console.log(err.message);
-		return i18n.__('GET_ALL_UNREADS.ERROR');
+		return [i18n.__('GET_ALL_UNREADS.ERROR'), []];
 	}
 };
 
