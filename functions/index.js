@@ -1127,6 +1127,7 @@ app.intent('Post DM Message Intent Slot Collection', async (conv, params) => {
     conv.contexts.set('post_dm_message', 1, {username, message})
   } else {
     conv.ask(i18n.__('POST_MESSAGE.NO_USER', username))
+    conv.ask(i18n.__('GENERIC_REPROMPT'))
   }
 })
 
@@ -1138,6 +1139,7 @@ app.intent('Post DM Message Intent Confirmed', async (conv, params) => {
   const roomid = await helperFunctions.createDMSession(userName, headers);
   const speechText = await helperFunctions.postDirectMessage(message, roomid, headers);
   conv.ask(speechText);
+  conv.ask(i18n.__('GENERIC_REPROMPT'))
 });
 
 app.intent('Post DM Emoji Message Intent', async (conv, params) => {
