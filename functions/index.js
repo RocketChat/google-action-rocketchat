@@ -44,13 +44,17 @@ app.intent('Default Welcome Intent', async (conv) => {
   try{
     const accessToken = conv.user.access.token;
     const headers = await helperFunctions.login(accessToken);
+    if(!headers) {
+      throw "Authentication Failed"
+    }
     const userDetails = await helperFunctions.userDetails(accessToken);
     const summary = await helperFunctions.getAccountSummary(headers);
   
     conv.ask(i18n.__('WELCOME.SUCCESS'));
     conv.add(new Suggestions("What can you do?"))
   
-    if(summary.length === 0){
+    if(summary && summary.length === 0){
+      //if the user has no summary to display show a simple card with profile details
       conv.ask(new BasicCard({
         text: `Your Account Details`,
         subtitle: userDetails.statusText,
@@ -61,7 +65,8 @@ app.intent('Default Welcome Intent', async (conv) => {
         }),
         display: 'CROPPED',
       }));
-    }else {
+    }else if(summary) {
+      //if the user has a summary to display, show a table instead
       let rows = []
       for (let detail of summary) {
         rows.push({ cells: detail})
@@ -93,7 +98,7 @@ app.intent('Default Welcome Intent', async (conv) => {
     }
   }catch(err) {
     console.log(err)
-    conv.ask(i18n.__('WELCOME.SUCCESS'));
+    conv.close(i18n.__('WELCOME.AUTH_ERROR'));
   }
 });
 
@@ -536,7 +541,7 @@ app.intent('Get All Unread Mentions Intent', async (conv) => {
       "columns": [{
         "header": "Room/User"
       }, {
-        "header": "Unreads"
+        "header": "Mentions"
       }],
       "rows": rows
     }));

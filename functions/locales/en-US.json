@@ -12,7 +12,8 @@
     },
     "WELCOME": {
         "SUCCESS": "Welcome To Rocket Chat Google Action. What Would you like to do today?",
-        "ERROR": "To start using this action, please link your account to authenticate."
+        "ERROR": "To start using this action, please link your account to authenticate.",
+        "AUTH_ERROR": "Sorry, I could not connect you with your account."
     },
     "POST_MESSAGE": {
         "SUCCESS": "I've sent your message.",
