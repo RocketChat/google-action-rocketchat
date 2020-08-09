@@ -2390,11 +2390,16 @@ app.intent('Post Group Emoji Message Intent', async (conv, params) => {
 });
 
 if(process.env.DEVELOPMENT) {
+  // if code is running in local development environment
 	const express = require('express')
 	const bodyParser = require('body-parser')
 	const expressApp = express().use(bodyParser.json())
 	expressApp.post('/', (app))
 	expressApp.listen(3000)
+} else if(Boolean(process.env['AWS_LAMBDA_FUNCTION_NAME'])) {
+  // if code is deployed in aws lambda function environment
+  exports.handler = app;
 } else{
+  // if code is deployed in firebase function
 	exports.dialogflowFirebaseFulfillment = functions.https.onRequest(app);
 }
