@@ -942,6 +942,7 @@ app.intent('Set Announcement Intent Slot Collection', async (conv, params) => {
     conv.contexts.set('set_announcement', 1, {channelname, announcement})
   } else {
     conv.ask(i18n.__('CHANNEL_ANNOUNCEMENT.NO_ROOM', channelname))
+    conv.ask(i18n.__('GENERIC_REPROMPT'))
   }
 })
 
@@ -952,7 +953,7 @@ app.intent('Set Announcement Intent Confirmed', async (conv, params) => {
 
   const speechText = await helperFunctions.setAnnouncement(conv.data.channelDetails, params.announcement, headers);
   conv.ask(speechText);
-
+  conv.ask(i18n.__('GENERIC_REPROMPT'))
 });
 
 app.intent('Remove Channel Leader Intent', async (conv, params) => {
