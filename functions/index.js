@@ -77,7 +77,7 @@ app.intent('Default Welcome Intent', async (conv) => {
         subtitle: 'Your Account Summary',
         image: new Image({
           url: userDetails.avatarUrl,
-          alt: 'adarsh.naidu'
+          alt: userDetails.username
         }),
         columns: [
           {

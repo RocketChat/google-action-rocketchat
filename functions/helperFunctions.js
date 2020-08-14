@@ -315,7 +315,7 @@ const getGroupMentionsCounter = async (roomid, headers) => {
 
 const roomUnreadMessages = async (channelName, unreadCount, type, headers) => {
 	try{
-		if (unreadCount == 0) {
+		if (!unreadCount || unreadCount == 0) {
 			return i18n.__('GET_UNREAD_MESSAGES_FROM_CHANNEL.NO_MESSAGE', { channelName });
 		}
 
@@ -1278,7 +1278,7 @@ const groupUnreadMessages = async (channelName, roomid, unreadCount, headers) =>
 
 const DMUnreadMessages = async (name, count, headers) => {
 	try{
-		if (count == 0) {
+		if (!count || count == 0) {
 			return i18n.__('GET_UNREAD_MESSAGES_FROM_DM.NO_MESSAGE', { name });
 		}
 
@@ -1435,7 +1435,7 @@ const resolveChannelname = async (channelName, headers) => {
 			type: channel.t,
 		})));
 
-		let channelNames = channels.map(channel => channel.name)
+		let channelNames = channels.map(channel => channel.name.replace(/\./g, ' '))
 		let comparison = stringSimilar.findBestMatch(removeWhitespace(channelName).toLowerCase(), channelNames)
 		if(comparison.bestMatch.rating > 0.3) {
 			return channels[comparison.bestMatchIndex]
@@ -1461,7 +1461,8 @@ const resolveUsername = async (username, headers) => {
 			type: subscription.t,
 		})));
 
-		let usernames = subscriptions.map(user => user.name)
+		// remove the dots with spaces, better string resolution
+		let usernames = subscriptions.map(user => user.name.replace(/\./g, ' '))
 		let comparison = stringSimilar.findBestMatch(removeWhitespace(username).toLowerCase(), usernames)
 		if(comparison.bestMatch.rating > 0.3) {
 			return subscriptions[comparison.bestMatchIndex]
@@ -1500,7 +1501,7 @@ const resolveRoomORUser = async (name, headers) => {
 		}))
 
 
-		let names = subscriptions.map(subscription => subscription.name)
+		let names = subscriptions.map(subscription => subscription.name.replace(/\./g, ' '))
 		let comparison = stringSimilar.findBestMatch(removeWhitespace(name).toLowerCase(), names)
 		if(comparison.bestMatch.rating > 0.3) {
 			return subscriptions[comparison.bestMatchIndex]
