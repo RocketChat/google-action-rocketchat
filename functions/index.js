@@ -52,50 +52,56 @@ app.intent('Default Welcome Intent', async (conv) => {
   
     conv.ask(i18n.__('WELCOME.SUCCESS'));
     conv.add(new Suggestions("What can you do?"))
-  
-    if(summary && summary.length === 0){
-      //if the user has no summary to display show a simple card with profile details
-      conv.ask(new BasicCard({
-        text: `Your Account Details`,
-        subtitle: userDetails.statusText,
-        title: userDetails.username,
-        image: new Image({
-          url: `${userDetails.avatarUrl}`,
-          alt: userDetails.username,
-        }),
-        display: 'CROPPED',
-      }));
-    }else if(summary) {
-      //if the user has a summary to display, show a table instead
-      let rows = []
-      for (let detail of summary) {
-        rows.push({ cells: detail})
+
+    if(conv.surface.capabilities.has('actions.capability.SCREEN_OUTPUT')) {
+      const userDetails = await helperFunctions.userDetails(headers);
+      const summary = await helperFunctions.getAccountSummary(headers);
+
+      if(summary && summary.length === 0){
+        //if the user has no summary to display show a simple card with profile details
+        conv.ask(new BasicCard({
+          text: `Your Account Details`,
+          subtitle: userDetails.statusText,
+          title: userDetails.username,
+          image: new Image({
+            url: `${userDetails.avatarUrl}`,
+            alt: userDetails.username,
+          }),
+          display: 'CROPPED',
+        }));
+      }else if(summary) {
+        //if the user has a summary to display, show a table instead
+        let rows = []
+        for (let detail of summary) {
+          rows.push({ cells: detail})
+        }
+      
+        conv.ask(new Table({
+          title: userDetails.username,
+          subtitle: 'Your Account Summary',
+          image: new Image({
+            url: userDetails.avatarUrl,
+            alt: userDetails.username
+          }),
+          columns: [
+            {
+              header: 'Subscriptions',
+              align: 'CENTER',
+            },
+            {
+              header: 'Unreads',
+              align: 'CENTER',
+            },
+            {
+              header: 'Mentions',
+              align: 'CENTER',
+            },
+          ],
+          rows: rows,
+        }))
       }
-    
-      conv.ask(new Table({
-        title: userDetails.username,
-        subtitle: 'Your Account Summary',
-        image: new Image({
-          url: userDetails.avatarUrl,
-          alt: userDetails.username
-        }),
-        columns: [
-          {
-            header: 'Subscriptions',
-            align: 'CENTER',
-          },
-          {
-            header: 'Unreads',
-            align: 'CENTER',
-          },
-          {
-            header: 'Mentions',
-            align: 'CENTER',
-          },
-        ],
-        rows: rows,
-      }))
     }
+  
   }catch(err) {
     console.log(err)
     conv.close(i18n.__('WELCOME.AUTH_ERROR'));
