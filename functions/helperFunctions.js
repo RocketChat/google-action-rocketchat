@@ -275,9 +275,9 @@ function emojiTranslateFunc(str) {
 	return emojiTranslate.translate(str, onlyEmoji);
 }
 
-const getUnreadCounter = async (channelName, headers) =>
+const getUnreadCounter = async (channelName, type, headers) =>
 	await axios
-	.get(`${ apiEndpoints.counterurl }${ channelName }`, {
+	.get(`${ type === 'c' ? apiEndpoints.counterurl : apiEndpoints.groupcounternameurl }${ channelName }`, {
 		headers
 	})
 	.then((res) => res.data)
@@ -1274,6 +1274,8 @@ const groupUnreadMessages = async (channelName, roomid, unreadCount, headers) =>
 		} else {
 			return i18n.__('GET_UNREAD_MESSAGES_FROM_CHANNEL.ERROR');
 		}
+	});
+
 const DMUnreadMessages = async (name, count, headers) => {
 	try{
 		if (count == 0) {
@@ -1434,7 +1436,7 @@ const resolveChannelname = async (channelName, headers) => {
 		})));
 
 		let channelNames = channels.map(channel => channel.name)
-		let comparison = stringSimilar.findBestMatch(removeWhitespace(channelName), channelNames)
+		let comparison = stringSimilar.findBestMatch(removeWhitespace(channelName).toLowerCase(), channelNames)
 		if(comparison.bestMatch.rating > 0.3) {
 			return channels[comparison.bestMatchIndex]
 		} else {
@@ -1460,7 +1462,7 @@ const resolveUsername = async (username, headers) => {
 		})));
 
 		let usernames = subscriptions.map(user => user.name)
-		let comparison = stringSimilar.findBestMatch(removeWhitespace(username), usernames)
+		let comparison = stringSimilar.findBestMatch(removeWhitespace(username).toLowerCase(), usernames)
 		if(comparison.bestMatch.rating > 0.3) {
 			return subscriptions[comparison.bestMatchIndex]
 		} else {
