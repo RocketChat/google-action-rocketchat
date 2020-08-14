@@ -1396,6 +1396,45 @@ const resolveUsername = async (username, headers) => {
 	}
 };
 
+const resolveRoomORUser = async (name, headers) => {
+	try{
+		const no_of_days = 2;
+		const updatedSince = new Date(new Date().getTime() - (24 * 60 * 60 * 1000 * no_of_days));
+		const subscriptions = await axios.get(`${apiEndpoints.getsubscriptionsurl}?updatedSince=${updatedSince}`, {
+			headers,
+		})
+		.then((res) => res.data.update)
+		.then((subscriptions) => subscriptions.map((subscription) => {
+			if(subscription.t === 'd') {
+				return {
+					name: subscription.name, // name of the other participant in dm room
+					rid: subscription.rid, // id of the dm room
+					id: subscription.rid.replace(subscription.u._id, ''), // id of the other participant in dm room
+					type: subscription.t,
+				}
+			} else if(subscription.t === 'c' || subscription.t === 'p') {
+				return {
+					name: subscription.name,
+					id: subscription.rid,
+					type: subscription.t,
+				}
+			}
+		}))
+
+
+		let names = subscriptions.map(subscription => subscription.name)
+		let comparison = stringSimilar.findBestMatch(removeWhitespace(name).toLowerCase(), names)
+		if(comparison.bestMatch.rating > 0.3) {
+			return subscriptions[comparison.bestMatchIndex]
+		} else {
+			return null
+		}
+		
+	}catch(err) {
+		console.log(err)
+	}
+}
+
 const getAllUnreads = async (headers) => {
 	try {
 
@@ -1586,3 +1625,4 @@ module.exports.getAllUnreadMentions = getAllUnreadMentions;
 module.exports.readUnreadMentions = readUnreadMentions;
 module.exports.userDetails = userDetails;
 module.exports.getAccountSummary = getAccountSummary;
+module.exports.resolveRoomORUser = resolveRoomORUser;
