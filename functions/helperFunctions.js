@@ -1435,6 +1435,18 @@ const resolveRoomORUser = async (name, headers) => {
 	}
 }
 
+const getDMCounter = async (id, headers) => {
+	try {
+		const response = await axios.get(`${apiEndpoints.imcountersurl}?roomId=${id}`, { 
+			headers 
+		})
+		.then((res) => res.data);
+		return response;
+	}catch(err){
+		throw "Error while getting counters";
+	}
+}
+
 const getAllUnreads = async (headers) => {
 	try {
 
@@ -1626,3 +1638,4 @@ module.exports.readUnreadMentions = readUnreadMentions;
 module.exports.userDetails = userDetails;
 module.exports.getAccountSummary = getAccountSummary;
 module.exports.resolveRoomORUser = resolveRoomORUser;
+module.exports.getDMCounter = getDMCounter;
