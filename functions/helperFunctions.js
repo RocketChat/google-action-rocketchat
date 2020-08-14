@@ -1645,6 +1645,36 @@ const cleanMessage = (string) => {
 	return string
 }
 
+const DMUnreadMentions = async (DMDetails, count, headers) => {
+	try{
+		if(!count || count == 0) {
+			return i18n.__('MENTIONS.NO_DM_MENTIONS', { name: DMDetails.name });
+		}
+		
+		const response = await axios.get(`${ apiEndpoints.getmentionedmessagesurl }?roomId=${ DMDetails.rid }&count=${ count }`, {
+			headers,
+		}).then((res) => res.data);
+
+		if (response.success === true) {
+			let finalMessage = '';
+			let messages = [];
+
+			response.messages.forEach((message) => {
+				finalMessage += `${ message.msg }.`;
+				messages.push(`${ message.u.username }: ${ message.msg }.`)
+			});
+
+			return [ i18n.__('MENTIONS.READ_DM_MENTIONS', {
+				finalMessage, count, name: DMDetails.name,
+			}), messages ];
+		} else {
+			return i18n.__('MENTIONS.ERROR');
+		}
+	} catch(err){
+		throw err;
+	}
+}
+
 // Module Export of Functions
 
 module.exports.login = login;
@@ -1719,3 +1749,4 @@ module.exports.getAccountSummary = getAccountSummary;
 module.exports.resolveRoomORUser = resolveRoomORUser;
 module.exports.DMUnreadMessages = DMUnreadMessages;
 module.exports.getDMCounter = getDMCounter;
+module.exports.DMUnreadMentions = DMUnreadMentions;
