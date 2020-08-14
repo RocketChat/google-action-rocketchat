@@ -47,9 +47,6 @@ app.intent('Default Welcome Intent', async (conv) => {
     if(!headers) {
       throw "Authentication Failed"
     }
-    const userDetails = await helperFunctions.userDetails(accessToken);
-    const summary = await helperFunctions.getAccountSummary(headers);
-  
     conv.ask(i18n.__('WELCOME.SUCCESS'));
     conv.add(new Suggestions("What can you do?"))
 
