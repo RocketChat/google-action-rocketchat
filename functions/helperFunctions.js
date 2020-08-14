@@ -1502,6 +1502,19 @@ const getAccountSummary = async (headers) => {
 	}
 }
 
+const cleanMessage = (string) => {
+	const emoji_expression = ":([a-z_]+):";
+	let re = new RegExp(emoji_expression, 'g');
+	
+	// replace emojis with dots
+	string = string.replace(re, '.');
+
+	// replace http/https/ftp urls with the word link
+	string = string.replace(/(?:https?|ftp):\/\/[\n\S]+/g, 'link')
+
+	return string
+}
+
 // Module Export of Functions
 
 module.exports.login = login;
