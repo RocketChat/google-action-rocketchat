@@ -1274,7 +1274,46 @@ const groupUnreadMessages = async (channelName, roomid, unreadCount, headers) =>
 		} else {
 			return i18n.__('GET_UNREAD_MESSAGES_FROM_CHANNEL.ERROR');
 		}
-	});
+const DMUnreadMessages = async (name, count, headers) => {
+	try{
+		if (count == 0) {
+			return i18n.__('GET_UNREAD_MESSAGES_FROM_DM.NO_MESSAGE', { name });
+		}
+
+		const res = await axios
+		.get(`${ apiEndpoints.immessageurl }?username=${ name }&count=${ count }`, {
+			headers
+		})
+		.then((res) => res.data)
+
+		if (res.success === true) {
+
+			const msgs = [];
+
+			for (let i = 0; i <= count - 1; i++) {
+				if (res.messages[i] && !res.messages[i].t){
+					if(res.messages[i].file){
+						msgs.push(`Sent you a file named ${res.messages[i].file.name}.`)
+					} else {
+						if(res.messages[i].msg) msgs.push(`${res.messages[i].msg}.`);
+					}
+				}
+			}
+
+			var responseString = msgs.join('  ');
+			responseString = cleanMessage(responseString);
+
+			var finalMsg = i18n.__('GET_UNREAD_MESSAGES_FROM_DM.MESSAGE', {unread: msgs.length, name, responseString});
+
+			return [ finalMsg, msgs ];
+
+		} else {
+			return i18n.__('GET_UNREAD_MESSAGES_FROM_CHANNEL.ERROR');
+		}
+	} catch(err) {
+		throw err.message;
+	}
+}
 
 const postGroupMessage = async (roomid, message, headers) =>
 	await axios
@@ -1675,4 +1714,5 @@ module.exports.readUnreadMentions = readUnreadMentions;
 module.exports.userDetails = userDetails;
 module.exports.getAccountSummary = getAccountSummary;
 module.exports.resolveRoomORUser = resolveRoomORUser;
+module.exports.DMUnreadMessages = DMUnreadMessages;
 module.exports.getDMCounter = getDMCounter;
