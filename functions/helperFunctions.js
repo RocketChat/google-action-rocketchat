@@ -1586,7 +1586,9 @@ const getAllUnreadMentions = async (headers) => {
 
 const readUnreadMentions = async (channelDetails, count, headers) => {
 	try {
-		if (count === 0) { return i18n.__('MENTIONS.NO_MENTIONS', { roomName: channelDetails.name }); }
+		if (!count || count == 0) { 
+			return i18n.__('MENTIONS.NO_MENTIONS', { roomName: channelDetails.name }); 
+		}
 
 		const response = await axios.get(`${ apiEndpoints.getmentionedmessagesurl }?roomId=${ channelDetails.id }&count=${ count }`, {
 			headers,
@@ -1594,14 +1596,16 @@ const readUnreadMentions = async (channelDetails, count, headers) => {
 
 		if (response.success === true) {
 			let finalMessage = '';
+			let messages = []
 
 			response.messages.forEach((message) => {
 				finalMessage += `${ message.u.username } says, ${ message.msg }.`;
+				messages.push(`${ message.u.username }: ${ message.msg }.`)
 			});
 
-			return i18n.__('MENTIONS.READ_MENTIONS', {
+			return [ i18n.__('MENTIONS.READ_MENTIONS', {
 				finalMessage, count, roomName: channelDetails.name,
-			});
+			}), messages ];
 		} else {
 			return i18n.__('MENTIONS.ERROR');
 		}
