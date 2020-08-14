@@ -313,44 +313,81 @@ const getGroupMentionsCounter = async (roomid, headers) => {
 	}
 }
 
-const channelUnreadMessages = async (channelName, unreadCount, headers) =>
-	await axios
-	.get(`${ apiEndpoints.channelmessageurl }${ channelName }&count=${ unreadCount }`, {
-		headers
-	})
-	.then((res) => res.data)
-	.then((res) => {
+const roomUnreadMessages = async (channelName, unreadCount, type, headers) => {
+	try{
+		if (unreadCount == 0) {
+			return i18n.__('GET_UNREAD_MESSAGES_FROM_CHANNEL.NO_MESSAGE', { channelName });
+		}
+
+		const res = await axios
+		.get(`${ type === 'c' ? apiEndpoints.channelmessageurl : apiEndpoints.groupmessagenameurl }${ channelName }&count=${ unreadCount }`, {
+			headers
+		})
+		.then((res) => res.data)
+
 		if (res.success === true) {
 
-			if (unreadCount == 0) {
-				return i18n.__('GET_UNREAD_MESSAGES_FROM_CHANNEL.NO_MESSAGE');
-			} else {
-				const msgs = [];
+			const msgs = [];
+			const messages = [];
+			let previousUsername = '';
+			for (let i = 0; i <= unreadCount - 1; i++) {
+				if(!res.messages[i]) { continue; }
+				let speechText;
 
-				for (let i = 0; i <= unreadCount - 1; i++) {
-					if (res.messages[i] && !res.messages[i].t){
-						msgs.push(`<s> ${res.messages[i].u.username} says, ${res.messages[i].msg}. <break time=\"0.7\" /> </s>`);
+
+				if(!res.messages[i].file && !res.messages[i].t && res.messages[i].msg){
+					// check if the message is not empty and made of just dots.
+					if(cleanMessage(res.messages[i].msg).replace(/\./g,' ').trim()) {
+						if(previousUsername === res.messages[i].u.username) {
+							msgs.push(`${res.messages[i].msg}. `)
+						} else {
+							msgs.push(`${res.messages[i].u.username} says, ${res.messages[i].msg}.`);
+							previousUsername = res.messages[i].u.username;
+						}
 					}
+					messages.push(`${res.messages[i].u.username}: ${res.messages[i].msg}`)
+				} else if(res.messages[i].t) {
+					if(res.messages[i].t === 'room_changed_description'){
+						speechText = i18n.__('MESSAGE_TYPE.CHANGE_DESCRIPTION', {username: res.messages[i].u.username, description: res.messages[i].msg})
+						msgs.push(speechText);
+						messages.push(`${res.messages[i].u.username}: ${res.messages[i].msg}`)
+					} else if(res.messages[i].t === 'room_changed_topic'){
+						speechText = i18n.__('MESSAGE_TYPE.CHANGE_TOPIC', {username: res.messages[i].u.username, topic: res.messages[i].msg})
+						msgs.push(speechText);
+						messages.push(`${res.messages[i].u.username}: ${res.messages[i].msg}`)
+					} else if(res.messages[i].t === 'room_changed_announcement'){
+						speechText = i18n.__('MESSAGE_TYPE.CHANGE_ANNOUNCEMENT', {username: res.messages[i].u.username, announcement: res.messages[i].msg})
+						msgs.push(speechText);
+						messages.push(`${res.messages[i].u.username}: ${res.messages[i].msg}`)
+					}
+				} else if(res.messages[i].file) {
+					if(res.messages[i].file.type.includes('image')){
+						speechText = i18n.__('MESSAGE_TYPE.IMAGE_MESSAGE', {username: res.messages[i].u.username, title: res.messages[i].file.name}) 
+					} else if (res.messages[i].file.type.includes('video')){
+						speechText = i18n.__('MESSAGE_TYPE.VIDEO_MESSAGE', {username: res.messages[i].u.username, title: res.messages[i].file.name}) 
+					}else {
+						speechText = i18n.__('MESSAGE_TYPE.FILE_MESSAGE', {username: res.messages[i].u.username, title: res.messages[i].file.name}) 
+					}
+					msgs.push(speechText)
+					messages.push(`${res.messages[i].u.username}: ${res.messages[i].file.name}`)
 				}
-
-				var responseString = msgs.join('  ');
-
-				var finalMsg = i18n.__('GET_UNREAD_MESSAGES_FROM_CHANNEL.MESSAGE', msgs.length, responseString);
-
-				return finalMsg;
 			}
+
+			var responseString = msgs.join('  ');
+			responseString = cleanMessage(responseString);
+
+			var finalMsg = i18n.__('GET_UNREAD_MESSAGES_FROM_CHANNEL.MESSAGE',{total: unreadCount, count: msgs.length, channelName, responseString });
+			return [ finalMsg, messages ];
+
 		} else {
 			return i18n.__('GET_UNREAD_MESSAGES_FROM_CHANNEL.ERROR');
 		}
-	})
-	.catch((err) => {
-		console.log(err.message);
-		if (err.response.data.errorType === 'error-room-not-found') {
-			return i18n.__('GET_UNREAD_MESSAGES_FROM_CHANNEL.ERROR_NOT_FOUND', channelName);
-		} else {
-			return i18n.__('GET_UNREAD_MESSAGES_FROM_CHANNEL.ERROR');
-		}
-	});
+
+	} catch(err) {
+		console.log(err);
+		throw err
+	}
+}
 
 const channelUnreadMentions = async (channelName, roomid, mentionsCount, headers) =>
 	await axios
@@ -1585,7 +1622,7 @@ module.exports.emojiTranslateFunc = emojiTranslateFunc;
 module.exports.getUnreadCounter = getUnreadCounter;
 module.exports.getMentionsCounter = getMentionsCounter;
 module.exports.getGroupMentionsCounter = getGroupMentionsCounter;
-module.exports.channelUnreadMessages = channelUnreadMessages;
+module.exports.roomUnreadMessages = roomUnreadMessages;
 module.exports.channelUnreadMentions = channelUnreadMentions;
 module.exports.inviteUser = inviteUser;
 module.exports.leaveChannel = leaveChannel;
