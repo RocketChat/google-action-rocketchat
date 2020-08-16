@@ -1702,6 +1702,11 @@ const getAllUnreads = async (headers) => {
 
 		for (const subscription of subscriptions) {
 			if (subscription.unread && subscription.unread !== 0) {
+				if(subscription.prid) {
+					finalMessage += `${ subscription.unread } unreads from discussion ${ subscription.fname }, `;
+					unreadDetails.push({name: subscription.fname, unreads: subscription.unread})
+					continue;
+				}
 				if (subscription.t && subscription.t === 'd') {
 					finalMessage += `${ subscription.unread } unreads from ${ subscription.name }, `;
 				} else {
@@ -1731,6 +1736,11 @@ const getAllUnreadMentions = async (headers) => {
 
 		for (const subscription of subscriptions) {
 			if (subscription.userMentions && subscription.userMentions !== 0) {
+				if(subscription.prid) {
+					finalMessage += `${ subscription.userMentions } unreads from discussion ${ subscription.fname }, `;
+					unreadDetails.push({name: subscription.fname, mentions: subscription.userMentions})
+					continue;
+				}
 				if (subscription.t && subscription.t === 'd') {
 					finalMessage += `${ subscription.userMentions } mentions from ${ subscription.name },`;
 				} else {
