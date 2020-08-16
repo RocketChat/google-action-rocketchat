@@ -2570,6 +2570,53 @@ app.intent('Post Group Emoji Message Intent', async (conv, params) => {
 
 });
 
+app.intent('Post Discussion Message Intent Slot Collection', async (conv, params) => {
+  try{
+    const accessToken = conv.user.access.token;
+    const headers = await helperFunctions.login(accessToken);
+    const discussionname = params.discussionname;
+    const message = params.message;
+  
+    var locale = conv.user.locale;
+    if(locale === 'hi-IN') {
+      discussionname = await helperFunctions.hinditranslate(discussionname);
+    }
+  
+    const discussionDetails = await helperFunctions.resolveDiscussion(discussionname, headers);
+  
+    if(discussionDetails) {
+      conv.ask(i18n.__('POST_MESSAGE.CONFIRM_DISCUSSION_INTENT', message, discussionDetails.fname))
+      conv.data.discussionDetails = discussionDetails
+      conv.ask(new Suggestions(['yes', 'no']));
+      conv.contexts.set('post_discussion_message', 1, {discussionname, message})
+    } else {
+      conv.ask(i18n.__('NO_ACTIVE_DISCUSSION', {name: discussionname}))
+      conv.ask(i18n.__('GENERIC_REPROMPT'))
+    }
+  }catch(err){
+    console.log(err)
+    conv.ask(i18n.__('SOMETHING_WENT_WRONG'));
+    conv.ask(i18n.__('GENERIC_REPROMPT'))
+  }
+})
+
+app.intent('Post Discussion Message Intent Confirmed', async (conv, params) => {
+  try{
+    var accessToken = conv.user.access.token;
+    var message = params.message;
+    //make the first letter uppercase
+    message = message[0].toUpperCase() + message.slice(1);
+    const headers = await helperFunctions.login(accessToken);
+    const speechText = await helperFunctions.postMessage(conv.data.discussionDetails.name, message, headers);
+    conv.ask(speechText);
+    conv.ask(i18n.__('GENERIC_REPROMPT'))
+  } catch(err){
+    console.log(err)
+    conv.ask(i18n.__('SOMETHING_WENT_WRONG'));
+    conv.ask(i18n.__('GENERIC_REPROMPT'))
+  }
+});
+
 app.intent('Read Unread Messages From DM Intent', async (conv, params) => {
   try{
     const accessToken = conv.user.access.token;
