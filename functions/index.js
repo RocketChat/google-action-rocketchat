@@ -8,7 +8,8 @@ const {
   Image,
   MediaObject,
   Table,
-  Suggestions
+  Suggestions,
+  List
 } = require('actions-on-google');
 const functions = require('firebase-functions');
 
@@ -2669,6 +2670,89 @@ app.intent('Read Unread Messages From DM Intent', async (conv, params) => {
     conv.ask(i18n.__('GENERIC_REPROMPT'))
   }
 })
+
+app.intent('List My Discussions', async (conv, params) => {
+  try{
+    if (!conv.screen) {
+      conv.ask('Sorry, this only works for devices with screens');
+      return;
+    }
+    var accessToken = conv.user.access.token;
+    const headers = await helperFunctions.login(accessToken);
+  
+    const discussionDetails = await helperFunctions.getLatestDiscussions(headers);
+
+    if(!discussionDetails) {
+      conv.ask('You are not part of any discussions');
+      conv.ask(i18n.__('GENERIC_REPROMPT'))
+      return;
+    }
+
+    if(discussionDetails.length === 1) {
+      conv.ask(`You are part of one discussion named ${discussionDetails[0].fname}`)
+      conv.ask(i18n.__('GENERIC_REPROMPT'))
+      return;
+    }
+
+    // generating items to display in a rich response list
+    const items = {};
+  
+    for (let discussion of discussionDetails) {
+      //store the discussion details as the key of the list item
+      items[JSON.stringify(discussion)] = {
+        title: discussion.fname,
+      }
+    }
+  
+    conv.ask('Use this list anytime to select discussion names while using the action.');
+    // Create a list
+    conv.ask(new List({
+      title: 'Your Discussions.',
+      items: items,
+    }));
+  }catch(err){
+    console.log(err)
+    conv.ask(i18n.__('SOMETHING_WENT_WRONG'));
+    conv.ask(i18n.__('GENERIC_REPROMPT'))
+  }
+
+  });
+  
+app.intent('Handle Touch In List', async (conv, params, option) => {
+  try{
+    //parse the discussion details from the key of selected option
+    const discussionDetails = JSON.parse(option);
+    var accessToken = conv.user.access.token;
+    const headers = await helperFunctions.login(accessToken);
+    const counters = await helperFunctions.getRoomCounterFromId(discussionDetails.id, discussionDetails.type, headers);
+
+    //display basic informatino of the discussion in a table
+    conv.ask(`You have ${counters.unreads} unreads and ${counters.userMentions} mentions in discussion ${discussionDetails.fname}`)
+    conv.ask(new Table({
+      title: 'Updates from discussion',
+      subtitle: discussionDetails.fname,
+      columns: [
+        {
+          header: 'Unreads',
+          align: 'CENTER',
+        },
+        {
+          header: 'User Mentions',
+          align: 'CENTER',
+        },
+      ],
+      rows: [{
+        cells: [`${counters.unreads}`, `${counters.userMentions}`]
+      }],
+    }))
+  }catch(err){
+    console.log(err)
+    conv.ask(i18n.__('SOMETHING_WENT_WRONG'));
+    conv.ask(i18n.__('GENERIC_REPROMPT'))
+  }
+
+  })
+  
 
 if(process.env.DEVELOPMENT) {
   // if code is running in local development environment
