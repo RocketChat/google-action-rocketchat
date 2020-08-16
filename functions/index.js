@@ -769,6 +769,60 @@ app.intent('Read Unread Messages From Channel Intent', async (conv, params) => {
   }
 });
 
+app.intent('Read Unread Messages From Discussion Intent', async (conv, params) => {
+  try{
+    const accessToken = conv.user.access.token;
+    const headers = await helperFunctions.login(accessToken);
+    let discussionName = params.name;
+  
+    var locale = conv.user.locale;
+    if(locale === 'hi-IN') {
+      discussionName = await helperFunctions.hinditranslate(discussionName);
+    }
+  
+    const discussionDetails = await helperFunctions.resolveDiscussion(discussionName, headers);
+    if(!discussionDetails) {
+      conv.ask(i18n.__('NO_ACTIVE_DISCUSSION', { name: discussionName }))
+      conv.ask(i18n.__('GENERIC_REPROMPT'))
+      return
+    }
+
+    const unreadCount = await helperFunctions.getUnreadCounter(discussionDetails.name, discussionDetails.type, headers);
+    let speechText = await helperFunctions.roomUnreadMessages(discussionDetails.name, unreadCount, discussionDetails.type, headers, discussionDetails.fname);
+
+    if(!Array.isArray(speechText)){
+      conv.ask(speechText)
+      conv.ask(i18n.__('GENERIC_REPROMPT'))
+    } else {
+      conv.ask(speechText[0]);
+      conv.ask(i18n.__('GENERIC_REPROMPT'))
+
+      let row = []
+
+      for (let message of speechText[1]){
+        row.push([message])
+      }
+      
+      conv.add(new Table({
+        title: discussionDetails.fname,
+        columns: [
+          {
+            header: 'Unread Messages',
+            align: 'LEFT',
+          },
+        ],
+        rows: row,
+      }))
+    }
+ 
+
+  } catch(err) {
+    console.log(err)
+    conv.ask(i18n.__('SOMETHING_WENT_WRONG'));
+    conv.ask(i18n.__('GENERIC_REPROMPT'))
+  }
+})
+
 app.intent('Channel User Mentions Intent', async (conv, params) => {
 
   var locale = conv.user.locale;
