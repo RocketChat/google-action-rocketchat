@@ -1631,6 +1631,40 @@ const resolveDiscussion = async (discussionName, headers) => {
 	}
 }
 
+const getLatestDiscussions = async (headers) => {
+	try{
+		let groupDiscussions = await axios.get(`${apiEndpoints.grouplisturl}?sort={"prid": -1, "_updatedAt": -1}&fields={"_id": 1, "name": 1, "fname": 1, "prid": 1, "t": 1}&count=10`, {
+			headers
+		}).then(res => res.data.groups);
+
+		let channelDiscussions = await axios.get(`${apiEndpoints.channellisturl}?sort={"prid": -1, "_updatedAt": -1}&fields={"_id": 1, "name": 1, "fname": 1, "prid": 1, "t": 1}&count=5`, {
+			headers
+		}).then(res => res.data.channels);
+
+		let discussionDetails = [];
+
+		for (let discussion of groupDiscussions.concat(channelDiscussions)) {
+			// if prid doesn't exist it's not a discussion
+			if(!discussion.prid) continue;
+
+			console.log(discussion);
+
+			discussionDetails.push({
+				id: discussion._id, // id of the discussion room
+				name: discussion.name, // the unique name of the discussion
+				fname: discussion.fname, // the display name of the discussion
+				type: discussion.t // type: private (p), public(c)
+			})
+
+		}
+
+		if(discussionDetails.length === 0) return null;
+		return discussionDetails;
+	}catch(err){
+		throw err;
+	}
+}
+
 const getDMCounter = async (id, headers) => {
 	try {
 		const response = await axios.get(`${apiEndpoints.imcountersurl}?roomId=${id}`, { 
@@ -1876,3 +1910,4 @@ module.exports.getDMCounter = getDMCounter;
 module.exports.DMUnreadMentions = DMUnreadMentions;
 module.exports.resolveDM = resolveDM;
 module.exports.resolveDiscussion = resolveDiscussion;
+module.exports.getLatestDiscussions = getLatestDiscussions;
