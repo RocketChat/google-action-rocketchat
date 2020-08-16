@@ -355,10 +355,12 @@ const getGroupMentionsCounter = async (roomid, headers) => {
 	}
 }
 
-const roomUnreadMessages = async (channelName, unreadCount, type, headers) => {
+const roomUnreadMessages = async (channelName, unreadCount, type, headers, fname = null) => {
 	try{
+		// fname is optional and is used as a display name for discussions
+		if(fname) fname = `Discussion ${fname}`
 		if (!unreadCount || unreadCount == 0) {
-			return i18n.__('GET_UNREAD_MESSAGES_FROM_CHANNEL.NO_MESSAGE', { channelName });
+			return i18n.__('GET_UNREAD_MESSAGES_FROM_CHANNEL.NO_MESSAGE', { channelName: fname || channelName });
 		}
 
 		const res = await axios
@@ -376,9 +378,9 @@ const roomUnreadMessages = async (channelName, unreadCount, type, headers) => {
 				if(!res.messages[i]) { continue; }
 				let speechText;
 
-
+				// if it's just a normal text message
 				if(!res.messages[i].file && !res.messages[i].t && res.messages[i].msg){
-					// check if the message is not empty and made of just dots.
+					// check if the message is not empty or made of just dots.
 					if(cleanMessage(res.messages[i].msg).replace(/\./g,' ').trim()) {
 						if(previousUsername === res.messages[i].u.username) {
 							msgs.push(`${res.messages[i].msg}. `)
@@ -418,7 +420,7 @@ const roomUnreadMessages = async (channelName, unreadCount, type, headers) => {
 			var responseString = msgs.join('  ');
 			responseString = cleanMessage(responseString);
 
-			var finalMsg = i18n.__('GET_UNREAD_MESSAGES_FROM_CHANNEL.MESSAGE',{total: unreadCount, count: msgs.length, channelName, responseString });
+			var finalMsg = i18n.__('GET_UNREAD_MESSAGES_FROM_CHANNEL.MESSAGE',{total: unreadCount, count: msgs.length, channelName: fname || channelName, responseString });
 			return [ finalMsg, messages ];
 
 		} else {
