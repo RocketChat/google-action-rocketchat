@@ -653,8 +653,9 @@ app.intent('Get All Unread Messages Intent', async (conv) => {
   }
 })
 
-app.intent('Read Unread Messages From Channel Intent', async (conv, params) => {
+app.intent('Read Unread Messages', async (conv, params) => {
   try{
+    // this intent can read unread messages from channel,group or dm.
     const accessToken = conv.user.access.token;
     const headers = await helperFunctions.login(accessToken);
     let channelname = params.channelname;

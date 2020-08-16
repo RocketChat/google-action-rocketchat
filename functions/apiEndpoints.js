@@ -25,6 +25,7 @@ module.exports = {
 	addownerurl: `${ SERVER_URL }/api/v1/channels.addOwner`,
 	archivechannelurl: `${ SERVER_URL }/api/v1/channels.archive`,
 	counterurl: `${ SERVER_URL }/api/v1/channels.counters?roomName=`,
+	channelcountersidurl: `${ SERVER_URL }/api/v1/channels.counters?roomId=`,
 	inviteuserurl: `${ SERVER_URL }/api/v1/channels.invite`,
 	leavechannelurl: `${ SERVER_URL }/api/v1/channels.leave`,
 	kickuserurl: `${ SERVER_URL }/api/v1/channels.kick`,
@@ -65,4 +66,5 @@ module.exports = {
 	grouplisturl: `${ SERVER_URL }/api/v1/groups.list`,
 	getsubscriptionsurl: `${ SERVER_URL }/api/v1/subscriptions.get`,
 	getmentionedmessagesurl: `${ SERVER_URL }/api/v1/chat.getMentionedMessages`,
+	imlisturl: `${ SERVER_URL }/api/v1/im.list`,
 };

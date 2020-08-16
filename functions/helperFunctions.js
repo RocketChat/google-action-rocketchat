@@ -1458,11 +1458,12 @@ const getGroupLastMessageFileURL = async (roomid, headers) =>
 
 const resolveChannelname = async (channelName, headers) => {
 	try {
-		const publicChannelsResponse = await axios.get(apiEndpoints.channellisturl, {
+		// sort wrt prid, so the discussions will end up at the end.
+		const publicChannelsResponse = await axios.get(`${apiEndpoints.channellisturl}?sort={"prid": 1, "_updatedAt": -1}&fields={"_id": 1, "name": 1, "t": 1}&count=30`, {
 			headers,
 		}).then((res) => res.data);
 
-		const privateChannelsResponse = await axios.get(apiEndpoints.grouplisturl, {
+		const privateChannelsResponse = await axios.get(`${apiEndpoints.grouplisturl}?sort={"prid": 1, "_updatedAt": -1}&fields={"_id": 1, "name": 1, "t": 1}&count=10`, {
 			headers,
 		}).then((res) => res.data);
 
@@ -1932,6 +1933,7 @@ module.exports.DMUnreadMessages = DMUnreadMessages;
 module.exports.getDMCounter = getDMCounter;
 module.exports.DMUnreadMentions = DMUnreadMentions;
 module.exports.resolveDM = resolveDM;
+module.exports.getCurrentUserDetails = getCurrentUserDetails;
 module.exports.resolveDiscussion = resolveDiscussion;
 module.exports.getRoomCounterFromId = getRoomCounterFromId;
 module.exports.getLatestDiscussions = getLatestDiscussions;

@@ -17,6 +17,7 @@
     },
     "POST_MESSAGE": {
         "SUCCESS": "I've sent your message.",
+        "CONFIRM_DISCUSSION_INTENT": "You want to send, %s, to discussion %s. Is that correct?",
         "ERROR": "Sorry, I couldn't send your message right now."
     },
     "CREATE_CHANNEL": {
@@ -60,7 +61,7 @@
     },
     "GET_UNREAD_MESSAGES_FROM_CHANNEL": {
         "NO_MESSAGE": "You don't have any unread messages in {{channelName}}.",
-        "MESSAGE": "<speak> You Have {{total}} unread activities and {{count}} Unread Messages in {{channelName}}. Here are latest ones, <break time=\"1\" /> <p> {{responseString}} </p> </speak>",
+        "MESSAGE": "<speak> You Have {{total}} unread activities and {{count}} Unread Messages in {{channelName}}. <break time=\"1\" /> <p> {{responseString}} </p> </speak>",
         "ERROR": "Sorry, I couldn't get your unread messages right now.",
         "ERROR_NOT_FOUND": "Sorry, the channel %s does not exist. Please try again with different channel name."
     },
@@ -141,7 +142,7 @@
     },
     "GET_UNREAD_MESSAGES_FROM_DM": {
         "NO_MESSAGE": "You don't have any unread messages from {{name}}.",
-        "MESSAGE": "You have, {{unread}} unreads from {{name}}. Here are latest ones. {{responseString}}."
+        "MESSAGE": "You have, {{unread}} unreads from {{name}}. {{responseString}}."
     },
     "MENTIONS": {
         "READ_MENTIONS": "You have {{count}} mentions in {{roomName}}. {{finalMessage}}.",
@@ -160,6 +161,8 @@
         "FILE_MESSAGE": "{{username}} shared a file titled {{title}}.",
         "UNKNOWN_MESSAGE": "{{username}}, performed some action"
     },
+    "NO_ACTIVE_USER": "There is no active user named {{username}} in your contacts.",
+    "NO_ACTIVE_DISCUSSION": "There is no active discussion named {{name}} in your contacts.",
     "NO_ROOM": "You are not part of any channel or group named %s .",
     "NO_ACTIVE_SUBSCRIPTION": "There is no active user or channel named {{name}}, in your subscriptions list.",
     "GENERIC_REPROMPT": "Anything else I can help you with?",
