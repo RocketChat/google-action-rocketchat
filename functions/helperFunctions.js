@@ -1637,16 +1637,13 @@ const getAccountSummary = async (headers) => {
 }
 
 const cleanMessage = (string) => {
-	const emoji_expression = ":([a-z_]+):";
-	let re = new RegExp(emoji_expression, 'g');
-	
-	// replace emojis with dots
-	string = string.replace(re, '.');
 
-	// replace http/https/ftp urls with the word link
-	string = string.replace(/(?:https?|ftp):\/\/[\n\S]+/g, 'link')
+	// :([a-z_]+): => regex for emoji :emoji:
+	// (&[#0-9A-Za-z]*;) => regex for special character encodings &#ab3;
+	// ((https?|ftp):\/\/[\.[a-zA-Z0-9\/\-]+) => regex for url
 
-	return string
+	let combined_regex = new RegExp(':([a-z_]+):|(&[#0-9A-Za-z]*;)|((https?|ftp):\/\/[\.[a-zA-Z0-9\/\-]+)|[^ .,A-Za-z0-9\\n]', 'g');
+	return string.replace(combined_regex, '');
 }
 
 const DMUnreadMentions = async (DMDetails, count, headers) => {
