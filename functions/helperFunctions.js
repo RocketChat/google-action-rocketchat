@@ -1545,6 +1545,49 @@ const resolveRoomORUser = async (name, headers) => {
 	}
 }
 
+const resolveDiscussion = async (discussionName, headers) => {
+	try{
+		// prid sort so that the normal rooms will be considered last
+		let groupDiscussions = await axios.get(`${apiEndpoints.grouplisturl}?sort={"prid": -1, "_updatedAt": -1}&fields={"_id": 1, "name": 1, "fname": 1, "prid": 1, "t": 1}&count=30`, {
+			headers
+		}).then(res => res.data.groups);
+
+		let channelDiscussions = await axios.get(`${apiEndpoints.channellisturl}?sort={"prid": -1, "_updatedAt": -1}&fields={"_id": 1, "name": 1, "fname": 1, "prid": 1, "t": 1}&count=20`, {
+			headers
+		}).then(res => res.data.channels);
+
+		let discussionDetails = [];
+		let discussionNames = [];
+
+		for (let discussion of groupDiscussions.concat(channelDiscussions)) {
+			// if prid doesn't exist it's not a discussion
+			if(!discussion.prid) continue;
+
+			discussionDetails.push({
+				id: discussion._id, // id of the discussion room
+				name: discussion.name, // the unique name of the discussion
+				fname: discussion.fname, // the display name of the discussion
+				type: discussion.t // type: private (p), public(c)
+			})
+
+			discussionNames.push(discussion.fname.toLowerCase())
+		}
+
+		if(discussionNames.length === 0) return null;
+
+		let comparison = stringSimilar.findBestMatch(removeWhitespace(discussionName).toLowerCase(), discussionNames);
+		if(comparison.bestMatch.rating > 0) {
+			return discussionDetails[comparison.bestMatchIndex]
+		} else {
+			return null
+		}
+
+	} catch(err) {
+		console.log(err)
+		throw err;
+	}
+}
+
 const getDMCounter = async (id, headers) => {
 	try {
 		const response = await axios.get(`${apiEndpoints.imcountersurl}?roomId=${id}`, { 
@@ -1788,3 +1831,4 @@ module.exports.resolveRoomORUser = resolveRoomORUser;
 module.exports.DMUnreadMessages = DMUnreadMessages;
 module.exports.getDMCounter = getDMCounter;
 module.exports.DMUnreadMentions = DMUnreadMentions;
+module.exports.resolveDiscussion = resolveDiscussion;
