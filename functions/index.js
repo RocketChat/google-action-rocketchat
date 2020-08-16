@@ -2576,7 +2576,7 @@ app.intent('Post Discussion Message Intent Slot Collection', async (conv, params
   try{
     const accessToken = conv.user.access.token;
     const headers = await helperFunctions.login(accessToken);
-    const discussionname = params.discussionname;
+    let discussionname = params.discussionname;
     const message = params.message;
   
     var locale = conv.user.locale;
@@ -2729,6 +2729,7 @@ app.intent('Handle Touch In List', async (conv, params, option) => {
 
     //display basic informatino of the discussion in a table
     conv.ask(`You have ${counters.unreads} unreads and ${counters.userMentions} mentions in discussion ${discussionDetails.fname}`)
+    conv.ask(i18n.__('GENERIC_REPROMPT'))
     conv.ask(new Table({
       title: 'Updates from discussion',
       subtitle: discussionDetails.fname,
