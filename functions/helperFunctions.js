@@ -1506,6 +1506,49 @@ const resolveUsername = async (username, headers) => {
 	}
 };
 
+const resolveDM = async (username, currentUserDetails, headers) => {
+	try{
+		//selects the latest 40 dm rooms in the user's contacts list
+		const response = await axios.get(`${apiEndpoints.imlisturl}?sort={"_updatedAt": -1}&fields={"_id": 1, "t": 1, "usernames": 1, "uids": 1}&count=40`, {
+			headers,
+		})
+		.then(res => res.data.ims)
+
+		let usernames = [];
+		let roomDetailsCollection = [];
+
+		for (let room of response) {
+			//only consider DM's with two users
+			if(room.usernames.length !== 2) continue;
+
+			// the usernames field contains two user names, [current user, other user] no fixed order. So, get index of the other user.
+			let indexOfUsername = 1 - room.usernames.indexOf(currentUserDetails.username)
+			// remove dots from the username for better comparisons
+			usernames.push(room.usernames[indexOfUsername].replace(/\./g, ' '))
+
+			let indexOfRoomId = 1 - room.uids.indexOf(currentUserDetails.id)
+
+			roomDetailsCollection.push({
+				name: room.usernames[indexOfUsername], //username of the other participant of dm
+				rid: room._id, //roomid of the dm room
+				id: room.uids[indexOfRoomId], //id of the other participant of dm
+				type: room.t //type of room 'd'
+			})
+		}
+
+		let comparison = stringSimilar.findBestMatch(removeWhitespace(username).toLowerCase(), usernames);
+		if(comparison.bestMatch.rating > 0.3) {
+			return roomDetailsCollection[comparison.bestMatchIndex]
+		} else {
+			return null
+		}
+
+	}catch(err) {
+		console.log(err);
+		throw err;
+	}
+}
+
 const resolveRoomORUser = async (name, headers) => {
 	try{
 		const no_of_days = 2;
@@ -1831,4 +1874,5 @@ module.exports.resolveRoomORUser = resolveRoomORUser;
 module.exports.DMUnreadMessages = DMUnreadMessages;
 module.exports.getDMCounter = getDMCounter;
 module.exports.DMUnreadMentions = DMUnreadMentions;
+module.exports.resolveDM = resolveDM;
 module.exports.resolveDiscussion = resolveDiscussion;
