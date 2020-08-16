@@ -1657,13 +1657,19 @@ const getAccountSummary = async (headers) => {
 
 		for (const subscription of subscriptions) {
 			if ((subscription.unread && subscription.unread !== 0) || (subscription.userMentions && subscription.userMentions !== 0)) {
-				summary.push([subscription.name, subscription.unread.toString() , subscription.userMentions.toString()])
+				if(subscription.prid){
+					// if it is a discussion, show the displaly name instead
+					summary.push([subscription.fname, subscription.unread.toString() , subscription.userMentions.toString()])
+				} else {
+					summary.push([subscription.name, subscription.unread.toString() , subscription.userMentions.toString()])
+				}
 			}
 		}
 
 		return summary;
 	} catch (err) {
 		console.log(err.message);
+		throw err;
 	}
 }
 

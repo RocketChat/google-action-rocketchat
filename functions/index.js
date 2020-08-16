@@ -43,26 +43,28 @@ app.middleware((conv) => {
 app.intent('Default Welcome Intent', async (conv) => {
   try{
     const accessToken = conv.user.access.token;
-    const headers = await helperFunctions.login(accessToken);
-    if(!headers) {
+    const currentUserDetails = await helperFunctions.getCurrentUserDetails(accessToken);
+    if(!currentUserDetails) {
       throw "Authentication Failed"
     }
-    conv.ask(i18n.__('WELCOME.SUCCESS'));
-    conv.add(new Suggestions("What can you do?"))
 
-    if(conv.surface.capabilities.has('actions.capability.SCREEN_OUTPUT')) {
-      const userDetails = await helperFunctions.userDetails(headers);
-      const summary = await helperFunctions.getAccountSummary(headers);
+    if(!conv.surface.capabilities.has('actions.capability.SCREEN_OUTPUT')){
+      conv.ask(i18n.__('WELCOME.SUCCESS'));
+      conv.add(new Suggestions("What can you do?"))
+    } else {
+      const summary = await helperFunctions.getAccountSummary(currentUserDetails.headers);
+      conv.ask(i18n.__('WELCOME.SUCCESS'));
+      conv.add(new Suggestions("What can you do?"))
 
       if(summary && summary.length === 0){
         //if the user has no summary to display show a simple card with profile details
         conv.ask(new BasicCard({
           text: `Your Account Details`,
-          subtitle: userDetails.statusText,
-          title: userDetails.username,
+          subtitle: currentUserDetails.userDetails.statusText,
+          title: currentUserDetails.userDetails.username,
           image: new Image({
-            url: `${userDetails.avatarUrl}`,
-            alt: userDetails.username,
+            url: `${currentUserDetails.userDetails.avatarUrl}`,
+            alt: currentUserDetails.userDetails.username,
           }),
           display: 'CROPPED',
         }));
@@ -74,11 +76,11 @@ app.intent('Default Welcome Intent', async (conv) => {
         }
       
         conv.ask(new Table({
-          title: userDetails.username,
+          title: currentUserDetails.userDetails.username,
           subtitle: 'Your Account Summary',
           image: new Image({
-            url: userDetails.avatarUrl,
-            alt: userDetails.username
+            url: currentUserDetails.userDetails.avatarUrl,
+            alt: currentUserDetails.userDetails.username
           }),
           columns: [
             {
@@ -101,7 +103,7 @@ app.intent('Default Welcome Intent', async (conv) => {
   
   }catch(err) {
     console.log(err)
-    conv.close(i18n.__('WELCOME.AUTH_ERROR'));
+    conv.close(i18n.__('SOMETHING_WENT_WRONG'));
   }
 });
 
