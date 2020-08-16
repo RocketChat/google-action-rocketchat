@@ -49,6 +49,37 @@ const userDetails = async (accessToken) => {
 	}
 }
 
+// this helper function will return the user headers along with some details
+const getCurrentUserDetails = async (accessToken) => {
+	try{
+		const response = await axios
+		.post(apiEndpoints.loginUrl, {
+			serviceName: OAUTH_SERVICE_NAME,
+			accessToken,
+			expiresIn: 200,
+		})
+		.then((res) => res.data.data)
+
+		const headers = {
+			'X-Auth-Token': response.authToken,
+			'X-User-Id': response.userId,
+		};
+
+		const userDetails = {
+			id: response.me._id,
+			name: response.me.name,
+			username: response.me.username,
+			statusText: response.me.statusText,
+			avatarUrl: response.me.avatarUrl,
+		}
+
+		return {headers, userDetails};
+	}catch(err) {
+		console.log(err);
+		throw err;
+	}
+}
+
 const createChannel = async (channelName, headers) =>
 	await axios
 	.post(
