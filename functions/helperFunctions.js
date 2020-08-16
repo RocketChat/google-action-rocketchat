@@ -317,6 +317,17 @@ const getUnreadCounter = async (channelName, type, headers) =>
 		console.log(err.message);
 	});
 
+const getRoomCounterFromId = async (id, type, headers) =>
+	await axios
+	.get(`${ type === 'c' ? apiEndpoints.channelcountersidurl : apiEndpoints.groupcounterurl }${ id }`, {
+		headers
+	})
+	.then((res) => res.data)
+	.catch((err) => {
+		console.log(err.message);
+		throw err;
+	});
+
 const getMentionsCounter = async (channelName, headers) =>
 	await axios
 	.get(`${ apiEndpoints.counterurl }${ channelName }`, {
@@ -1910,4 +1921,5 @@ module.exports.getDMCounter = getDMCounter;
 module.exports.DMUnreadMentions = DMUnreadMentions;
 module.exports.resolveDM = resolveDM;
 module.exports.resolveDiscussion = resolveDiscussion;
+module.exports.getRoomCounterFromId = getRoomCounterFromId;
 module.exports.getLatestDiscussions = getLatestDiscussions;
