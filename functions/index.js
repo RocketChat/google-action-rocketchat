@@ -2394,7 +2394,8 @@ app.intent('Denied Intent', (conv) => {
     'change_status',
     'post_dm_message',
     'post_message',
-    'set_announcement'
+    'set_announcement',
+    'post_discussion_message'
   ]
 
   let inputContexts = Object.keys(conv.contexts.input)
