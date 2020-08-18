@@ -7,6 +7,7 @@ const {
   Button,
   Image,
   MediaObject,
+  Suggestions,
 } = require('actions-on-google');
 const functions = require('firebase-functions');
 
@@ -1125,9 +1126,11 @@ app.intent('Post DM Message Intent Slot Collection', async (conv, params) => {
     conv.ask(i18n.__('POST_MESSAGE.CONFIRM_DM_INTENT', message, userDetails.name))
     conv.data.userDetails = userDetails
     conv.contexts.set('post_dm_message', 1, {username, message})
+    conv.ask(new Suggestions(['yes', 'no']))
   } else {
     conv.ask(i18n.__('POST_MESSAGE.NO_USER', username))
     conv.ask(i18n.__('GENERIC_REPROMPT'))
+    conv.ask(new Suggestions['post message to discussion', 'post message to a room'])
   }
 })
 
