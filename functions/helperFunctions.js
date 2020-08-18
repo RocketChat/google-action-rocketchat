@@ -403,6 +403,10 @@ const roomUnreadMessages = async (channelName, unreadCount, type, headers, fname
 						speechText = i18n.__('MESSAGE_TYPE.CHANGE_ANNOUNCEMENT', {username: res.messages[i].u.username, announcement: res.messages[i].msg})
 						msgs.push(speechText);
 						messages.push(`${res.messages[i].u.username}: ${res.messages[i].msg}`)
+					} else if(res.messages[i].t === 'discussion-created'){
+						speechText = i18n.__('MESSAGE_TYPE.DISCUSSION_CREATED', {username: res.messages[i].u.username, name: res.messages[i].msg})
+						msgs.push(speechText);
+						messages.push(`${res.messages[i].u.username}: ${res.messages[i].msg}`)
 					}
 				} else if(res.messages[i].file) {
 					if(res.messages[i].file.type.includes('image')){
@@ -1719,7 +1723,7 @@ const getAllUnreads = async (headers) => {
 				} else {
 					finalMessage += `${ subscription.unread } unreads in ${ subscription.name }, `;
 				}
-				unreadDetails.push({name: `[${subscription.t.toUpperCase()}] ${subscription.name.slice(0, 20)}`, unreads: subscription.unread})
+				unreadDetails.push({name: `[${subscription.t === 'd' ? 'DM' : subscription.t.toUpperCase()}] ${subscription.name.slice(0, 20)}`, unreads: subscription.unread})
 			}
 		}
 
@@ -1753,7 +1757,7 @@ const getAllUnreadMentions = async (headers) => {
 				} else {
 					finalMessage += `${ subscription.userMentions } mentions in ${ subscription.name },`;
 				}
-				unreadDetails.push({name: `[${subscription.t.toUpperCase()}] ${subscription.name.slice(0, 20)}`, mentions: subscription.userMentions})
+				unreadDetails.push({name: `[${subscription.t === 'd' ? 'DM' : subscription.t.toUpperCase()}] ${subscription.name.slice(0, 20)}`, mentions: subscription.userMentions})
 			}
 		}
 
@@ -1822,7 +1826,7 @@ const getAccountSummary = async (headers) => {
 					// if it is a discussion, show the displaly name instead
 					summary.push([`[D] ${subscription.fname.slice(0, 20)}`, subscription.unread.toString() , subscription.userMentions.toString()])
 				} else {
-					summary.push([`[${subscription.t.toUpperCase()}] ${subscription.name.slice(0, 20)}`, subscription.unread.toString() , subscription.userMentions.toString()])
+					summary.push([`[${subscription.t === 'd' ? 'DM' : subscription.t.toUpperCase()}] ${subscription.name.slice(0, 20)}`, subscription.unread.toString() , subscription.userMentions.toString()])
 				}
 			}
 		}
@@ -1866,6 +1870,7 @@ const DMUnreadMentions = async (DMDetails, count, headers) => {
 				messages.push(`${ message.u.username }: ${ message.msg }.`)
 			});
 
+			finalMessage = cleanMessage(finalMessage);
 			const speechText = i18n.__('MENTIONS.READ_DM_MENTIONS', {
 				finalMessage, count, name: DMDetails.name,
 			});
