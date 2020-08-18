@@ -421,6 +421,9 @@ const roomUnreadMessages = async (channelName, unreadCount, type, headers, fname
 			responseString = cleanMessage(responseString);
 
 			var finalMsg = i18n.__('GET_UNREAD_MESSAGES_FROM_CHANNEL.MESSAGE',{total: unreadCount, count: msgs.length, channelName: fname || channelName, responseString });
+
+			// if there's nothing to display in the table just send the messsage.
+			if(messages.length === 0) return finalMsg;
 			return [ finalMsg, messages ];
 
 		} else {
@@ -1322,7 +1325,10 @@ const groupUnreadMessages = async (channelName, roomid, unreadCount, headers) =>
 
 const DMUnreadMessages = async (name, count, headers) => {
 	try{
-		if (!count || count == 0) {
+		if (count == null) {
+			return i18n.__('GET_UNREAD_MESSAGES_FROM_CHANNEL.ERROR');
+		}
+		if (count == 0) {
 			return i18n.__('GET_UNREAD_MESSAGES_FROM_DM.NO_MESSAGE', { name });
 		}
 
@@ -1761,7 +1767,10 @@ const getAllUnreadMentions = async (headers) => {
 
 const readUnreadMentions = async (channelDetails, count, headers) => {
 	try {
-		if (!count || count == 0) { 
+		if(count === null){
+			return i18n.__('MENTIONS.ERROR');
+		}
+		if (count == 0) { 
 			return i18n.__('MENTIONS.NO_MENTIONS', { roomName: channelDetails.name }); 
 		}
 
@@ -1778,9 +1787,14 @@ const readUnreadMentions = async (channelDetails, count, headers) => {
 				messages.push(`${ message.u.username }: ${ message.msg }.`)
 			});
 
-			return [ i18n.__('MENTIONS.READ_MENTIONS', {
+			let speechText = i18n.__('MENTIONS.READ_MENTIONS', {
 				finalMessage, count, roomName: channelDetails.name,
-			}), messages ];
+			})
+			
+			// if there's nothing to display in the table just return speech text
+			if(messages.length === 0) return speechText;
+			
+			return [ speechText, messages ];
 		} else {
 			return i18n.__('MENTIONS.ERROR');
 		}
@@ -1829,7 +1843,10 @@ const cleanMessage = (string) => {
 
 const DMUnreadMentions = async (DMDetails, count, headers) => {
 	try{
-		if(!count || count == 0) {
+		if(count == null) {
+			throw 'Null unreads';
+		}
+		if (count == 0) {
 			return i18n.__('MENTIONS.NO_DM_MENTIONS', { name: DMDetails.name });
 		}
 		
@@ -1846,9 +1863,13 @@ const DMUnreadMentions = async (DMDetails, count, headers) => {
 				messages.push(`${ message.u.username }: ${ message.msg }.`)
 			});
 
-			return [ i18n.__('MENTIONS.READ_DM_MENTIONS', {
+			const speechText = i18n.__('MENTIONS.READ_DM_MENTIONS', {
 				finalMessage, count, name: DMDetails.name,
-			}), messages ];
+			});
+			
+			//if there are no important messages just return the speech text.
+			if(messages.length === 0) return speechText
+			return [ speechText, messages ];
 		} else {
 			return i18n.__('MENTIONS.ERROR');
 		}
