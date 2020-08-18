@@ -618,6 +618,65 @@ app.intent('Read Unread Mentions From Channel Intent', async (conv, params) => {
   }
 })
 
+app.intent('Read Unread Mentions From Discussion Intent', async (conv, params) => {
+  try{
+    const accessToken = conv.user.access.token;
+    const headers = await helperFunctions.login(accessToken);
+    let discussionname = params.discussionname;
+  
+    var locale = conv.user.locale;
+    if(locale === 'hi-IN') {
+      discussionname = await helperFunctions.hinditranslate(discussionname);
+    }
+  
+    const channelDetails = await helperFunctions.resolveDiscussion(discussionname, headers);
+    if(!channelDetails) {
+      conv.ask(i18n.__('NO_ACTIVE_DISCUSSION', { name: discussionname }))
+      conv.ask(i18n.__('GENERIC_REPROMPT'))
+      return
+    }
+  
+    let unreadMentionsCount;
+    let speechText;
+    if(channelDetails.type === 'c') {
+      unreadMentionsCount = await helperFunctions.getMentionsCounter(channelDetails.name, headers);
+      speechText = await helperFunctions.readUnreadMentions(channelDetails, unreadMentionsCount, headers, channelDetails.fname);
+    } else if(channelDetails.type === 'p') {
+      unreadMentionsCount = await helperFunctions.getGroupMentionsCounter(channelDetails.id, headers);
+      speechText = await helperFunctions.readUnreadMentions(channelDetails, unreadMentionsCount, headers, channelDetails.fname);
+    }
+
+    if(!Array.isArray(speechText)){
+      conv.ask(speechText)
+      conv.ask(i18n.__('GENERIC_REPROMPT'))
+    } else {
+      conv.ask(speechText[0]);
+      conv.ask(i18n.__('GENERIC_REPROMPT'))
+
+      let row = []
+
+      for (let message of speechText[1]){
+        row.push([message])
+      }
+      
+      conv.add(new Table({
+        title: channelDetails.fname,
+        columns: [
+          {
+            header: 'Unread Messages',
+            align: 'LEFT',
+          },
+        ],
+        rows: row,
+      }))
+    }
+  
+  } catch(err) {
+    console.log(err)
+    conv.ask(i18n.__('SOMETHING_WENT_WRONG'));
+    conv.ask(i18n.__('GENERIC_REPROMPT'))
+  }
+})
 app.intent('Get All Unread Messages Intent', async (conv) => {
   const accessToken = conv.user.access.token;
   const headers = await helperFunctions.login(accessToken);
