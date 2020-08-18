@@ -2373,6 +2373,18 @@ handleExecutionChannelResolution(app, {intentName: 'Change Status Intent Confirm
   conv.ask(speechText);
 }})
 
+handleExecutionChannelResolution(app, {intentName: 'Create Channel Intent Confirmed', executionLogic: async ({conv, params, headers}) => {
+  let channelname = helperFunctions.replaceWhitespacesFunc(params.channelname);
+  const speechText = await helperFunctions.createChannel(channelname, headers);
+  conv.ask(speechText);
+}})
+
+handleExecutionChannelResolution(app, {intentName: 'Create Group Intent Confirmed', executionLogic: async ({conv, params, headers}) => {
+  let channelname = helperFunctions.replaceWhitespacesFunc(params.channelname);
+  const speechText = await helperFunctions.createGroup(channelname, headers);
+  conv.ask(speechText);
+}})
+
 app.intent('Denied Intent', (conv) => {
   const contexts = [
     'change_description',
@@ -2395,7 +2407,9 @@ app.intent('Denied Intent', (conv) => {
     'post_dm_message',
     'post_message',
     'set_announcement',
-    'post_discussion_message'
+    'post_discussion_message',
+    'create_channel',
+    'create_group'
   ]
 
   let inputContexts = Object.keys(conv.contexts.input)
