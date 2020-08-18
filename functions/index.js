@@ -838,7 +838,7 @@ app.intent('Read Unread Messages From Channel Intent', async (conv, params) => {
   
     const channelDetails = await helperFunctions.resolveChannelname(channelname, headers);
     if(!channelDetails) {
-      conv.ask(i18n.__('NO_ACTIVE_SUBSCRIPTION', { name: channelname }))
+      conv.ask(i18n.__('NO_ACTIVE_ROOM', { name: channelname }))
       conv.ask(i18n.__('GENERIC_REPROMPT'))
       return
     }
