@@ -1765,13 +1765,14 @@ const getAllUnreadMentions = async (headers) => {
 	}
 };
 
-const readUnreadMentions = async (channelDetails, count, headers) => {
+const readUnreadMentions = async (channelDetails, count, headers, fname = undefined) => {
 	try {
+		if(fname) fname = `Discussion ${fname}`;
 		if(count === null){
 			return i18n.__('MENTIONS.ERROR');
 		}
 		if (count == 0) { 
-			return i18n.__('MENTIONS.NO_MENTIONS', { roomName: channelDetails.name }); 
+			return i18n.__('MENTIONS.NO_MENTIONS', { roomName: fname || channelDetails.name }); 
 		}
 
 		const response = await axios.get(`${ apiEndpoints.getmentionedmessagesurl }?roomId=${ channelDetails.id }&count=${ count }`, {
@@ -1787,8 +1788,10 @@ const readUnreadMentions = async (channelDetails, count, headers) => {
 				messages.push(`${ message.u.username }: ${ message.msg }.`)
 			});
 
+			finalMessage = cleanMessage(finalMessage);
+
 			let speechText = i18n.__('MENTIONS.READ_MENTIONS', {
-				finalMessage, count, roomName: channelDetails.name,
+				finalMessage, count, roomName: fname || channelDetails.name,
 			})
 			
 			// if there's nothing to display in the table just return speech text
