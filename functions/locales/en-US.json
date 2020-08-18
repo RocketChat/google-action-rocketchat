@@ -138,9 +138,14 @@
     "HINTS": {
         "GET_UNREADS": "Do I have any unread messages?",
         "GET_UNREAD_MENTIONS": "Do I have any unread mentions?",
+        "READ_UNREADS_FROM_DISCUSSION": "Read unreads from a discussion",
         "CHANGE_STATUS": "Change my status.",
+        "READ_MENTIONS_FROM_USER": "Read mentions from a user",
+        "LIST_DISCUSSIONS": "List my discussions",
         "READ_UNREADS": "Read unreads messages from a channel.",
-        "CHANNEL_ANNOUNCEMENT": "Make an announcement in channel."
+        "CHANNEL_ANNOUNCEMENT": "Make an announcement.",
+        "POST_DIRECT_MESSAGE": "Send a direct message.",
+        "POST_DISCUSSION_MESSAGE": "Send message to a discussion."
     },
     "STATUS": {
         "SUCCESS": "I have changed your status.",
