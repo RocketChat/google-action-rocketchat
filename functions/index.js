@@ -677,6 +677,61 @@ app.intent('Read Unread Mentions From Discussion Intent', async (conv, params) =
     conv.ask(i18n.__('GENERIC_REPROMPT'))
   }
 })
+
+app.intent('Read Unread Mentions From DM Intent', async (conv, params) => {
+  try{
+    const accessToken = conv.user.access.token;
+    const currentUserDetails = await helperFunctions.getCurrentUserDetails(accessToken);
+    let username = params.username;
+  
+    var locale = conv.user.locale;
+    if(locale === 'hi-IN') {
+      username = await helperFunctions.hinditranslate(username);
+    }
+  
+    const DMDetails = await helperFunctions.resolveDM(username, currentUserDetails.userDetails, currentUserDetails.headers);
+    if(!DMDetails) {
+      conv.ask(i18n.__('NO_ACTIVE_USER', { username }))
+      conv.ask(i18n.__('GENERIC_REPROMPT'))
+      return
+    }
+  
+    const DMCount = await helperFunctions.getDMCounter(DMDetails.rid, currentUserDetails.headers);
+    let unreadMentionsCount = DMCount.userMentions
+    let speechText = await helperFunctions.DMUnreadMentions(DMDetails, unreadMentionsCount, currentUserDetails.headers);
+
+    if(!Array.isArray(speechText)){
+      conv.ask(speechText)
+      conv.ask(i18n.__('GENERIC_REPROMPT'))
+    } else {
+      conv.ask(speechText[0]);
+      conv.ask(i18n.__('GENERIC_REPROMPT'))
+
+      let row = []
+
+      for (let message of speechText[1]){
+        row.push([message])
+      }
+      
+      conv.add(new Table({
+        title: DMDetails.name,
+        columns: [
+          {
+            header: 'Unread Messages',
+            align: 'LEFT',
+          },
+        ],
+        rows: row,
+      }))
+    }
+  
+  } catch(err) {
+    console.log(err)
+    conv.ask(i18n.__('SOMETHING_WENT_WRONG'));
+    conv.ask(i18n.__('GENERIC_REPROMPT'))
+  }
+})
+
 app.intent('Get All Unread Messages Intent', async (conv) => {
   const accessToken = conv.user.access.token;
   const headers = await helperFunctions.login(accessToken);
