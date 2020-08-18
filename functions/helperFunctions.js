@@ -1469,11 +1469,11 @@ const getGroupLastMessageFileURL = async (roomid, headers) =>
 const resolveChannelname = async (channelName, headers) => {
 	try {
 		// sort wrt prid, so the discussions will end up at the end.
-		const publicChannelsResponse = await axios.get(`${apiEndpoints.channellisturl}?sort={"prid": 1, "_updatedAt": -1}&fields={"_id": 1, "name": 1, "t": 1}&count=30`, {
+		const publicChannelsResponse = await axios.get(`${apiEndpoints.channellisturl}?sort={"prid": 1, "_updatedAt": -1}&fields={"_id": 1, "name": 1, "t": 1}&count=100`, {
 			headers,
 		}).then((res) => res.data);
 
-		const privateChannelsResponse = await axios.get(`${apiEndpoints.grouplisturl}?sort={"prid": 1, "_updatedAt": -1}&fields={"_id": 1, "name": 1, "t": 1}&count=10`, {
+		const privateChannelsResponse = await axios.get(`${apiEndpoints.grouplisturl}?sort={"prid": 1, "_updatedAt": -1}&fields={"_id": 1, "name": 1, "t": 1}&count=100`, {
 			headers,
 		}).then((res) => res.data);
 
@@ -1533,7 +1533,7 @@ const resolveUsername = async (username, headers) => {
 const resolveDM = async (username, currentUserDetails, headers) => {
 	try{
 		//selects the latest 40 dm rooms in the user's contacts list
-		const response = await axios.get(`${apiEndpoints.imlisturl}?sort={"_updatedAt": -1}&fields={"_id": 1, "t": 1, "usernames": 1, "uids": 1}&count=40`, {
+		const response = await axios.get(`${apiEndpoints.imlisturl}?sort={"_updatedAt": -1}&fields={"_id": 1, "t": 1, "usernames": 1, "uids": 1}&count=100`, {
 			headers,
 		})
 		.then(res => res.data.ims)
@@ -1575,7 +1575,7 @@ const resolveDM = async (username, currentUserDetails, headers) => {
 
 const resolveRoomORUser = async (name, headers) => {
 	try{
-		const no_of_days = 2;
+		const no_of_days = 7;
 		const updatedSince = new Date(new Date().getTime() - (24 * 60 * 60 * 1000 * no_of_days));
 		const subscriptions = await axios.get(`${apiEndpoints.getsubscriptionsurl}?updatedSince=${updatedSince}`, {
 			headers,
@@ -1615,11 +1615,11 @@ const resolveRoomORUser = async (name, headers) => {
 const resolveDiscussion = async (discussionName, headers) => {
 	try{
 		// prid sort so that the normal rooms will be considered last
-		let groupDiscussions = await axios.get(`${apiEndpoints.grouplisturl}?sort={"prid": -1, "_updatedAt": -1}&fields={"_id": 1, "name": 1, "fname": 1, "prid": 1, "t": 1}&count=30`, {
+		let groupDiscussions = await axios.get(`${apiEndpoints.grouplisturl}?sort={"prid": -1, "_updatedAt": -1}&fields={"_id": 1, "name": 1, "fname": 1, "prid": 1, "t": 1}&count=40`, {
 			headers
 		}).then(res => res.data.groups);
 
-		let channelDiscussions = await axios.get(`${apiEndpoints.channellisturl}?sort={"prid": -1, "_updatedAt": -1}&fields={"_id": 1, "name": 1, "fname": 1, "prid": 1, "t": 1}&count=20`, {
+		let channelDiscussions = await axios.get(`${apiEndpoints.channellisturl}?sort={"prid": -1, "_updatedAt": -1}&fields={"_id": 1, "name": 1, "fname": 1, "prid": 1, "t": 1}&count=40`, {
 			headers
 		}).then(res => res.data.channels);
 
@@ -1661,7 +1661,7 @@ const getLatestDiscussions = async (headers) => {
 			headers
 		}).then(res => res.data.groups);
 
-		let channelDiscussions = await axios.get(`${apiEndpoints.channellisturl}?sort={"prid": -1, "_updatedAt": -1}&fields={"_id": 1, "name": 1, "fname": 1, "prid": 1, "t": 1}&count=5`, {
+		let channelDiscussions = await axios.get(`${apiEndpoints.channellisturl}?sort={"prid": -1, "_updatedAt": -1}&fields={"_id": 1, "name": 1, "fname": 1, "prid": 1, "t": 1}&count=20`, {
 			headers
 		}).then(res => res.data.channels);
 
