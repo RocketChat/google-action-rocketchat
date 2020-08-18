@@ -86,7 +86,7 @@ app.intent('Default Welcome Intent', async (conv) => {
           columns: [
             {
               header: 'Subscriptions',
-              align: 'CENTER',
+              align: 'LEFT',
             },
             {
               header: 'Unreads',

@@ -1705,7 +1705,7 @@ const getAllUnreads = async (headers) => {
 			if (subscription.unread && subscription.unread !== 0) {
 				if(subscription.prid) {
 					finalMessage += `${ subscription.unread } unreads from discussion ${ subscription.fname }, `;
-					unreadDetails.push({name: subscription.fname, unreads: subscription.unread})
+					unreadDetails.push({name: `[D] ${subscription.fname.slice(0, 20)}`, unreads: subscription.unread})
 					continue;
 				}
 				if (subscription.t && subscription.t === 'd') {
@@ -1713,7 +1713,7 @@ const getAllUnreads = async (headers) => {
 				} else {
 					finalMessage += `${ subscription.unread } unreads in ${ subscription.name }, `;
 				}
-				unreadDetails.push({name: subscription.name, unreads: subscription.unread})
+				unreadDetails.push({name: `[${subscription.t.toUpperCase()}] ${subscription.name.slice(0, 20)}`, unreads: subscription.unread})
 			}
 		}
 
@@ -1739,7 +1739,7 @@ const getAllUnreadMentions = async (headers) => {
 			if (subscription.userMentions && subscription.userMentions !== 0) {
 				if(subscription.prid) {
 					finalMessage += `${ subscription.userMentions } unreads from discussion ${ subscription.fname }, `;
-					unreadDetails.push({name: subscription.fname, mentions: subscription.userMentions})
+					unreadDetails.push({name: `[D] ${subscription.fname.slice(0, 20)}`, mentions: subscription.userMentions})
 					continue;
 				}
 				if (subscription.t && subscription.t === 'd') {
@@ -1747,7 +1747,7 @@ const getAllUnreadMentions = async (headers) => {
 				} else {
 					finalMessage += `${ subscription.userMentions } mentions in ${ subscription.name },`;
 				}
-				unreadDetails.push({name: subscription.name, mentions: subscription.userMentions})
+				unreadDetails.push({name: `[${subscription.t.toUpperCase()}] ${subscription.name.slice(0, 20)}`, mentions: subscription.userMentions})
 			}
 		}
 
@@ -1803,9 +1803,9 @@ const getAccountSummary = async (headers) => {
 			if ((subscription.unread && subscription.unread !== 0) || (subscription.userMentions && subscription.userMentions !== 0)) {
 				if(subscription.prid){
 					// if it is a discussion, show the displaly name instead
-					summary.push([subscription.fname, subscription.unread.toString() , subscription.userMentions.toString()])
+					summary.push([`[D] ${subscription.fname.slice(0, 20)}`, subscription.unread.toString() , subscription.userMentions.toString()])
 				} else {
-					summary.push([subscription.name, subscription.unread.toString() , subscription.userMentions.toString()])
+					summary.push([`[${subscription.t.toUpperCase()}] ${subscription.name.slice(0, 20)}`, subscription.unread.toString() , subscription.userMentions.toString()])
 				}
 			}
 		}
