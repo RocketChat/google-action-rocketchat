@@ -565,9 +565,9 @@ app.intent('Read Unread Mentions From Channel Intent', async (conv, params) => {
       channelname = await helperFunctions.hinditranslate(channelname);
     }
   
-    const channelDetails = await helperFunctions.resolveRoomORUser(channelname, headers);
+    const channelDetails = await helperFunctions.resolveChannelname(channelname, headers);
     if(!channelDetails) {
-      conv.ask(i18n.__('NO_ACTIVE_SUBSCRIPTION', { name: channelname }))
+      conv.ask(i18n.__('NO_ACTIVE_ROOM', { name: channelname }))
       conv.ask(i18n.__('GENERIC_REPROMPT'))
       return
     }
@@ -580,10 +580,6 @@ app.intent('Read Unread Mentions From Channel Intent', async (conv, params) => {
     } else if(channelDetails.type === 'p') {
       unreadMentionsCount = await helperFunctions.getGroupMentionsCounter(channelDetails.id, headers);
       speechText = await helperFunctions.readUnreadMentions(channelDetails, unreadMentionsCount, headers);
-    } else if(channelDetails.type === 'd') {
-      const DMCount = await helperFunctions.getDMCounter(channelDetails.rid, headers);
-      unreadMentionsCount = DMCount.userMentions
-      speechText = await helperFunctions.DMUnreadMentions(channelDetails, unreadMentionsCount, headers);
     }
 
     if(!Array.isArray(speechText)){
