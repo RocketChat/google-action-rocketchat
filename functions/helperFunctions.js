@@ -23,7 +23,6 @@ const login = async (accessToken) =>
 	})
 	.then((res) => res.data)
 	.then((res) => {
-		console.log(res);
 		const headers = {
 			'X-Auth-Token': res.data.authToken,
 			'X-User-Id': res.data.userId,
