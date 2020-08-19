@@ -55,7 +55,7 @@ app.intent('Default Welcome Intent', async (conv) => {
     } else {
       const summary = await helperFunctions.getAccountSummary(currentUserDetails.headers);
       conv.ask(i18n.__('WELCOME.SUCCESS'));
-      conv.add(new Suggestions("What can you do?"))
+      conv.add(new Suggestions(['What can you do?', 'Send direct message', 'Get my mentions']))
 
       if(summary && summary.length === 0){
         //if the user has no summary to display show a simple card with profile details
@@ -525,6 +525,7 @@ app.intent('Get All Unread Mentions Intent', async (conv) => {
   const speechText = await helperFunctions.getAllUnreadMentions(headers);
   conv.ask(speechText[0]);
   conv.ask(i18n.__('GENERIC_REPROMPT'));
+  conv.ask(new Suggestions(['Read mentions from room', 'Read mentions dicussion', 'Read mentions from user']))
   if(speechText[1].length != 0) {
     const unreadsDetails = speechText[1]
     let count = unreadsDetails.reduce((prev, curr) => prev + curr.mentions, 0)
@@ -629,6 +630,7 @@ app.intent('Read Unread Mentions From Discussion Intent', async (conv, params) =
     if(!channelDetails) {
       conv.ask(i18n.__('NO_ACTIVE_DISCUSSION', { name: discussionname }))
       conv.ask(i18n.__('GENERIC_REPROMPT'))
+      conv.ask(new Suggestions(['Send message to discussion', 'Read unreads dicussion']))
       return
     }
   
@@ -689,6 +691,7 @@ app.intent('Read Unread Mentions From DM Intent', async (conv, params) => {
     if(!DMDetails) {
       conv.ask(i18n.__('NO_ACTIVE_USER', { username }))
       conv.ask(i18n.__('GENERIC_REPROMPT'))
+      conv.ask(new Suggestions(['Read unreads from user', 'get my mentions']))
       return
     }
   
@@ -720,7 +723,9 @@ app.intent('Read Unread Mentions From DM Intent', async (conv, params) => {
         rows: row,
       }))
     }
-  
+
+    conv.ask(new Suggestions(['get my mentions', 'make unread from discussion']))
+
   } catch(err) {
     console.log(err)
     conv.ask(i18n.__('SOMETHING_WENT_WRONG'));
@@ -734,6 +739,7 @@ app.intent('Get All Unread Messages Intent', async (conv) => {
   const speechText = await helperFunctions.getAllUnreads(headers);
   conv.ask(speechText[0]);
   conv.ask(i18n.__('GENERIC_REPROMPT'))
+  conv.ask(new Suggestions(['Read unreads from room', 'Read unreads dicussion', 'Read unreads from user']))
   if(speechText[1].length != 0) {
     const unreadsDetails = speechText[1]
     let count = unreadsDetails.reduce((prev, curr) => prev + curr.unreads, 0)
@@ -779,6 +785,7 @@ app.intent('Read Unread Messages', async (conv, params) => {
     if(!channelDetails) {
       conv.ask(i18n.__('NO_ACTIVE_SUBSCRIPTION', { name: channelname }))
       conv.ask(i18n.__('GENERIC_REPROMPT'))
+      conv.ask(new Suggestions(['Read unreads from user', 'Read unreads dicussion']))
       return
     }
     
@@ -816,6 +823,8 @@ app.intent('Read Unread Messages', async (conv, params) => {
         rows: row,
       }))
     }
+
+    conv.ask(new Suggestions(['Read unread mentions', 'Read mentions from user']))
  
 
   } catch(err) {
@@ -840,6 +849,7 @@ app.intent('Read Unread Messages From Channel Intent', async (conv, params) => {
     if(!channelDetails) {
       conv.ask(i18n.__('NO_ACTIVE_ROOM', { name: channelname }))
       conv.ask(i18n.__('GENERIC_REPROMPT'))
+      conv.ask(new Suggestions(['Read unreads from a user', 'Read unreads from dicussion']))
       return
     }
     
@@ -872,6 +882,7 @@ app.intent('Read Unread Messages From Channel Intent', async (conv, params) => {
         rows: row,
       }))
     }
+    conv.ask(new Suggestions(['Read unreads from a user', 'Read unreads dicussion']))
  
 
   } catch(err) {
@@ -896,6 +907,7 @@ app.intent('Read Unread Messages From Discussion Intent', async (conv, params) =
     if(!discussionDetails) {
       conv.ask(i18n.__('NO_ACTIVE_DISCUSSION', { name: discussionName }))
       conv.ask(i18n.__('GENERIC_REPROMPT'))
+      conv.ask(new Suggestions(['List my discussions', 'Read mentions from discussion']))
       return
     }
 
@@ -927,6 +939,7 @@ app.intent('Read Unread Messages From Discussion Intent', async (conv, params) =
       }))
     }
  
+    conv.ask(new Suggestions(['List my discussions', 'Read unreads from a room']))
 
   } catch(err) {
     console.log(err)
@@ -2744,6 +2757,7 @@ app.intent('Read Unread Messages From DM Intent', async (conv, params) => {
     if(!DMDetails) {
       conv.ask(i18n.__('NO_ACTIVE_USER', { username }))
       conv.ask(i18n.__('GENERIC_REPROMPT'))
+      conv.ask(new Suggestions(['get my mentions', 'Read unreads from dicussion']))
       return
     }
 
@@ -2774,6 +2788,7 @@ app.intent('Read Unread Messages From DM Intent', async (conv, params) => {
         rows: row,
       }))
     }
+    conv.ask(new Suggestions(['Read mentions from room', 'Read unreads from a dicussion']))
 
   }catch(err){
     console.log(err)
@@ -2816,6 +2831,7 @@ app.intent('List My Discussions', async (conv, params) => {
     }
   
     conv.ask('Use this list anytime to select discussion names while using the action.');
+    conv.ask(new Suggestions(['Send message discussion', 'Read unreads dicussion']))
     // Create a list
     conv.ask(new List({
       title: 'Your Discussions.',
