@@ -630,7 +630,7 @@ app.intent('Read Unread Mentions From Discussion Intent', async (conv, params) =
     if(!channelDetails) {
       conv.ask(i18n.__('NO_ACTIVE_DISCUSSION', { name: discussionname }))
       conv.ask(i18n.__('GENERIC_REPROMPT'))
-      conv.ask(new Suggestions(['Send message to discussion', 'Read unreads dicussion']))
+      conv.ask(new Suggestions(['Send message discussion', 'List my dicussions']))
       return
     }
   
@@ -724,7 +724,7 @@ app.intent('Read Unread Mentions From DM Intent', async (conv, params) => {
       }))
     }
 
-    conv.ask(new Suggestions(['get my mentions', 'make unread from discussion']))
+    conv.ask(new Suggestions(['get my mentions', 'List my discussions']))
 
   } catch(err) {
     console.log(err)

@@ -141,14 +141,14 @@
         "ERROR": "Sorry, I am not able to get your mentions."
     },
     "GET_UNREAD_MESSAGES_FROM_DM": {
-        "NO_MESSAGE": "You don't have any unread messages from {{name}}.",
+        "NO_MESSAGE": "You don't have any unread messages from DM, {{name}}.",
         "MESSAGE": "You have, {{unread}} unreads from {{name}}. {{responseString}}."
     },
     "MENTIONS": {
         "READ_MENTIONS": "You have {{count}} mentions in {{roomName}}. {{finalMessage}}.",
         "NO_MENTIONS": "You don't have any mentions in {{roomName}}.",
         "READ_DM_MENTIONS": "You have {{count}} mentions from {{name}}. {{finalMessage}}.",
-        "NO_DM_MENTIONS": "You don't have any mentions from {{name}}.",
+        "NO_DM_MENTIONS": "You don't have any mentions from DM, {{name}}.",
         "ERROR": "Sorry, I couldn't get your mentions"
     },
     "MESSAGE_TYPE": {
