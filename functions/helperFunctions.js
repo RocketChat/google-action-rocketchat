@@ -1615,11 +1615,11 @@ const resolveRoomORUser = async (name, headers) => {
 const resolveDiscussion = async (discussionName, headers) => {
 	try{
 		// prid sort so that the normal rooms will be considered last
-		let groupDiscussions = await axios.get(`${apiEndpoints.grouplisturl}?sort={"prid": -1, "_updatedAt": -1}&fields={"_id": 1, "name": 1, "fname": 1, "prid": 1, "t": 1}&count=40`, {
+		let groupDiscussions = await axios.get(`${apiEndpoints.grouplisturl}?sort={"prid": -1, "_updatedAt": -1}&fields={"_id": 1, "name": 1, "fname": 1, "prid": 1, "t": 1}&count=100`, {
 			headers
 		}).then(res => res.data.groups);
 
-		let channelDiscussions = await axios.get(`${apiEndpoints.channellisturl}?sort={"prid": -1, "_updatedAt": -1}&fields={"_id": 1, "name": 1, "fname": 1, "prid": 1, "t": 1}&count=40`, {
+		let channelDiscussions = await axios.get(`${apiEndpoints.channellisturl}?sort={"prid": -1, "_updatedAt": -1}&fields={"_id": 1, "name": 1, "fname": 1, "prid": 1, "t": 1}&count=100`, {
 			headers
 		}).then(res => res.data.channels);
 
@@ -1737,8 +1737,9 @@ const getAllUnreads = async (headers) => {
 
 const getAllUnreadMentions = async (headers) => {
 	try {
-
-		const subscriptions = await axios.get(apiEndpoints.getsubscriptionsurl, {
+		const no_of_days = 14;
+		const updatedSince = new Date(new Date().getTime() - (24 * 60 * 60 * 1000 * no_of_days));
+		const subscriptions = await axios.get(`${apiEndpoints.getsubscriptionsurl}?updatedSince=${updatedSince}`, {
 			headers,
 		})
 			.then((res) => res.data.update);
@@ -1813,7 +1814,9 @@ const readUnreadMentions = async (channelDetails, count, headers, fname = undefi
 
 const getAccountSummary = async (headers) => {
 	try {
-		const subscriptions = await axios.get(apiEndpoints.getsubscriptionsurl, {
+		const no_of_days = 1;
+		const updatedSince = new Date(new Date().getTime() - (24 * 60 * 60 * 1000 * no_of_days));
+		const subscriptions = await axios.get(`${apiEndpoints.getsubscriptionsurl}?updatedSince=${updatedSince}`, {
 			headers,
 		})
 		.then((res) => res.data.update);
@@ -1824,9 +1827,9 @@ const getAccountSummary = async (headers) => {
 			if ((subscription.unread && subscription.unread !== 0) || (subscription.userMentions && subscription.userMentions !== 0)) {
 				if(subscription.prid){
 					// if it is a discussion, show the displaly name instead
-					summary.push([`[D] ${subscription.fname.slice(0, 20)}`, subscription.unread.toString() , subscription.userMentions.toString()])
+					summary.push([`[D] ${subscription.fname.slice(0, 20)}`, `${subscription.unread}` , `${subscription.userMentions}`])
 				} else {
-					summary.push([`[${subscription.t === 'd' ? 'DM' : subscription.t.toUpperCase()}] ${subscription.name.slice(0, 20)}`, subscription.unread.toString() , subscription.userMentions.toString()])
+					summary.push([`[${subscription.t === 'd' ? 'DM' : subscription.t.toUpperCase()}] ${subscription.name.slice(0, 20)}`, `${subscription.unread}` , `${subscription.userMentions}`])
 				}
 			}
 		}

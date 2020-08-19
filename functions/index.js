@@ -78,7 +78,7 @@ app.intent('Default Welcome Intent', async (conv) => {
       
         conv.ask(new Table({
           title: currentUserDetails.userDetails.username,
-          subtitle: 'Your Account Summary',
+          subtitle: 'Your Account Summary (24hrs)',
           image: new Image({
             url: currentUserDetails.userDetails.avatarUrl,
             alt: currentUserDetails.userDetails.username
