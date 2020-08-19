@@ -1344,9 +1344,10 @@ const resolveUsername = async (username, headers) => {
 		.then((res) => res.data.update)
 		.then((subscriptions) => subscriptions.filter((subscription) => subscription.t === 'd'))
 		.then((subscriptions) => subscriptions.map((subscription) => ({
-			name: subscription.name,
-			id: subscription.rid.replace(subscription.u._id, ''),
-			type: subscription.t,
+			rid: subscription.rid, // room id of the dm room
+			name: subscription.name, // name of the dm user
+			id: subscription.rid.replace(subscription.u._id, ''), // id of the user
+			type: subscription.t, // type of the room, 'd' in this case
 		})));
 
 		let usernames = subscriptions.map(user => user.name)
