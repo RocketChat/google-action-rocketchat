@@ -1657,21 +1657,28 @@ const resolveDiscussion = async (discussionName, headers) => {
 
 const getLatestDiscussions = async (headers) => {
 	try{
-		let groupDiscussions = await axios.get(`${apiEndpoints.grouplisturl}?sort={"prid": -1, "_updatedAt": -1}&fields={"_id": 1, "name": 1, "fname": 1, "prid": 1, "t": 1}&count=10`, {
-			headers
-		}).then(res => res.data.groups);
+		// let groupDiscussions = await axios.get(`${apiEndpoints.grouplisturl}?sort={"prid": -1, "_updatedAt": -1}&fields={"_id": 1, "name": 1, "fname": 1, "prid": 1, "t": 1}&count=100`, {
+		// 	headers
+		// }).then(res => res.data.groups);
 
-		let channelDiscussions = await axios.get(`${apiEndpoints.channellisturl}?sort={"prid": -1, "_updatedAt": -1}&fields={"_id": 1, "name": 1, "fname": 1, "prid": 1, "t": 1}&count=20`, {
-			headers
-		}).then(res => res.data.channels);
+		// let channelDiscussions = await axios.get(`${apiEndpoints.channellisturl}?sort={"prid": -1, "_updatedAt": -1}&fields={"_id": 1, "name": 1, "fname": 1, "prid": 1, "t": 1, "_updatedAt": 1}&count=100`, {
+		// 	headers
+		// }).then(res => res.data.channels);
+
+		const no_of_days = 14;
+		const updatedSince = new Date(new Date().getTime() - (24 * 60 * 60 * 1000 * no_of_days));
+		const subscriptions = await axios.get(`${apiEndpoints.getsubscriptionsurl}?updatedSince=${updatedSince}`, {
+			headers,
+		}).then(res => res.data.update);
 
 		let discussionDetails = [];
 
-		for (let discussion of groupDiscussions.concat(channelDiscussions)) {
+		//sort them so that the lastest discussions show up at top
+		subscriptions.sort(compare);
+
+		for(let discussion of subscriptions){
 			// if prid doesn't exist it's not a discussion
 			if(!discussion.prid) continue;
-
-			console.log(discussion);
 
 			discussionDetails.push({
 				id: discussion._id, // id of the discussion room
@@ -1687,6 +1694,16 @@ const getLatestDiscussions = async (headers) => {
 	}catch(err){
 		throw err;
 	}
+}
+
+function compare( a, b ) {
+	if ( a._updatedAt < b._updatedAt ){
+	    return 1;
+	}
+	if ( a._updatedAt > b._updatedAt ){
+	    return -1;
+	}
+	return 0;
 }
 
 const getDMCounter = async (id, headers) => {
