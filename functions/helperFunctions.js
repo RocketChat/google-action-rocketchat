@@ -1667,21 +1667,24 @@ const getLatestDiscussions = async (headers) => {
 
 		const no_of_days = 14;
 		const updatedSince = new Date(new Date().getTime() - (24 * 60 * 60 * 1000 * no_of_days));
-		const subscriptions = await axios.get(`${apiEndpoints.getsubscriptionsurl}?updatedSince=${updatedSince}`, {
+		let subscriptions = await axios.get(`${apiEndpoints.getsubscriptionsurl}?updatedSince=${updatedSince}`, {
 			headers,
 		}).then(res => res.data.update);
 
-		let discussionDetails = [];
+		// remove subscriptions that are not discussions
+		subscriptions = subscriptions.filter((subscription) => subscription.prid)
 
 		//sort them so that the lastest discussions show up at top
 		subscriptions.sort(compare);
+
+		let discussionDetails = [];
 
 		for(let discussion of subscriptions){
 			// if prid doesn't exist it's not a discussion
 			if(!discussion.prid) continue;
 
 			discussionDetails.push({
-				id: discussion._id, // id of the discussion room
+				id: discussion.rid, // id of the discussion room
 				name: discussion.name, // the unique name of the discussion
 				fname: discussion.fname, // the display name of the discussion
 				type: discussion.t // type: private (p), public(c)
