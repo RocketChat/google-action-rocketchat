@@ -210,6 +210,43 @@ Function URL (factsAboutGoogle): https://us-central1-myprojectname-ab123.cloudfu
   
 22. Finally We Are Done !
 
+#### AWS Lambda Deployment
+The fulfillment code can also be deployed in AWS as a lambda function as an alternative to using Firebase.
+
+1. Navigate to the AWS Lambda console.
+
+
+2. Create a new function with the following settings.
+    + Author From Scratch
+    + Runtime: Node.js 12.x
+    + Permissions: Create a new role with basic Lambda Permissions
+    
+    
+3. Add the following Environment Variables
+```
+OAUTH_SERVICE_NAME => Name of the Custom OAuth service created in Rocket Chat OAuth Settings
+SERVER_URL => Rocket Chat server url (https://YOUR.SERVER.chat)
+```
+
+4. Add an API Gateway trigger with the following settings.
+    + Create an API
+    + API Type: HTTP API
+    + Security: Open
+    
+5. Copy the following value somewhere.
+    + Click on API Gateway > Details > API endpoint
+ 
+6. Navigate to Dialogflow > Fulfillment section: https://dialogflow.cloud.google.com/#/agent/project_id/fulfillment
+    + Paste the API endpoint in the Webhook URL field.
+ 
+7. To upload the backend code in Lambda function
+    + Navigate to `./functions` directory in the project repository
+    + Select all files and compress into a zip file.
+    + In the **Functions Code** section of AWS Lambda Function
+    + Actions > Upload a .zip file
+    + Select the compressed zip file
+    + Click **Save**.
+
 ---
 
 ## Running this Action
