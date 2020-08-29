@@ -1466,7 +1466,44 @@ const getGroupLastMessageFileURL = async (roomid, headers) =>
 		console.log(err.message);
 	});
 
+//this function resolves channel names from all the subscriptions that the user has joined.
 const resolveChannelname = async (channelName, headers) => {
+	try {
+
+		const subscriptions = await axios.get(apiEndpoints.getsubscriptionsurl, {
+			headers,
+		})
+			.then((res) => res.data.update)
+			// filter only channels and groups
+			.then((subscriptions) => subscriptions.filter((subscription) => subscription.t === 'c' || subscription.t === 'p'))
+
+
+		if(subscriptions.length === 0) {
+			return null
+		}
+
+		// get an array of room names to compare with the input name
+		let channelNames = subscriptions.map(subscription => subscription.name.replace(/\./g, ' '))
+		let comparison = stringSimilar.findBestMatch(removeWhitespace(channelName).toLowerCase(), channelNames)
+		if(comparison.bestMatch.rating > 0.3) {
+			// return the best match room details in {name, id, type} format
+			const subscriptionDetails = subscriptions[comparison.bestMatchIndex]
+			return {
+				name: subscriptionDetails.name,
+				id: subscriptionDetails.rid,
+				type: subscriptionDetails.t
+			}
+		} else {
+			return null
+		}
+
+	} catch (err) {
+		console.log(err);
+	}
+};
+
+// this function resolves the channelname to the best matching name from the latest 100 channels and latest 100 groups
+const resolveChannelnameFromLatestRooms = async (channelName, headers) => {
 	try {
 		// sort wrt prid, so the discussions will end up at the end.
 		const publicChannelsResponse = await axios.get(`${apiEndpoints.channellisturl}?sort={"prid": 1, "_updatedAt": -1}&fields={"_id": 1, "name": 1, "t": 1}&count=100`, {
@@ -1489,6 +1526,10 @@ const resolveChannelname = async (channelName, headers) => {
 			id: channel._id,
 			type: channel.t,
 		})));
+
+		if(channels.length === 0) {
+			return null
+		}
 
 		let channelNames = channels.map(channel => channel.name.replace(/\./g, ' '))
 		let comparison = stringSimilar.findBestMatch(removeWhitespace(channelName).toLowerCase(), channelNames)
