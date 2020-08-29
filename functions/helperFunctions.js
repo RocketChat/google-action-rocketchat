@@ -7,7 +7,8 @@ const emojiTranslate = require('moji-translate');
 const stringSimilar = require('string-similarity')
 
 const i18n = require('i18n');
-var translate = require("@vitalets/google-translate-api")
+// this import throws an error in lambda environment, a different translate method required
+// var translate = require("@vitalets/google-translate-api")
 
 // Server Credentials. Follow readme to set them up.
 const {
@@ -1544,6 +1545,7 @@ const resolveChannelnameFromLatestRooms = async (channelName, headers) => {
 	}
 };
 
+// this function resolves usernames from *all* the DMs that exist in the users contacts
 const resolveUsername = async (username, headers) => {
 	try {
 		const subscriptions = await axios.get(apiEndpoints.getsubscriptionsurl, {
@@ -1551,17 +1553,22 @@ const resolveUsername = async (username, headers) => {
 		})
 		.then((res) => res.data.update)
 		.then((subscriptions) => subscriptions.filter((subscription) => subscription.t === 'd'))
-		.then((subscriptions) => subscriptions.map((subscription) => ({
-			name: subscription.name,
-			id: subscription.rid.replace(subscription.u._id, ''),
-			type: subscription.t,
-		})));
 
-		// remove the dots with spaces, better string resolution
+		if(subscriptions.length === 0){
+			return null
+		}
+
+		// remove the dots with spaces for better comparison
 		let usernames = subscriptions.map(user => user.name.replace(/\./g, ' '))
 		let comparison = stringSimilar.findBestMatch(removeWhitespace(username).toLowerCase(), usernames)
 		if(comparison.bestMatch.rating > 0.3) {
-			return subscriptions[comparison.bestMatchIndex]
+			const subscription = subscriptions[comparison.bestMatchIndex]
+			return {
+				rid: subscription.rid, // room id of the dm room
+				name: subscription.name, // name of the dm user
+				id: subscription.rid.replace(subscription.u._id, ''), // id of the user
+				type: subscription.t, // type of the room, 'd' in this case
+			}
 		} else {
 			return null
 		}
