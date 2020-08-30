@@ -1565,45 +1565,53 @@ app.intent('Remove Channel Owner Intent', async (conv, params) => {
 
 });
 
-app.intent('Post DM Message Intent', async (conv, params) => {
-
-  var locale = conv.user.locale;
-
-  if (locale === 'hi-IN') {
-
-    var accessToken = conv.user.access.token;
-
-    var message = params.message;
-
-    var userNameRaw = params.username;
-    var userNameData = await helperFunctions.hinditranslate(userNameRaw);
-    var userNameLwr = userNameData.toLowerCase();
-    var userName = helperFunctions.replaceWhitespacesDots(userNameLwr);
-
+app.intent('Post DM Message Intent Slot Collection', async (conv, params) => {
+  try{
+    const accessToken = conv.user.access.token;
     const headers = await helperFunctions.login(accessToken);
-    const roomid = await helperFunctions.createDMSession(userName, headers);
-    const speechText = await helperFunctions.postDirectMessage(message, roomid, headers);
-
-    conv.ask(speechText);
-
-  } else {
-
-    var accessToken = conv.user.access.token;
-
-    var message = params.message;
-
-    var userNameRaw = params.username;
-    var userNameData = userNameRaw.toLowerCase();
-    var userName = helperFunctions.replaceWhitespacesDots(userNameData);
-
-    const headers = await helperFunctions.login(accessToken);
-    const roomid = await helperFunctions.createDMSession(userName, headers);
-    const speechText = await helperFunctions.postDirectMessage(message, roomid, headers);
-
-    conv.ask(speechText);
-
+    let username = params.username;
+    const message = params.message;
+  
+    var locale = conv.user.locale;
+    if(locale === 'hi-IN') {
+      username = await helperFunctions.hinditranslate(username);
+    }
+  
+    const userDetails = await helperFunctions.resolveUsername(username, headers);
+  
+    if(userDetails) {
+      conv.ask(i18n.__('POST_MESSAGE.CONFIRM_DM_INTENT', message, userDetails.name))
+      conv.data.userDetails = userDetails
+      conv.contexts.set('post_dm_message', 1, {username, message})
+      conv.ask(new Suggestions(['yes', 'no']))
+    } else {
+      conv.ask(i18n.__('POST_MESSAGE.NO_USER', username))
+      conv.ask(i18n.__('GENERIC_REPROMPT'))
+      conv.ask(new Suggestions(['post message discussion', 'post message to room']))
+    }
+  }catch(err){
+    conv.ask(i18n.__('GENERIC_REPROMPT'))
+    conv.ask(i18n.__('SOMETHING_WENT_WRONG'))
+    conv.ask(new Suggestions(['post message discussion', 'post message to room']))
   }
 
+})
+
+app.intent('Post DM Message Intent Confirmed', async (conv, params) => {
+  try{
+    var accessToken = conv.user.access.token;
+    var message = params.message;
+    const userDetails = conv.data.userDetails
+    const headers = await helperFunctions.login(accessToken);
+    const speechText = await helperFunctions.postDirectMessage(message, userDetails.rid, headers);
+    conv.ask(speechText);
+    conv.ask(i18n.__('GENERIC_REPROMPT'))
+    conv.ask(new Suggestions(['post message discussion', 'post message to room']))
+  }catch(err){
+    conv.ask(i18n.__('GENERIC_REPROMPT'))
+    conv.ask(i18n.__('SOMETHING_WENT_WRONG'))
+    conv.ask(new Suggestions(['post message discussion', 'post message to room']))
+  }
 });
 
 app.intent('Post DM Emoji Message Intent', async (conv, params) => {

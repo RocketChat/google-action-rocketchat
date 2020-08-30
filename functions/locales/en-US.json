@@ -20,6 +20,8 @@
         "CONFIRM_DISCUSSION_INTENT": "You want to send, %s, to discussion %s. Is that correct?",
         "CONFIRMATION": "You want to send, %s, to room %s, is that correct?",
         "NO_CHANNEL": "There is no room named %s in your subscriptions list.",
+        "CONFIRM_DM_INTENT": "You want to send, %s, to user, %s, is that correct?",
+        "NO_USER": "There is no user named %s in your contacts list.",
         "ERROR": "Sorry, I couldn't send your message right now."
     },
     "CREATE_CHANNEL": {
