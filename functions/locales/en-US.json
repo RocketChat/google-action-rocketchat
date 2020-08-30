@@ -18,6 +18,8 @@
     "POST_MESSAGE": {
         "SUCCESS": "I've sent your message.",
         "CONFIRM_DISCUSSION_INTENT": "You want to send, %s, to discussion %s. Is that correct?",
+        "CONFIRMATION": "You want to send, %s, to room %s, is that correct?",
+        "NO_CHANNEL": "There is no room named %s in your subscriptions list.",
         "ERROR": "Sorry, I couldn't send your message right now."
     },
     "CREATE_CHANNEL": {

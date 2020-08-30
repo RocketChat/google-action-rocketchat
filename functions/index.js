@@ -178,43 +178,44 @@ app.intent('Delete Channel Intent', async (conv, params) => {
 
 });
 
-app.intent('Post Channel Message Intent', async (conv, params) => {
+app.intent('Post Channel Message Intent Slot Collection', async (conv, params) => {
+  const accessToken = conv.user.access.token;
+  const headers = await helperFunctions.login(accessToken);
+  let channelname = params.channelname;
+  const message = params.message;
 
   var locale = conv.user.locale;
-
-  if (locale === 'hi-IN') {
-
-    var accessToken = conv.user.access.token;
-
-    var message = params.message;
-
-    var channelNameRaw = params.channelname;
-    var channelNameData = await helperFunctions.hinditranslate(channelNameRaw);
-    var channelNameLwr = channelNameData.toLowerCase();
-    var channelName = helperFunctions.replaceWhitespacesFunc(channelNameLwr);
-
-    const headers = await helperFunctions.login(accessToken);
-    const speechText = await helperFunctions.postMessage(channelName, message, headers);
-
-    conv.ask(speechText);
-
-  } else {
-
-    var accessToken = conv.user.access.token;
-
-    var message = params.message;
-
-    var channelNameRaw = params.channelname;
-    var channelNameData = channelNameRaw.toLowerCase();
-    var channelName = helperFunctions.replaceWhitespacesFunc(channelNameData);
-
-    const headers = await helperFunctions.login(accessToken);
-    const speechText = await helperFunctions.postMessage(channelName, message, headers);
-
-    conv.ask(speechText);
-
+  if(locale === 'hi-IN') {
+    channelname = await helperFunctions.hinditranslate(channelname);
   }
 
+  const channelDetails = await helperFunctions.resolveChannelname(channelname, headers);
+
+  if(channelDetails) {
+    conv.ask(i18n.__('POST_MESSAGE.CONFIRMATION', message, channelDetails.name))
+    conv.data.channelDetails = channelDetails
+    conv.contexts.set('post_message', 1, {channelname, message})
+    conv.ask(new Suggestions(["yes", "no"]))
+  } else {
+    conv.ask(i18n.__('POST_MESSAGE.NO_CHANNEL', channelname))
+    conv.ask(i18n.__('GENERIC_REPROMPT'))
+  }
+})
+
+app.intent('Post Channel Message Intent Confirmed', async (conv, params) => {
+
+  var accessToken = conv.user.access.token;
+
+  var message = params.message;
+
+  const channelName = conv.data.channelDetails.name
+
+  const headers = await helperFunctions.login(accessToken);
+  const speechText = await helperFunctions.postMessage(channelName, message, headers);
+
+  conv.ask(speechText);
+  conv.ask(i18n.__('GENERIC_REPROMPT'))
+  conv.ask(new Suggestions("Read last message"))
 });
 
 app.intent('Channel Last Message Intent', async (conv, params) => {
@@ -2604,47 +2605,6 @@ app.intent('Default No Input Intent', (conv) => {
   } else if (repromptCount === 1) {
     conv.close(i18n.__('NO_INPUT.EXIT'));
   };
-});
-
-app.intent('Post Group Message Intent', async (conv, params) => {
-
-  var locale = conv.user.locale;
-
-  if (locale === 'hi-IN') {
-
-    var accessToken = conv.user.access.token;
-
-    var message = params.message;
-
-    var channelNameRaw = params.channelname;
-    var channelNameData = await helperFunctions.hinditranslate(channelNameRaw);
-    var channelNameLwr = channelNameData.toLowerCase();
-    var channelName = helperFunctions.replaceWhitespacesFunc(channelNameLwr);
-
-    const headers = await helperFunctions.login(accessToken);
-    const roomid = await helperFunctions.getGroupId(channelName, headers);
-    const speechText = await helperFunctions.postGroupMessage(roomid, message, headers);
-
-    conv.ask(speechText);
-
-  } else {
-
-    var accessToken = conv.user.access.token;
-
-    var message = params.message;
-
-    var channelNameRaw = params.channelname;
-    var channelNameData = channelNameRaw.toLowerCase();
-    var channelName = helperFunctions.replaceWhitespacesFunc(channelNameData);
-
-    const headers = await helperFunctions.login(accessToken);
-    const roomid = await helperFunctions.getGroupId(channelName, headers);
-    const speechText = await helperFunctions.postGroupMessage(roomid, message, headers);
-
-    conv.ask(speechText);
-
-  }
-
 });
 
 app.intent('Post Group Emoji Message Intent', async (conv, params) => {
