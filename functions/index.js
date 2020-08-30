@@ -1380,45 +1380,37 @@ app.intent('Channel Description Intent', async (conv, params) => {
 
 });
 
-app.intent('Channel Announcement Intent', async (conv, params) => {
+app.intent('Set Announcement Intent Slot Collection', async (conv, params) => {
+  const accessToken = conv.user.access.token;
+  const headers = await helperFunctions.login(accessToken);
+  let channelname = params.channelname;
+  const announcement = params.announcement;
 
   var locale = conv.user.locale;
-
-  if (locale === 'hi-IN') {
-
-    var accessToken = conv.user.access.token;
-
-    var channelNameRaw = params.channelname;
-    var channelNameData = await helperFunctions.hinditranslate(channelNameRaw);
-    var channelNameLwr = channelNameData.toLowerCase();
-    var channelName = helperFunctions.replaceWhitespacesFunc(channelNameLwr);
-
-    var announcement = params.announcement;
-
-    const headers = await helperFunctions.login(accessToken);
-    const roomid = await helperFunctions.getRoomId(channelName, headers);
-    const speechText = await helperFunctions.channelAnnouncement(channelName, roomid, announcement, headers);
-
-    conv.ask(speechText);
-
-  } else {
-
-    var accessToken = conv.user.access.token;
-
-    var channelNameRaw = params.channelname;
-    var channelNameData = channelNameRaw.toLowerCase();
-    var channelName = helperFunctions.replaceWhitespacesFunc(channelNameData);
-
-    var announcement = params.announcement;
-
-    const headers = await helperFunctions.login(accessToken);
-    const roomid = await helperFunctions.getRoomId(channelName, headers);
-    const speechText = await helperFunctions.channelAnnouncement(channelName, roomid, announcement, headers);
-
-    conv.ask(speechText);
-
+  if(locale === 'hi-IN') {
+    channelname = await helperFunctions.hinditranslate(channelname);
   }
 
+  const channelDetails = await helperFunctions.resolveChannelname(channelname, headers);
+
+  if(channelDetails) {
+    conv.ask(i18n.__('CHANNEL_ANNOUNCEMENT.CONFIRM_INTENT', announcement, channelDetails.name))
+    conv.data.channelDetails = channelDetails
+    conv.contexts.set('set_announcement', 1, {channelname, announcement})
+  } else {
+    conv.ask(i18n.__('CHANNEL_ANNOUNCEMENT.NO_ROOM', channelname))
+    conv.ask(i18n.__('GENERIC_REPROMPT'))
+  }
+})
+
+app.intent('Set Announcement Intent Confirmed', async (conv, params) => {
+
+  var accessToken = conv.user.access.token;
+  const headers = await helperFunctions.login(accessToken);
+
+  const speechText = await helperFunctions.setAnnouncement(conv.data.channelDetails, params.announcement, headers);
+  conv.ask(speechText);
+  conv.ask(i18n.__('GENERIC_REPROMPT'))
 });
 
 app.intent('Remove Channel Leader Intent', async (conv, params) => {
@@ -2349,47 +2341,6 @@ app.intent('Group Description Intent', async (conv, params) => {
     const headers = await helperFunctions.login(accessToken);
     const roomid = await helperFunctions.getGroupId(channelName, headers);
     const speechText = await helperFunctions.groupDescription(channelName, roomid, description, headers);
-
-    conv.ask(speechText);
-
-  }
-
-});
-
-app.intent('Group Announcement Intent', async (conv, params) => {
-
-  var locale = conv.user.locale;
-
-  if (locale === 'hi-IN') {
-
-    var accessToken = conv.user.access.token;
-
-    var channelNameRaw = params.channelname;
-    var channelNameData = await helperFunctions.hinditranslate(channelNameRaw);
-    var channelNameLwr = channelNameData.toLowerCase();
-    var channelName = helperFunctions.replaceWhitespacesFunc(channelNameLwr);
-
-    var announcement = params.announcement;
-
-    const headers = await helperFunctions.login(accessToken);
-    const roomid = await helperFunctions.getGroupId(channelName, headers);
-    const speechText = await helperFunctions.groupAnnouncement(channelName, roomid, announcement, headers);
-
-    conv.ask(speechText);
-
-  } else {
-
-    var accessToken = conv.user.access.token;
-
-    var channelNameRaw = params.channelname;
-    var channelNameData = channelNameRaw.toLowerCase();
-    var channelName = helperFunctions.replaceWhitespacesFunc(channelNameData);
-
-    var announcement = params.announcement;
-
-    const headers = await helperFunctions.login(accessToken);
-    const roomid = await helperFunctions.getGroupId(channelName, headers);
-    const speechText = await helperFunctions.groupAnnouncement(channelName, roomid, announcement, headers);
 
     conv.ask(speechText);
 

@@ -116,6 +116,8 @@
     },
     "CHANNEL_ANNOUNCEMENT": {
         "SUCCESS": "%s announcement is now changed to %s",
+        "CONFIRM_INTENT": "You want to set, %s, as announcement in room %s, is that correct?",
+        "NO_ROOM": "There is no room matching %s.",
         "ERROR": "Sorry, I couldn't change this channel announcement right now.",
         "ERROR_NOT_FOUND": "Sorry, I couldn't change announcement for channel %s right now."
     },
