@@ -24,7 +24,6 @@ const login = async (accessToken) =>
 	})
 	.then((res) => res.data)
 	.then((res) => {
-		console.log(res);
 		const headers = {
 			'X-Auth-Token': res.data.authToken,
 			'X-User-Id': res.data.userId,
@@ -50,7 +49,7 @@ const userDetails = async (accessToken) => {
 	}
 }
 
-// this helper function will return the user headers along with some details
+// this helper function will return the user headers along with some user details
 const getCurrentUserDetails = async (accessToken) => {
 	try{
 		const response = await axios
@@ -359,11 +358,13 @@ const getGroupMentionsCounter = async (roomid, headers) => {
 const roomUnreadMessages = async (channelName, unreadCount, type, headers, fname = null) => {
 	try{
 		// fname is optional and is used as a display name for discussions
+		// fname parameter is provided if the room is a discussion
 		if(fname) fname = `Discussion ${fname}`
 		if (!unreadCount || unreadCount == 0) {
 			return i18n.__('GET_UNREAD_MESSAGES_FROM_CHANNEL.NO_MESSAGE', { channelName: fname || channelName });
 		}
 
+		// call the appropriate API endpoints depending of the type of the room
 		const res = await axios
 		.get(`${ type === 'c' ? apiEndpoints.channelmessageurl : apiEndpoints.groupmessagenameurl }${ channelName }&count=${ unreadCount }`, {
 			headers
@@ -372,8 +373,12 @@ const roomUnreadMessages = async (channelName, unreadCount, type, headers, fname
 
 		if (res.success === true) {
 
+			// msgs array is maintained for speech text response
 			const msgs = [];
+			// messages array is maintained to display the messages in the table as rich response
 			const messages = [];
+
+			// if the same user sends multiple messages then for every message username is not mentioned
 			let previousUsername = '';
 			for (let i = 0; i <= unreadCount - 1; i++) {
 				if(!res.messages[i]) { continue; }
@@ -383,6 +388,7 @@ const roomUnreadMessages = async (channelName, unreadCount, type, headers, fname
 				if(!res.messages[i].file && !res.messages[i].t && res.messages[i].msg){
 					// check if the message is not empty or made of just dots.
 					if(cleanMessage(res.messages[i].msg).replace(/\./g,' ').trim()) {
+						// speak only the text message if the same user sent the message
 						if(previousUsername === res.messages[i].u.username) {
 							msgs.push(`${res.messages[i].msg}. `)
 						} else {
@@ -423,12 +429,15 @@ const roomUnreadMessages = async (channelName, unreadCount, type, headers, fname
 			}
 
 			var responseString = msgs.join('  ');
+			// remove the emojis, urls and special characters form speech text message
 			responseString = cleanMessage(responseString);
 
 			var finalMsg = i18n.__('GET_UNREAD_MESSAGES_FROM_CHANNEL.MESSAGE',{total: unreadCount, count: msgs.length, channelName: fname || channelName, responseString });
 
-			// if there's nothing to display in the table just send the messsage.
+			// if there's nothing to display in the table just send the speech messsage.
 			if(messages.length === 0) return finalMsg;
+
+			// send response as an array with first element as speech text and second element as data to be displayed in rich response
 			return [ finalMsg, messages ];
 
 		} else {
@@ -436,7 +445,6 @@ const roomUnreadMessages = async (channelName, unreadCount, type, headers, fname
 		}
 
 	} catch(err) {
-		console.log(err);
 		throw err
 	}
 }
@@ -471,7 +479,6 @@ const channelUnreadMentions = async (channelName, roomid, mentionsCount, headers
 	})
 	.catch((err) => {
 		console.log(err.message);
-		console.log(err.message);
 		if (err.response.data.errorType === 'error-room-not-found') {
 			return i18n.__('GET_USER_MENTIONS_FROM_CHANNEL.ERROR_NOT_FOUND', channelName);
 		} else {
@@ -498,8 +505,6 @@ const inviteUser = async (userName, channelName, userid, roomid, headers) =>
 		}
 	})
 	.catch((err) => {
-		console.log(err.message);
-		console.log(err.message);
 		console.log(err.message);
 		if (err.response.data.errorType === 'error-room-not-found') {
 			return i18n.__('INVITE_USER_TO_CHANNEL.ERROR_NOT_FOUND', channelName);
@@ -1012,8 +1017,6 @@ const inviteUserToGroup = async (userName, channelName, userid, roomid, headers)
 	})
 	.catch((err) => {
 		console.log(err.message);
-		console.log(err.message);
-		console.log(err.message);
 		if (err.response.data.errorType === 'error-room-not-found') {
 			return i18n.__('INVITE_USER_TO_CHANNEL.ERROR_NOT_FOUND', channelName);
 		} else {
@@ -1040,8 +1043,6 @@ const kickUserFromGroup = async (userName, channelName, userid, roomid, headers)
 		}
 	})
 	.catch((err) => {
-		console.log(err.message);
-		console.log(err.message);
 		console.log(err.message);
 		if (err.response.data.errorType === 'error-room-not-found') {
 			return i18n.__('KICK_USER_FROM_CHANNEL.ERROR_NOT_FOUND', channelName);
@@ -1288,6 +1289,7 @@ const getGroupUnreadCounter = async (roomid, headers) =>
 		console.log(err.message);
 	});
 
+// not in use
 const groupUnreadMessages = async (channelName, roomid, unreadCount, headers) =>
 	await axios
 	.get(`${ apiEndpoints.groupmessageurl }${ roomid }&count=${ unreadCount }`, {
@@ -1320,7 +1322,6 @@ const groupUnreadMessages = async (channelName, roomid, unreadCount, headers) =>
 	})
 	.catch((err) => {
 		console.log(err.message);
-		console.log(err.message);
 		if (err.response.data.errorType === 'error-room-not-found') {
 			return i18n.__('GET_UNREAD_MESSAGES_FROM_CHANNEL.ERROR_NOT_FOUND', channelName);
 		} else {
@@ -1337,6 +1338,7 @@ const DMUnreadMessages = async (name, count, headers) => {
 			return i18n.__('GET_UNREAD_MESSAGES_FROM_DM.NO_MESSAGE', { name });
 		}
 
+		// get count number of latest messages from name username
 		const res = await axios
 		.get(`${ apiEndpoints.immessageurl }?username=${ name }&count=${ count }`, {
 			headers
@@ -1415,6 +1417,7 @@ const getLastMessageType = async (channelName, headers) =>
 		}
 	});
 
+// not in use
 const getLastMessageFileURL = async (channelName, headers) =>
 	await axios
 	.get(`${ apiEndpoints.channelmessageurl }${ channelName }`, {
@@ -1426,6 +1429,7 @@ const getLastMessageFileURL = async (channelName, headers) =>
 		console.log(err.message);
 	});
 
+// not in use
 const getLastMessageFileDowloadURL = async (fileurl, headers) =>
 	await axios
 	.get(fileurl, {
@@ -1436,6 +1440,7 @@ const getLastMessageFileDowloadURL = async (fileurl, headers) =>
 		console.log(err.message);
 	});
 
+// not in use
 const getGroupLastMessageType = async (roomid, headers) =>
 	await axios
 	.get(`${ apiEndpoints.groupmessageurl }${ roomid }`, {
@@ -1456,6 +1461,7 @@ const getGroupLastMessageType = async (roomid, headers) =>
 		}
 	});
 
+// not in use
 const getGroupLastMessageFileURL = async (roomid, headers) =>
 	await axios
 	.get(`${ apiEndpoints.groupmessageurl }${ roomid }`, {
@@ -1504,6 +1510,7 @@ const resolveChannelname = async (channelName, headers) => {
 };
 
 // this function resolves the channelname to the best matching name from the latest 100 channels and latest 100 groups
+// this function is faster if the user is a part of thousands of subscriptions, but comes with a limitation of comparing only from the latest 100 channels and groups.
 const resolveChannelnameFromLatestRooms = async (channelName, headers) => {
 	try {
 		// sort wrt prid, so the discussions will end up at the end.
@@ -1578,6 +1585,8 @@ const resolveUsername = async (username, headers) => {
 	}
 };
 
+// this function resolves username from the latest 100 contacts of the user
+// this function is fast if the user is a part of thousands of subscriptions, but comes with a limitation that only latest 100 users are compared
 const resolveDM = async (username, currentUserDetails, headers) => {
 	try{
 		//selects the latest 40 dm rooms in the user's contacts list
@@ -1621,6 +1630,8 @@ const resolveDM = async (username, currentUserDetails, headers) => {
 	}
 }
 
+// this functions resolves either username of roomname (whichever matches best) from the subscriptions active since one week.
+// this function comes with a limitation that sometimes the username and the channelname might be same.
 const resolveRoomORUser = async (name, headers) => {
 	try{
 		const no_of_days = 7;
@@ -1660,9 +1671,10 @@ const resolveRoomORUser = async (name, headers) => {
 	}
 }
 
+// this function resolves discussion names from the latest 100 private and 100 public discussions that the user is a part of
 const resolveDiscussion = async (discussionName, headers) => {
 	try{
-		// prid sort so that the normal rooms will be considered last
+		// prid sort so that the normal rooms will be considered last and discussions will appear at the top
 		let groupDiscussions = await axios.get(`${apiEndpoints.grouplisturl}?sort={"prid": -1, "_updatedAt": -1}&fields={"_id": 1, "name": 1, "fname": 1, "prid": 1, "t": 1}&count=100`, {
 			headers
 		}).then(res => res.data.groups);
@@ -1776,12 +1788,16 @@ const getAllUnreads = async (headers) => {
 			headers,
 		})
 			.then((res) => res.data.update);
+		
+		// finalMessage will store the final speech text
 		let finalMessage = '';
+		// unreadDetails will store the information to be displayed in the rich response
 		let unreadDetails = [];
 
 		for (const subscription of subscriptions) {
 			if (subscription.unread && subscription.unread !== 0) {
 				if(subscription.prid) {
+					// if the subscription is a discussion prefix it with [D]
 					finalMessage += `${ subscription.unread } unreads from discussion ${ subscription.fname }, `;
 					unreadDetails.push({name: `[D] ${subscription.fname.slice(0, 20)}`, unreads: subscription.unread})
 					continue;
@@ -1791,6 +1807,7 @@ const getAllUnreads = async (headers) => {
 				} else {
 					finalMessage += `${ subscription.unread } unreads in ${ subscription.name }, `;
 				}
+				// prefic public channel with [C], private channels with [P] and direct messages with [DM]
 				unreadDetails.push({name: `[${subscription.t === 'd' ? 'DM' : subscription.t.toUpperCase()}] ${subscription.name.slice(0, 20)}`, unreads: subscription.unread})
 			}
 		}
