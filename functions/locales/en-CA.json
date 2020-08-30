@@ -12,10 +12,12 @@
     },
     "WELCOME": {
         "SUCCESS": "Welcome To Rocket Chat Google Action. What Would you like to do today?",
-        "ERROR": "To start using this action, please link your account to authenticate."
+        "ERROR": "To start using this action, please link your account to authenticate.",
+        "AUTH_ERROR": "Sorry, I could not connect you with your account."
     },
     "POST_MESSAGE": {
         "SUCCESS": "I've sent your message.",
+        "CONFIRM_DISCUSSION_INTENT": "You want to send, %s, to discussion %s. Is that correct?",
         "ERROR": "Sorry, I couldn't send your message right now."
     },
     "CREATE_CHANNEL": {
@@ -58,8 +60,8 @@
         "ERROR_NOT_FOUND": "Sorry, I couldn't archive channel %s right now."
     },
     "GET_UNREAD_MESSAGES_FROM_CHANNEL": {
-        "NO_MESSAGE": "You have no unread messages.",
-        "MESSAGE": "<speak> You Have %s Unread Messages <break time=\"1\" /> <p> %s </p> </speak>",
+        "NO_MESSAGE": "You don't have any unread messages in {{channelName}}.",
+        "MESSAGE": "<speak> You Have {{total}} unread activities and {{count}} Unread Messages in {{channelName}}. <break time=\"1\" /> <p> {{responseString}} </p> </speak>",
         "ERROR": "Sorry, I couldn't get your unread messages right now.",
         "ERROR_NOT_FOUND": "Sorry, the channel %s does not exist. Please try again with different channel name."
     },
@@ -127,5 +129,44 @@
         "SUCCESS": "%s is no longer the owner of %s.",
         "ERROR": "Sorry, I couldn't remove owner from this channel right now.",
         "ERROR_NOT_FOUND": "Sorry, I couldn't remove owner from channel %s right now."
-    }
+    },
+    "GET_ALL_UNREADS": {
+        "MESSAGE": "You have, {{message}}.",
+        "NO_UNREADS": "You don't have any unread messages.",
+        "ERROR": "Sorry, I am not able to get unread messages."
+    },
+    "GET_ALL_UNREAD_MENTIONS": {
+        "MESSAGE": "You have, {{message}}.",
+        "NO_MENTIONS": "You don't have any unread mentions.",
+        "ERROR": "Sorry, I am not able to get your mentions."
+    },
+    "GET_UNREAD_MESSAGES_FROM_DM": {
+        "NO_MESSAGE": "You don't have any unread messages from DM, {{name}}.",
+        "MESSAGE": "You have, {{unread}} unreads from {{name}}. {{responseString}}."
+    },
+    "MENTIONS": {
+        "READ_MENTIONS": "You have {{count}} mentions in {{roomName}}. {{finalMessage}}.",
+        "NO_MENTIONS": "You don't have any mentions in {{roomName}}.",
+        "READ_DM_MENTIONS": "You have {{count}} mentions from {{name}}. {{finalMessage}}.",
+        "NO_DM_MENTIONS": "You don't have any mentions from DM, {{name}}.",
+        "ERROR": "Sorry, I couldn't get your mentions"
+    },
+    "MESSAGE_TYPE": {
+        "TEXT_MESSAGE": "{{username}} says, {{message}}",
+        "CHANGE_DESCRIPTION": "{{username}} changed the description to, {{description}}.",
+        "CHANGE_ANNOUNCEMENT": "{{username}} made an announcement that says {{announcement}}.",
+        "CHANGE_TOPIC": "{{username}} changed the topic to {{topic}}.",
+        "IMAGE_MESSAGE": "{{username}} shared an image titled {{title}}.",
+        "VIDEO_MESSAGE": "{{username}} shared a video titled {{title}}.", 
+        "FILE_MESSAGE": "{{username}} shared a file titled {{title}}.",
+        "DISCUSSION_CREATED": "{{username}} created a discussion named {{name}}.",
+        "UNKNOWN_MESSAGE": "{{username}}, performed some action"
+    },
+    "NO_ACTIVE_USER": "Couldn't find an active user named {{username}} from your contacts.",
+    "NO_ACTIVE_DISCUSSION": "Couldn't find an active discussion named {{name}} from your discussions.",
+    "NO_ACTIVE_ROOM": "Couldn't detect a room named {{name}}, maybe it's not active since long.",
+    "NO_ROOM": "You are not part of any channel or group named %s .",
+    "NO_ACTIVE_SUBSCRIPTION": "Couldn't detect a room or user named {{name}} from your subscriptions list. Maybe it's not active.",
+    "GENERIC_REPROMPT": "Anything else I can help you with?",
+    "SOMETHING_WENT_WRONG": "Sorry, something went wrong."
 }
