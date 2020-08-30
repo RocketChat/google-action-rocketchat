@@ -17,6 +17,7 @@ module.exports = {
 	channelmessageurl: `${ SERVER_URL }/api/v1/channels.messages?roomName=`,
 	immessageurl: `${ SERVER_URL }/api/v1/im.messages`,
 	imcountersurl: `${ SERVER_URL }/api/v1/im.counters`,
+	groupmessageurlname: `${ SERVER_URL }/api/v1/groups.messages?roomName=`,
 	channelmentionsurl: `${ SERVER_URL }/api/v1/channels.getAllUserMentionsByChannel?roomId=`,
 	channelinfourl: `${ SERVER_URL }/api/v1/channels.info?roomName=`,
 	userinfourl: `${ SERVER_URL }/api/v1/users.info?username=`,

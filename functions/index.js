@@ -376,6 +376,92 @@ app.intent('Post Channel Message Intent Confirmed', async (conv, params) => {
   conv.ask(new Suggestions("Read last message"))
 });
 
+app.intent('Get Last Message From Channel', async (conv, params) => {
+  var accessToken = conv.user.access.token;
+  const headers = await helperFunctions.login(accessToken);
+  let channelname = params.channelname;
+  var locale = conv.user.locale;
+
+  if (locale === 'hi-IN') {
+    channelname = helperFunctions.hinditranslate(channelname)
+  }
+
+  const channelDetails = await helperFunctions.resolveChannelname(channelname, headers);
+
+  if(!channelDetails) {
+    conv.ask(i18n.__('NO_ROOM', channelname))
+    conv.ask(i18n.__('GENERIC_REPROMPT'))
+    return
+  }
+
+  const lastMessage = await helperFunctions.getLastMessage(channelDetails, headers);
+  let speechText;
+  let imageURL;
+  let download;
+  if(!lastMessage.file && !lastMessage.t){
+    speechText = i18n.__('MESSAGE_TYPE.TEXT_MESSAGE', {username: lastMessage.u.username, message: lastMessage.msg})
+  } else if (!lastMessage.file) {
+    if(lastMessage.t === 'room_changed_description'){
+      speechText = i18n.__('MESSAGE_TYPE.CHANGE_DESCRIPTION', {username: lastMessage.u.username, description: lastMessage.msg})
+    } else if (lastMessage.t === 'room_changed_topic'){
+      speechText = i18n.__('MESSAGE_TYPE.CHANGE_TOPIC', {username: lastMessage.u.username, topic: lastMessage.msg})
+    } else if (lastMessage.t === 'room_changed_announcement') {
+      speechText = i18n.__('MESSAGE_TYPE.CHANGE_ANNOUNCEMENT', {username: lastMessage.u.username, announcement: lastMessage.msg})
+    } else {
+      speechText = i18n.__('MESSAGE_TYPE.UNKNOWN_MESSAGE', {username: lastMessage.u.username})
+    }
+  } else if (lastMessage.file) {
+    if(lastMessage.file.type.includes('image')){
+      speechText = i18n.__('MESSAGE_TYPE.IMAGE_MESSAGE', {username: lastMessage.u.username, title: lastMessage.attachments[0].title}) 
+      imageURL = await helperFunctions.getLastMessageFileDowloadURL(`${SERVER_URL}${lastMessage.attachments[0].image_url}`, headers)
+    } else if (lastMessage.file.type.includes('video')){
+      speechText = i18n.__('MESSAGE_TYPE.VIDEO_MESSAGE', {username: lastMessage.u.username, title: lastMessage.attachments[0].title}) 
+      download = await helperFunctions.getLastMessageFileDowloadURL(`${SERVER_URL}${lastMessage.attachments[0].title_link}`, headers)
+    }else {
+      speechText = i18n.__('MESSAGE_TYPE.FILE_MESSAGE', {username: lastMessage.u.username, title: lastMessage.attachments[0].title}) 
+      download = await helperFunctions.getLastMessageFileDowloadURL(`${SERVER_URL}${lastMessage.attachments[0].title_link}`, headers)
+    }
+  } else {
+    speechText = i18n.__('MESSAGE_TYPE.UNKNOWN_MESSAGE', {username: lastMessage.u.username})
+  }
+  conv.ask(speechText)
+  const url = `${SERVER_URL}/${channelDetails.type === 'c' ? 'channel' : 'group'}/${channelDetails.name}`
+  if(imageURL){
+    conv.ask(new BasicCard({
+      text: `${lastMessage.attachments[0].title}`,
+      buttons: new Button({
+        title: 'Open in Browser',
+        url: `${url}`,
+      }),
+      image: new Image({
+        url: `${imageURL}`,
+        alt: 'Rocket Chat Image Message',
+      }),
+      display: 'CROPPED',
+    }));
+  } else if(download) {
+    conv.ask(new BasicCard({
+      title: `Message from ${lastMessage.u.username}`,
+      subtitle: `${ lastMessage.attachments[0].title}`,
+      buttons: new Button({
+        title: 'View File',
+        url: `${download}`,
+      })
+    }));
+  } else {
+    conv.ask(new BasicCard({
+      title: `Message from ${lastMessage.u.username}`,
+      subtitle: lastMessage.msg || '',
+      buttons: new Button({
+        title: 'Open in Browser',
+        url: `${url}`,
+      })
+    }));
+  }
+  conv.ask(i18n.__('GENERIC_REPROMPT'))
+
+})
+
 app.intent('Channel Last Message Intent', async (conv, params) => {
 
   var locale = conv.user.locale;
