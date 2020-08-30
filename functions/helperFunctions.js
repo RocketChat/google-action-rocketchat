@@ -142,7 +142,7 @@ const postMessage = async (channelName, message, headers) =>
 	.post(
 		apiEndpoints.postmessageurl, {
 			channel: `#${ channelName }`,
-			text: message,
+			text: message[0].toUpperCase() + message.slice(1), //make the first letter upper case
 		}, {
 			headers
 		}
@@ -806,7 +806,7 @@ const postDirectMessage = async (message, roomid, headers) =>
 	.post(
 		apiEndpoints.postmessageurl, {
 			roomId: roomid,
-			text: message,
+			text: message[0].toUpperCase() + message.slice(1), //make the first letter uppercase
 		}, {
 			headers
 		}
@@ -2150,3 +2150,4 @@ module.exports.randomProperty = randomProperty;
 module.exports.setStatus = setStatus;
 module.exports.hasCommonElement = hasCommonElement;
 module.exports.getLastMessage = getLastMessage;
+module.exports.resolveChannelnameFromLatestRooms = resolveChannelnameFromLatestRooms;

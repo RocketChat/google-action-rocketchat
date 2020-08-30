@@ -2959,8 +2959,6 @@ app.intent('Post Discussion Message Intent Confirmed', async (conv, params) => {
   try{
     var accessToken = conv.user.access.token;
     var message = params.message;
-    //make the first letter uppercase
-    message = message[0].toUpperCase() + message.slice(1);
     const headers = await helperFunctions.login(accessToken);
     const speechText = await helperFunctions.postMessage(conv.data.discussionDetails.name, message, headers);
     conv.ask(speechText);
