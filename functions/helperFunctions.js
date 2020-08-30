@@ -110,31 +110,32 @@ const createChannel = async (channelName, headers) =>
 		}
 	});
 
-const deleteChannel = async (channelName, headers) =>
-	await axios
-	.post(
-		apiEndpoints.deletechannelurl, {
-			roomName: channelName,
-		}, {
-			headers
-		}
-	)
-	.then((res) => res.data)
-	.then((res) => {
-		if (res.success === true) {
-			return i18n.__('DELETE_CHANNEL.SUCCESS', channelName);
+const deleteChannel = async (channelDetails, headers) => {
+	try{
+		const response = await axios
+		.post(
+			channelDetails.type === 'c' ? apiEndpoints.deletechannelurl : apiEndpoints.deletegroupurl, {
+				roomName: channelDetails.name,
+			}, {
+				headers
+			}
+		)
+		.then((res) => res.data)
+
+		if (response.success === true) {
+			return i18n.__('DELETE_CHANNEL.SUCCESS', channelDetails.name);
 		} else {
-			return i18n.__('DELETE_CHANNEL.ERROR', channelName);
+			return i18n.__('DELETE_CHANNEL.ERROR', channelDetails.name);
 		}
-	})
-	.catch((err) => {
+	}catch(err) {
 		console.log(err.message);
 		if (err.response.data.errorType === 'error-room-not-found') {
-			return i18n.__('DELETE_CHANNEL.ERROR_NOT_FOUND', channelName);
+			return i18n.__('DELETE_CHANNEL.ERROR_NOT_FOUND', channelDetails.name);
 		} else {
-			return i18n.__('DELETE_CHANNEL.ERROR', channelName);
+			return i18n.__('DELETE_CHANNEL.ERROR', channelDetails.name);
 		}
-	});
+	};
+}
 
 const postMessage = async (channelName, message, headers) =>
 	await axios
@@ -273,27 +274,28 @@ const addOwner = async (userDetails, channelDetails, headers) => {
 	};
 }
 
-const archiveChannel = async (channelName, roomid, headers) =>
-	await axios
-	.post(
-		apiEndpoints.archivechannelurl, {
-			roomId: roomid,
-		}, {
-			headers
-		}
-	)
-	.then((res) => res.data)
-	.then((res) => {
-		if (res.success === true) {
-			return i18n.__('ARCHIVE_CHANNEL.SUCCESS', channelName);
+const archiveChannel = async (channelDetails, headers) => {
+	try{
+		const response = await axios
+		.post(
+			 channelDetails.type === 'c' ? apiEndpoints.archivechannelurl : apiEndpoints.archivegroupurl, {
+				roomId: channelDetails.id,
+			}, {
+				headers
+			}
+		)
+		.then((res) => res.data)
+
+		if (response.success === true) {
+			return i18n.__('ARCHIVE_CHANNEL.SUCCESS', channelDetails.name);
 		} else {
 			return i18n.__('ARCHIVE_CHANNEL.ERROR');
 		}
-	})
-	.catch((err) => {
+	}catch(err) {
 		console.log(err.message);
-		return i18n.__('ARCHIVE_CHANNEL.ERROR_NOT_FOUND', channelName);
-	});
+		return i18n.__('ARCHIVE_CHANNEL.ERROR_NOT_FOUND', channelDetails.name);
+	};
+}
 
 function replaceWhitespacesFunc(str) {
 	return removeWhitespace(str);
@@ -515,27 +517,28 @@ const inviteUser = async (userDetails, channelDetails, headers) => {
 	};
 }
 
-const leaveChannel = async (channelName, roomid, headers) =>
-	await axios
-	.post(
-		apiEndpoints.leavechannelurl, {
-			roomId: roomid,
-		}, {
-			headers
-		}
-	)
-	.then((res) => res.data)
-	.then((res) => {
-		if (res.success === true) {
-			return i18n.__('LEAVE_CHANNEl.SUCCESS', channelName);
+const leaveChannel = async (channelDetails, headers) => {
+	try{
+		const response = await axios
+		.post(
+			channelDetails.type === 'c' ? apiEndpoints.leavechannelurl : apiEndpoints.leavegroupurl, {
+				roomId: channelDetails.id,
+			}, {
+				headers
+			}
+		)
+		.then((res) => res.data)
+
+		if (response.success === true) {
+			return i18n.__('LEAVE_CHANNEL.SUCCESS', channelDetails.name);
 		} else {
-			return i18n.__('LEAVE_CHANNEl.ERROR', channelName);
+			return i18n.__('LEAVE_CHANNEL.ERROR', channelDetails.name);
 		}
-	})
-	.catch((err) => {
+	}catch(err) {
 		console.log(err.message);
-		return i18n.__('LEAVE_CHANNEl.ERROR', channelName);
-	});
+		return i18n.__('LEAVE_CHANNEL.ERROR', channelDetails.name);
+	};
+}
 
 const kickUser = async (userDetails, channelDetails, headers) => {
 	try{
@@ -590,96 +593,100 @@ const addLeader = async (userDetails, channelDetails, headers) => {
 	};
 }
 
-const channelRename = async (channelName, roomid, newName, headers) =>
-	await axios
-	.post(
-		apiEndpoints.channelrenameurl, {
-			roomId: roomid,
-			name: newName,
-		}, {
-			headers
-		}
-	)
-	.then((res) => res.data)
-	.then((res) => {
-		if (res.success === true) {
-			return i18n.__('RENAME_ROOM.SUCCESS', channelName, newName);
+const channelRename = async (channelDetails, newName, headers) => {
+	try{
+		const response = await axios
+		.post(
+			channelDetails.type === 'c' ? apiEndpoints.channelrenameurl : apiEndpoints.renamegroupurl, {
+				roomId: channelDetails.id,
+				name: newName,
+			}, {
+				headers
+			}
+		)
+		.then((res) => res.data)
+
+		if (response.success === true) {
+			return i18n.__('RENAME_ROOM.SUCCESS', channelDetails.name, newName);
 		} else {
 			return i18n.__('RENAME_ROOM.ERROR');
 		}
-	})
-	.catch((err) => {
+	}catch(err){
 		console.log(err.message);
-		return i18n.__('RENAME_ROOM.ERROR_NOT_FOUND', channelName);
-	});
+		return i18n.__('RENAME_ROOM.ERROR_NOT_FOUND', channelDetails.name);
+	};
+}
 
-const unarchiveChannel = async (channelName, roomid, headers) =>
-	await axios
-	.post(
-		apiEndpoints.unarchivechannelurl, {
-			roomId: roomid,
-		}, {
-			headers
-		}
-	)
-	.then((res) => res.data)
-	.then((res) => {
-		if (res.success === true) {
-			return i18n.__('UNARCHIVE_CHANNEL.SUCCESS', channelName);
+const unarchiveChannel = async (channelDetails, headers) => {
+	try{
+		const response = await axios
+		.post(
+			channelDetails.type === 'c' ? apiEndpoints.unarchivechannelurl : apiEndpoints.unarchivegroupurl, {
+				roomId: channelDetails.id,
+			}, {
+				headers
+			}
+		)
+		.then((res) => res.data)
+
+		if (response.success === true) {
+			return i18n.__('UNARCHIVE_CHANNEL.SUCCESS', channelDetails.name);
 		} else {
 			return i18n.__('UNARCHIVE_CHANNEL.ERROR');
 		}
-	})
-	.catch((err) => {
+	}catch(err){
 		console.log(err.message);
-		return i18n.__('UNARCHIVE_CHANNEL.ERROR_NOT_FOUND', channelName);
-	});
+		return i18n.__('UNARCHIVE_CHANNEL.ERROR_NOT_FOUND', channelDetails.name);
+	};
+}
 
-const channelTopic = async (channelName, roomid, topic, headers) =>
-	await axios
-	.post(
-		apiEndpoints.channeltopicurl, {
-			roomId: roomid,
-			topic: topic,
-		}, {
-			headers
-		}
-	)
-	.then((res) => res.data)
-	.then((res) => {
-		if (res.success === true) {
-			return i18n.__('CHANNEL_TOPIC.SUCCESS', channelName, topic);
+const channelTopic = async (channelDetails, topic, headers) => {
+	try{
+		const response = await axios
+		.post(
+			channelDetails.type === 'c' ? apiEndpoints.channeltopicurl : apiEndpoints.grouptopicurl, {
+				roomId: channelDetails.id,
+				topic: topic,
+			}, {
+				headers
+			}
+		)
+		.then((res) => res.data)
+
+		if (response.success === true) {
+			return i18n.__('CHANNEL_TOPIC.SUCCESS', channelDetails.name, topic);
 		} else {
 			return i18n.__('CHANNEL_TOPIC.ERROR');
 		}
-	})
-	.catch((err) => {
+	}catch(err) {
 		console.log(err.message);
-		return i18n.__('CHANNEL_TOPIC.ERROR_NOT_FOUND', channelName);
-	});
+		return i18n.__('CHANNEL_TOPIC.ERROR_NOT_FOUND', channelDetails.name);
+	};
+}
 
-const channelDescription = async (channelName, roomid, description, headers) =>
-	await axios
-	.post(
-		apiEndpoints.channeldescriptionurl, {
-			roomId: roomid,
-			description: description,
-		}, {
-			headers
-		}
-	)
-	.then((res) => res.data)
-	.then((res) => {
-		if (res.success === true) {
-			return i18n.__('CHANNEL_DESCRIPTION.SUCCESS', channelName, description);
+const channelDescription = async (channelDetails, description, headers) => {
+	try{
+		const response = await axios
+		.post(
+			channelDetails.type === 'c' ? apiEndpoints.channeldescriptionurl : apiEndpoints.groupdescriptionurl, {
+				roomId: channelDetails.id,
+				description: description,
+			}, {
+				headers
+			}
+		)
+		.then((res) => res.data)
+
+		if (response.success === true) {
+			return i18n.__('CHANNEL_DESCRIPTION.SUCCESS', channelDetails.name, description);
 		} else {
 			return i18n.__('CHANNEL_DESCRIPTION.ERROR');
 		}
-	})
-	.catch((err) => {
+	}catch(err) {
 		console.log(err.message);
-		return i18n.__('CHANNEL_DESCRIPTION.ERROR_NOT_FOUND', channelName);
-	});
+		return i18n.__('CHANNEL_DESCRIPTION.ERROR_NOT_FOUND', channelDetails.name);
+	};
+}
 
 const setAnnouncement = async (roomDetails, announcement, headers) => {
 	try{
@@ -2008,6 +2015,43 @@ const DMUnreadMentions = async (DMDetails, count, headers) => {
 	}
 }
 
+const randomProperty = function(obj) {
+	if (typeof obj === 'string') {
+		return obj;
+	} else {
+		const keys = Object.keys(obj);
+		return obj[keys[keys.length * Math.random() << 0]];
+	}
+};
+
+const setStatus = async (message, headers) => {
+	try {
+		const response = await axios.post(apiEndpoints.setstatusurl, {
+			message,
+		}, {
+			headers,
+		}).then((res) => res.data);
+
+		if (response.success) {
+			return i18n.__('STATUS.SUCCESS');
+		}
+		return i18n.__('STATUS.ERROR');
+	} catch (err) {
+		console.log(err);
+		return i18n.__('STATUS.ERROR');
+	}
+};
+
+const hasCommonElement = (arr1, arr2) => {
+	let set = new Set(arr1)
+	for (let element of arr2){
+	  if (set.has(element)){
+		return true
+	  }
+	}
+	return false
+}
+
 // Module Export of Functions
 
 module.exports.login = login;
@@ -2088,3 +2132,6 @@ module.exports.resolveDiscussion = resolveDiscussion;
 module.exports.getRoomCounterFromId = getRoomCounterFromId;
 module.exports.getLatestDiscussions = getLatestDiscussions;
 module.exports.resolveUsersWithRolesFromRoom = resolveUsersWithRolesFromRoom;
+module.exports.randomProperty = randomProperty;
+module.exports.setStatus = setStatus;
+module.exports.hasCommonElement = hasCommonElement;

@@ -40,6 +40,56 @@ app.middleware((conv) => {
   moment.locale(conv.user.locale);
 });
 
+const handleConfirmationChannelResolution = async (app, intentData) => {
+  app.intent(intentData.intentName, async (conv, params) => {
+    try{
+      const accessToken = conv.user.access.token;
+      const headers = await helperFunctions.login(accessToken);
+      let channelname = params.channelname;
+    
+      var locale = conv.user.locale;
+      if(locale === 'hi-IN') {
+        channelname = await helperFunctions.hinditranslate(channelname);
+      }
+    
+      const channelDetails = await helperFunctions.resolveChannelname(channelname, headers);
+    
+      if(!channelDetails){
+        conv.ask(i18n.__('NO_ROOM', channelname))
+        if(Math.random() >= 0.5) {
+          conv.ask(i18n.__('GENERIC_REPROMPT'))
+        } else {
+          // giving hints to the user
+          conv.ask([i18n.__('GENERIC_REPROMPT'), i18n.__('HINTS_TRANSITION'), helperFunctions.randomProperty(i18n.__('HINTS'))].join(' '))
+        }
+        return 
+      }
+  
+      intentData.confirmationLogic({conv, params, channelDetails, headers})
+      conv.ask(new Suggestions(['yes', 'no']))
+    }catch(err){
+      conv.ask(i18n.__('TRY_AGAIN'));
+    }
+  })
+}
+
+const handleExecutionChannelResolution = async (app, intentData) => {
+  app.intent(intentData.intentName, async(conv, params) => {
+    try{
+      const accessToken = conv.user.access.token;
+      const headers = await helperFunctions.login(accessToken);
+      await intentData.executionLogic({conv, params, headers})
+      const random = Math.random()
+      if(random >= 0.7) {
+        conv.ask(i18n.__('GENERIC_REPROMPT'))
+      } else {
+        conv.ask([i18n.__('GENERIC_REPROMPT'), i18n.__('HINTS_TRANSITION'), helperFunctions.randomProperty(i18n.__('HINTS'))].join(' '))
+      }
+    }catch(err){
+      conv.ask(i18n.__('TRY_AGAIN'));
+    }
+  })
+}
 
 app.intent('Default Welcome Intent', async (conv) => {
   try{
@@ -239,6 +289,17 @@ app.intent('Create Channel Intent', async (conv, params) => {
   }
 
 });
+
+handleConfirmationChannelResolution(app, {intentName: 'Delete Channel Intent Slot Collection', confirmationLogic: ({conv, channelDetails}) => {
+  conv.ask(i18n.__(`DELETE_CHANNEL.CONFIRM_INTENT`, { roomname: channelDetails.name }))
+  conv.data.channelDetails = channelDetails
+  conv.contexts.set('delete_channel', 1, {channelname: channelDetails.name})
+}})
+
+handleExecutionChannelResolution(app, {intentName: 'Delete Channel Intent Confirmed', executionLogic: async ({conv, headers}) => {
+  const speechText = await helperFunctions.deleteChannel(conv.data.channelDetails, headers);
+  conv.ask(speechText);
+}})
 
 app.intent('Delete Channel Intent', async (conv, params) => {
 
@@ -579,6 +640,17 @@ app.intent('Add All To Channel Intent', async (conv, params) => {
   }
 
 });
+
+handleConfirmationChannelResolution(app, {intentName: 'Archive Channel Intent Slot Collection', confirmationLogic: ({conv, channelDetails}) => {
+  conv.ask(i18n.__(`ARCHIVE_CHANNEL.CONFIRM_INTENT`, { roomname: channelDetails.name }))
+  conv.data.channelDetails = channelDetails
+  conv.contexts.set('archive_channel', 1, {channelname: channelDetails.name})
+}})
+
+handleExecutionChannelResolution(app, {intentName: 'Archive Channel Intent Confirmed', executionLogic: async ({conv, headers}) => {
+  const speechText = await helperFunctions.archiveChannel(conv.data.channelDetails, headers);
+  conv.ask(speechText);
+}})
 
 app.intent('Archive Channel Intent', async (conv, params) => {
 
@@ -1179,6 +1251,17 @@ app.intent('Invite User Intent', async (conv, params) => {
 
 });
 
+handleConfirmationChannelResolution(app, {intentName: 'Leave Channel Intent Slot Collection', confirmationLogic: ({conv, channelDetails}) => {
+  conv.ask(i18n.__(`LEAVE_CHANNEL.CONFIRM_INTENT`, { roomname: channelDetails.name }))
+  conv.data.channelDetails = channelDetails
+  conv.contexts.set('leave_channel', 1, {channelname: channelDetails.name})
+}})
+
+handleExecutionChannelResolution(app, {intentName: 'Leave Channel Intent Confirmed', executionLogic: async ({conv, headers}) => {
+  const speechText = await helperFunctions.leaveChannel(conv.data.channelDetails, headers);
+  conv.ask(speechText);
+}})
+
 app.intent('Leave Channel Intent', async (conv, params) => {
 
   var locale = conv.user.locale;
@@ -1264,6 +1347,66 @@ app.intent('Kick User Intent', async (conv, params) => {
 
 });
 
+app.intent('Add Channel Leader Intent', async (conv, params) => {
+
+  var locale = conv.user.locale;
+
+  if (locale === 'hi-IN') {
+
+    var accessToken = conv.user.access.token;
+
+    var userNameRaw = params.username;
+    var userNameData = await helperFunctions.hinditranslate(userNameRaw);
+    var userNameLwr = userNameData.toLowerCase();
+    var userName = helperFunctions.replaceWhitespacesDots(userNameLwr);
+
+    var channelNameRaw = params.channelname;
+    var channelNameData = await helperFunctions.hinditranslate(channelNameRaw);
+    var channelNameLwr = channelNameData.toLowerCase();
+    var channelName = helperFunctions.replaceWhitespacesFunc(channelNameLwr);
+
+    const headers = await helperFunctions.login(accessToken);
+    const userid = await helperFunctions.getUserId(userName, headers);
+    const roomid = await helperFunctions.getRoomId(channelName, headers);
+    const speechText = await helperFunctions.addLeader(userName, channelName, userid, roomid, headers);
+
+    conv.ask(speechText);
+
+  } else {
+
+    var accessToken = conv.user.access.token;
+
+    var userNameRaw = params.username;
+    var userNameData = userNameRaw.toLowerCase();
+    var userName = helperFunctions.replaceWhitespacesDots(userNameData);
+
+    var channelNameRaw = params.channelname;
+    var channelNameData = channelNameRaw.toLowerCase();
+    var channelName = helperFunctions.replaceWhitespacesFunc(channelNameData);
+
+    const headers = await helperFunctions.login(accessToken);
+    const userid = await helperFunctions.getUserId(userName, headers);
+    const roomid = await helperFunctions.getRoomId(channelName, headers);
+    const speechText = await helperFunctions.addLeader(userName, channelName, userid, roomid, headers);
+
+    conv.ask(speechText);
+
+  }
+
+});
+
+handleConfirmationChannelResolution(app, {intentName: 'Rename Room Intent Slot Collection', confirmationLogic: ({conv, params, channelDetails}) => {
+  conv.ask(i18n.__('RENAME_ROOM.CONFIRM_INTENT', { roomname: channelDetails.name, newname: helperFunctions.replaceWhitespacesFunc(params.newname) }))
+  conv.data.channelDetails = channelDetails
+  conv.contexts.set('rename_room', 1, {channelname: channelDetails.name, newname: params.newname})
+}})
+
+handleExecutionChannelResolution(app, {intentName: 'Rename Room Intent Confirmed', executionLogic: async ({conv, params, headers}) => {
+  const newname = helperFunctions.replaceWhitespacesFunc(params.newname);
+  const speechText = await helperFunctions.channelRename(conv.data.channelDetails, newname, headers);
+  conv.ask(speechText);
+}})
+
 app.intent('Rename Channel Intent', async (conv, params) => {
 
   var locale = conv.user.locale;
@@ -1310,6 +1453,17 @@ app.intent('Rename Channel Intent', async (conv, params) => {
 
 });
 
+handleConfirmationChannelResolution(app, {intentName: 'Unarchive Channel Intent Slot Collection', confirmationLogic: ({conv, channelDetails}) => {
+  conv.ask(i18n.__(`UNARCHIVE_CHANNEL.CONFIRM_INTENT`, { roomname: channelDetails.name }))
+  conv.data.channelDetails = channelDetails
+  conv.contexts.set('unarchive_channel', 1, {channelname: channelDetails.name})
+}})
+
+handleExecutionChannelResolution(app, {intentName: 'Unarchive Channel Intent Confirmed', executionLogic: async ({conv, headers}) => {
+  const speechText = await helperFunctions.unarchiveChannel(conv.data.channelDetails, headers);
+  conv.ask(speechText);
+}})
+
 app.intent('Unarchive Channel Intent', async (conv, params) => {
 
   var locale = conv.user.locale;
@@ -1346,6 +1500,17 @@ app.intent('Unarchive Channel Intent', async (conv, params) => {
   }
 
 });
+
+handleConfirmationChannelResolution(app, {intentName: 'Change Topic Intent Slot Collection', confirmationLogic: ({conv, params, channelDetails}) => {
+  conv.ask(i18n.__(`CHANNEL_TOPIC.CONFIRM_INTENT`, { roomname: channelDetails.name, topic: params.topic }))
+  conv.data.channelDetails = channelDetails
+  conv.contexts.set('change_topic', 1, {channelname: channelDetails.name, topic: params.topic})
+}})
+
+handleExecutionChannelResolution(app, {intentName: 'Change Topic Intent Confirmed', executionLogic: async ({conv, params, headers}) => {
+  const speechText = await helperFunctions.channelTopic(conv.data.channelDetails, params.topic, headers);
+  conv.ask(speechText);
+}})
 
 app.intent('Channel Topic Intent', async (conv, params) => {
 
@@ -1387,6 +1552,17 @@ app.intent('Channel Topic Intent', async (conv, params) => {
   }
 
 });
+
+handleConfirmationChannelResolution(app, {intentName: 'Change Description Intent Slot Collection', confirmationLogic: ({conv, params, channelDetails}) => {
+  conv.ask(i18n.__(`CHANNEL_DESCRIPTION.CONFIRM_INTENT`, { roomname: channelDetails.name, description: params.description }))
+  conv.data.channelDetails = channelDetails
+  conv.contexts.set('change_description', 1, {channelname: channelDetails.name, description: params.description})
+}})
+
+handleExecutionChannelResolution(app, {intentName: 'Change Description Intent Confirmed', executionLogic: async ({conv, params, headers}) => {
+  const speechText = await helperFunctions.channelDescription(conv.data.channelDetails, params.description, headers);
+  conv.ask(speechText);
+}})
 
 app.intent('Channel Description Intent', async (conv, params) => {
 
@@ -2848,6 +3024,59 @@ app.intent('Handle Touch In List', async (conv, params, option) => {
 
   })
   
+
+handleExecutionChannelResolution(app, {intentName: 'Change Status Intent Confirmed', executionLogic: async ({conv, params, headers}) => {
+  const speechText = await helperFunctions.setStatus(params.status, headers)
+  conv.ask(speechText);
+}})
+
+handleExecutionChannelResolution(app, {intentName: 'Create Channel Intent Confirmed', executionLogic: async ({conv, params, headers}) => {
+  let channelname = helperFunctions.replaceWhitespacesFunc(params.channelname);
+  const speechText = await helperFunctions.createChannel(channelname, headers);
+  conv.ask(speechText);
+}})
+
+handleExecutionChannelResolution(app, {intentName: 'Create Group Intent Confirmed', executionLogic: async ({conv, params, headers}) => {
+  let channelname = helperFunctions.replaceWhitespacesFunc(params.channelname);
+  const speechText = await helperFunctions.createGroup(channelname, headers);
+  conv.ask(speechText);
+}})
+
+app.intent('Denied Intent', (conv) => {
+  const contexts = [
+    'change_description',
+    'change_topic',
+    'rename_room',
+    'archive_channel',
+    'unarchive_channel',
+    'change_status',
+    'add_leader',
+    'add_moderator',
+    'add_owner',
+    'invite_user',
+    'kick_user',
+    'leave_channel',
+    'delete_channel',
+    'remove_owner',
+    'remove_moderator',
+    'remove_leader',
+    'change_status',
+    'post_dm_message',
+    'post_message',
+    'set_announcement',
+    'post_discussion_message',
+    'create_channel',
+    'create_group'
+  ]
+
+  let inputContexts = Object.keys(conv.contexts.input)
+
+  if(helperFunctions.hasCommonElement(contexts, inputContexts)){
+    conv.ask(i18n.__('GENERIC_DENIED_MESSAGE'))
+  } else {
+    conv.close(i18n.__('GOODBYE.MESSAGE'))
+  }
+})
 
 if(process.env.DEVELOPMENT) {
   // if code is running in local development environment

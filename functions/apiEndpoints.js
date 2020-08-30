@@ -69,4 +69,5 @@ module.exports = {
 	imlisturl: `${ SERVER_URL }/api/v1/im.list`,
 	getrolesfromchannelurl: `${ SERVER_URL }/api/v1/channels.roles`,
 	getrolesfromgroupurl: `${ SERVER_URL }/api/v1/groups.roles`,
+	setstatusurl: `${ SERVER_URL }/api/v1/users.setStatus`,
 };

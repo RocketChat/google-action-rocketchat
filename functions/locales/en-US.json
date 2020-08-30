@@ -33,6 +33,7 @@
     },
     "DELETE_CHANNEL": {
         "SUCCESS": "I've deleted the channel %s.",
+        "CONFIRM_INTENT": "You want to delete room {{roomname}}, is that correct?",
         "ERROR": "Sorry, I couldn't delete the channel %s right now.",
         "ERROR_NOT_FOUND": "Sorry, the channel %s does not exist. Please try again with different channel name."
     },
@@ -62,6 +63,7 @@
     },
     "ARCHIVE_CHANNEL": {
         "SUCCESS": "%s is now archived.",
+        "CONFIRM_INTENT": "You want to archive room {{roomname}}, is that correct?",
         "ERROR": "Sorry, I couldn't archive this channel right now.",
         "ERROR_NOT_FOUND": "Sorry, I couldn't archive channel %s right now."
     },
@@ -83,8 +85,9 @@
         "ERROR": "Sorry I couldn't invite user %s to channel %s right now",
         "ERROR_NOT_FOUND": "Sorry, I couldn't find channel %s right now"
     },
-    "LEAVE_CHANNEl": {
+    "LEAVE_CHANNEL": {
         "SUCCESS": "You Left channel %s .",
+        "CONFIRM_INTENT": "You want to leave room {{roomname}}, is that correct?",
         "ERROR": "Sorry, You couldn't leave the channel %s right now. Maybe you are the only owner of Channel so first set someone as the channel owner"
     },
     "KICK_USER_FROM_CHANNEL": {
@@ -101,21 +104,25 @@
     },
     "RENAME_ROOM": {
         "SUCCESS": "%s is now renamed to %s.",
+        "CONFIRM_INTENT":"You want to rename room {{roomname}}, to {{newname}}, is that correct?",
         "ERROR": "Sorry, I couldn't rename this channel right now.",
         "ERROR_NOT_FOUND": "Sorry, I couldn't rename channel %s right now."
     },
     "UNARCHIVE_CHANNEL": {
         "SUCCESS": "%s is now unarchived.",
+        "CONFIRM_INTENT":"You want to unarchive room {{roomname}}, is that correct?",
         "ERROR": "Sorry, I couldn't unarchive this channel right now.",
         "ERROR_NOT_FOUND": "Sorry, I couldn't unarchive channel %s right now."
     },
     "CHANNEL_TOPIC": {
         "SUCCESS": "%s topic is now changed to %s",
+        "CONFIRM_INTENT": "You want to set topic of room, {{roomname}} as, {{topic}}, is that correct?",
         "ERROR": "Sorry, I couldn't change this channel topic right now.",
         "ERROR_NOT_FOUND": "Sorry, I couldn't change topic for channel %s right now."
     },
     "CHANNEL_DESCRIPTION": {
         "SUCCESS": "%s description is now changed to %s",
+        "CONFIRM_INTENT": "You want to set description of room, {{roomname}} as, {{description}}, is that correct?",
         "ERROR": "Sorry, I couldn't change this channel description right now.",
         "ERROR_NOT_FOUND": "Sorry, I couldn't change description for channel %s right now."
     },
@@ -176,6 +183,22 @@
         "DISCUSSION_CREATED": "{{username}} created a discussion named {{name}}.",
         "UNKNOWN_MESSAGE": "{{username}}, performed some action"
     },
+    "HINTS": {
+        "GET_UNREADS": "Do I have any unread messages?",
+        "GET_UNREAD_MENTIONS": "Do I have any unread mentions?",
+        "READ_UNREADS_FROM_DISCUSSION": "Read unreads from a discussion",
+        "CHANGE_STATUS": "Change my status.",
+        "READ_MENTIONS_FROM_USER": "Read mentions from a user",
+        "LIST_DISCUSSIONS": "List my discussions",
+        "READ_UNREADS": "Read unreads messages from a channel.",
+        "CHANNEL_ANNOUNCEMENT": "Make an announcement.",
+        "POST_DIRECT_MESSAGE": "Send a direct message.",
+        "POST_DISCUSSION_MESSAGE": "Send message to a discussion."
+    },
+    "STATUS": {
+        "SUCCESS": "I have changed your status.",
+        "ERROR": "Sorry, I could not change your status."
+    },
     "NO_ACTIVE_USER": "Couldn't find an active user named {{username}} from your contacts.",
     "NO_ACTIVE_DISCUSSION": "Couldn't find an active discussion named {{name}} from your discussions.",
     "NO_ACTIVE_ROOM": "Couldn't detect a room named {{name}}, maybe it's not active since long.",
@@ -184,5 +207,8 @@
     "GENERIC_REPROMPT": "Anything else I can help you with?",
     "SOMETHING_WENT_WRONG": "Sorry, something went wrong.",
     "NO_USER": "There's no user named, %s in your contacts list.",
-    "NO_USER_WITH_ROLE": "There is no {{role}} named {{username}} in room {{channelname}}."
+    "NO_USER_WITH_ROLE": "There is no {{role}} named {{username}} in room {{channelname}}.",
+    "HINTS_TRANSITION": "You can try saying, ",
+    "TRY_AGAIN": "Sorry, something went wrong, can you please try again?",
+    "GENERIC_DENIED_MESSAGE": "Okay, Anything else I can help you with?"
 }
