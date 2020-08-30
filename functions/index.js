@@ -21,7 +21,7 @@ const {
 } = envVariables;
 
 const app = dialogflow({
-  debug: true,
+  debug: false,
   clientId: CLIENT_ID
 });
 
@@ -107,6 +107,103 @@ app.intent('Default Welcome Intent', async (conv) => {
     conv.close(i18n.__('SOMETHING_WENT_WRONG'));
   }
 });
+
+const handleConfirmationUserAndChannelResolution = async (app, intentData) => {
+  app.intent(intentData.intentName, async (conv, params) => {
+    const accessToken = conv.user.access.token;
+    const headers = await helperFunctions.login(accessToken);
+    let channelname = params.channelname;
+    let username = params.username;
+  
+    var locale = conv.user.locale;
+    if(locale === 'hi-IN') {
+      channelname = await helperFunctions.hinditranslate(channelname);
+      username = await helperFunctions.hinditranslate(username);
+    }
+  
+    const channelDetails = await helperFunctions.resolveChannelname(channelname, headers);
+    const userDetails = await helperFunctions.resolveUsername(username, headers);
+  
+    if(!userDetails){
+      conv.ask(i18n.__('NO_USER', username))
+      conv.ask(i18n.__('GENERIC_REPROMPT'))
+    } else if(!channelDetails){
+      conv.ask(i18n.__('NO_ROOM', channelname))
+      conv.ask(i18n.__('GENERIC_REPROMPT'))
+    } else {
+      conv.ask(i18n.__(`${intentData.intentResource}.CONFIRM_INTENT`, userDetails.name, channelDetails.name))
+      conv.data.channelDetails = channelDetails
+      conv.data.userDetails = userDetails
+      conv.contexts.set(intentData.intentContext, 1, {channelname, username})
+      conv.ask(new Suggestions(["yes", "no"]))
+    }
+  })
+}
+
+handleConfirmationUserAndChannelResolution(app, {intentName: 'Add Leader Intent Slot Collection', intentResource: 'ADD_LEADER', intentContext: 'add_leader'});
+handleConfirmationUserAndChannelResolution(app, {intentName: 'Add Moderator Intent Slot Collection', intentResource: 'MAKE_MODERATOR', intentContext: 'add_moderator'});
+handleConfirmationUserAndChannelResolution(app, {intentName: 'Add Owner Intent Slot Collection', intentResource: 'ADD_OWNER', intentContext: 'add_owner'});
+handleConfirmationUserAndChannelResolution(app, {intentName: 'Invite User Intent Slot Collection', intentResource: 'INVITE_USER_TO_CHANNEL', intentContext: 'invite_user'});
+handleConfirmationUserAndChannelResolution(app, {intentName: 'Kick User Intent Slot Collection', intentResource: 'KICK_USER_FROM_CHANNEL', intentContext: 'kick_user'});
+
+const handleConfirmationUserWithRoleAndChannelResolution = async (app, intentData) => {
+  app.intent(intentData.intentName, async (conv, params) => {
+    const accessToken = conv.user.access.token;
+    const headers = await helperFunctions.login(accessToken);
+    let channelname = params.channelname;
+    let username = params.username;
+  
+    var locale = conv.user.locale;
+    if(locale === 'hi-IN') {
+      channelname = await helperFunctions.hinditranslate(channelname);
+      username = await helperFunctions.hinditranslate(username);
+    }
+  
+    const channelDetails = await helperFunctions.resolveChannelname(channelname, headers);
+    if(!channelDetails){
+      conv.ask(i18n.__('NO_ROOM', channelname))
+      conv.ask(i18n.__('GENERIC_REPROMPT'))
+      return
+    }
+
+    const userDetails = await helperFunctions.resolveUsersWithRolesFromRoom(username, channelDetails, intentData.role, headers);
+  
+    if(!userDetails){
+      conv.ask(i18n.__('NO_USER_WITH_ROLE', {role: intentData.role, username, channelname: channelDetails.name}))
+      conv.ask(i18n.__('GENERIC_REPROMPT'))
+    } else {
+      conv.ask(i18n.__(`${intentData.intentResource}.CONFIRM_INTENT`, {username: userDetails.name, role: intentData.role, channelname: channelDetails.name}))
+      conv.ask(new Suggestions(["yes", "no"]))
+      conv.data.channelDetails = channelDetails
+      conv.data.userDetails = userDetails
+      conv.contexts.set(intentData.intentContext, 1, {channelname, username})
+    }
+  })
+}
+
+handleConfirmationUserWithRoleAndChannelResolution(app, {intentName: 'Remove Leader Intent Slot Collection', intentResource: 'REMOVE_LEADER', intentContext: 'remove_leader', role: 'leader'})
+handleConfirmationUserWithRoleAndChannelResolution(app, {intentName: 'Remove Owner Intent Slot Collection', intentResource: 'REMOVE_OWNER', intentContext: 'remove_owner', role: 'owner'})
+handleConfirmationUserWithRoleAndChannelResolution(app, {intentName: 'Remove Moderator Intent Slot Collection', intentResource: 'REMOVE_MODERATOR', intentContext: 'remove_moderator', role: 'moderator'})
+
+const handleExecutionUserAndChannelResolution = async (app, {intentName, helperFunction}) => {
+  app.intent(intentName, async(conv, params) => {
+    var accessToken = conv.user.access.token;
+    const headers = await helperFunctions.login(accessToken);
+  
+    const speechText = await helperFunction(conv.data.userDetails, conv.data.channelDetails, headers);
+    conv.ask(speechText);
+    conv.ask(i18n.__('GENERIC_REPROMPT'))
+  })
+}
+
+handleExecutionUserAndChannelResolution(app, {intentName: 'Add Leader Intent Confirmed', helperFunction: helperFunctions.addLeader})
+handleExecutionUserAndChannelResolution(app, {intentName: 'Add Moderator Intent Confirmed', helperFunction: helperFunctions.makeModerator})
+handleExecutionUserAndChannelResolution(app, {intentName: 'Add Owner Intent Confirmed', helperFunction: helperFunctions.addOwner})
+handleExecutionUserAndChannelResolution(app, {intentName: 'Invite User Intent Confirmed', helperFunction: helperFunctions.inviteUser})
+handleExecutionUserAndChannelResolution(app, {intentName: 'Kick User Intent Confirmed', helperFunction: helperFunctions.kickUser})
+handleExecutionUserAndChannelResolution(app, {intentName: 'Remove Leader Intent Confirmed', helperFunction: helperFunctions.removeLeader})
+handleExecutionUserAndChannelResolution(app, {intentName: 'Remove Owner Intent Confirmed', helperFunction: helperFunctions.removeOwner})
+handleExecutionUserAndChannelResolution(app, {intentName: 'Remove Moderator Intent Confirmed', helperFunction: helperFunctions.removeModerator})
 
 app.intent('Create Channel Intent', async (conv, params) => {
 
@@ -1160,54 +1257,6 @@ app.intent('Kick User Intent', async (conv, params) => {
     const userid = await helperFunctions.getUserId(userName, headers);
     const roomid = await helperFunctions.getRoomId(channelName, headers);
     const speechText = await helperFunctions.kickUser(userName, channelName, userid, roomid, headers);
-
-    conv.ask(speechText);
-
-  }
-
-});
-
-app.intent('Add Channel Leader Intent', async (conv, params) => {
-
-  var locale = conv.user.locale;
-
-  if (locale === 'hi-IN') {
-
-    var accessToken = conv.user.access.token;
-
-    var userNameRaw = params.username;
-    var userNameData = await helperFunctions.hinditranslate(userNameRaw);
-    var userNameLwr = userNameData.toLowerCase();
-    var userName = helperFunctions.replaceWhitespacesDots(userNameLwr);
-
-    var channelNameRaw = params.channelname;
-    var channelNameData = await helperFunctions.hinditranslate(channelNameRaw);
-    var channelNameLwr = channelNameData.toLowerCase();
-    var channelName = helperFunctions.replaceWhitespacesFunc(channelNameLwr);
-
-    const headers = await helperFunctions.login(accessToken);
-    const userid = await helperFunctions.getUserId(userName, headers);
-    const roomid = await helperFunctions.getRoomId(channelName, headers);
-    const speechText = await helperFunctions.addLeader(userName, channelName, userid, roomid, headers);
-
-    conv.ask(speechText);
-
-  } else {
-
-    var accessToken = conv.user.access.token;
-
-    var userNameRaw = params.username;
-    var userNameData = userNameRaw.toLowerCase();
-    var userName = helperFunctions.replaceWhitespacesDots(userNameData);
-
-    var channelNameRaw = params.channelname;
-    var channelNameData = channelNameRaw.toLowerCase();
-    var channelName = helperFunctions.replaceWhitespacesFunc(channelNameData);
-
-    const headers = await helperFunctions.login(accessToken);
-    const userid = await helperFunctions.getUserId(userName, headers);
-    const roomid = await helperFunctions.getRoomId(channelName, headers);
-    const speechText = await helperFunctions.addLeader(userName, channelName, userid, roomid, headers);
 
     conv.ask(speechText);
 

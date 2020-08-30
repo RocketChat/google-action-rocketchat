@@ -67,4 +67,6 @@ module.exports = {
 	getsubscriptionsurl: `${ SERVER_URL }/api/v1/subscriptions.get`,
 	getmentionedmessagesurl: `${ SERVER_URL }/api/v1/chat.getMentionedMessages`,
 	imlisturl: `${ SERVER_URL }/api/v1/im.list`,
+	getrolesfromchannelurl: `${ SERVER_URL }/api/v1/channels.roles`,
+	getrolesfromgroupurl: `${ SERVER_URL }/api/v1/groups.roles`,
 };

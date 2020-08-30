@@ -203,28 +203,29 @@ const getRoomId = async (channelName, headers) =>
 		console.log(err.message);
 	});
 
-const makeModerator = async (userName, channelName, userid, roomid, headers) =>
-	await axios
-	.post(
-		apiEndpoints.makemoderatorurl, {
-			userId: userid,
-			roomId: roomid,
-		}, {
-			headers
-		}
-	)
-	.then((res) => res.data)
-	.then((res) => {
-		if (res.success === true) {
-			return i18n.__('MAKE_MODERATOR.SUCCESS', userName, channelName);
+const makeModerator = async (userDetails, channelDetails, headers) => {
+	try{
+		const response = await axios
+		.post(
+			channelDetails.type === 'c' ? apiEndpoints.makemoderatorurl : apiEndpoints.addgroupmoderatorurl, {
+				userId: userDetails.id,
+				roomId: channelDetails.id,
+			}, {
+				headers
+			}
+		)
+		.then((res) => res.data)
+
+		if (response.success === true) {
+			return i18n.__('MAKE_MODERATOR.SUCCESS', userDetails.name, channelDetails.name);
 		} else {
 			return i18n.__('MAKE_MODERATOR.ERROR');
 		}
-	})
-	.catch((err) => {
+	}catch(err) {
 		console.log(err.message);
-		return i18n.__('MAKE_MODERATOR.ERROR_NOT_FOUND', channelName);
-	});
+		return i18n.__('MAKE_MODERATOR.ERROR_NOT_FOUND', channelDetails.name);
+	};
+}
 
 const addAll = async (channelName, roomid, headers) =>
 	await axios
@@ -248,28 +249,29 @@ const addAll = async (channelName, roomid, headers) =>
 		return i18n.__('ADD_ALL_TO_CHANNEL.ERROR_NOT_FOUND', channelName);
 	});
 
-const addOwner = async (userName, channelName, userid, roomid, headers) =>
-	await axios
-	.post(
-		apiEndpoints.addownerurl, {
-			userId: userid,
-			roomId: roomid,
-		}, {
-			headers
-		}
-	)
-	.then((res) => res.data)
-	.then((res) => {
-		if (res.success === true) {
-			return i18n.__('ADD_OWNER.SUCCESS', userName, channelName);
+const addOwner = async (userDetails, channelDetails, headers) => {
+	try{
+		const response = await axios
+		.post(
+			channelDetails.type === 'c' ? apiEndpoints.addownerurl : apiEndpoints.addgroupownerurl, {
+				userId: userDetails.id,
+				roomId: channelDetails.id,
+			}, {
+				headers
+			}
+		)
+		.then((res) => res.data)
+
+		if (response.success === true) {
+			return i18n.__('ADD_OWNER.SUCCESS', userDetails.name, channelDetails.name);
 		} else {
 			return i18n.__('ADD_OWNER.ERROR');
 		}
-	})
-	.catch((err) => {
+	}catch(err) {
 		console.log(err.message);
-		return i18n.__('ADD_OWNER.ERROR_NOT_FOUND', channelName);
-	});
+		return i18n.__('ADD_OWNER.ERROR_NOT_FOUND', channelDetails.name);
+	};
+}
 
 const archiveChannel = async (channelName, roomid, headers) =>
 	await axios
@@ -486,33 +488,32 @@ const channelUnreadMentions = async (channelName, roomid, mentionsCount, headers
 		}
 	});
 
-const inviteUser = async (userName, channelName, userid, roomid, headers) =>
-	await axios
-	.post(
-		apiEndpoints.inviteuserurl, {
-			userId: userid,
-			roomId: roomid,
-		}, {
-			headers
-		}
-	)
-	.then((res) => res.data)
-	.then((res) => {
-		if (res.success === true) {
-			return i18n.__('INVITE_USER_TO_CHANNEL.SUCCESS', userName, channelName);
+const inviteUser = async (userDetails, channelDetails, headers) => {
+	try{
+		const response = await axios
+		.post(
+			channelDetails.type === 'c' ? apiEndpoints.inviteuserurl : apiEndpoints.inviteusertogroupurl, {
+				userId: userDetails.id,
+				roomId: channelDetails.id,
+			}, {
+				headers
+			}
+		)
+		.then((res) => res.data)
+		if (response.success === true) {
+			return i18n.__('INVITE_USER_TO_CHANNEL.SUCCESS', userDetails.name, channelDetails.name);
 		} else {
-			return i18n.__('INVITE_USER_TO_CHANNEL.ERROR', userName, channelName);
+			return i18n.__('INVITE_USER_TO_CHANNEL.ERROR', userDetails.name, channelDetails.name);
 		}
-	})
-	.catch((err) => {
-		console.log(err.message);
+	}	catch(err) {
+		console.log(err);
 		if (err.response.data.errorType === 'error-room-not-found') {
-			return i18n.__('INVITE_USER_TO_CHANNEL.ERROR_NOT_FOUND', channelName);
+			return i18n.__('INVITE_USER_TO_CHANNEL.ERROR_NOT_FOUND', channelDetails.name);
 		} else {
-			return i18n.__('INVITE_USER_TO_CHANNEL.ERROR', userName, channelName);
+			return i18n.__('INVITE_USER_TO_CHANNEL.ERROR', userDetails.name, channelDetails.name);
 		}
-	});
-
+	};
+}
 
 const leaveChannel = async (channelName, roomid, headers) =>
 	await axios
@@ -536,57 +537,58 @@ const leaveChannel = async (channelName, roomid, headers) =>
 		return i18n.__('LEAVE_CHANNEl.ERROR', channelName);
 	});
 
-const kickUser = async (userName, channelName, userid, roomid, headers) =>
-	await axios
-	.post(
-		apiEndpoints.kickuserurl, {
-			userId: userid,
-			roomId: roomid,
-		}, {
-			headers
-		}
-	)
-	.then((res) => res.data)
-	.then((res) => {
-		if (res.success === true) {
-			return i18n.__('KICK_USER_FROM_CHANNEL.SUCCESS', userName, channelName);
+const kickUser = async (userDetails, channelDetails, headers) => {
+	try{
+		const response = await axios
+		.post(
+			channelDetails.type === 'c' ? apiEndpoints.kickuserurl : apiEndpoints.kickuserfromgroupurl, {
+				userId: userDetails.id,
+				roomId: channelDetails.id,
+			}, {
+				headers
+			}
+		)
+		.then((res) => res.data)
+
+		if (response.success === true) {
+			return i18n.__('KICK_USER_FROM_CHANNEL.SUCCESS', userDetails.name, channelDetails.name);
 		} else {
-			return i18n.__('KICK_USER_FROM_CHANNEL.ERROR', userName, channelName);
+			return i18n.__('KICK_USER_FROM_CHANNEL.ERROR', userDetails.name, channelDetails.name);
 		}
-	})
-	.catch((err) => {
-		console.log(err.message);
-		console.log(err.message);
+	}catch(err){
 		console.log(err.message);
 		if (err.response.data.errorType === 'error-room-not-found') {
-			return i18n.__('KICK_USER_FROM_CHANNEL.ERROR_NOT_FOUND', channelName);
+			return i18n.__('KICK_USER_FROM_CHANNEL.ERROR_NOT_FOUND', channelDetails.name);
 		} else {
-			return i18n.__('KICK_USER_FROM_CHANNEL.ERROR', userName, channelName);
+			return i18n.__('KICK_USER_FROM_CHANNEL.ERROR', userDetails.name, channelDetails.name);
 		}
-	});
+	};
+}	
 
-const addLeader = async (userName, channelName, userid, roomid, headers) =>
-	await axios
-	.post(
-		apiEndpoints.addleaderurl, {
-			userId: userid,
-			roomId: roomid,
-		}, {
-			headers
-		}
-	)
-	.then((res) => res.data)
-	.then((res) => {
-		if (res.success === true) {
-			return i18n.__('ADD_LEADER.SUCCESS', userName, channelName);
+const addLeader = async (userDetails, channelDetails, headers) => {
+	try{
+		const response = await axios
+		.post(
+			channelDetails.type === 'c' ? apiEndpoints.addleaderurl : apiEndpoints.addgroupleaderurl, {
+				userId: userDetails.id,
+				roomId: channelDetails.id,
+			}, {
+				headers
+			}
+		)
+		.then((res) => res.data)
+	
+		
+		if (response.success === true) {
+			return i18n.__('ADD_LEADER.SUCCESS', userDetails.name, channelDetails.name);
 		} else {
 			return i18n.__('ADD_LEADER.ERROR');
 		}
-	})
-	.catch((err) => {
+	}catch(err) {
 		console.log(err.message);
-		return i18n.__('ADD_LEADER.ERROR_NOT_FOUND', channelName);
-	});
+		return i18n.__('ADD_LEADER.ERROR_NOT_FOUND', channelDetails.name);
+	};
+}
 
 const channelRename = async (channelName, roomid, newName, headers) =>
 	await axios
@@ -704,74 +706,78 @@ const setAnnouncement = async (roomDetails, announcement, headers) => {
 		};
 	}
 
-const removeLeader = async (userName, channelName, userid, roomid, headers) =>
-	await axios
-	.post(
-		apiEndpoints.removeleaderurl, {
-			userId: userid,
-			roomId: roomid,
-		}, {
-			headers
-		}
-	)
-	.then((res) => res.data)
-	.then((res) => {
-		if (res.success === true) {
-			return i18n.__('REMOVE_LEADER.SUCCESS', userName, channelName);
+const removeLeader = async (userDetails, channelDetails, headers) => {
+	try{
+		const response = await axios
+		.post(
+			channelDetails === 'c' ? apiEndpoints.removeleaderurl : apiEndpoints.removegroupleaderurl, {
+				userId: userDetails.id,
+				roomId: channelDetails.id,
+			}, {
+				headers
+			}
+		)
+		.then((res) => res.data)
+
+		if (response.success === true) {
+			return i18n.__('REMOVE_LEADER.SUCCESS', userDetails.name, channelDetails.name);
 		} else {
 			return i18n.__('REMOVE_LEADER.ERROR');
 		}
-	})
-	.catch((err) => {
+	}catch(err){
 		console.log(err.message);
-		return i18n.__('REMOVE_LEADER.ERROR_NOT_FOUND', channelName);
-	});
+		return i18n.__('REMOVE_LEADER.ERROR_NOT_FOUND', channelDetails.name);
+	};
 
-const removeModerator = async (userName, channelName, userid, roomid, headers) =>
-	await axios
-	.post(
-		apiEndpoints.removemoderatorurl, {
-			userId: userid,
-			roomId: roomid,
-		}, {
-			headers
-		}
-	)
-	.then((res) => res.data)
-	.then((res) => {
-		if (res.success === true) {
-			return i18n.__('REMOVE_MODERATOR.SUCCESS', userName, channelName);
+}
+	
+const removeModerator = async (userDetails, channelDetails, headers) => {
+	try {
+		const response = await axios
+		.post(
+			channelDetails.type === 'c' ? apiEndpoints.removemoderatorurl : apiEndpoints.removegroupmoderatorurl, {
+				userId: userDetails.id,
+				roomId: channelDetails.id,
+			}, {
+				headers
+			}
+		)
+		.then((res) => res.data)
+
+		if (response.success === true) {
+			return i18n.__('REMOVE_MODERATOR.SUCCESS', userDetails.name, channelDetails.name);
 		} else {
 			return i18n.__('REMOVE_MODERATOR.ERROR');
 		}
-	})
-	.catch((err) => {
+	}catch(err){
 		console.log(err.message);
-		return i18n.__('REMOVE_MODERATOR.ERROR_NOT_FOUND', channelName);
-	});
+		return i18n.__('REMOVE_MODERATOR.ERROR_NOT_FOUND', channelDetails.name);
+	};
+}
 
-const removeOwner = async (userName, channelName, userid, roomid, headers) =>
-	await axios
-	.post(
-		apiEndpoints.removeownerurl, {
-			userId: userid,
-			roomId: roomid,
-		}, {
-			headers
-		}
-	)
-	.then((res) => res.data)
-	.then((res) => {
-		if (res.success === true) {
-			return i18n.__('REMOVE_OWNER.SUCCESS', userName, channelName);
+const removeOwner = async (userDetails, channelDetails, headers) => {
+	try{
+		const response = await axios
+		.post(
+			channelDetails.type === 'c' ? apiEndpoints.removeownerurl : apiEndpoints.removegroupownerurl, {
+				userId: userDetails.id,
+				roomId: channelDetails.id,
+			}, {
+				headers
+			}
+		)
+		.then((res) => res.data)
+
+		if (response.success === true) {
+			return i18n.__('REMOVE_OWNER.SUCCESS', userDetails.name, channelDetails.name);
 		} else {
 			return i18n.__('REMOVE_OWNER.ERROR');
 		}
-	})
-	.catch((err) => {
+	}catch(err) {
 		console.log(err.message);
-		return i18n.__('REMOVE_OWNER.ERROR_NOT_FOUND', channelName);
-	});
+		return i18n.__('REMOVE_OWNER.ERROR_NOT_FOUND', channelDetails.name);
+	};
+}
 
 const createDMSession = async (userName, headers) =>
 	await axios
@@ -1687,12 +1693,61 @@ const resolveDiscussion = async (discussionName, headers) => {
 		} else {
 			return null
 		}
-
 	} catch(err) {
 		console.log(err)
 		throw err;
 	}
 }
+const resolveUsersWithRolesFromRoom = async (recognisedUsername, channelDetails, role, headers) => {
+	try {
+		const url = channelDetails.type === 'c' ? apiEndpoints.getrolesfromchannelurl : apiEndpoints.getrolesfromgroupurl;
+		const response = await axios.get(`${ url }?roomId=${ channelDetails.id }`, {
+			headers,
+		}).then((res) => res.data);
+
+		let users = [];
+		for (const user of response.roles) {
+			if (user.roles.includes(role)) {
+				users.push(user.u);
+			}
+		}
+
+		users = users.map(user => {
+			return {
+				id: user._id,
+				name: user.username
+			}
+		})
+
+		let usernames = users.map(user => user.name)
+
+		if(usernames.length === 0) {
+			return null
+		}
+		let comparison = stringSimilar.findBestMatch(removeWhitespace(recognisedUsername), usernames)
+
+		if(comparison.bestMatch.rating > 0.3) {
+			console.log(users[comparison.bestMatchIndex])
+			return users[comparison.bestMatchIndex]
+		} else {
+			return null
+		}
+	} catch (err) {
+		console.log(err);
+		if (err.response.data.errorType && err.response.data.errorType === 'error-user-not-in-room') {
+			return 'You are not part of this room';
+		} else if (err.response.data.errorType && err.response.data.errorType === 'error-room-not-found') {
+			return 'no such room';
+		} else if (err.response.data.errorType && err.response.data.errorType === 'error-invalid-room') {
+			return 'no such room';
+		} else if (err.response.status === 401) {
+			return 'login before using this intent';
+		} else {
+			return 'error';
+		}
+	}
+
+};
 
 const getLatestDiscussions = async (headers) => {
 	try{
@@ -2032,3 +2087,4 @@ module.exports.getCurrentUserDetails = getCurrentUserDetails;
 module.exports.resolveDiscussion = resolveDiscussion;
 module.exports.getRoomCounterFromId = getRoomCounterFromId;
 module.exports.getLatestDiscussions = getLatestDiscussions;
+module.exports.resolveUsersWithRolesFromRoom = resolveUsersWithRolesFromRoom;
